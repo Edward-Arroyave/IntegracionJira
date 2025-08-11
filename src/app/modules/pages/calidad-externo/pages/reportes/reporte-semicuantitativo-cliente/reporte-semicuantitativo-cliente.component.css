@@ -1,0 +1,121 @@
+.lineas{
+    text-align: center;
+    padding: 10px; 
+    border-right: 1px solid var(--gray-02);
+  }
+  
+  .paddingTable{
+    padding: 5px 10px;
+    color: black;
+  }
+  
+  h2{
+    margin: 0;
+    color: var(--purple-01);margin-top: 1em;
+  }
+  
+  table{
+    position: relative;
+    overflow: hidden;
+    border-collapse: collapse;
+    border-spacing:  2em 5px;
+    border-radius: 5px;
+  }
+  
+  /* Slider */
+  .boxSecciones {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    background: white;
+    display: flex;
+    align-items: center;
+  }
+  
+  .boxSeccionesContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 54px;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    gap: 1em;
+  }
+  
+  .boxSeccionesContainer::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .styleSeccion {
+    border: 1px solid #CECECE;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 3px 3px 3px #e8e8e8;
+    cursor: pointer;
+    padding: 5px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+  }
+  
+  .styleSeccion:first-child {
+    margin-left: 12px;
+  }
+  
+  .active {
+    background: var(--blue-03) !important;
+    border-color: var(--blue-03) !important;
+    color: white;
+    h2{
+      color: white;
+    }
+  }
+  
+  /* Slider */
+  p{
+    margin: 0;
+  }
+  
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, auto); /* Ajusta según el número de columnas */
+    border-radius: 10px;
+    border: 1px solid #00000029;
+    position: relative;
+    /* width: 1300px; */
+  }
+  
+  
+  .estiloGeneralSlide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    position: relative; /* Asegura que el z-index funcione */
+    z-index: 1;
+    transition: color 0.3s ease; 
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .estiloGeneralSlide:hover{
+    color: var(--purple-03);
+  }
+  
+  .highlight-active {
+    color: white; 
+    background: var(--purple-03);
+  }
+  .highlight-active:hover{
+    color: white;
+  }
+  /* Slider */
+  
+  

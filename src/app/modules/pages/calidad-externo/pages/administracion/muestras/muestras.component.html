@@ -1,0 +1,50 @@
+
+
+<app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Muestras'"
+  (onCreate)="openModalGestionMuestras(templateGestionMuestras, '')"
+  (onChangeStatus)="actualizarEstadoGestionMuestras($event)"
+  (onEdit)="openModalGestionMuestras(templateGestionMuestras, $event)" (onDelete)="eliminarGestionMuestras($event)">
+</app-tabla-comun>
+
+<ng-template #templateGestionMuestras>
+
+
+
+  <form [formGroup]="formulario" class="grid-3-toggle">
+
+    <mat-form-field>
+      <mat-label>N° Muestra</mat-label>
+      <input matInput formControlName="serialsample" type="text" autocomplete="off">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lote</mat-label>
+      <mat-select disableOptionCentering formControlName="idLot">
+        <mat-option>
+          --
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterLote" placeholderLabel="Buscar lote..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let lote of lotesActive" [value]="lote.idLot" [matTooltipPosition]="'right'"
+          [matTooltip]="lote.numlot" >
+          {{lote.numlot}}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+
+</ng-template>
+
+

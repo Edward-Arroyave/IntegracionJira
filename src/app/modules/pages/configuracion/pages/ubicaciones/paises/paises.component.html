@@ -1,0 +1,21 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataBody" [titulo]="'Países'"
+    (onCreate)="openModalRegistroPais(templateRegistroPais, '')" (onChangeStatus)="actualizarEstadoPais($event)"
+    (onEdit)="openModalRegistroPais(templateRegistroPais, $event)" (onDelete)="eliminarPais($event)">
+  </app-tabla-comun>
+
+<ng-template #templateRegistroPais>
+  <form class="grid-2" [formGroup]="formaRegistroPais">
+
+    <mat-form-field>
+      <mat-label>País</mat-label>
+      <input matInput type="text" formControlName="descountry">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>

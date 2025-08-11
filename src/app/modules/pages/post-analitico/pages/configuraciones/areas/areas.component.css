@@ -1,0 +1,143 @@
+.backHover {
+  background: #EFEFEF;
+}
+
+.active {
+  color: #212529;
+  background-color: #dad3e0;
+  border-color: #f8f9fa;
+}
+
+.noactive {
+  filter: opacity(25%);
+}
+
+.indicador {
+  border: 1px solid #CECECE;
+  border-radius: 6px;
+  box-shadow: 3px 3px 3px #e8e8e8;
+  cursor: pointer;
+  flex-grow: 1;
+  display: flex;
+  padding: 5px;
+  /* justify-content: center;
+  align-items: center; */
+}
+
+.text-item {
+  color: #3850eb;
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+
+/****************/
+
+.number {
+  position: relative;
+  font-size: 20px;
+  text-align: center;
+  top: 5px;
+}
+
+.dot {
+  position: relative;
+  top: 0px;
+  height: 34px;
+  width: 34px;
+  border: 1px solid var(--side-bg-color);
+  background-color: var(--side-bg-color);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+
+.dot-border {
+  position: relative;
+  top: 0px;
+  height: 34px;
+  width: 34px;
+  border: 1px solid var(--side-bg-color);
+  color: var(--side-bg-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.line {
+  position: relative;
+  top: 7px;
+  display: block;
+  height: 3px;
+  background-color: white;
+  color: white;
+  border: none;
+  margin: 1em 0;
+  padding: 0;
+  width: 20px;
+}
+
+
+/****************/
+
+.boxBtnAceptCancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.btnCancel {
+  margin-left: 8px;
+}
+
+.btnCancel,
+.btnAceptar {
+  width: 76px;
+}
+
+.boxBtnFilter {
+  margin-top: 24px;
+}
+
+.boxBtnCreate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnCreate {
+  width: 70px;
+}
+
+.boxFilter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter {
+  width: 80%;
+  margin-left: 4px;
+}
+
+@media(min-width: 500px) {
+  .filter {
+      width: 60%;
+  }
+}
+
+@media(min-width: 576px) {
+  .btnActive {
+      text-align: center;
+  }
+  .boxBtnCreate {
+      margin: 0;
+      justify-content: flex-start;
+  }
+  .boxFilter {
+      justify-content: flex-end;
+  }
+  .filter {
+      width: 80%;
+  }
+}

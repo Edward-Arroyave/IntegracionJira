@@ -1,0 +1,374 @@
+<h1 style="margin-top: 3em;">Reporte semicuantitativo</h1>
+<form [formGroup]="formulario" (ngSubmit)="buscar()" autocomplete="off" class="grid-5-toggle" style="margin-top: 1em;">
+
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <mat-select disableOptionCentering formControlName="idclient">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterCliente" placeholderLabel="Buscar cliente..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="">
+        --
+      </mat-option>
+      <mat-option *ngFor="let cliente of clientes" [value]="cliente.idclient" [matTooltipPosition]="'right'"
+        [matTooltip]="cliente.name" (click)="cargarSedes(cliente.header)">
+        {{ cliente.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>
+          Sede
+        </mat-label>
+        <mat-select [disabled]="formulario.get('idclient')?.invalid" disableOptionCentering
+          formControlName="idsede" (selectionChange)="consultarProgramas()">
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option value="" (click)="formulario.get('idsede')?.setValue(null)">
+            --
+          </mat-option>
+          <mat-option *ngFor="let sede of sedes" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+            [matTooltip]="sede.desheadquarters">
+            {{ sede.desheadquarters }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <input type="text" matInput [matAutocomplete]="autoprogram" formControlName="idProgram">
+    <mat-autocomplete #autoprogram="matAutocomplete">
+      <mat-option *ngFor="let programa of filteredOptionsProgram | async" [matTooltipPosition]="'right'"
+        [matTooltip]="programa.desprogram" [value]="programa.desprogram" (click)="selectRonda(programa.idProgram)">
+        {{ programa.desprogram}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Ronda</mat-label>
+    <input type="text" matInput [matAutocomplete]="autoRonda" formControlName="idRonda">
+    <mat-autocomplete #autoRonda="matAutocomplete">
+      <mat-option *ngFor="let ronda of filteredOptionsRonda | async" [value]="ronda.nroround"
+        (click)="selectSample(ronda.nroround)">
+        {{ ronda.nroround}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Muestra</mat-label>
+    <input type="text" matInput [matAutocomplete]="autoLote" formControlName="idMuestra">
+    <mat-autocomplete #autoLote="matAutocomplete">
+
+      <mat-option *ngFor="let sample of filteredOptionsSample | async" [value]="sample.Serialsample"
+        (click)="selectAnalito(sample.IdSample)">
+        {{ sample.Serialsample}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Analitos
+    </mat-label>
+    <mat-select disableOptionCentering formControlName="idAnalito" multiple>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analito..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="" (click)="selectNone('idAnalito')">
+        --
+      </mat-option>
+      <mat-option value="-1" (click)="selectAll('idAnalito')" *ngIf="analytes.length != 0">
+        Todos los analitos
+      </mat-option>
+      <mat-option *ngFor="let analito of analytes" [matTooltipPosition]="'right'" [matTooltip]="analito.desanalytes"
+        [value]="analito.idanalytes" (click)="selectOne('idAnalito')">
+        {{ analito.desanalytes }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div>
+    <button class="btnPurple-01" type="submit">Buscar</button>
+  </div>
+
+</form>
+
+<div *ngIf="verInfo">
+
+  <div class="boxSecciones">
+    <div>
+      <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(-1)">arrow_back_ios</mat-icon>
+    </div>
+    <div #scroll class="boxSeccionesContainer">
+      <div *ngFor="let analito of datosFiltro; let i = index">
+        <div #btnSecc id="bntSecc-{{i}}" class="styleSeccion" [ngClass]="{'active':analitoSeleccionado === analito  }"
+          (click)="buscarAnalitos(analito, i, btnSecc)">
+          <h2 style="margin: 0; font-size: 15px;">{{analito.desAnalytes | titlecase}}</h2>
+        </div>
+      </div>
+    </div>
+    <div>
+      <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(1)">arrow_forward_ios</mat-icon>
+    </div>
+  </div>
+
+  <div class="cardReportes" style="padding: 20px 20px 0 20px;height: 425px;">
+    <div style="display: flex; justify-content: space-between;">
+      <div class="grid-container">
+        <div class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSelected === 1}" (click)="selecItem(1)">
+          <mat-icon class="icon-custom" svgIcon="score"></mat-icon>
+          <p>Estadistica General</p>
+        </div>
+        <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSelected === 2}"
+          (click)="selecItem(2)">
+          <mat-icon class="icon-custom" svgIcon="table_check"></mat-icon>
+          <p>Evaluación del procedimiento de medida</p>
+        </div>
+        <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSelected === 3}"
+        (click)="selecItem(3)">
+        <mat-icon class="icon-custom" svgIcon="bar"></mat-icon>
+        <p>Gráficas de concordancia</p>
+      </div>
+      <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSelected === 4}"
+      (click)="selecItem(4)">
+          <mat-icon class="icon-custom" svgIcon="ciclo"></mat-icon>
+          <p>Fin de ciclo</p>
+        </div>
+      </div>
+
+      <div>
+        <img [src]="'PDFconsolidado.svg' | imageCdn" alt="Reporte semicuantitativo"
+          style="height: 30px; cursor: pointer;" (click)="reporteConsolidado()">
+      </div>
+    </div>
+
+    <ng-container [ngSwitch]="itemSelected">
+      <ng-container *ngSwitchCase="1" [ngTemplateOutlet]="item_1"></ng-container>
+      <ng-container *ngSwitchCase="2" [ngTemplateOutlet]="item_2"></ng-container>
+      <ng-container *ngSwitchCase="3" [ngTemplateOutlet]="item_3"></ng-container>
+      <ng-container *ngSwitchCase="4" [ngTemplateOutlet]="item_4"></ng-container>
+      <ng-container *ngSwitchCase="5" [ngTemplateOutlet]="pdfConsolidado"></ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<!-- CONT 1 -->
+<ng-template #item_1>
+  <h2>Estadistica de comparación</h2>
+  <div style="display: grid;grid-template-columns: 60% 40%; height: 300px; align-items: center;">
+    <!-- GRÁFICA CONT 1-->
+    <div style="width: 100%; height: 300px;">
+      <div [style]="'width:100%; height:100%;padding-top:1em; padding-left:.5em; '" id="graf1"></div>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <div style="background: var(--blue-light); padding: 10px; border-radius: 10px ; width: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="border: none;"></th>
+              <th style="border: none; color: var(--blue-01);"
+                *ngFor="let item of datosFiltro[indexSelect].results; let i = index">{{item.results}}</th>
+            </tr>
+          </thead>
+          <tr>
+            <th class="lineas" style="text-align: left; color: var(--blue-01);">Método</th>
+            <th class="lineas" *ngFor="let item of datosFiltro[indexSelect].results; let i = index">
+              {{dataTablaEstGenMet[i].length}}
+            </th>
+          </tr>
+          <tr>
+            <th class="lineas" style="text-align: left; color: var(--blue-01);">Todos los resultados</th>
+            <th class="lineas" *ngFor="let item of datosFiltro[indexSelect].results; let i = index">
+              {{dataTablaEstGen[i].length}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+</ng-template>
+
+<!-- CONT 2 -->
+<ng-template #item_2 id="key_2">
+  <h2>Evaluación de desempeño</h2>
+  <div class="grid-2-completo">
+    <div class="grid-2-completo ">
+      <div>
+        <table>
+          <thead>
+            <tr style=" background: var(--blue-01);">
+              <td colspan="2" style="padding: 10px 0;"> </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="paddingTable">25+</th>
+              <td class="paddingTable">{{datosFiltro[indexSelect]?.name_Analyzer}}</td>
+            </tr>
+            <tr>
+              <th class="paddingTable">80++</th>
+              <td class="paddingTable">{{datosFiltro[indexSelect]?.desreagents}}</td>
+            </tr>
+            <tr>
+              <th class="paddingTable">200+++</th>
+              <td class="paddingTable">{{datosFiltro[indexSelect]?.desAnalytes}}</td>
+            </tr>
+            <tr>
+              <th class="paddingTable">Negativo</th>
+              <td class="paddingTable">{{datosFiltro[indexSelect]?.desunits}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="overflow: auto;">
+        <table>
+          <thead>
+            <tr style=" background: var(--blue-01);">
+              <td class="paddingTable"></td>
+              <td *ngFor="let item of datosFiltro[indexSelect].tables" class="paddingTable" style="color: white;">
+                {{item.serialSample}}</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="paddingTable">Resultado</th>
+              <td *ngFor="let item of datosFiltro[indexSelect].tables" class="paddingTable">{{item.results}}</td>
+            </tr>
+            <tr>
+              <th class="paddingTable">Valor asignado</th>
+              <td *ngFor="let item of datosFiltro[indexSelect].tables" class="paddingTable">{{item.valueAsing}}</td>
+            </tr>
+            <tr>
+              <th class="paddingTable">Score</th>
+              <td *ngFor="let item of datosFiltro[indexSelect].tables" class="paddingTable"
+                style="color: #32B26D; color:white;">{{item.score}}</td>
+            </tr>
+            <tr>
+              <th class="paddingTable">Rms</th>
+              <td *ngFor="let item of datosFiltro[indexSelect].tables; let i = index;" class="paddingTable">
+                <span>{{i==datosFiltro[indexSelect].tables.length-1 ? calcProm(datosFiltro[indexSelect].tables)
+                  :0}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <div style="width: 100%; height: 300px;">
+        <!-- GRÁFICA CONT 2 -->
+        <div style="width:100%; height:100%;" id="graf2"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- CONT 3 -->
+<ng-template #item_3 id="key_3">
+  <h2>Gráficas de concordancia</h2>
+  <div style="width: 100%; margin-bottom: 1em;">
+    <table style="width: 100%; box-shadow: 0px 3px 6px #00000029;">
+      <thead>
+        <tr style=" background: var(--blue-01);">
+          <td style="color: white;" class="paddingTable">Control</td>
+          <td style="color: white;" class="paddingTable">N Datos</td>
+          <td style="color: white;" class="paddingTable">Aceptados</td>
+          <td style="color: white;" class="paddingTable">Rechazados</td>
+          <td style="color: white;" class="paddingTable">% Aceptación</td>
+          <td style="color: white;" class="paddingTable">% Rechazados</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataAnalitoTblConcord.Muestras; let i = index">
+          <th class="paddingTable">{{item.samples}}</th>
+          <th class="paddingTable">{{item.total}}</th>
+          <th class="paddingTable">{{item.aceptados}}</th>
+          <th class="paddingTable">{{item.rechazados}}</th>
+          <th class="paddingTable">{{item.acepPorcentaje === null ? 0 : item.acepPorcentaje}}%</th>
+          <th class="paddingTable">{{item.recPorcentaje === null ? 0 : item.recPorcentaje}}%</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2-completo cardReportes " style="height: 230px; top: 0;">
+    <div>
+      <!-- GRÁFICA CONT 2 -->
+      <h2 style="margin-top: 0; text-align: center;">% Concordancia {{dataAnalitoTblConcord.desAnalytes}}</h2>
+      <div [style]="'width:100%; height:170px;'" id="graf3"></div>
+    </div>
+    <div *ngFor="let item of arrDataGraf2; let i = index">
+      <h2 style="margin-top: 0; text-align: center;">% Concordancia por muestra</h2>
+      <!-- GRÁFICA CONT 2 -->
+      <div [style]="'width:100%; height:170px;padding-left:.5em'" id="graf4{{i}}"></div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- CONT 4 -->
+<ng-template #item_4 id="key_4">
+  <h2>Fin de ciclo</h2>
+  <table style="width: 100%; box-shadow: 0px 3px 6px #00000029;margin-bottom: 1em;">
+    <thead>
+      <tr style=" background: var(--blue-01);">
+        <th style="color: white;" class="paddingTable">Muestra</th>
+        <th style="color: white;" class="paddingTable">N Datos</th>
+        <th style="color: white;" class="paddingTable">Concordante</th>
+        <th style="color: white;" class="paddingTable">No concordante</th>
+        <th style="color: white;" class="paddingTable">% Concordante</th>
+        <th style="color: white;" class="paddingTable">% No concordante</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataFinCiclo.samples">
+        <td class="paddingTable">{{item.serialNumber}}</td>
+        <td class="paddingTable">{{item.total}}</td>
+        <td class="paddingTable">{{item.aceptados}}</td>
+        <td class="paddingTable">{{item.rechazados}}</td>
+        <td class="paddingTable">{{item.acepPorcentaje}}</td>
+        <td>{{item.recPorcentaje}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2-completo cardReportes " style="height: 230px; top: 0;">
+    <div style="width: 100%; height: 170px;" id="graf5"></div>
+
+    <div *ngFor="let item of dataFinCiclo.samples; let i = index">
+      <!-- GRÁFICA CONT 2 -->
+      <div style="width: 100%; height: 170px;" id="graf6{{i}}"></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #pdfConsolidado>
+  <ng-container *ngFor="let item of datosFiltro;index as i">
+    <div [style]="'width:50em; height:13em;padding-left:.5em'" [id]="'primera'+i"></div>
+    <div [style]="'width:50em; height:13em;padding-left:.5em'" [id]="'segunda'+i"></div>
+    <ng-container *ngFor="let item of arrGraficasTres[i]; let j = index">
+      {{'tercera'+i+'P'+j}}
+      <div [style]="'width:50em; height:13em;padding-left:.5em'" [id]="'tercera'+i+'P'+j"></div>
+    </ng-container>
+    <ng-container *ngFor="let item of arrGraficasCuatro[i]; let j = index">
+      <div [style]="'width:50em; height:13em;padding-left:.5em'" [id]="'cuarta'+i+'Z'+j"></div>
+    </ng-container>
+  </ng-container>
+</ng-template>

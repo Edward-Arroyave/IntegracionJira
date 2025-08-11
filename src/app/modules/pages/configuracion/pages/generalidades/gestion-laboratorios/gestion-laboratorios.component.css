@@ -1,0 +1,223 @@
+.foto {
+
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+
+}
+
+.camera {
+
+  font-size: 20px;
+  background: #6B4B8B;
+  cursor: pointer;
+  border-radius: 100%;
+  padding: 7px;
+  color: white;
+  font-size: 20px;
+  width: 34px;
+
+}
+
+@media(min-width: 320px) {
+
+  .camera {
+
+    position: absolute;
+    top: 80%;
+    right: 30%;
+
+  }
+
+  .boxImg {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  .boxBtnAceptCancel {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+
+  }
+
+  .btnCancel {
+
+    margin-left: 8px;
+
+  }
+
+  .btnCancel,
+  .btnAceptar {
+
+    width: 76px;
+
+  }
+
+  .boxBtnFilter {
+
+    margin-top: 24px;
+
+  }
+
+  .boxBtnCreate {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .btnCreate {
+
+    width: 70px;
+
+  }
+
+  .boxFilter {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .filter {
+
+    width: 80%;
+    margin-left: 4px;
+
+  }
+
+}
+
+@media(min-width: 330px) {
+
+  .camera {
+
+    right: 32%;
+
+  }
+
+}
+
+@media(min-width: 350px) {
+
+  .camera {
+
+    right: 34%;
+
+  }
+
+}
+
+@media(min-width: 380px) {
+
+  .camera {
+
+    right: 35%;
+
+  }
+
+}
+
+@media(min-width: 410px) {
+
+  .camera {
+
+    right: 37%;
+
+  }
+
+}
+
+@media(min-width: 460px) {
+
+  .camera {
+
+    right: 39%;
+
+  }
+
+}
+
+@media(min-width: 470px) {
+
+  .btnUpdate {
+
+    width: 23%;
+  }
+
+}
+
+@media(min-width: 500px) {
+
+  .filter {
+
+    width: 60%;
+  }
+
+}
+
+@media(min-width: 530px) {
+
+  .camera {
+
+    right: 40%;
+
+  }
+
+}
+
+@media(min-width: 576px) {
+
+  .btnActive {
+
+    text-align: center;
+
+  }
+
+  .boxBtnCreate {
+
+    margin: 0;
+    justify-content: flex-start;
+
+  }
+
+  .boxFilter {
+
+    justify-content: flex-end;
+
+  }
+
+  .filter {
+
+    width: 80%;
+
+  }
+
+}
+
+@media(min-width: 768px) {
+
+  .camera {
+
+    right: 29%;
+  }
+
+}
+
+@media(min-width: 1200px) {
+
+  .filter {
+
+    width: 60%;
+
+  }
+
+}

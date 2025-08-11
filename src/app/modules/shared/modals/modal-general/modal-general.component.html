@@ -1,0 +1,24 @@
+<div style="position: relative;">
+    <div class="imagenTop" style="width: 78px; height: 78px; left: calc(50% - 40px);">
+        <img [src]="image" alt="" class="imageTopStyle">
+    </div>
+    <div class="padding-card">
+        <h1 class="title_card">{{title}}</h1>
+        @defer(when !!content){
+            <ng-container *ngTemplateOutlet="content"></ng-container>
+        }
+        @if(!!message){
+            <p style="text-align: center;color: black;">{{message}}</p>
+        }
+        @if(footer){
+            <div class="grid-botones">
+                @if(btn2){
+                    <button class="btnPurple-01 border-01" matDialogClose (click)="second()">{{btn2}}</button>
+                }
+                @if(btn){
+                    <button dia class="btnPurple-03" (click)="primary()">{{btn}}</button>
+                }
+            </div>
+        }
+    </div>
+</div>

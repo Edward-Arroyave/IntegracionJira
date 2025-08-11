@@ -1,0 +1,44 @@
+    <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Departamentos'"
+      (onCreate)="openModalRegistroDepartamento(templateRegistroDepartamento, '')" (onChangeStatus)="actualizarEstadoDepartamento($event)"
+      (onEdit)="openModalRegistroDepartamento(templateRegistroDepartamento, $event)" (onDelete)="eliminarDepartamento($event)">
+    </app-tabla-comun>
+
+<ng-template #templateRegistroDepartamento>
+
+    <form class="grid-2-completo" [formGroup]="formaRegistroDepartamento">
+        <mat-form-field>
+            <mat-label>Departamento</mat-label>
+            <input matInput type="text" formControlName="DesDepartament">
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field >
+            <mat-label>País
+            </mat-label>
+            <mat-select formControlName="idcountry"  disableOptionCentering>
+                <mat-option value="">--</mat-option>
+                <mat-option>
+                    <ngx-mat-select-search [formControl]="filterCountry" placeholderLabel="Buscar..."
+                        noEntriesFoundLabel="No se encontró un resultado">
+                    </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let pais of listaPaises" [value]="pais.idcountry"> {{ pais.descountry }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Cód. divipola</mat-label>
+            <input matInput formControlName="codDivipola" type="number">
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+        
+        <div class="contieneToggle">
+            <label class="labelToggle">Estado</label>
+            <mat-slide-toggle formControlName="Active" labelPosition="top"></mat-slide-toggle>
+        </div>
+        
+    </form>
+    
+</ng-template>

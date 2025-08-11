@@ -1,0 +1,361 @@
+.borderTable {
+    border-radius: 9px !important;
+}
+
+.centro {
+    text-align: center;
+}
+
+.flecha {
+    margin-top: 25%;
+}
+
+.texto-centro {
+    top: 469px;
+    left: 507px;
+    width: 198px;
+    height: 45px;
+    text-align: center;
+    font: normal normal normal 15px/22px Open Sans;
+    letter-spacing: 0px;
+    color: #434A49;
+    opacity: 1;
+}
+
+.centro-lote {
+    padding-top: 0.5em;
+}
+
+.boton-back {
+    border-radius: 25px;
+    height: 30px;
+    color: var(--purple-01);
+    background: white;
+    border: var(--purple-01);
+    font-weight: bold;
+    border: 1px solid var(--purple-01);
+}
+
+.styleIcon {
+    font-size: 47px;
+}
+
+.styleVer {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    text-align: center;
+    justify-content: center;
+    color: #808080;
+}
+
+.w90 {
+    width: 90px !important;
+}
+
+.w80 {
+    width: 80px !important;
+}
+
+.w50 {
+    width: 50px !important;
+}
+
+.w70 {
+    width: 70px !important;
+    max-width: 70px !important;
+}
+
+.w-ab {
+    width: 70px !important;
+    max-width: 70px !important;
+}
+
+
+/*******Alert Card*********/
+
+.card-alert {
+    border: 1px solid #bb2f2f !important;
+}
+
+
+/*******Table*********/
+
+td {
+    padding: 1px !important;
+}
+
+.txt-table {
+    color: #A5A4A4;
+    font-size: 16px;
+}
+
+.table-label {
+    font-size: 16px;
+    color: #808080;
+}
+
+
+/*******dot*********/
+
+.number {
+    position: relative;
+    font-size: 20px;
+    text-align: center;
+    top: 5px;
+    color: #6B4B8B;
+}
+
+.dot {
+    position: relative;
+    top: 0px;
+    height: 32px;
+    width: 36px;
+    border: 1px solid #6B4B8B;
+    background-color: #6b4b8b40;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+.line {
+    position: relative;
+    top: 7px;
+    display: block;
+    margin-left: 9px;
+    padding: 0;
+    width: 100%;
+    white-space: nowrap!important;
+}
+
+
+/*******dot-large*********/
+
+.progress-bar-color ::ng-deep .mat-mdc-progress-spinner circle,
+.mat-mdc-progress-spinner circle {
+    stroke: #FFFFFF;
+}
+
+.progress-circle {
+    position: relative;
+    text-align: center;
+    top: -40px;
+    z-index: 10;
+}
+
+.txt-lg {
+    position: relative;
+    font-size: 18px;
+    text-align: center;
+    top: 73px;
+    color: #FFFFFF;
+    z-index: 10;
+}
+
+.number-lg {
+    position: relative;
+    font-size: 32px;
+    text-align: center;
+    top: 67px;
+    color: #FFFFFF;
+}
+
+.dot-lg {
+    /* position: relative;
+  top: 0px; */
+    height: 190px;
+    width: 190px;
+    border: 1px solid #6B4B8B;
+    background-color: #6B4B8B;
+    border-radius: 50%;
+    color: white;
+}
+
+.dot-white {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%
+}
+
+#circle {
+    display: inline-block;
+    position: relative;
+    top: -5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    shape-outside: circle();
+    -webkit-clip-path: circle();
+    clip-path: circle();
+    background: white;
+}
+
+
+/**********FORM********/
+
+.styleRowForm {
+    margin-right: 0;
+    margin-left: 0;
+    display: unset;
+}
+
+.txt-total {
+    font-size: 20px;
+    font-weight: 900;
+    color: #000;
+    text-align: center;
+}
+
+.txt-item {
+    font-size: 16px;
+    font-weight: 900;
+    color: #000;
+    text-align: center;
+    font-style: normal !important;
+    width: 65px !important;
+    max-width: 65px !important;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.boton-back,
+.boton {
+    margin-top: 16px;
+    width: 100px;
+}
+
+
+/******************** MEDIA BREAKING POINTS *************************/
+
+@media (min-width:1499px) {
+    /* table {
+      width: 75% !important;
+  } */
+}
+
+
+/*=============================================
+PORTATIL 1366
+=============================================*/
+
+@media (max-width:1499px) and (min-width:1200px) {
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 63px !important;
+        max-width: 63px !important;
+    }
+    .line {
+        font-size: 13px;
+        top: 2px;
+    }
+    .dot {
+        height: 26px;
+        width: 29px;
+    }
+    .number {
+        font-size: 16px;
+        top: 2px;
+    }
+}
+
+
+/*=============================================
+TABLET HORIZONTAL (LG revisamos en 1024px)
+=============================================*/
+
+@media (max-width:1199px) and (min-width:992px) {
+    .table-responsive-ab {
+        display: block;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 60px !important;
+        max-width: 60px !important;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+TABLET VERTICAL (MD revisamos en 768px)
+=============================================*/
+
+@media (max-width:991px) and (min-width:768px) {
+    .table-responsive-ab {
+        display: block;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 60px !important;
+        max-width: 60px !important;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MÓVIL HORIZONTAL (SM revisamos en 576px)
+=============================================*/
+
+@media (max-width:767px) and (min-width:576px) {
+    .table-responsive-ab {
+        display: block;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 60px !important;
+        max-width: 60px !important;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MOVIL VERTICAL (revisamos en 320px)
+=============================================*/
+
+@media screen and (max-width:575px) {
+    .table-responsive-ab {
+        display: block;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 60px !important;
+        max-width: 60px !important;
+    }
+}
+
+
+/******************** MEDIA MEDIA BREAKING POINTS  END *************************/

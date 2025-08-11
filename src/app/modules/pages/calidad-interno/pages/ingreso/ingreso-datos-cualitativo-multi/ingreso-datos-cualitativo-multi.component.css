@@ -1,0 +1,18 @@
+h2{
+    color: var(--purple-01);
+    white-space: nowrap ;
+}
+
+th{
+    text-align: center;
+}
+
+.number{
+    color: white;
+    background: var(--purple-01);
+    min-width: 25px;
+    min-height: 25px;
+    border-radius: 50%;
+    text-align: center;
+    padding: 2px 2px;
+}

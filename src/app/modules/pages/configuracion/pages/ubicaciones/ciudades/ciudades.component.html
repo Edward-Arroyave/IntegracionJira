@@ -1,0 +1,43 @@
+    <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Ciudades'"
+      (onCreate)="openModalRegistroCiudad(templateRegistroCiudad, '')" (onChangeStatus)="actualizarEstadoCiudad($event)"
+      (onEdit)="openModalRegistroCiudad(templateRegistroCiudad, $event)" (onDelete)="eliminarCiudad($event)">
+    </app-tabla-comun>
+
+<ng-template #templateRegistroCiudad>
+    <form class="grid-2-completo"  [formGroup]="formaRegistroCiudad" >
+
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="DesCity">
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field >
+            <mat-label >Departamento</mat-label>
+            <mat-select formControlName="idDepartament" disableOptionCentering>
+                <mat-option value="">--</mat-option>
+                <mat-option>
+                    <ngx-mat-select-search [formControl]="filterDepartament" placeholderLabel="Buscar..."
+                        noEntriesFoundLabel="No se encontró un resultado">
+                    </ngx-mat-select-search>
+                </mat-option>
+                @for (item of listaDepartamentos; track $index) {
+                    <mat-option [value]="item.iddepartament"> {{ item.desdepartament }}</mat-option>
+                }
+            </mat-select>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Cód. davipola</mat-label>
+            <input matInput type="number" formControlName="codDivipola">
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+        
+        <div class="contieneToggle">
+            <label class="labelToggle">Estado</label>
+            <mat-slide-toggle formControlName="Active" labelPosition="top"></mat-slide-toggle>
+        </div>
+
+    </form>
+</ng-template>

@@ -1,0 +1,79 @@
+<h1 style="margin-top: 3em;">Descarga de reportes</h1>
+<form [formGroup]="formDescargaReporte" autocomplete="off">
+
+  <div style="text-align:center">
+    <mat-radio-group formControlName="tipoReporte">
+      <mat-radio-button value=1>Reporte Cuantitativo</mat-radio-button>
+      <!--
+      <mat-radio-button value=2>Reporte Cualitativo</mat-radio-button>
+      <mat-radio-button value=3>Reporte Semi Cuantitativo</mat-radio-button>
+      -->
+    </mat-radio-group>
+  </div>
+
+  <div class="grid-3">
+    <!-- programa -->
+    <mat-form-field>
+      <mat-label>Programa</mat-label>
+      <mat-select disableOptionCentering formControlName="programa">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="">Seleccione</mat-option>
+        <mat-option *ngFor="let program of programas" [value]="program.IdProgram" [matTooltipPosition]="'right'"
+          [matTooltip]="program.Desprogram">
+          {{ program.Desprogram }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    
+    <!-- ronda -->
+    <mat-form-field>
+      <mat-label>Ronda</mat-label>
+      <mat-select disableOptionCentering formControlName="ronda" (selectionChange)="[filtrarSample()]">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterRondas" placeholderLabel="Buscar rondas..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="" (click)="selectNone('ronda')">Seleccione</mat-option>
+        <mat-option *ngFor="let dtRondas of rondas" [value]="dtRondas.Nroround" (click)="selectOne('ronda')">
+          {{ dtRondas.Nroround }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    
+    <!-- muestra -->
+    <mat-form-field>
+      <mat-label>Muestra</mat-label>
+      <mat-select disableOptionCentering formControlName="muestra">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterMuestras" placeholderLabel="Buscar muestra..." noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+          </mat-option>
+          <mat-option value="" (click)="selectNone('muestra')">Seleccione</mat-option>
+          <mat-option *ngFor="let sample of muestras" [value]="sample.IdSample" (click)="selectOne('muestra')">
+            {{ sample.Serialsample }}
+          </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  </div>
+  
+  <div>
+    <button type="button" class="btnPurple-01" (click)="buscarReportes()" [disabled]="!formDescargaReporte.valid">
+      Buscar
+      <mat-icon style="margin-top: 3px;">search</mat-icon>
+    </button>
+  </div>
+
+</form>
+
+@defer (when dataSource) {
+  <app-tabla-comun [viewButton]="!desactivado" [cabeceros]="displayedColumns" [info-tabla]="dataTableBody"
+  (onDownload)="descargarReporte($event)"></app-tabla-comun>
+}

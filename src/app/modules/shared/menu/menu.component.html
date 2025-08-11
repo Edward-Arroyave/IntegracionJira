@@ -1,0 +1,213 @@
+<nav id="sidebar" class="sidebar"
+  [ngClass]="{'sidebar-bg' : hasBackgroundImage(), 'animation_menu_open' : !getSideBarState(), 'animation_menu_close' : getSideBarState(), 'toggled' : getSideBarState()} ">
+  <div class="sidebar-content">
+
+
+    <div class="close-container">
+      <div class="section-close" [ngClass]="{'section-close-actv' : getSideBarState()}">
+        <div class="fas fa-times" (click)="toggleSidebar()" class="circle">
+          <mat-icon [ngClass]="{'icon_arrow_inverse' : getSideBarState()}"
+            class="icon_arrow">keyboard_arrow_right</mat-icon>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="logo_qc">
+
+      @if(!getSideBarState()){
+      <img src="assets/rutas/iconos/logoAnnarQC_blanco.png" alt="logoqc">
+      }
+      @if(getSideBarState()){
+      <img style="height: 40px;" src="assets/rutas/iconos/logo-reducido.svg" alt="logoqc">
+      }
+
+    </div>
+
+    <div class="sidebar-profile" style="position: sticky !important;top: 0;z-index: 1;">
+      <div class="user-pic" [ngClass]="{'user_pic_jr' : getSideBarState()}">
+        <img [src]="'data:image/jpg;base64,'+foto | defaultImage" class="img-responsive img-rounded" alt="User picture">
+      </div>
+      <div class="user-info" [ngClass]="{'dn': getSideBarState()}">
+        <span class="user-name" style="font-size: 16px;">
+          <strong>{{username}}</strong>
+        </span>
+        <span class="user-role" style="font-size: 14px;">{{rolname}}</span>
+      </div>
+
+
+    </div>
+
+    <div class="sidebar-menu" [ngClass]="{'ul_closed' :  getSideBarState()}">
+
+      <cdk-accordion>
+        @for(item1 of MenusXuserid;track $index){
+        <cdk-accordion-item #accordionItem="cdkAccordionItem" role="button" [attr.id]="'accordion-header-' + $index"
+          [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-' + $index">
+
+          <div class="itemInterno item1" (click)="accordionItem.toggle(); getSideBarState() &&  toggleSidebar()" (mouseover)="mostrarTooltipMenu(item1.idMenu)" (mouseleave)="OcultarTooltipMenu(item1.idMenu)" [ngClass]="{'only_icon': getSideBarState()}">
+            @if(getSideBarState()){
+            <img *ngIf="item1.menuIcon.includes('iconos/')" [class]="item1.animation" [src]="item1.menuIcon"
+            >
+            <i class="{{item1.menuIcon}}" ></i>
+            <span [id]="'mtool'+item1.idMenu" class="menuHover_right">
+              <p class="parrafoMenu" [id]="'mtoolp'+item1.idMenu">{{ item1.label }}</p>
+            </span>
+            }@else{
+            <mat-icon [@indicatorRotate]="accordionItem.expanded">keyboard_arrow_right</mat-icon>
+            {{item1.label}}
+            <img *ngIf="item1.menuIcon.includes('iconos/')" [src]="item1.menuIcon">
+            <i class="{{item1.menuIcon}}"></i>
+            }
+
+
+
+            <div>
+
+            </div>
+          </div>
+
+          @if(item1.Active && !getSideBarState()){
+          <cdk-accordion>
+            @for (item2 of item1.items; track $index;let ind2 = $index) {
+            <div role="region" [style.display]="accordionItem.expanded ? '' : 'none'"
+              [attr.id]="'accordion-body-' + $index" [attr.aria-labelledby]="'accordion-header-' + $index">
+              <cdk-accordion-item #accordionItem2="cdkAccordionItem" role="button"
+                [attr.id]="'accordion2-header-' + ind2" [attr.aria-expanded]="accordionItem.expanded"
+                [attr.aria-controls]="'accordion2-body-' + ind2">
+
+                <div class="itemInterno item2"
+                  (click)="accordionItem2.toggle(); item2.items.length == 0 && navigate(item2.Url)">
+
+                  @if(item2.items.length !== 0){
+                  <mat-icon [@indicatorRotate]="accordionItem2.expanded">keyboard_arrow_right</mat-icon>
+                  }@else {
+                  <div style="width: 22px;"></div>
+                  }
+                  {{item2.label}}
+                  <i class="{{item2.menuIcon}}"></i>
+                  <img *ngIf="item2.menuIcon.includes('iconosModal/')" [src]="item2.menuIcon">
+                </div>
+
+
+
+                @if(item2.Active  && !getSideBarState()){
+                @for(item3 of item2.items;track $index;let indx3 = $index ){
+                <div role="region" [style.display]="accordionItem2.expanded ? '' : 'none'" (click)="navigate(item3.Url)"
+                  [attr.id]="'accordion2-body-' + ind2" [attr.aria-labelledby]="'accordion2-header-' + ind2">
+                  <div class="itemInterno item3">
+                    <div>{{item3.label}}</div>
+                    <div>
+
+                    </div>
+                  </div>
+                </div>
+                }
+                }
+
+              </cdk-accordion-item>
+
+            </div>
+            }
+          </cdk-accordion>
+          }
+        </cdk-accordion-item>
+        }
+      </cdk-accordion>
+
+    </div>
+  </div>
+
+
+  <div class="sidebar-footer">
+    @if(getSideBarState()){
+    <img class="img-responsive" style="margin: auto;  width: 60px;" src="./assets/rutas/iconos/logoithealth1.svg">
+    }
+    @if(!getSideBarState()){
+    <img class="img-responsive" style="margin: auto;" src="./assets/rutas/iconos/logoithealth2.svg">
+    }
+    '
+  </div>
+</nav>
+
+<ng-template #templateEditPerfilUser>
+  <div class="modal-header">
+    <h3 class="modal-title titulo">{{tituloAccion}}</h3>
+    <button type="button" class="close pull-right" arial-label="Close" (click)="closeVentana()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="table-responsive-sm table table-striped">
+      <form [formGroup]="formEditPerfil" autocomplete="off">
+
+        <div class="form-row">
+
+          <div class="col-md-12 mb-6 form-group flex">
+
+            <div class="spin" *ngIf="spin">
+              <div class="spinner-border text-primary" role="status"></div>
+            </div>
+
+            <input type="file" id="userPicture" style="display: none;" accept=".png, .jpg, .jpeg"
+              (change)="getFoto( $event.target.files[0] )">
+            <img [src]="'data:image/jpg;base64,'+foto | defaultImage" class="animate__animated animate__fadeIn fast"
+              *ngIf="!spin" width="100px" height="100px" style="border-radius: 100%;">
+            <img src="./assets/rutas/iconos/camera.svg" onclick="userPicture.click();" class="camera">
+
+          </div>
+
+          <div class="col-12 mb-6 form-group">
+            <div role="group">
+              <label for="name" class="labelProfile">Nombre completo</label><span class="colorAsterisco"> *</span>
+              <input formControlName="name" type="text" class="form-control styleForm" id="name">
+              <small *ngIf="formEditPerfil.get('name').errors?.required"
+                class="text-danger animated fadeIn">Campo requerido</small>
+            </div>
+          </div>
+          <div class="col-md-6 mb-6 form-group">
+            <div role="group">
+              <label for="rolid" class="labelProfile">Cargo</label><span class="colorAsterisco"> *</span>
+              <input type="text" class="form-control styleForm" id="rolid" [value]="nombreRol" disabled>
+            </div>
+          </div>
+          <div class="col-md-6 mb-6 form-group">
+            <div role="group">
+              <label for="phone" class="labelProfile">Teléfono</label><span class="colorAsterisco"> *</span>
+              <input formControlName="phone" type="number" class="form-control styleForm" id="phone">
+              <small *ngIf="formEditPerfil.get('phone').errors?.required"
+                class="text-danger animated fadeIn">Campo requerido</small>
+            </div>
+          </div>
+          <div class="col-12 mb-6 form-group">
+            <div role="group">
+              <label for="email" class="labelProfile">Correo electrónico</label><span class="colorAsterisco"> *</span>
+              <input formControlName="email" type="text" class="form-control styleForm" id="email">
+              <small *ngIf="formEditPerfil.get('email').errors?.required"
+                class="text-danger animated fadeIn">Campo requerido</small>
+              <small *ngIf="formEditPerfil.get('email').errors?.pattern"
+                class="text-danger animated fadeIn">Debe ser tipo de tipo email</small>
+            </div>
+          </div>
+
+          <div class="col-12 mb-6 form-group">
+            <div role="group">
+              <label for="pass" class="labelProfile">Nueva clave</label>
+              <input formControlName="pass" type="password" class="form-control styleForm" id="pass">
+            </div>
+          </div>
+
+        </div>
+
+        <div>
+          <div class="col-12 boxBtn form-group">
+            <button class="btnUpdate boton" (click)="EditarPerfilUsuario()">Actualizar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</ng-template>

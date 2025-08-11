@@ -1,0 +1,150 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mt-4">
+            <div class="card mt-3 mb-3 borderTable">
+                <div class="col-12 d-flex justify-content-center">
+                    <img class="imageSobreBorde" [src]="'area.png' | imageCdn">
+                </div>
+                <div class="row justify-content-center mt-4">
+                    <div class="col-12 titulo"> ÁREA</div>
+                    <div class="col-11 col-lg-10 col-xl-10">
+                      <div class="row boxBtnFilter">
+                        <div class="col-12 col-sm-3 boxBtnCreate form-group">
+                          <div class="row text-center mb-3">
+                            <div class="col-12 mb-3">
+                              <div class="d-inline-flex">
+                                <div class="dot text-center" (click)="openModalRegistroArea(templateRegistroArea, '')"><span class="number"> <i class="fas fa-plus"></i></span></div>
+                                <hr class="line" />
+                                <div class=" text-center">
+                                    <img id="btnEdit" [src]="'icon_editar.svg' | imageCdn" (click)="openModalRegistroArea(templateRegistroArea, area)">
+                                </div>
+                                <hr class="line" />
+                                <div class=" text-center">
+                                    <img id="btnDelete" [src]="'icon_eliminar.svg' | imageCdn" (click)="openModalEliminarArea(templateEliminarArea, area)">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col"></div>
+                        <div class="col-12 col-sm-4 boxFilter">
+                            <i class="fa fa-search"></i>
+                            <mat-form-field class="filter">
+                                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input (click)="touchedSearch()">
+                            </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-11 col-lg-8 col-xl-7">
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-10">
+                        <hr>
+                        <p>Para editar o eliminar cualquier área, por favor dar clic sobre alguna de ellas.</p>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-3" *ngIf="dataSource">
+                    <div class="col-10">
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col" *ngFor="let item of dataSource.filteredData; let i = index">
+                                <div class="card border-0" style="cursor: pointer;" (click)="selectedArea(item, itemArea)">
+                                    <div class="card-body p-0">
+                                        <div #itemArea id="ind-{{i}}" class="indicador mb-2">
+                                            <img class="mr-2" [src]="'icono_area.svg' | imageCdn" alt="Item Area">
+                                            <div class="d-block">
+                                                <p class="text-nowrap text-item">{{item.desarea | titlecase}}</p>
+
+                                                <div role="group" class="d-inline-flex">
+                                                    <label for="active" class="m-0 mr-2">Estado</label><br>
+                                                    <mat-slide-toggle [checked]="item.active" (change)="actualizarEstadoArea(item)"></mat-slide-toggle>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ***Modals -->
+<ng-template #templateRegistroArea>
+    <div class="modal-header">
+        <button type="button" class="close pull-right" arial-label="Close" (click)="closeVentana()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col flex2">
+                <img *ngIf="accionEditar" class="img" [src]="'edit.png' | imageCdn">
+                <img *ngIf="!accionEditar" class="img" [src]="'crear2.png' | imageCdn">
+                <h3 class="tituloModal">{{tituloAccion}}</h3>
+                <div class="hr"></div>
+
+            </div>
+        </div>
+        <form [formGroup]="formaRegistroArea">
+            <div class="form-row">
+                <div class="col-sm-8 form-group">
+                    <div role="group">
+                        <label class="labelForm" for="desarea"> Nombre área<span class="colorAsterisco"> *</span></label>
+                        <input formControlName="desarea" type="text" class="form-control" [ngClass]="!accionEditar ? 'styleForm' : 'styleForm2'" id="desarea" autocomplete="off">
+                        <small *ngIf="desNoValido.errors?.minlength" class="text-danger animated fadeIn">Mínimo 2 caracteres</small>
+                        <small *ngIf="desNoValido.errors?.maxlength" class="text-danger animated fadeIn">Máximo 50 caracteres</small>
+                        <small *ngIf="desNoValido.invalid  && desNoValido.touched && !desNoValido.errors?.minlength && !desNoValido.errors?.maxlength" class="text-danger animated fadeIn">Campo requerido</small>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-group btnActive">
+                    <div role="group">
+                        <label class="labelForm" for="active">Estado</label><br>
+                        <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12 boxBtnAceptCancel">
+                    <button [disabled]="desactivar" class="boton btnAceptar" type="button" (click)="crearEditarArea()">Aceptar</button>
+                    <button class="botonCancelar btnCancel" type="button" (click)="closeVentana()">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<!-- **Modal Eliminar -->
+<ng-template #templateEliminarArea>
+    <div class="modal-header">
+        <button type="button" class="close pull-right" arial-label="Close" (click)="closeVentana()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col flex2">
+                <img class="img" [src]="'delete.png' | imageCdn">
+
+                <h3 class="tituloModal">{{tituloAccion}}</h3>
+                <div class="hr"></div>
+                <p>Se elimina Área de manera permanente</p>
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-12 boxBtnAceptCancel">
+                <button class="boton btnAceptar" type="button" (click)="eliminarArea(area.idarea)">Si</button>
+                <button class="botonCancelar btnCancel" type="button" (click)="closeVentana()">No</button>
+            </div>
+        </div>
+
+    </div>
+</ng-template>

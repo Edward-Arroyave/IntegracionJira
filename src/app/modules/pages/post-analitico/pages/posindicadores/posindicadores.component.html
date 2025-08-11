@@ -1,0 +1,110 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <div class="card mt-3 mb-3 borderTable">
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <!-- <img class="imageSobreBorde" [src]="'indicadores-icon.png' | imageCdn"> -->
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-12 titulo mt-5"> <strong>INDICADORES</strong></div>
+
+                <div class="row justify-content-center ">
+                    <div class="col-sm-1" style="text-align: right;">
+                        <button class="boton btnDuplicarLote animate__animated animate__fadeIn fast" (click)="desplazarInterpretacionesIzquierda(idScroll)" type="button" style="margin-top: 50%;height: 1.8em;width: 1.8em;">
+                      <i class="fas fa-angle-left"></i>
+                   </button>
+                    </div>
+                    <div class="col-10 testimonial-group">
+
+                        <div #idScroll class="row text-center flex-nowrap">
+                            <div class="col-sm-4 m-0 p-0">
+
+                                <div #itemIndicador1 class="indicador mb-2" [ngClass]="{'backHover': tipoReporte == 1}" (click)="selectedIndicador(itemIndicador1, pItem1, 1)">
+                                    <!-- <img [src]="'btn_competencia.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab" #pItem1><strong>Informe de valores críticos al médico tratante(QT1)</strong></p>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4 m-0 p-0">
+
+                                <div #itemIndicador2 class="indicador mb-2" [ngClass]="{'backHover': tipoReporte == 2}" (click)="selectedIndicador(itemIndicador2, pItem2, 2)">
+                                    <!-- <img [src]="'report_data.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab" #pItem2><strong>Tiempo (desde la validación del resultado hasta la comunicación del resultado al médico) para comunicar los valores críticos</strong></p>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4 m-0  p-0">
+
+
+                                <div #itemIndicador3 class="indicador mb-2" [ngClass]="{'backHover': tipoReporte == 3}" (click)="selectedIndicador(itemIndicador3, pItem3, 3)">
+                                    <!-- <img [src]="'btn_competencia.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab p-lg-0" #pItem3><strong>Tiempo de respuesta de la troponina (QT2)</strong></p>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-4 m-0 p-0">
+
+                                <div #itemIndicador4 class="indicador mb-2" [ngClass]="{'backHover': tipoReporte == 4}" (click)="selectedIndicador(itemIndicador4, pItem4, 4)">
+                                    <!-- <img [src]="'btn_competencia.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab" #pItem4><strong>Tiempo de respuesta liberación de resultados (QT3)</strong></p>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4 m-0 p-0">
+
+                                <div #itemIndicador5 class="indicador mb-2" [ngClass]="{'backHover': tipoReporte == 5}" (click)="selectedIndicador(itemIndicador5, pItem5, 5)">
+                                    <!-- <img [src]="'report_data.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab" #pItem5><strong>Puntuación media general de satisfacción con los servicios de laboratorio clínico (QT4)</strong></p>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4 m-0  p-0">
+
+
+                                <div #itemIndicador6 class="indicador mb-2" [ngClass]="{'backHover': tipoReporte == 6}" (click)="selectedIndicador(itemIndicador6, pItem6, 6)">
+                                    <!-- <img [src]="'btn_competencia.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab p-lg-0" #pItem6><strong>Número de informes con comentarios interpretativos, proporcionados en el informe médico, que impactan positivamente en resultado del paciente QT5</strong></p>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-sm-4 m-0 p-0">
+
+                                <div #itemIndicador7 class="indicador mb-2" [ngClass]="{'backHover': tipoReporte == 7}" (click)="selectedIndicador(itemIndicador7, pItem7, 7)">
+                                    <!-- <img [src]="'btn_competencia.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab" #pItem7><strong>Recomendación de laboratorio (%) QT6</strong></p>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4 m-0 p-0">
+
+                                <div #itemIndicador8 class="indicador mb-2 row" [ngClass]="{'backHover': tipoReporte == 8}" (click)="selectedIndicador(itemIndicador8, pItem8, 8)">
+                                    <!-- <img [src]="'report_data.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab col-sm-12" #pItem8><strong>Precisión resultados QT7</strong></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <button class="boton btnDuplicarLote animate__animated animate__fadeIn fast" (click)="desplazarInterpretacionesDerecha(idScroll)" type="button" style="margin-top: 50%;height: 1.8em;width: 1.8em;">
+                      <i class="fas fa-angle-right"></i>
+                   </button>
+                    </div>
+                    <app-criticos-medico-tratante [tituloInd]="tituloInd" *ngIf="tipoReporte == 1"></app-criticos-medico-tratante>
+                    <app-tiempo-comunicar-valores-criticos [tituloInd]="tituloInd" *ngIf="tipoReporte == 2"></app-tiempo-comunicar-valores-criticos>
+                    <app-tiempo-respuesta-troponina [tituloInd]="tituloInd" *ngIf="tipoReporte == 3"></app-tiempo-respuesta-troponina>
+                    <app-tiempo-liberacion-resultados [tituloInd]="tituloInd" *ngIf="tipoReporte == 4"></app-tiempo-liberacion-resultados>
+                    <app-servicios-laboratorio-clinico [tituloInd]="tituloInd" *ngIf="tipoReporte == 5"></app-servicios-laboratorio-clinico>
+                    <app-resultado-paciente [tituloInd]="tituloInd" *ngIf="tipoReporte == 6"></app-resultado-paciente>
+                    <app-recomendacion-laboratorio [tituloInd]="tituloInd" *ngIf="tipoReporte == 7"></app-recomendacion-laboratorio>
+                    <app-precision-resultados [tituloInd]="tituloInd" *ngIf="tipoReporte == 8"></app-precision-resultados>
+                </div>
+            </div>
+        </div>
+    </div>

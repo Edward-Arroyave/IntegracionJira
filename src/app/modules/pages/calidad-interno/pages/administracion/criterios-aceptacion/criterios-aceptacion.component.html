@@ -1,0 +1,149 @@
+
+<h1 style="margin-top: 3em;">Criterios de aceptacion</h1>
+<form [formGroup]="formaBuscarDatos" class="grid-6-buttton">
+  <mat-form-field>
+    <mat-label>Sede</mat-label>
+    <mat-select disableOptionCentering formControlName="numLaboratorio" [disabled]="habilitarSede">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterHeadquarters" placeholderLabel="Buscar..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let sede of sedesActive" [value]="sede.idheadquarters">
+        {{ sede.desheadquarters | titlecase }}</mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Sección
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto01" formControlName="seccion" #seccionPr>
+    <mat-autocomplete #auto01="matAutocomplete" (optionSelected)="cambiarSeccion(seccionPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsSections | async);" [value]="option.namesection"
+        [matTooltipPosition]="'right'" [matTooltip]="option.namesection | NombreSeccion">
+        {{option.namesection | NombreSeccion}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Material Control
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto02" formControlName="numMaterialControl" #contmatPr>
+    <mat-autocomplete #auto02="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsControlmaterial | async);" [value]="option.descontmat"
+        [matTooltipPosition]="'right'" [matTooltip]="option.descontmat | NombreControlmaterial">
+        {{option.descontmat | NombreControlmaterial}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Lote
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto03" formControlName="numLote" #lotPr>
+    <mat-autocomplete #auto03="matAutocomplete" (optionSelected)="lotesFun(lotPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsLots | async);" [value]="option.Numlot"
+        [matTooltipPosition]="'right'" [matTooltip]="option.Numlot | nombreLote">
+        {{option.Numlot | nombreLote}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+        Test
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto04" formControlName="idtest" #testPr>
+    <mat-autocomplete #auto04="matAutocomplete" (optionSelected)="setTest(testPr.value)">
+        <mat-option *ngFor="let test of (filteredOptionsTest | async);" [value]="test.value"
+            [matTooltipPosition]="'right'" [matTooltip]="test.value | nombreTest">
+            {{ test.value | nombreTest }} 
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+    <mat-label>
+      Test
+    </mat-label>
+    <mat-select (selectionChange)="setTest( $event.value )" formControlName="idtest">
+      <mat-option value="">
+        --
+      </mat-option>
+      <mat-option *ngFor="let test of tests" [value]="test.IdTest">
+        {{ test.Desanalytes | titlecase }} | {{ test.Desunits }} | {{ test.Desmethods | titlecase }} |
+        {{ test.Desreagents | titlecase }} | {{ test.NameAnalyzer | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field> -->
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="loadData()" [disabled]="formaBuscarDatos.invalid">
+      Buscar</button>
+  </div>
+</form>
+
+<app-tabla-comun [hidden]="!ver" [cabeceros]="displayedColumns" [info-tabla]="dataTableBody"
+  (onCreate)="openModalRegistroCA(templateRegistroCA, '')" (onChangeStatus)="actualizarCAEstado($event)"
+  (onEdit)="openModalRegistroCAEdit(templateRegistroCA, $event)" (onDelete)="eliminarCA($event.Idacceptancerequirements)">
+</app-tabla-comun>
+
+
+<ng-template #templateRegistroCA>
+
+  <form [formGroup]="formaRegistroCA" class="grid-5-toggle">
+    <mat-form-field>
+      <mat-label>Nivel</mat-label>
+      <input matInput type="number" formControlName="level">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label class="matLabelForm" for="idresultsdictionary">
+        Resultado
+      </mat-label>
+      <input type="text" matInput [matAutocomplete]="autoresultscreate" formControlName="idresultsdictionary">
+      <mat-autocomplete #autoresultscreate="matAutocomplete">
+        <mat-option *ngFor="let result of filteredOptionsreultsCreate | async" [value]="result.desresults"
+          [matTooltipPosition]="'right'" [matTooltip]="result.desresults">
+          {{ result.desresults | titlecase }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>A/R
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="ar">
+        <mat-option value="">--</mat-option>
+        <mat-option value="A">Aceptado</mat-option>
+        <mat-option value="R">Rechazado</mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Orden grafíca</mat-label>
+      <input matInput type="number" formControlName="ordergraph">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+
+</ng-template>

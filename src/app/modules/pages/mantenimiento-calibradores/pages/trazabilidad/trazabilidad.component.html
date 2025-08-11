@@ -1,0 +1,340 @@
+@if(viejo){
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <div class="card mt-3 mb-3 borderTable">
+          <div class="col-12 d-flex justify-content-center">
+            <img class="imageSobreBorde" [src]="'trazabilidad.png' | imageCdn">
+          </div>
+  
+  
+          <!-- ***Pagina de filtros -->
+          <div class="row justify-content-center mt-4">
+  
+            <div class="col-12 titulo">Trazabilidad</div>
+  
+  
+            <!-- Form filter -->
+            <div class="col-12 formFilter">
+  
+              <form [formGroup]="formaCalendarModal" autocomplete="off" (submit)="enviarFechaForm()">
+  
+                <div class="form-row">
+  
+                  <div class="col-sm-3 col-lg-3 form-group">
+                    <div role="group">
+                      <mat-label class="labelForm ">
+                        Fecha desde<span class="colorAsterisco"> *</span>
+                      </mat-label>
+                      <div class="row ">
+                        <div class="col-2 ">
+                          <img [src]="'calendar.svg' | imageCdn" style="margin-top: 23px;height: 37px;">
+                        </div>
+                        <mat-form-field class="col-10" style="padding-top: 23px;">
+                          <input matInput [matDatepicker]="picker1" class="form-control styleForm"
+                            style="background-image: none !important;font-size: 1rem" formControlName="desde">
+                          <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker1"
+                            style="color:#2edad8; width: 18px;">
+                          </mat-datepicker-toggle>
+                          <mat-datepicker #picker1 style="color:white !important"></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-3 col-lg-3 form-group">
+                    <div role="group">
+                      <mat-label class="labelForm ">
+                        Fecha hasta<span class="colorAsterisco"> *</span>
+                      </mat-label>
+                      <div class="row ">
+                        <div class="col-2 ">
+                          <img [src]="'calendar.svg' | imageCdn" style=" height: 37px;margin-top: 23px;">
+                        </div>
+                        <mat-form-field class="col-10" style="padding-top: 23px;">
+                          <input matInput [matDatepicker]="picker2" class="form-control styleForm"
+                            style="background-image: none !important;font-size: 1rem" formControlName="hasta">
+                          <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker2"
+                            style="color:#2edad8; width: 18px;">
+                          </mat-datepicker-toggle>
+                          <mat-datepicker #picker2 style="color:white !important"></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-3 col-lg-3 form-group">
+                    <div role="group">
+                      <mat-label class="labelForm ">
+                        Módulo<span class="colorAsterisco"> *</span>
+                      </mat-label>
+                      <mat-form-field class="sf-2">
+                        <mat-select #sedeselect class="form-control styleForm" formControlName="modulo"
+                          (selectionChange)="getSubmodules($event.value)">
+                          <mat-option *ngFor="let modulo of modules" [value]="modulo.Menuid">
+                            {{ modulo.Displayname }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-3 col-lg-3 form-group">
+                    <div role="group">
+                      <mat-label class="labelForm ">
+                        Submódulo
+                      </mat-label>
+                      <mat-form-field class="sf-2">
+  
+                        <mat-select #sedeselect class="form-control styleForm" formControlName="submodulo"
+                          (selectionChange)="getItems($event.value)">
+                          <mat-option *ngFor="let submodulo of submodules" [value]="submodulo.Menuid">
+                            {{ submodulo.Displayname }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-3 col-lg-3 form-group">
+                    <div role="group">
+                      <mat-label class="labelForm ">
+                        Item
+                      </mat-label>
+                      <mat-form-field class="sf-2">
+  
+                        <mat-select #sedeselect class="form-control styleForm" formControlName="item">
+                          <mat-option *ngFor="let item of itemslist" [value]="item.Displayname">
+                            {{ item.Displayname }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-3 col-lg-3 form-group">
+                    <div role="group">
+                      <mat-label class="labelForm ">
+                        Accion
+                      </mat-label>
+  
+                      <mat-form-field class="sf-2">
+                        <mat-select disableOptionCentering class="form-control styleForm" formControlName="accion"
+                          multiple>
+                          <mat-option value="">
+                            --
+                          </mat-option>
+                          <mat-option value="-1" (click)="selectAll('accion', 'formaCalendarModal')">
+                            Todas las Acciones
+                          </mat-option>
+                          <mat-option *ngFor="let accion of acciones" [value]="accion.nameaction"
+                            (click)="selectOne('accion', 'formaCalendarModal')">
+                            {{accion.nameaction}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-lg-3 form-group">
+                    <button class="boton btnAceptar">Generar</button>
+                  </div>
+  
+  
+                </div>
+  
+              </form>
+  
+            </div>
+  
+  
+            <!-- Panel Seleccion y Tablas -->
+            <div class="col-12 formFilter" [hidden]="!ver">
+              <img [src]="'descargar_Excel.png' | imageCdn" alt="Reporte cuantitativo"
+                style="height: 30px;cursor: pointer;margin-top: 1rem;margin-bottom: 1rem;margin-left: 80%;"
+                (click)="exportToExcel()">
+              <div class="form-row">
+                <div class="col-12">
+                  <div class="card mb-3 borderTable" style="border-radius: 10px !important;">
+  
+                    <div class="col-12">
+                      <table id="season-tble" mat-table [dataSource]="dataSource" class="table-responsive" matSort>
+  
+                        <ng-container matColumnDef="fecha">
+                          <th style="width: 400px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Fecha </th>
+                          <td mat-cell *matCellDef="let row"> {{row.fecha}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="hora">
+                          <th style="width: 400px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Hora </th>
+                          <td mat-cell *matCellDef="let row"> {{row.hora}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="modulo">
+                          <th style="width: 400px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Módulo </th>
+                          <td mat-cell *matCellDef="let row"> {{row.modulo}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="submodulo">
+                          <th style="width: 400px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Sub Módulo </th>
+                          <td mat-cell *matCellDef="let row"> {{row.submodulo}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="item">
+                          <th style="width: 400px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Item </th>
+                          <td mat-cell *matCellDef="let row"> {{row.item}} </td>
+                        </ng-container>
+  
+                        <ng-container matColumnDef="accion">
+                          <th style="width: 400px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Accion </th>
+                          <td mat-cell *matCellDef="let row"> {{row.metodo}} </td>
+                        </ng-container>
+  
+                        <ng-container matColumnDef="datosnuevos">
+                          <th style="width: 400px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Datos nuevos </th>
+                          <td mat-cell *matCellDef="let row"> {{row.datos}} </td>
+                        </ng-container>
+  
+                        <ng-container matColumnDef="datosanteriores">
+                          <th style="width: 400px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Datos anteriores </th>
+                          <td mat-cell *matCellDef="let row"> {{row.datosAnteriores}} </td>
+                        </ng-container>
+  
+  
+                        <ng-container matColumnDef="usuarios">
+                          <th style="width: 400px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Usuarios </th>
+                          <td mat-cell *matCellDef="let row"> {{row.usuario}} </td>
+                        </ng-container>
+  
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+                        <tr class="mat-row" *matNoDataRow>
+                          <td class="mat-cell" colspan="4">No data matching the filter</td>
+                        </tr>
+                      </table>
+                      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    </div>
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+}
+
+<!-- ***Modal Tabla & Grafica -->
+
+<h1 style="margin-top: 3em;">Trazabilidad</h1>
+
+<form [formGroup]="formaCalendarModal" class="formulario-principal">
+
+
+  <mat-form-field>
+    <mat-label>Fecha desde - hasta </mat-label>
+    <mat-date-range-input [rangePicker]="picker" [max]="maxData">
+      <input formControlName="desde" matStartDate placeholder="Fecha inicial">
+      <input formControlName="hasta" matEndDate placeholder="Fecha final">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error>Campo requerido</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label> Módulo </mat-label>
+    <mat-select #sedeselect formControlName="modulo" (selectionChange)="getSubmodules($event.value)">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterModules" placeholderLabel="Buscar módulo..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let modulo of modules" [value]="modulo.Menuid">
+        {{ modulo.Displayname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+  <mat-form-field>
+    <mat-label>Submódulo</mat-label>
+    <mat-select #sedeselect formControlName="submodulo" (selectionChange)="getItems($event.value)">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterSubModule" placeholderLabel="Buscar submódulo..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let submodulo of submodules" [value]="submodulo.Menuid">
+        {{ submodulo.Displayname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+  <mat-form-field>
+    <mat-label>Item</mat-label>
+
+    <mat-select formControlName="item">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterItem" placeholderLabel="Buscar item..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let item of itemslist" [value]="item.Displayname">
+        {{ item.Displayname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+  <mat-form-field>
+    <mat-label>Accion</mat-label>
+    <mat-select disableOptionCentering formControlName="accion" multiple>
+      <mat-option value="">
+        --
+      </mat-option>
+      <mat-option value="-1" (click)="selectAll('accion', 'formaCalendarModal')">
+        Todas las acciones
+      </mat-option>
+      <mat-option *ngFor="let accion of acciones" [value]="accion.nameaction"
+        (click)="selectOne('accion', 'formaCalendarModal')">
+        {{accion.nameaction}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="enviarFechaForm()" [disabled]="formaCalendarModal.invalid">
+      Buscar <mat-icon>search</mat-icon></button>
+  </div>
+
+</form>
+
+
+
+<div style="position: relative;">
+  @defer(when dataTableBody.length !==0 ){
+  <app-tabla-comun [cabeceros]="displayedColumns" [viewButton]="false" [info-tabla]="dataTableBody" [titulo]="">
+  </app-tabla-comun>
+  }
+
+  @if(ver){
+    <div class="btn-imprimir" (click)="exportToExcel()">
+      Descargar excel
+    </div>
+    }
+</div>
+

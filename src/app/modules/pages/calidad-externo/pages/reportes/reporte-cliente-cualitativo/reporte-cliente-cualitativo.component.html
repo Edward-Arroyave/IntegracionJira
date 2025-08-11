@@ -1,0 +1,499 @@
+<div class="boxFiltro">
+
+
+    <form [formGroup]="forma" autocomplete="off" class="formulario">
+
+        <!-- programa -->
+        <div role="group">
+            <mat-form-field >
+                <mat-label >
+                    {{'Programa'}}
+                </mat-label>
+                <mat-select disableOptionCentering formControlName="programa">
+                    <mat-option value="">
+                        {{'--'}}
+                    </mat-option>
+                    <mat-option *ngFor="let programa of programas" [value]="programa.idProgram" [matTooltipPosition]="'right'" [matTooltip]="programa.desprogram">
+                        {{ programa.desprogram }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <button type="button" class="boton" (click)="searchReport()">{{'Generar Reporte'}}</button>
+
+    </form>
+
+
+</div>
+
+<br>
+<br>
+<br>
+
+<ng-container *ngIf="mostrarReportes">
+    <div class="row">
+        <div class="col-md-6 text-left">
+            <img [src]="'eye_icon.png' | imageCdn" alt="Intrucciones Reporte" style="height: 25px; margin-left: 20px; cursor: pointer;" (click)="open(modalInstrucciones)">
+        </div>
+        <div class="col-md-6 text-right">
+            <img [src]="'pdf2.png' | imageCdn" alt="Reporte cuantitativo" style="height: 30px; margin-right: 20px; cursor: pointer;">
+        </div>
+    </div>
+    <div class="boxInfo mt-3">
+        <div class="col-md-12 text-center">
+            <h3><strong>{{'Evaluación Externa de la Calidad/Ensayo de Aptitud'}}</strong></h3>
+        </div>
+        <div class="boxIndicadoresEvaluacion">
+
+            <div class="indicadorEvaluacion">
+                <div>
+                    <div><strong>Código Identificación:</strong></div>
+                    <div><strong>Laboratorio:</strong></div>
+                    <div><strong>Fecha reporte:</strong></div>
+                </div>
+            </div>
+            <div class="indicadorEvaluacion">
+                <div>
+                    <div><strong>Ronda:</strong></div>
+                    <div><strong>Participante:</strong></div>
+                    <div><strong>N° Laboratorio:</strong></div>
+                </div>
+            </div>
+            <div class="indicadorEvaluacion">
+                <div>
+                    <div><strong>Tipo de muestra:</strong></div>
+                    <div><strong>Condiciones de la muestra:</strong></div>
+                    <div><strong class="ml-3">Si:</strong> <strong> No:</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- **Fitro de rondas NO USADO -->
+    <form [formGroup]="formaRnd" autocomplete="off" class="formulario" [hidden]="true">
+
+        <!-- ronda -->
+        <div role="group">
+            <mat-form-field class="sf-2">
+                <mat-label class="matLabelForm">
+                    Ronda <span class="colorAsterisco"> *</span>
+                </mat-label>
+                <mat-select disableOptionCentering class="form-control styleForm" formControlName="ronda" multiple>
+                    <mat-option value="" (click)="selectNone('ronda')">
+                        --
+                    </mat-option>
+                    <mat-option value="-1" (click)="selectAll('ronda')" *ngIf="rondas.length != 0">
+                        Todos los analitos
+                    </mat-option>
+                    <mat-option *ngFor="let ronda of rondas" [value]="ronda.Nroround" (click)="selectOne('ronda')">
+                        {{ ronda.Nroround }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </form>
+
+
+
+    <div class="boxAnalitos">
+        <div class="arrow-left">
+            <i class="fas fa-angle-left" (click)="scrollCards(-1)"></i>
+        </div>
+        <div #scroll class="boxAnalitosContainer">
+            <div *ngFor="let analito of analitos; let i = index">
+                <div #btnSecc id="bntSecc-{{i}}" class="styleAnalito" [ngClass]="{'backHover': analitoSeleccionado=== analito }">
+                    <h2 class="text-capitalize text-nowrap mb-0" (click)="buscarAnalitos(analito, btnSecc)">{{analito | lowercase}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="arrow-right" (click)="scrollCards(1)">
+            <i class="fas fa-angle-right"></i>
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-3 div-container">
+        <div class="row h-500p">
+            <div class="options-1" [ngClass]="itemSeleccionado === -1 ? 'col-md-4' : 'ml-3'">
+                <div class="tipoIndicador" [ngClass]="{'backHover-item': itemSeleccionado == 1}" (click)="setItem(1)">
+                    <img [src]="'btn_ensayo.png' | imageCdn" alt="Reporte cliente cualitativo">
+                    <h2 [ngClass]="{ 'none': itemSeleccionado !== -1}">{{'Ensayo de Aptitud'}}</h2>
+                </div>
+                <div class="tipoIndicador" [ngClass]="{'backHover-item': itemSeleccionado == 2}" (click)="setItem(2)">
+                    <img [src]="'btn_resultado.png' | imageCdn" alt="Reporte cliente cualitativo">
+                    <h2 [ngClass]="{ 'none': itemSeleccionado !== -1}">{{'Su Resultado'}}</h2>
+                </div>
+                <div class="tipoIndicador" [ngClass]="{'backHover-item': itemSeleccionado == 3}" (click)="setItem(3)">
+                    <img [src]="'btn_consenso.png' | imageCdn" alt="Reporte cliente cualitativo">
+                    <h2 [ngClass]="{ 'none': itemSeleccionado !== -1}">{{'Resultado Consenso'}}</h2>
+                </div>
+                <div class="tipoIndicador" [ngClass]="{'backHover-item': itemSeleccionado == 4}" (click)="setItem(4)">
+                    <img [src]="'btn_puntiacion.png' | imageCdn" alt="Reporte cliente cualitativo">
+                    <h2 [ngClass]="{ 'none': itemSeleccionado !== -1}">{{'Puntuación Score'}}</h2>
+                </div>
+            </div>
+            <div [ngClass]="itemSeleccionado === -1 ? 'contP styleRepor' : 'item-content-selected styleRepor contG'">
+                <ng-container [ngSwitch]="itemSeleccionado">
+                    <ng-container *ngSwitchCase="2" [ngTemplateOutlet]="item_2"></ng-container>
+                    <ng-container *ngSwitchCase="3" [ngTemplateOutlet]="item_3"></ng-container>
+                    <ng-container *ngSwitchCase="4" [ngTemplateOutlet]="item_4"></ng-container>
+                    <ng-container *ngSwitchCase="1" [ngTemplateOutlet]="item_1"></ng-container>
+                    <ng-container *ngSwitchDefault [ngTemplateOutlet]="item_5"></ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+
+
+
+<ng-template #item_5>
+    <div class="col-md-5 styleVer">
+        <div class="row">
+            <div class="col">
+                <i class="fas fa-angle-left styleIcon"></i>
+            </div>
+            <div class="col-md-8">
+                Da click en la opción <br> que deseas ver
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7 styleVer">
+        <img [src]="'banner.png' | imageCdn" alt="Reporte cuantitativo" style="width: 80%;">
+    </div>
+
+</ng-template>
+
+<ng-template #item_1>
+    <div class="row col-md-12 m-3">
+
+        <div class="col-12 cont-table">
+
+            <table class="table table-striped">
+                <thead class="backTh">
+                    <tr>
+                        <th class="borderTh" scope="col">No</th>
+                        <th class="borderTh" scope="col">Código Muestra</th>
+                        <th class="borderTh" scope="col">N</th>
+                        <th class="borderTh" scope="col">VP</th>
+                        <th class="borderTh" scope="col">VN</th>
+                        <th class="borderTh" scope="col">I</th>
+                        <th class="borderTh" scope="col">FN</th>
+                        <th class="borderTh" scope="col">FP</th>
+                        <th class="borderTh" scope="col">Consenso</th>
+                        <th class="borderTh" scope="col">Su Resultado</th>
+                        <th class="borderTh" scope="col">Concordancia</th>
+                        <th class="borderTh" scope="col">Desempeño</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of dataTableAptitud; let i = index">
+                        <th scope="row">{{item.nrosample}}</th>
+                        <!-- <td style="text-align: start !important;">{{item.namesample}} - {{item.nameclient}} </td> -->
+                        <td>{{item.namesample}}</td>
+                        <td>{{item.totalclientes}}</td>
+                        <td>{{item.vp}}</td>
+                        <td>{{item.vn}}</td>
+                        <td>{{item.ind}}</td>
+                        <td>{{item.fn}}</td>
+                        <td>{{item.fp}}</td>
+                        <td>{{item.c}}</td>
+                        <td>{{item.resultclient}}</td>
+                        <td>{{item.concordanciaglobal}}</td>
+                        <td>{{item.desempenoglobal}}</td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">Resultado Total Concordancia %</td>
+                        <td colspan="6">{{aveConcordancia}} %</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">Desempeño Global</td>
+                        <td colspan="6">{{resDesempGlobal}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+
+        </div>
+
+    </div>
+
+
+</ng-template>
+
+<ng-template #item_2>
+    <div class="row col-12 flex-row flex-nowrap overflow m-0">
+        <div class="col-4" *ngFor="let analito of muestras; let i = index">
+            <div class="card card-block border-0">
+
+                <div class="chart-container" style="position: relative; height:30vh; width:38vw">
+                    <canvas id="myChartBars-{{i}}" #chartBar class="canvas-h"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</ng-template>
+
+<ng-template #item_3>
+    <div class="row col-12 flex-row flex-nowrap overflow m-0">
+        <div class="col-4" *ngFor="let analito of muestras; let i = index">
+            <div class="card card-block border-0">
+                <!-- <canvas id="myChartPies-{{i}}" #mychart class="canvas-h"></canvas> -->
+                <div id="myChartPies-{{i}}"></div>
+
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #item_4>
+
+    <div class="row col-12">
+
+        <div class="col-6">
+
+            <div class="row">
+
+                <div class="col-6">
+                    <div class="card card-block border-0">
+                        <table class="table table-striped">
+                            <thead class="backTh">
+                                <tr>
+                                    <th class="borderTh" scope="col">Cód Control</th>
+                                    <th class="borderTh" scope="col">[%DEV]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dataChart; let i = index">
+                                    <th>{{item.nrosample}}</th>
+                                    <td *ngIf="item.dataP[5] == 'positivo'">0</td>
+                                    <td *ngIf="item.dataP[5] == 'negativo'">0</td>
+                                    <td *ngIf="item.dataP[5] == 'ind'">2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="card card-block border-0">
+                        <table class="table table-striped table-fs">
+                            <thead class="backTh">
+                                <tr>
+                                    <th class="borderTh" scope="col">Interpretación</th>
+                                    <th class="borderTh" scope="col">Puntuación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Verdadero Positivo</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Verdadero Negativo</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Indeterminado</th>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <th>Falso Positivo</th>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <th>Falso Negativo</th>
+                                    <td>-10</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-6">
+            <div class="card card-block border-0">
+                <!-- <div id="chartsLJ" #chartsLJ>
+                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis" [dataLabels]="chartOptions.dataLabels" [grid]="chartOptions.grid" [stroke]="chartOptions.stroke" [title]="chartOptions.title"></apx-chart>
+                </div> -->
+                <div id="chartsLJ" #chartsLJ></div>
+            </div>
+        </div>
+    </div>
+
+
+
+</ng-template>
+
+
+<!-- ***Modal con las Instrucciones -->
+<ng-template #modalInstrucciones let-modal class="animate__animated animate__fadeIn">
+    <div class="modal-header">
+        <p class="mt-2 mx-5">Estimado participante, se sugiere leer atentamente el siguiente instructivo de interpretación de resultados, antes de proceder a su análisis.</p>
+
+        <button class="btn btn-sm float-right ml-3 close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="row text-center mb-3">
+            <div class="col-12 mb-3" [hidden]="modal1Info">
+                <div class="d-inline-flex">
+                    <div class="dot text-center"><span class="number">1</span>
+                        <P class="dot-label dot-label-1">Resultados</P>
+                    </div>
+
+                    <hr class="line" />
+                    <div class="dot-border text-center"><span class="number">2</span></div>
+                    <hr class="line" />
+                    <div class="dot-border text-center">
+                        <span class="number">3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-3" [hidden]="modal2Info">
+                <div class="d-inline-flex">
+                    <div class="dot-border text-center"><span class="number">1</span>
+                    </div>
+                    <hr class="line" />
+                    <div class="dot text-center"><span class="number">2</span>
+                        <P class="dot-label dot-label-2">Gráficos de Barra</P>
+                    </div>
+                    <hr class="line" />
+                    <div class="dot-border text-center">
+                        <span class="number">3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-3" [hidden]="modal3Info">
+                <div class="d-inline-flex">
+                    <div class="dot-border text-center"><span class="number">1</span></div>
+                    <hr class="line" />
+                    <div class="dot-border text-center"><span class="number">2</span></div>
+                    <hr class="line" />
+                    <div class="dot text-center">
+                        <span class="number">3</span>
+                        <P class="dot-label dot-label-3">Gráficos de Pastel y Puntuación Score</P>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center mt-3" [hidden]="modal1Info">
+            <div class="col-12">
+                <div class="scroll-x d-inline-flex flex-sm-wrap flex-md-wrap">
+                    <strong class="siglas">VN</strong>
+                    <p class="txt-siglas mw170-m6">Verdaderos no reactivos globales</p>
+                    <div class="vline d-none d-none d-lg-block d-xl-block"></div>
+                    <strong class="siglas mw70">Código Muestra</strong>
+                    <p class="txt-siglas-1">Identificación de la muestra reportada</p>
+                    <div class="vline d-none d-none d-lg-block d-xl-block"></div>
+                    <strong class="siglas">N</strong>
+                    <p class="txt-siglas">Total laboratorios participantes</p>
+                    <div class="vline d-none d-none d-lg-block d-xl-block"></div>
+                    <strong class="siglas">VP</strong>
+                    <p class="txt-siglas">Verdaderos reactivos globales</p>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center mt-1" [hidden]="modal1Info">
+            <div class="col-12">
+                <div class="scroll-x d-inline-flex flex-sm-wrap flex-md-wrap">
+                    <strong class="siglas">No</strong>
+                    <p class="txt-siglas mw170-m6">Indica número de muestra del programa representado con código de colores</p>
+                    <div class="vline d-none d-none d-lg-block d-xl-block"></div>
+                    <strong class="siglas">FP</strong>
+                    <p class="txt-siglas">Falsos reactivos globales</p>
+                    <div class="vline d-none d-none d-lg-block d-xl-block"></div>
+                    <strong class="siglas">FN</strong>
+                    <p class="txt-siglas">Falsos no reactivos globales</p>
+                    <div class="vline d-none d-none d-lg-block d-xl-block"></div>
+                    <strong class="siglas">I</strong>
+                    <p class="txt-siglas">Indeterminados</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12" [hidden]="modal1Info">
+                <div class="d-block d-xl-inline-flex">
+                    <strong class="siglas-gen">Consenso</strong>
+                    <p class="txt-siglas-gen">Indica el acuerdo consenso de cada una de las muestras del evento, el cual se obtiene a partir de un 80&#x00025; de concordancia en los resultados obtenidos por todos los laboratorios participantes.</p>
+                </div>
+                <div class="d-block d-xl-inline-flex">
+                    <strong class="siglas-gen">Su resultado</strong>
+                    <p class="txt-siglas-gen txt-siglas-gen-1">Indica el resultado que su laboratorio reportó para cada una de las muestras del evento.</p>
+                </div>
+                <div class="d-block d-xl-inline-flex">
+                    <strong class="siglas-gen">Concordancia</strong>
+                    <p class="txt-siglas-gen">Indica el grado de acuerdo existente entre lo reportado por el laboratorio y el consenso de los laboratorios participantes para determinada muestra; sin embargo, al tratarse valores cualitativos (Reactivo o No Reactivo) sólo existen
+                        dos posibilidades, o se obtiene 100&#x00025; de concordancia, o se obtiene 0&#x00025; de concordancia.</p>
+                </div>
+                <div class="d-block d-xl-inline-flex">
+                    <strong class="siglas-gen">Desempeño</strong>
+                    <p class="txt-siglas-gen">Califica la participación del laboratorio como Satisfactorio (si se tiene 100&#x00025; de concordancia con el consenso) o Insatisfactorio (Si se tiene 0&#x00025; de concordancia con el el consenso).</p>
+                </div>
+                <div class="d-block d-xl-inline-flex">
+                    <strong class="siglas-gen">Resultado Total de Concordancia &#x00025;</strong>
+                    <p class="txt-siglas-gen">Indica en porcentaje el número de resultados que el laboratorio reportó y que concuerdan 100&#x00025; con el consenso. Desempeño Global: Califica el desempeño del laboratorio como Satisfactorio, si es que el 80&#x00025; (4 resultados
+                        correctos de un total de 5) de los resultados emitidos por el laboratorio concuerdan con los resultados del Consenso, o Insatisfactorio si el consenso frente al grupo es
+                        < 80&#x00025;.</p>
+                </div>
+                <div class="space-box-1"></div>
+            </div>
+            <div class="col-12 mt-5" [hidden]="modal2Info">
+                <div class="d-inline-flex mt-2">
+                    <p class="txt-siglas-gen"><strong class="siglas-gen siglas-gen-1">&#8226; Gráficos de Barras</strong> refleja el desempeño de todos los laboratorios participantes en cada una de las muestras del evento.</p>
+                </div>
+                <div class="d-inline-flex mt-2">
+                    <p class="txt-siglas-gen"><strong class="siglas-gen siglas-gen-1">&#8226; El eje de las ordenas (Y)</strong>representa la cantidad de laboratorios participantes en el evento.</p>
+                </div>
+                <div class="d-inline-flex mt-2">
+                    <p class="txt-siglas-gen"><strong class="siglas-gen siglas-gen-1">&#8226; El eje de las Abscisas (X)</strong>representa los posibles resultados. Se podrían llegar a observar una o más barras de acuerdo a los resultados reportados por los laboratorios participantes.
+                        El triángulo negro indica en dónde se ubica el resultado que su laboratorio reportó en una muestra determinada.</p>
+                </div>
+                <div class="space-box-2"></div>
+            </div>
+            <div class="col-12 mt-5" [hidden]="modal3Info">
+                <div class="d-block mt-2">
+                    <strong class="siglas-gen">Gráficos de Pastel</strong>
+                    <p class="txt-siglas-gen">Estos gráficos expresan en porcentaje la cantidad de resultados obtenidos de todos los participantes en este evento para cada una de las muestras, nos indica el porcentaje de VP, VN, FN, FP o I que ha obtenido una muestra determinada.</p>
+                </div>
+                <div class="d-block mt-2">
+                    <strong class="siglas-gen">Puntuación Score</strong>
+                    <p class="txt-siglas-gen">La puntuación Score, permite calificar de forma proporcional el acierto o error en el que ha incurrido el laboratorio participante, de tal manera que se puede representar este desempeño en una gráfica Levey-Jenings. Cuando se habla
+                        en términos de proporcionalidad, se hace referencia a la gravedad del error que el laboratorio ha cometido, siendo así, un Falso No Reactivo (FN) representa el mayor de los errores en el que un laboratorio puede incurrir, motivo
+                        por el cual se le da una calificación de -10, mientras que un resultado Indeterminado representa un error menor, siendo sus calificaciones respectivas de 2 y un falso positivo 6.</p>
+                </div>
+                <div class="space-box-3"></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer d-block">
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="arrow-modal float-left" (click)="getModalInfo(-1)" [hidden]="pageModal == 0">          
+                  <i class="fas fa-angle-left"></i>          
+                </button>
+            </div>
+            <div class="col-6">
+                <button type="button" class="arrow-modal float-right" (click)="getModalInfo(1)" [hidden]="pageModal == 2">           
+                 <i class="fas fa-angle-right"></i>          
+               </button>
+            </div>
+        </div>
+
+    </div>
+</ng-template>

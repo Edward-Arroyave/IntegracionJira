@@ -1,0 +1,175 @@
+<div class="page-wrapper" [ngClass]="{'toggled' : getSideBarState()}" (click)="hideModal()">
+  <app-menu></app-menu>
+  <main class="page-content">
+    <div class="header">
+      <img [src]="'logoAnnarQC.png' | imageCdn" alt="logo IT Healt" class="mt-2" width="120px">
+      <!-- <img [src]="'data:image/jpg;base64,'+foto | defaultImage" class="img-responsive img-rounded imgProfile"> -->
+
+      <div class="icons-container">
+
+        <div (click)="verModal()" style="position: relative;">
+          <mat-icon [matBadge]="mantenimientosPorSerialProg.length > 0?mantenimientosPorSerialProg.length:0"
+            matBadgeSize="small" title="Mi perfil" id="miBoton">notifications</mat-icon>
+        </div>
+
+        <div #inicioajuste style="position: relative;">
+          <mat-icon (click)="cambiarEstado()">settings</mat-icon>
+          <div #cajustes class="contenedorAjustes" [ngClass]="{'activoAjustes':!flagVerAjustes()}">
+            <a title="Editar perfil" alt="User picture" routerLink="/panel/configuracion/usuarios/listar-usuario"
+              data-toggle="modal" data-target="#exampleModal" title="Mi perfil"><span
+                class="tipoletra">Usuarios</span></a>
+            <a alt="User picture" routerLink="/panel/mantenimiento-calibradores/trazabilidad"><span
+                class="tipoletra">Trazabilidad</span></a>
+          </div>
+        </div>
+
+
+        <div (click)="logout()" class="door" [matTooltip]="'Cerrar sesión'">
+          <div class="left-door"></div>
+          <div class="rigth-door">
+            <div class="point"></div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="continer-body">
+      <app-breadcrumbs></app-breadcrumbs>
+      <div class="contenerdorHoja">
+        <div (scroll)="onPageLoad($event)" class="hoja">
+          <div class="imagenTop" [ngClass]="{'desaparece':!flagVisualizarImg}">
+            @if (imgInterfaz() !== '') {
+            <img style="width: 100%; height: 100%;" [src]="imgInterfaz()" alt="">
+            }
+          </div>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </main>
+
+</div>
+
+<!-- Modal -->
+
+
+<!-- Modal content -->
+<div id="ventana" class="modal-notification" *ngIf="mostrarModal">
+  <h1 class="titulo">Notificaciones</h1>
+  <div style="overflow-y: scroll; max-height: 200px; overflow-x: hidden; padding-right: 12px;">
+    <div class="card styleCard mb-2" *ngFor="let item of mantenimientosPorSerialProg">
+      <div class="card-body">
+        <p style="line-height:85%; font-weight: bold;">Tienes un mantenimiento próximo: </p>
+        <p style="line-height:85%; color: #6B4B8B; font-weight: bold;">{{item.datepro | date : 'dd/MM/yyyy'}}</p>
+        <hr class="linea">
+        <p style="line-height:85%; color: #3a49a5; font-weight: bold;">Asunto: {{item.maintenanceissue}}</p>
+        <p style="line-height:85%; color: #3a49a5; font-weight: bold;">Serial: {{item.serial | uppercase}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="table-responsive-sm table table-striped">
+          <form [formGroup]="formEditPerfil" autocomplete="off">
+
+            <div class="form-row">
+              <div class="col-md-12 mb-6 form-group flex">
+
+                <div class="spin" *ngIf="spin">
+                  <div class="spinner-border text-primary" role="status"></div>
+                </div>
+
+                <input type="file" id="userPicture" style="display: none;" accept=".png, .jpg, .jpeg">
+                <img src="../../../../assets/rutas/iconos/camera.svg" onclick="userPicture.click();" class="camera">
+                <img [src]="'data:image/jpg;base64,'+foto | defaultImage" class="animate__animated animate__fadeIn fast"
+                  *ngIf="!spin" width="100px" height="100px" style="border-radius: 100%;">
+
+              </div>
+
+              <div class="col-12 mb-6 form-group">
+                <div role="group">
+                  <label for="name" class="labelProfile">Nombre completo</label><span class="colorAsterisco"> *</span>
+                  <input formControlName="name" type="text" class="form-control styleForm" id="name">
+                  <small *ngIf="formEditPerfil.get('name').errors?.required"
+                    class="text-danger animated fadeIn">Campo requerido</small>
+                </div>
+              </div>
+              <div class="col-md-6 mb-6 form-group">
+                <div role="group">
+                  <label for="rolid" class="labelProfile">Cargo</label><span class="colorAsterisco"> *</span>
+                  <input type="text" class="form-control styleForm" id="rolid" [value]="nombreRol" disabled>
+                </div>
+              </div>
+              <div class="col-md-6 mb-6 form-group">
+                <div role="group">
+                  <label for="phone" class="labelProfile">Teléfono</label><span class="colorAsterisco"> *</span>
+                  <input formControlName="phone" type="number" class="form-control styleForm" id="phone">
+                  <small *ngIf="formEditPerfil.get( 'phone').errors?.required"
+                    class="text-danger animated fadeIn">Campo requerido</small>
+                </div>
+              </div>
+              <div class="col-12 mb-6 form-group">
+                <div role="group">
+                  <label for="email" class="labelProfile">Correo electrónico</label><span class="colorAsterisco"> *</span>
+                  <input formControlName="email" type="text" class="form-control styleForm" id="email">
+                  <small *ngIf="formEditPerfil.get('email').errors?.required"
+                    class="text-danger animated fadeIn">Campo requerido</small>
+                  <small *ngIf="formEditPerfil.get('email').errors?.pattern"
+                    class="text-danger animated fadeIn">Debe ser tipo de tipo email</small>
+                </div>
+              </div>
+              <div class="col-12 mb-6 form-group">
+                <div role="group">
+                  <label for="pass" class="labelProfile">Nueva clave</label>
+                  <input formControlName="pass" type="password" class="form-control styleForm" id="pass">
+                </div>
+              </div>
+
+            </div>
+
+            <div>
+              <div class="col-12 boxBtn form-group">
+                <button class="btnUpdate boton"
+                  (click)="EditarPerfilUsuario()">Actualizar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #inactividadModal>
+  <div class="contiene-modal-inactividad">
+    <h1 class="titulo-inactividad">Inactividad</h1>
+    <div class="flex-item">
+      <p>El tiempo de inactividad se ha agotado</p>
+      <p>¿Desea continuar con la sesión activa?</p>
+    </div>
+    <div>
+      <p><small>Recuerde que solo tiene 5 minutos para responder, de lo contrario su sesion se dara por
+          finalizada</small></p>
+    </div>
+    <div class="flex-btns">
+      <button class="btnPurple-03" (click)="continuarSesion()">Continuar</button>
+      <button class="btnPurple-01" (click)="cerrarSesion()">Finalizar</button>
+    </div>
+  </div>
+</ng-template>

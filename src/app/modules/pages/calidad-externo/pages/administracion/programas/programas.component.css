@@ -1,0 +1,142 @@
+.thisLabel {
+
+  margin-bottom: 6px;
+
+}
+
+::ng-deep .modal-dialog{
+  max-width: 70em !important;
+  width: 70em;
+  display: flex;
+}
+
+@media(min-width: 320px) {
+
+  .boxBtnAceptCancel {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+
+  }
+
+  .btnCancel {
+
+    margin-left: 8px;
+
+  }
+
+  .botonAgregar {
+
+    margin-right: 8px;
+
+  }
+
+  .btnCancel,
+  .btnAceptar,
+  .botonAgregar {
+
+    width: 76px;
+
+  }
+
+  .boxBtnFilter {
+
+    margin-top: 24px;
+
+  }
+
+  .boxBtnCreate {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .btnCreate {
+
+    width: 70px;
+
+  }
+
+  .boxFilter {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .filter {
+
+    width: 80%;
+    margin-left: 4px;
+
+  }
+
+}
+
+@media(min-width: 500px) {
+
+  .filter {
+
+    width: 60%;
+  }
+
+}
+
+@media(min-width: 576px) {
+
+  .boxBtnCreate {
+
+    margin: 0;
+    justify-content: flex-start;
+
+  }
+
+  .boxFilterPrograma {
+
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .boxFilter {
+
+    justify-content: flex-end;
+
+  }
+
+  .filter {
+
+    width: 80%;
+
+  }
+
+}
+
+
+@media(min-width: 1200px) {
+
+  .btnActive {
+
+    text-align: center;
+
+  }
+
+  .filter {
+
+    width: 60%;
+
+  }
+
+  .boxMoreFilters {
+
+    display: flex;
+    justify-content: center;
+
+  }
+
+}

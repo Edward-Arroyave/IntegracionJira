@@ -1,0 +1,41 @@
+    <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Asignación sedes'"
+      (onCreate)="openModalAsignacionSede(templateAsignacionSede, '')"
+      (onEdit)="openModalAsignacionSede(templateAsignacionSede, $event)" (onDelete)="eliminarAsignacionSede($event)">
+    </app-tabla-comun>
+
+<ng-template #templateAsignacionSede>
+
+    <form class="grid-2-completo" [formGroup]="formaRegistroAsignacionSede">
+        <mat-form-field >
+            <mat-label for="userid">Usuario</mat-label>
+            <mat-select disableOptionCentering formControlName="userid" >
+                <mat-option value="">--</mat-option>
+                <mat-option>
+                    <ngx-mat-select-search [formControl]="filterUser" placeholderLabel="Buscar..."
+                        noEntriesFoundLabel="No se encontró un resultado">
+                    </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let usuario of listaUsuarios" [value]="usuario.Userid"> {{ usuario.Username }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field >
+            <mat-label for="idheadquarters">Sede</mat-label>
+            <mat-select disableOptionCentering formControlName="idheadquarters" >
+                <mat-option value="">--</mat-option>
+                <mat-option>
+                    <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar..."
+                        noEntriesFoundLabel="No se encontró un resultado">
+                    </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let sede of listaSedes" [value]="sede.Idheadquarters"> {{ sede.Desheadquarters }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+    </form>
+    
+</ng-template>

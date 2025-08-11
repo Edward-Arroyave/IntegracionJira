@@ -1,0 +1,363 @@
+
+@if(vistaActual == 'principal'){
+
+
+<h1 style="margin-top: 3em;">Ingreso de datos</h1>
+
+
+<form [formGroup]="formulario" class="formulario">
+
+
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <mat-select disableOptionCentering formControlName="idProgram">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let program of programasActive" [value]="program.IdProgram" [matTooltipPosition]="'right'"
+        [matTooltip]="program.Desprogram">
+        {{ program.Desprogram | titlecase }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="filtrar()" [disabled]="formulario.invalid">
+      Buscar <mat-icon>search</mat-icon></button>
+  </div>
+
+
+</form>
+
+
+<div [hidden]="!bandera">
+
+
+  <div>
+
+    <table mat-table [dataSource]="dataSource" class="table-responsive mat-elevation-z1" matSort>
+
+      <ng-container matColumnDef="rondas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Rondas </th>
+        <td mat-cell *matCellDef="let row"> {{row.Nroround }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="muestras">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Cant. Muestras</th>
+        <td mat-cell *matCellDef="let row"> {{row.Nrosample }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="vencido">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Vencido </th>
+        <td mat-cell *matCellDef="let row">
+          <img [src]="'unlock.svg' | imageCdn" alt="Desbloqueado" class="icon unlock"
+            *ngIf="row.Enddate > fechaActual">
+          <img [src]="'lock.svg' | imageCdn"  alt="Bloqueado" class="icon "
+            *ngIf="row.Enddate < fechaActual">
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="responder">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Responder </th>
+        <td mat-cell *matCellDef="let row">
+          <div class="responder-circle">
+            <img  [src]="'responder.svg' | imageCdn"  alt="Desbloqueado"
+              (click)="openModalResponder(row)" class="icon">
+          </div>
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ver">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Detalles </th>
+        <td mat-cell *matCellDef="let row">
+          <a style="cursor: pointer; color: var(--blue-01); text-decoration: underline;"
+            (click)="openModalVisualizar(row)">Ver detalles</a>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+
+</div>
+
+
+
+
+}
+
+
+@if(vistaActual == 'resultado'){
+
+<h1 style="margin-top: 3em;">Responder</h1>
+
+<form [formGroup]="formFiltroMuestra" class="formulario">
+
+  <mat-form-field>
+    <mat-label>Muestra</mat-label>
+    <mat-select disableOptionCentering formControlName="idMuestra" (selectionChange)="buscarPorMuestra()">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterMuestra" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let muestra of muestrasActive" [value]="muestra.IdSample" [matTooltipPosition]="'right'"
+        [matTooltip]="muestra.Serialsample">
+        {{ muestra.Serialsample }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!--
+    <div>
+    <button type="button" class="btnPurple-01" (click)="buscarPorMuestra()" [disabled]="formulario.invalid">
+      Buscar <mat-icon>search</mat-icon></button>
+  </div>
+  -->
+
+</form>
+
+<div id="table_responder">
+  <div *ngIf="bandera2">
+    <table mat-table [dataSource]="dataSource2" matSort class="table-responsive mat-elevation-z1">
+
+      <ng-container matColumnDef="analito">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Analito </th>
+        <td mat-cell *matCellDef="let row"> {{row.Desanalytes}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="analizador">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Analizador </th>
+        <td mat-cell *matCellDef="let row"> {{row.NameAnalyzer}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="metodo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Método </th>
+        <td mat-cell *matCellDef="let row"> {{row.Desmethods}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="resultado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Resultado</th>
+        <td mat-cell *matCellDef="let row" style="padding: 4px;">
+          <p class="p-table">{{ row.Result }}</p>
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="problems_analytical">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Problema Analítico</th>
+        <td mat-cell *matCellDef="let row" style="padding: 4px;">
+          <p class="p-table">{{ row.DescriptionAnalyticalProblems }}</p>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="inicio">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Inicio reporte </th>
+        <td mat-cell *matCellDef="let row"> {{row.Begindate | date:'dd-MM-yyyy' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Fin reporte </th>
+        <td mat-cell *matCellDef="let row"> {{row.Enddate | date:'dd-MM-yyyy' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+         Editar </th>
+        <td mat-cell *matCellDef="let row">
+
+          <div class="editarIcon" (click)="validaResults(row, templateResult)"
+            *ngIf="editarResultados === true">
+            <mat-icon style="font-size: 21px;">edit</mat-icon>
+          </div>
+
+          <img [src]="'Responder_off.png' | imageCdn"  alt="bloqueado" class="icon"
+            *ngIf="editarResultados === false" [matTooltipPosition]="'right'"
+            matTooltip="La plataforma no se encuentra disponible" [matTooltipPosition]="'right'"
+            [matTooltipPosition]="'above'" [matTooltipPosition]="'right'" [matTooltipShowDelay]="1000"/>
+
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="problems">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+         P.A.</th>
+        <td mat-cell *matCellDef="let row">
+
+          <div class="editarIcon" (click)="validaProblemsAnalytics(row, templateProblemsAnalytics)"
+            *ngIf="editarResultados === true">
+            <mat-icon style="font-size: 21px;">file_copy</mat-icon>
+          </div>
+
+          <img [src]="'Responder_off.png' | imageCdn"  alt="bloqueado" class="icon"
+            *ngIf="editarResultados === false" [matTooltipPosition]="'right'"
+            matTooltip="La plataforma no se encuentra disponible" [matTooltipPosition]="'right'"
+            [matTooltipPosition]="'above'" [matTooltipPosition]="'right'" [matTooltipShowDelay]="1000"/>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+
+  </div>
+</div>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <button class="btnPurple-01 border-01" type="button" (click)="cerrarResponder()">Cancelar
+  </button>
+
+</div>
+
+<ng-template #templateResult>
+  <form [formGroup]="formFiltroresult" class="form_result">
+    
+    @if(isCuanti === false){
+      <mat-form-field>
+        <mat-label>Responder</mat-label>
+        <mat-select disableOptionCentering formControlName="Idresultsdictionary" (valueChange)="crearObjetoUpdate($event)">
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let resultado of listaResultados" [value]="resultado.Idresultsdictionary">
+            {{ resultado.Desresults }}
+          </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+    } @else {
+      <mat-form-field>
+        <mat-label class=" animate__animated animate__fadeIn fast">Resultado</mat-label>
+        <input type="number" matInput (input)="crearObjetoUpdate($event.target.value)">
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+    }
+
+    <!-- <div class="animate__animated animate__fadeIn fast"
+      *ngIf="isCuanti == true || isCuanti == false">
+      <div class="btnUpdate animate__animated animate__fadeIn fast"><i class="fas fa-check" title="Guardar"
+          (click)="actualizarResultado()"></i></div>
+      <div class="btnCancelUpdate animate__animated animate__fadeIn fast"><i class="fas fa-times" title="Cancelar"
+          (click)="cancelUpdate()"></i></div>
+    </div> -->
+
+  </form>
+
+</ng-template>
+
+<ng-template #templateProblemsAnalytics>
+  <form [formGroup]="formProblemsAnalytics" class="form_result">
+      <mat-form-field>
+        <mat-label>Escoja el problema analítico a registrar</mat-label>
+        <mat-select disableOptionCentering formControlName="idAnalyricalProblems" (valueChange)="crearObjProblemsAnalytics($event)">
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let analyrical of listAnalyricalProblemsCopy" [value]="analyrical.idDictionaryAnalyticalProblems">
+            {{ analyrical.descriptionAnalyticalProblems }}
+          </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  </form>
+</ng-template>
+
+}
+
+@if(vistaActual == 'detalle'){
+
+
+<h1 style="margin-top: 2em;">Detalle</h1>
+
+
+<h2 class="program-name">Programa: {{ programa2 | titlecase }}</h2>
+
+<div id="table_detalle">
+  <table mat-table [dataSource]="dataSource3" class="table-responsive mat-elevation-z1" matSort>
+
+    <ng-container matColumnDef="muestra">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Muestra </th>
+      <td mat-cell *matCellDef="let row"> {{row.Serialsample }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="analito">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Analito </th>
+      <td mat-cell *matCellDef="let row"> {{row.Desanalytes | titlecase }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="analizador">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+       Analizador </th>
+      <td mat-cell *matCellDef="let row"> {{row.NameAnalyzer | titlecase }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="metodo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Metodo </th>
+      <td mat-cell *matCellDef="let row"> {{row.Desmethods | titlecase }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="resultado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Resultado </th>
+      <td mat-cell *matCellDef="let row"> {{ row.Result }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="problems_analytical">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Problema Analítico </th>
+      <td mat-cell *matCellDef="let row"> {{ row.DescriptionAnalyticalProblems }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="inicio">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Inicio reporte </th>
+      <td mat-cell *matCellDef="let row"> {{ row.Begindate | date:'dd-MM-yyy' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fin">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Fin reporte </th>
+      <td mat-cell *matCellDef="let row"> {{row.Enddate | date:'dd-MM-yyy' }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</div>
+
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <button class="btnPurple-01 border-01" type="button" (click)="cerrarResponder()">Cancelar
+  </button>
+</div>
+}

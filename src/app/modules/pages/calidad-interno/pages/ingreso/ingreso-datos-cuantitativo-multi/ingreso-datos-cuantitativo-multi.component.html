@@ -1,0 +1,291 @@
+
+<h1 style="margin-top: 3em;">Ingreso de datos cuantitativos multi</h1>
+<form [formGroup]="formFiltro" class="grid-4">
+    <mat-form-field>
+        <mat-label>
+            Sede
+        </mat-label>
+        <mat-select #sedeselect disableOptionCentering formControlName="sede" disabled>
+            <mat-option *ngFor="let sede of sedeActual" [value]="sede.Idheadquarters" [disabled]="true">
+                {{ sede.Desheadquarters }}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>
+            Sección
+        </mat-label>
+        <input type="text" matInput [matAutocomplete]="auto01" formControlName="seccion" #seccionPr>
+        <mat-autocomplete #auto01="matAutocomplete" (optionSelected)="cambiarSeccion(seccionPr.value)">
+            <mat-option *ngFor="let option of (filteredOptionsSections | async);" [value]="option.namesection"
+                [matTooltipPosition]="'right'" [matTooltip]="option.namesection | NombreSeccion">
+                {{option.namesection | NombreSeccion}}
+            </mat-option>
+        </mat-autocomplete>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>
+            N° Material Control
+        </mat-label>
+        <input type="text" matInput [matAutocomplete]="auto02" formControlName="material" #contmatPr>
+        <mat-autocomplete #auto02="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+            <mat-option *ngFor="let option of (filteredOptionsControlmaterial | async);" [value]="option.descontmat"
+                [matTooltipPosition]="'right'" [matTooltip]="option.descontmat | NombreControlmaterial">
+                {{option.descontmat | NombreControlmaterial}}
+            </mat-option>
+        </mat-autocomplete>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>
+            Lote
+        </mat-label>
+        <input type="text" matInput [matAutocomplete]="auto03" formControlName="lote" #lotPr>
+        <mat-autocomplete #auto03="matAutocomplete" (optionSelected)="lotesPre(lotPr.value)">
+            <mat-option *ngFor="let option of (filteredOptionsLots | async);" [value]="option.Numlot"
+                [matTooltipPosition]="'right'" [matTooltip]="option.Numlot | nombreLote">
+                {{option.Numlot | nombreLote}}
+            </mat-option>
+        </mat-autocomplete>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- <div>
+        <button type="button" class="btnPurple-01" (click)="getTest()" [disabled]="formFiltro.invalid">
+            Buscar</button>
+    </div> -->
+</form>
+
+<div [hidden]="selectionTestHide" style="border: 1px solid var(--gray-02); border-radius: 5px;padding: 20px;margin-bottom: 1em;">
+    <form [formGroup]="formGroupTable" *ngIf="levels.length > 0">
+
+        <div formGroupName="levels">
+
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th >
+                            <h2>Test</h2>
+                        </th>
+                        <th>
+                            <h2>Nivel 1</h2>
+                        </th>
+                        <th>
+                            <h2>Nivel 2</h2>
+                        </th>
+                        <th>
+                            <h2>Nivel 3</h2>
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let test of tests; let i = index;">
+                    <tr>
+                        <td style="display: flex; gap: 1em; align-items: center; padding-top: 20px;">
+                            <span class="number">{{i + 1}}</span>
+                            {{ test.Desanalytes | titlecase }} | {{
+                            test.Desunits }} | {{ test.Desmethods |
+                            titlecase }} | {{ test.Desreagents |
+                            titlecase }} | {{ test.NameAnalyzer |
+                            titlecase }}
+                        </td>
+                        <td >
+                            <div style="padding: 0 10px;" formGroupName="{{'group-'+i}}">
+                                <!-- Input -->
+                                <div role="group" *ngIf="test.Level <= 3"
+                                    [hidden]="!crearsi">
+                                    <div *ngIf="itemuno.invalid && (itemuno.dirty || itemuno.touched)"
+                                        class="text-danger">
+                                        <small
+                                            *ngIf="itemuno.errors?.pattern || itemuno.errors?.max">*Error</small>
+                                    </div>
+                                    <mat-form-field  style="width: 100%;">
+                                        <input (change)="validformulario()" matInput
+                                             type="number"
+                                            formControlName="lvl1"
+                                            name="lvl1-{{test.IdTest}}" #itemuno
+                                            (input)="setTestDataLvl(test, itemuno.name, itemuno.value, i)">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td >
+                            <div style="padding: 0 10px;" formGroupName="{{'group-'+i}}">
+                                <!-- Input -->
+                                <div role="group"
+                                    *ngIf="test.Level == 3 || test.Level == 2"
+                                    [hidden]="!crearsi">
+                                    <div *ngIf="itemdos.invalid && (itemdos.dirty || itemdos.touched)"
+                                        class="text-danger">
+                                        <small
+                                            *ngIf="itemdos.errors?.pattern || itemdos.errors?.max">*Error</small>
+                                    </div>
+                                    <mat-form-field  style="width: 100%;">
+                                        <input (change)="validformulario()" matInput
+                                             type="number"
+                                            formControlName="lvl2"
+                                            name="lvl2-{{test.IdTest}}" #itemdos
+                                            (input)="setTestDataLvl(test, itemdos.name, itemdos.value, i)">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </td>
+                        <td >
+                            <div style="padding: 0 10px;" formGroupName="{{'group-'+i}}">
+                                <!-- Input -->
+                                <div role="group" *ngIf="test.Level == 3"
+                                    [hidden]="!crearsi">
+                                    <div *ngIf="itemtres.invalid && (itemtres.dirty || itemtres.touched)"
+                                        class="text-danger">
+                                        <small
+                                            *ngIf="itemtres.errors?.pattern || itemtres.errors?.max">*Error</small>
+                                    </div>
+                                    <mat-form-field  style="width: 100%;">
+                                        <input (change)="validformulario()" matInput
+                                             type="number"
+                                            formControlName="lvl3"
+                                            name="lvl3-{{test.IdTest}}" #itemtres
+                                            (input)="setTestDataLvl(test, itemtres.name, itemtres.value, i)">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </td>
+                        <td 
+                            hidden="true">
+                            <div style="padding: 0 10px;" formGroupName="{{'group-'+i}}">
+                                <!-- Input -->
+                                <div role="group" *ngIf="test.Level <= 3">
+
+                                    <mat-form-field>
+                                        <mat-select (change)="validformulario()"
+                                            disableOptionCentering
+                                            formControlName="arlvl1" #itemar1
+                                            (selectionChange)="setTestDataLvl(test, '', itemar1.value, i)">
+                                            <mat-option value="">
+                                                --
+                                            </mat-option>
+                                            <mat-option value="A">
+                                                Aceptado
+                                            </mat-option>
+                                            <mat-option value="R">
+                                                Rechazado
+                                            </mat-option>
+                                            <mat-option value="I">
+                                                Alertado
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </td>
+                        <td 
+                            hidden="true">
+                            <div style="padding: 0 10px;" formGroupName="{{'group-'+i}}">
+                                <!-- Input -->
+                                <div role="group"
+                                    *ngIf="test.Level == 3 || test.Level == 2">
+
+                                    <mat-form-field>
+                                        <mat-select (change)="validformulario()"
+                                            
+                                            formControlName="arlvl2" #itemar2
+                                            (selectionChange)="setTestDataLvl(test, '', itemar2.value, i)">
+                                            <mat-option value="">
+                                                --
+                                            </mat-option>
+                                            <mat-option value="A">
+                                                Aceptado
+                                            </mat-option>
+                                            <mat-option value="R">
+                                                Rechazado
+                                            </mat-option>
+                                            <mat-option value="I">
+                                                Alertado
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </td>
+                        <td 
+                            hidden="true">
+                            <div style="padding: 0 10px;" formGroupName="{{'group-'+i}}">
+                                <!-- Input -->
+                                <div role="group" *ngIf="test.Level == 3">
+
+                                    <mat-form-field>
+                                        <mat-select (change)="validformulario()"
+                                            disableOptionCentering
+                                            
+                                            formControlName="arlvl3" #itemar3
+                                            (selectionChange)="setTestDataLvl(test, '', itemar3.value, i)">
+                                            <mat-option value="">
+                                                --
+                                            </mat-option>
+                                            <mat-option value="A">
+                                                Aceptado
+                                            </mat-option>
+                                            <mat-option value="R">
+                                                Rechazado
+                                            </mat-option>
+                                            <mat-option value="I">
+                                                Alertado
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td style="display: flex; gap:1em; align-items: center; padding-top: 20px;">
+                            <button class="btnPurple-03" style="margin-top: 2px; min-width: 26px; width: 26px !important;height: 26px !important;border-radius: 50%;" 
+                                    id="test-{{i}}" type="button" disabled (click)="openEditarTestModal(editarTestModal, test)">
+                                    <mat-icon>more_horiz</mat-icon>
+                            </button>
+
+                            <button class="btnPurple-01" 
+                                    style="min-width: 26px; width: 26px !important;height: 26px !important;border-radius: 50%;" type="button" 
+                                    (click)="[byTest(test.IdTest, true),limpiarImgGraficas()]">
+                                <mat-icon> bar_chart</mat-icon>                                                        
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <button type="button" class="btnPurple-01" style="margin: 0 auto 0;" [disabled]="btnDisabled" (click)="crearEditarFromTable()">
+        <mat-icon>save</mat-icon>
+        Guardar 
+    </button>
+</div>
+
+<!-- ***Modals -->
+<ng-template #editarTestModal>
+    <form [formGroup]="formaMasDatos" style="display: grid; grid-template-columns: 1fr;padding-bottom: 1em;" >
+        <mat-form-field >
+            <mat-label >
+                Acción correctiva
+            </mat-label>
+            <mat-select disableOptionCentering formControlName="actions">
+                <mat-option value="">--
+                </mat-option>
+                <mat-option *ngFor="let listaAccion of listaAccionesC" [value]="listaAccion.idcorrectiveactions">
+                    {{ listaAccion.descorrectiveactions }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <textarea matInput formControlName="comments" id="comments" ></textarea>
+    </form>
+</ng-template>

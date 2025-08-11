@@ -1,0 +1,100 @@
+.multi-1 {
+    max-width: 1040px !important;
+    padding: 8px;
+}
+
+::ng-deep .bg-resultado-uno {
+    background-color: rgb(158, 198, 239);
+    padding: 4px;
+    color: white;
+    margin-bottom: 2px;
+}
+
+::ng-deep .bg-resultado-dos {
+    background-color: rgb(69, 249, 156);
+    padding: 4px;
+    color: white;
+    margin-bottom: 2px;
+}
+
+::ng-deep .bg-resultado-tres {
+    background-color: rgb(159, 140, 223);
+    padding: 4px;
+    color: white;
+}
+
+
+/******************** MEDIA BREAKING POINTS *************************/
+
+
+/*=============================================
+PORTATIL 1366
+=============================================*/
+
+
+/* @media (max-width:1499px) and (min-width:1200px) {
+    .multi-1 {
+        max-width: 680px !important;
+        overflow-x: scroll !important;
+    }
+} */
+
+
+/*=============================================
+TABLET HORIZONTAL (LG revisamos en 1024px)
+=============================================*/
+
+@media (max-width:1199px) and (min-width:992px) {
+    .multi-1 {
+        max-width: 610px !important;
+        overflow-x: scroll !important;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+TABLET VERTICAL (MD revisamos en 768px)
+=============================================*/
+
+@media (max-width:991px) and (min-width:768px) {
+    .multi-1 {
+        max-width: 590px !important;
+        overflow-x: scroll !important;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MÓVIL HORIZONTAL (SM revisamos en 576px)
+=============================================*/
+
+@media (max-width:767px) and (min-width:576px) {
+    .multi-1 {
+        max-width: 470px !important;
+        overflow-x: scroll !important;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MOVIL VERTICAL (revisamos en 320px)
+=============================================*/
+
+@media screen and (max-width:575px) {
+    .multi-1 {
+        max-width: 390px !important;
+        overflow-x: scroll !important;
+    }
+}
+
+
+/******************** MEDIA MEDIA BREAKING POINTS  END *************************/

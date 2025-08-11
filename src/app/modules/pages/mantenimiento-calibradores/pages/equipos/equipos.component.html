@@ -1,0 +1,393 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <div class="card mt-3 mb-3 borderTable">
+        <div class="col-12 d-flex justify-content-center">
+          <img class="imageSobreBorde" [src]="'equipo.png' | imageCdn">
+        </div>
+        <div class="row justify-content-center mt-4">
+
+          <div class="col-12 titulo"> Equipos</div>
+          <div class="col-11 col-lg-10 col-xl-10">
+
+            <div class="row boxBtnFilter">
+
+
+              <div class="col-12 col-sm-3 boxBtnCreate form-group">
+
+                <div class="row text-center mb-3">
+                  <div class="col-12 mb-3">
+                    <div class="d-inline-flex">
+                      <div class="dot text-center" (click)="openModalRegistroEquipo(templateRegistroEquipo, '')"><span
+                          class="number" alt="Crear" title="Crear"> <i class="fas fa-plus"></i></span></div>
+                      <hr class="line" />
+                      <div class="dot text-center">
+                        <img id="btnEdit" class="noactive" [src]="'icon_editar.svg' | imageCdn"
+                          (click)="openModalRegistroEquipo(templateRegistroEquipo, equipo)" alt="Editar" title="Editar">
+                      </div>
+                      <hr class="line" />
+                      <div class="dot text-center">
+                        <img id="btnDelete" class="noactive" [src]="'icon_eliminar.svg' | imageCdn"
+                          (click)="openModalEliminarEquipos(templateEliminarEquipo,equipo)" alt="Eliminar"
+                          title="Eliminar">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col"></div>
+
+
+              <div class="col-12 col-sm-4 boxFilter">
+                <i class="fa fa-search"></i>
+                <mat-form-field class="filter">
+                  <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input (click)="touchedSearch()">
+                </mat-form-field>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-11 col-lg-8 col-xl-7">
+
+          </div>
+        </div>
+        <div class="row justify-content-center mt-3">
+          <div class="col-10">
+            <hr>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-3" *ngIf="dataSource">
+          <div class="col-10 overflow-auto" style=" height: 27rem;" *ngIf="mostrarTabla">
+            <div class="row row-cols-2 row-cols-md-3 g-2">
+              <div class="col" *ngFor="let item of dataSource.filteredData; let i = index">
+                <div class="card border-0" style="cursor: pointer;" (click)="selectedArea(item, itemEquipo)">
+                  <div class="card-body p-0">
+                    <div #itemEquipo id="ind-{{i}}" class="indicador mb-2 row">
+                      <div class="col-2  center" style="margin-left: 3%;">
+
+                        <img class="mr-2" [src]="'icono_area.svg' | imageCdn" alt="Item Area">
+                      </div>
+                      <div class="d-block col-6" style="height: 12em;">
+                        <p class="text-nowrap text-item" style="margin-top: 3%;">{{item.Serial | titlecase}}</p>
+                        <label class="col-12 informacion-equipo">{{item.Namedevice | titlecase}}</label>
+                        <label class="col-12 informacion-equipo">{{item.Mark | titlecase}}</label>
+                        <label class="col-12 informacion-equipo">{{item.Model | titlecase}}</label>
+                      </div>
+                      <div role="group" class="d-inline-flex col-3 center">
+                        <div class="row">
+                          <label for="active" class="m-0 mr-2 col-12">Estado</label>
+                          <mat-slide-toggle class="col-12" [checked]="item.Active"
+                            (change)="actualizarEstadoEquipo(item)"></mat-slide-toggle>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ***Modals -->
+<ng-template #templateRegistroEquipo>
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeVentana()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body" style="overflow-y: none; height: auto;">
+    <div class="row">
+      <div class="col flex2">
+        <img *ngIf="accionEditar" class="img" [src]="'edit.png' | imageCdn">
+        <img *ngIf="!accionEditar" class="img" [src]="'crear2.png' | imageCdn">
+        <h3 class="tituloModal">{{tituloAccion}}</h3>
+        <div class="hr"></div>
+
+      </div>
+    </div>
+    <form [formGroup]="formaRegistroEquipo" (ngSubmit)="crearEditarEquipo()">
+
+
+      <div class="form-row">
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 mb-2">
+          <div class=" borderTable px-xl-2 row pb-4">
+
+            <div class="col-sm-4 col-lg-4 form-group">
+              <div role="group">
+                <label class="labelForm" for="namedevice">Equipo<span class="colorAsterisco"> *</span></label>
+                <input formControlName="namedevice" type="text" class="form-control"
+                  [ngClass]="!accionEditar ? 'styleForm' : 'styleForm2'" autocomplete="off">
+                <small *ngIf="namedeviceValido.errors?.required  && namedeviceValido.touched"
+                  class="text-danger animated fadeIn">Campo requerido</small>
+                <small *ngIf="namedeviceValido.errors?.min" class="text-danger animated fadeIn">Mínimo 0</small>
+
+              </div>
+            </div>
+            <div class="col-sm-4 form-group">
+              <div role="group">
+                <label class="labelForm" for="mark">Marca<span class="colorAsterisco"> *</span></label>
+                <input formControlName="mark" type="text" class="form-control"
+                  [ngClass]="!accionEditar ? 'styleForm' : 'styleForm2'" autocomplete="off">
+                <small *ngIf="markValido.errors?.required  && markValido.touched"
+                  class="text-danger animated fadeIn">Campo requerido</small>
+                <small *ngIf="markValido.errors?.min" class="text-danger animated fadeIn">Mínimo 0</small>
+
+              </div>
+            </div>
+            <div class="col-sm-4 form-group">
+              <div role="group">
+                <label class="labelForm" for="model">Modelo<span class="colorAsterisco"> *</span></label>
+                <input formControlName="model" type="text" class="form-control"
+                  [ngClass]="!accionEditar ? 'styleForm' : 'styleForm2'" autocomplete="off">
+                <small *ngIf="modelValido.errors?.required  && modelValido.touched"
+                  class="text-danger animated fadeIn">Campo requerido</small>
+                <small *ngIf="modelValido.errors?.min" class="text-danger animated fadeIn">Mínimo 0</small>
+
+              </div>
+            </div>
+
+
+            <div class="col-sm-4 form-group">
+              <div role="group">
+                <label class="labelForm" for="serial">Serial<span class="colorAsterisco"> *</span></label>
+                <input formControlName="serial" [disabled]="accionEditar" type="text" class="form-control"
+                  [ngClass]="!accionEditar ? 'styleForm' : 'styleForm2'" autocomplete="off">
+                <small *ngIf="serialValido.errors?.required  && serialValido.touched"
+                  class="text-danger animated fadeIn">Campo requerido</small>
+                <small *ngIf="serialValido.errors?.min" class="text-danger animated fadeIn">Mínimo 0</small>
+                <small *ngIf="formaRegistroEquipo.hasError('whitespace')"
+                  class="text-danger animated fadeIn">Serial sin espacios</small>
+
+              </div>
+            </div>
+            <div class="col-sm-4 form-group">
+              <div role="group">
+                <label class="labelForm" for="riskclassification">Clasificación del Riesgo <span class="colorAsterisco">
+                    *</span></label>
+                <input formControlName="riskclassification" type="text" class="form-control"
+                  [ngClass]="!accionEditar ? 'styleForm' : 'styleForm2'" autocomplete="off">
+                <small *ngIf="riskclassificationValido.errors?.required  && riskclassificationValido.touched"
+                  class="text-danger animated fadeIn">Campo requerido</small>
+                <small *ngIf="riskclassificationValido.errors?.min"
+                  class="text-danger animated fadeIn">Mínimo 0</small>
+
+              </div>
+            </div>
+
+            <div class="col-sm-3 form-group btnActive">
+              <div role="group">
+                <label class="labelForm" for="active">Estado</label><br>
+                <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+
+                <small *ngIf="activeValido.errors?.required  && activeValido.touched"
+                  class="text-danger animated fadeIn">Campo requerido</small>
+                <small *ngIf="activeValido.errors?.min" class="text-danger animated fadeIn">Mínimo 0</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div *ngIf="accionEditar" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 mb-2 ">
+          <div class=" borderTable px-xl-2 row pb-4">
+
+            <div class="col-sm-4 form-group">
+              <div role="group hiddenFileInput">
+
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+
+                  <input class="file-ficha " type="file" accept=".pdf"
+                    (change)="handleFileSelect($event , 'datasheet')">
+                  <i> <img [src]="'ficha-tecnica.svg' | imageCdn"><span class="span-file">Ficha Técnica</span></i>
+                  <i style="margin-left: 2%;"><img [src]="'subir-archivo.svg' | imageCdn"></i>
+                  <i style="margin-left: 2%;cursor: pointer;" (click)="descargarPdf(1,'Ficha Técnica')"><img
+                      [src]="'descargar.svg' | imageCdn"></i>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-sm-4 form-group">
+              <div role="group">
+
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+
+                  <input class="file-guia " type="file" accept=".pdf" (change)="handleFileSelect($event , 'fastguide')">
+                  <i> <img [src]="'guia-rapida.svg' | imageCdn"><span class="span-file">Guía Rápida</span> </i>
+                  <i style="margin-left: 2%;"><img [src]="'subir-archivo.svg' | imageCdn"></i>
+                  <i style="margin-left: 2%;cursor: pointer;" (click)="descargarPdf(2,'Guía Rápida')"><img
+                      [src]="'descargar.svg' | imageCdn"></i>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-sm-4 form-group">
+              <div role="group">
+
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+
+                  <input class="file-manual " type="file" accept=".pdf"
+                    (change)="handleFileSelect($event , 'handbook')">
+
+                  <i><img [src]="'manual.svg' | imageCdn"> <span class="span-file">Manual</span> </i>
+                  <i style="margin-left: 2%;"><img [src]="'subir-archivo.svg' | imageCdn"></i>
+                  <i style="margin-left: 2%;cursor: pointer;" (click)="descargarPdf(3,'Manual')"><img
+                      [src]="'descargar.svg' | imageCdn"></i>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 form-group">
+              <div role="group">
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+
+                  <input class="file-invita" type="file" accept=".pdf" (change)="handleFileSelect($event , 'invima')">
+
+                  <i><img [src]="'invima.svg' | imageCdn"> <span class="span-file">INVIMA</span> </i>
+                  <i style="margin-left: 2%;"><img [src]="'subir-archivo.svg' | imageCdn"></i>
+                  <i style="margin-left: 2%;cursor: pointer;" (click)="descargarPdf(4,'INVIMA')"><img
+                      [src]="'descargar.svg' | imageCdn"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3 form-group">
+              <div role="group">
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+                  <input class="file-procolo " type="file" accept=".pdf"
+                    (change)="handleFileSelect($event , 'protocol')">
+                  <i><img [src]="'protocolo.svg' | imageCdn"> <span class="span-file">Protocolo</span> </i>
+                  <i style="margin-left: 2%;"><img [src]="'subir-archivo.svg' | imageCdn"></i>
+                  <i style="margin-left: 2%;cursor: pointer;" (click)="descargarPdf(5,'Protocolo')"><img
+                      [src]="'descargar.svg' | imageCdn"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!accionEditar" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 mb-2 ">
+          <div class=" borderTable px-xl-2 row pb-4">
+
+            <div class="col-sm-4 form-group">
+              <div role="group hiddenFileInput">
+
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+
+                  <input class="file-equipo " type="file" accept=".pdf"
+                    (change)="handleFileSelect($event , 'datasheet')">
+                  <i><img [src]="'ficha-tecnica.svg' | imageCdn"><span class="span-file">Adjuntar Ficha
+                      Técnica</span></i>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-sm-4 form-group">
+              <div role="group">
+
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+
+                  <input class="file-equipo " type="file" accept=".pdf"
+                    (change)="handleFileSelect($event , 'fastguide')">
+
+                  <i><img [src]="'guia-rapida.svg' | imageCdn"><span class="span-file">Adjuntar Guía Rápida</span> </i>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-sm-4 form-group">
+              <div role="group">
+
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+
+                  <input class="file-equipo " type="file" accept=".pdf"
+                    (change)="handleFileSelect($event , 'handbook')">
+
+                  <i><img [src]="'manual.svg' | imageCdn"><span class="span-file">Adjuntar Manual</span> </i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 form-group">
+              <div role="group">
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+                  <input class="file-equipo " type="file" accept=".pdf" (change)="handleFileSelect($event , 'invima')">
+                  <i><img [src]="'invima.svg' | imageCdn"><span class="span-file">Adjuntar INVIMA</span> </i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4 form-group">
+              <div role="group">
+
+                <div style="margin-top: 20px;" class="file-form espacio-form">
+
+                  <input class="file-equipo " type="file" accept=".pdf"
+                    (change)="handleFileSelect($event , 'protocol')">
+
+                  <i> <img [src]="'protocolo.svg' | imageCdn"><span class="span-file">Adjuntar Protocolo</span> </i>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="form-row">
+        <div class="col-12 boxBtnAceptCancel">
+          <button class="boton btnAceptar" type="submit">Aceptar</button>
+          <button class="botonCancelar btnCancel" type="button" (click)="closeVentana()">Cancelar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- **Modal Eliminar -->
+<ng-template #templateEliminarEquipo>
+  <div class="modal-header">
+    <button type="button" class="close pull-right" arial-label="Close" (click)="closeVentana()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col flex2">
+        <img class="img" [src]="'delete.png' | imageCdn">
+
+        <h3 class="tituloModal">{{tituloAccion}}</h3>
+        <div class="hr"></div>
+        <p>Se elimina Área de manera permanente</p>
+
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 boxBtnAceptCancel">
+        <!-- <button class="boton btnAceptar" type="button" (click)="eliminarArea(equipo.iddevices)">Si</button> -->
+        <button class="botonCancelar btnCancel" type="button" (click)="closeVentana()">No</button>
+      </div>
+    </div>
+
+  </div>
+</ng-template>

@@ -1,0 +1,181 @@
+
+
+.boton {
+
+    border-radius: 25px;
+    height       : 30px;
+    color        : #fff;
+    background   : var(--purple-01);
+    border       : var(--purple-01);
+  
+  }
+  
+  @media(min-width: 320px){
+  
+    .boxBtnSearch{
+  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 16px;
+  
+    }
+  
+    .boxBtnCreate{
+  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        margin-bottom: 40px;
+        margin-top: 16px;
+  
+    }
+  
+    .boxFilter{
+  
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  
+    }
+  
+    .boxFilter .filter{
+  
+        width: 80%;
+        margin-left: 8px;
+  
+    }
+  
+    .btnSearch, .btnCreate{
+  
+        width: 30%;
+  
+    }
+  
+  }
+  
+  @media(min-width: 375px){
+  
+      .btnSearch, .btnCreate{
+  
+          width: 24%;
+    
+      }
+  
+  }
+  
+  @media(min-width: 425px){
+  
+    .boxFilter .filter{
+  
+        width: 60%;
+  
+    }
+  
+    .btnSearch, .btnCreate{
+  
+        width: 22%;
+  
+    }
+  
+  }
+  
+  @media(min-width: 500px){
+  
+      .btnSearch, .btnCreate{
+  
+          width: 18%;
+    
+      }
+  
+  }
+  
+  @media(min-width: 576px){
+  
+    .boxBtnSearch .btnSearch{
+  
+        width: 70%;
+  
+    }
+  
+    .boxBtnCreate{
+  
+        margin: 0px;
+        justify-content: flex-start;
+  
+    }
+  
+    .boxBtnCreate .btnCreate{
+  
+        width: 40%;
+  
+    }
+  
+    .boxFilter{
+  
+      justify-content: flex-end;
+  
+    }
+  
+    .boxFilter .filter{
+  
+        width: 80%;
+  
+    }
+  
+    .boxBtnCreateFilter{
+  
+        margin-top: 40px;
+  
+    }
+  
+  }
+  
+  @media(min-width: 768px){
+  
+      .boxBtnCreate .btnCreate{
+  
+          width: 34%;
+    
+      }
+  
+  }
+  
+  @media(min-width: 992px){
+  
+    .boxBtnSearch .btnSearch{
+  
+        width: 46%;
+  
+    }
+  
+    .boxBtnCreate .btnCreate{
+  
+        width: 28%;
+  
+    }
+  
+    .boxFilter .filter{
+  
+        width: 60%;
+  
+    }
+  
+  }
+  
+  @media(min-width: 1300px){
+  
+    .boxBtnSearch .btnSearch{
+  
+        width: 38%;
+  
+    }
+  
+    .boxBtnCreate .btnCreate{
+  
+        width: 24%;
+  
+    }
+  
+  }

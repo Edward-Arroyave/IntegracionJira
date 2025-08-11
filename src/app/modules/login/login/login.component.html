@@ -1,0 +1,155 @@
+<div id="fondo">
+
+  <div class="login_container">
+
+
+
+    <div class="cont-form">
+
+
+      <form id="fondoFormulario" [formGroup]="login" autocomplete="off">
+
+        <h1 class="title">¡Bienvenido a!</h1>
+
+        <div class="contImg">
+          <img src="../../assets/rutas/iconos/logoQC.png" class="logo" alt="Annar QC">
+        </div>
+
+        <div class="form_inputs">
+
+
+          <div role="group">
+
+            <div class="container_input">
+              <img src="../../assets/rutas/iconos/user.png" class="icon_iput" alt="Usuario">
+              <div>
+                <mat-form-field>
+                  <mat-label>Usuario</mat-label>
+                  <input matInput formControlName="username">
+                </mat-form-field>
+                @if(login.get('username').errors?.required  && login.get('username').touched){
+                  <mat-error  class="text-danger animated fadeIn">Campo requerido</mat-error>
+                }
+                @if(caducado){
+                  <mat-error> ¡Error! Usuario caducado </mat-error>
+                }
+                @if(inactivo){
+                  <mat-error> ¡Error! Usuario inactivo</mat-error>
+                }
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <div role="group">
+            <div class="container_input">
+              <img src="../../assets/rutas/iconos/lock.png" class="icon_iput" alt="contraseña">
+              <div>
+                <mat-form-field>
+                  <mat-label>Contraseña</mat-label>
+                  <input matInput formControlName="pass" autocomplete="off" [type]="hide ? 'password' : 'text'" id="pass">
+                  <div mat-icon-button matSuffix (click)="hide = !hide"
+                    [attr.aria-label]="hide ? 'Hide password' : 'Show password'" [attr.aria-pressed]="hide">
+                    <mat-icon class="icon_eye">{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+                  </div>
+                </mat-form-field>
+                @if (login.get('pass').errors?.required && login.get('pass').touched) {
+                <mat-error class="text-danger animated fadeIn">Campo requerido</mat-error>
+                }
+                @if(usuarioNoExiste){
+                  <mat-error  class="text-danger animated fadeIn">El usuario o la clave son incorrectos</mat-error>
+                }
+              </div>
+            </div>
+          </div>
+
+
+          <div role="group">
+
+            <div class="container_input">
+              <img src="../../assets/rutas/iconos/sede.png" class="icon_iput" alt="sede">
+              <mat-form-field>
+                <mat-label>
+                  Sede
+                </mat-label>
+                <mat-select formControlName="sede" required>
+                  <mat-option value="">--</mat-option>
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="filterHeadquarters" placeholderLabel="Buscar..."
+                      noEntriesFoundLabel="No se encontró un resultado">
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let sede of listaSedes" [value]="sede.idheadquarters"
+                    [matTooltip]="sede.desheadquarters" [matTooltipPosition]="'right'">
+                    {{ sede.desheadquarters }}
+                  </mat-option>
+                </mat-select>
+                @if (login.get('sede').errors?.required && login.get('sede').touched){
+                <mat-error class="text-danger animated fadeIn">Campo requerido</mat-error>
+                }
+                @if (noSede){
+                <mat-error>¡Error! Usuario no tiene asociada la sede</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="field_options">
+          <div class="recordar">
+            <input type="checkbox" formControlName="remember">
+            <span>Recordar datos</span>
+          </div>
+
+          <a class="recuperacionContrasena" routerLink="olvido-contrasena">
+            Olvidé mi contraseña
+          </a>
+        </div>
+
+        @if(recaptcha){
+          <div class="content_recaptcha">
+            <div class="transform scale-90">
+              <!--clave rpcatcha prod: 6LcAgQAqAAAAABSJLkMl8-O0mHdJU07dnase2sBA--> 
+              <!--clave desarrollo | test | demo | localhost: 6Ldr4fspAAAAAKiSoCCJdoVy644BGd3eNju9qnEO-->
+              <re-captcha (resolved)="resolved($event)"
+                siteKey="6Ldr4fspAAAAAKiSoCCJdoVy644BGd3eNju9qnEO"></re-captcha>
+              <div class="contAlerta animate__animated animate__fadeIn fast" *ngIf="this.login.get('recaptcha').invalid && this.login.get('recaptcha').touched">
+                <div class="alerta">
+                  <img src="../../../../assets/imagenes/info.png" alt="info" />
+                  <p>Verifique que no es un robot</p>
+                </div>
+            </div>
+          </div>
+        </div>
+        }
+
+        <div class="btnLogin">
+          <button (click)="ingresar()" type="submit" class="btn btnPurple-03">
+            Acceder
+          </button>
+
+        </div>
+        <div class="version">
+         V {{config[0].version}}
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+<!--
+    @if(isVisible){
+    <div class="container-Informative">
+      <div class="overlayI">
+        <img class="imgInformative" src="assets/rutas/informativo.png" alt="Informativo">
+        <button (click)="closeInformative()" class="btnCerrarI">Aceptar</button>
+      </div>
+    </div>
+  }
+-->
+
+</div>

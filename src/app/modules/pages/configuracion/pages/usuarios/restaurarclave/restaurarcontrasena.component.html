@@ -1,0 +1,171 @@
+<div id="fondo">
+
+
+  <div class="login_container">
+
+    <div class="cont-form">
+
+      <form id="fondoFormulario" [formGroup]="recuperarContrasena">
+        <div class="contImg">
+          <img src="../../assets/rutas/iconos/logoQC.png" class="logo" alt="Annar QC">
+        </div>
+        <div class="titles_box">
+          <h1 class="title">{{'MODULES.RESTA_CONTRA.TITULO' | translate}} </h1>
+          <p class="subtitle">{{'MODULES.RESTA_CONTRA.SUBTITULO' | translate}} </p>
+
+        </div>
+
+
+        <div class="container_input">
+          <img src="../../assets/rutas/iconos/lock.png" class="icon_iput" alt="Usuario">
+            <div style="width: 100%;">
+              <mat-form-field>
+                <mat-label>{{'MODULES.RESTA_CONTRA.INGRE_CONTRA' | translate}}</mat-label>
+                <input matInput formControlName="passActual" [type]="hide1 ? 'password' : 'text'" id="pass">
+                <div mat-icon-button matSuffix (click)="hide1 = !hide1"
+                  [attr.aria-label]="hide1 ? 'Hide password' : 'Show password'" [attr.aria-pressed]="hide1">
+                  <mat-icon class="icon_eye">{{ hide1 ? 'visibility' : 'visibility_off' }}</mat-icon>
+                </div>
+              </mat-form-field>
+              <mat-error *ngIf="recuperarContrasena.get('passActual').errors?.required  && recuperarContrasena.get('passActual').touched"
+              class="text-danger animated fadeIn">{{'MODULES.CAMPOS.CAMPOREQUIRED'| translate}}</mat-error>
+            </div>
+        </div>
+
+
+        <div class="container_input">
+          <img src="../../assets/rutas/iconos/lock.png" class="icon_iput" alt="Usuario">
+            <div style="width: 100%;">
+              <mat-form-field>
+                <mat-label>{{ 'MODULES.RESTA_CONTRA.NUEVA_CONTRA'| translate }}</mat-label>
+                <input matInput formControlName="pass" [type]="hide ? 'password' : 'text'" id="pass">
+                <div mat-icon-button matSuffix (click)="hide = !hide"
+                  [attr.aria-label]="hide ? 'Hide password' : 'Show password'" [attr.aria-pressed]="hide">
+                  <mat-icon class="icon_eye">{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+                </div>
+              </mat-form-field>
+              <mat-error *ngIf="recuperarContrasena.get('pass').errors?.required  && recuperarContrasena.get('pass').touched"
+              class="text-danger animated fadeIn">{{'MODULES.CAMPOS.CAMPOREQUIRED'| translate}}</mat-error>
+            </div>
+        </div>
+
+        <div class="container_input">
+          <img src="../../assets/rutas/iconos/lock.png" class="icon_iput" alt="Usuario">
+            <div style="width: 100%;">
+              <mat-form-field>
+                <mat-label>{{ 'MODULES.RESTA_CONTRA.CONFI_CONTRA'| translate }}</mat-label>
+                <input matInput formControlName="ConfirmPass" [type]="hide2 ? 'password' : 'text'" id="pass">
+                <div mat-icon-button matSuffix (click)="hide2 = !hide2"
+                  [attr.aria-label]="hide2 ? 'Hide password' : 'Show password'" [attr.aria-pressed]="hide2">
+                  <mat-icon class="icon_eye">{{ hide2 ? 'visibility' : 'visibility_off' }}</mat-icon>
+                </div>
+              </mat-form-field>
+              <mat-error *ngIf="recuperarContrasena.get('ConfirmPass').errors?.required  && recuperarContrasena.get('ConfirmPass').touched"
+              class="text-danger animated fadeIn">{{'MODULES.CAMPOS.CAMPOREQUIRED'| translate}}</mat-error>
+              <mat-error *ngIf="checarSiSonIguales()"  class="text-danger animated fadeIn">{{'MODULES.RESTA_CONTRA.CLAVES_IGUALES' | translate}}</mat-error>
+            </div>
+        </div>
+
+
+        <div class="butons_option">
+          <button [routerLink]="['/login/login']" type="button"  class="btn purple btnPurple-03">
+            {{'MODULES.OLVIDOCLAVE.FORMULARIO.CANCELAR' | translate}}
+          </button>
+          <button id="enviar" (click)="restaurarContrasena()" type="submit"  class="btn btnPurple-03">
+            {{'MODULES.RESTA_CONTRA.BOTON' | translate}}
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--  <div class="col-md-7 col-xl-5 mt-ur padding">
+    <div class="row d-flex justify-content-center align-items-center margenes">
+
+      <form id="fondoFormulario" [formGroup]="recuperarContrasena" class="col-7 mr-3"
+        (ngSubmit)="restaurarContrasena()">
+        <div class="row form-group flex4">
+          <img src="../../assets/imagenes/logoAnnarQC_blanco.png" class="imagen">
+          <p>&nbsp;<br><br></p>
+        </div>
+        <div class="col-md-12 text-center mt-4">
+          <h1 class="mb-4">{{'MODULES.RESTA_CONTRA.TITULO' | translate}}</h1>
+        </div>
+        <div class="mt-5">
+          <div role="group">
+            <label>{{'MODULES.RESTA_CONTRA.INGRE_CONTRA' | translate}}</label>
+            <input formControlName="passActual" class="form-control resContra" type="password">
+            <div class="contAlerta animate__animated animate__fadeIn fast"
+              *ngIf="recuperarContrasena.get('passActual').errors?.required  && recuperarContrasena.get('passActual').touched">
+              <div class="alerta">
+                <img src="../../../../assets/imagenes/info.png" alt="info" class="icono" />
+                <p>{{'MODULES.CAMPOS.CAMPOREQUIRED' | translate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <label>{{'MODULES.RESTA_CONTRA.NUEVA_CONTRA' | translate}}</label>
+          <input formControlName="pass" class="form-control resContra" type="password">
+          <div class="contAlerta animate__animated animate__fadeIn fast"
+            *ngIf="recuperarContrasena.get('pass').errors?.required  && recuperarContrasena.get('pass').touched">
+            <div class="alerta">
+              <img src="../../../../assets/imagenes/info.png" alt="info" class="icono" />
+              <p>{{'MODULES.CAMPOS.CAMPOREQUIRED' | translate}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3">
+          <label>{{'MODULES.RESTA_CONTRA.CONFI_CONTRA' | translate}}</label>
+          <input formControlName="ConfirmPass" class="form-control resContra" type="password">
+
+          <div class="contAlerta animate__animated animate__fadeIn fast"
+              *ngIf="recuperarContrasena.get('ConfirmPass').errors?.required  && recuperarContrasena.get('ConfirmPass').touched">
+              <div class="alerta">
+                <img src="../../../../assets/imagenes/info.png" alt="info" class="icono" />
+                <p>{{'MODULES.CAMPOS.CAMPOREQUIRED' | translate}}</p>
+              </div>
+
+            </div>
+
+
+          <div class="contAlerta animate__animated animate__fadeIn fast"
+          *ngIf="checarSiSonIguales()">
+          <div class="alerta">
+            <img src="../../../../assets/imagenes/info.png" alt="info" class="icono" />
+            <p>Las contraseñas no coinciden</p>
+          </div>
+
+        </div>
+
+
+        </div>
+        <div class="col-mb-12 form-group text-center mt-5">
+          <button id="cancelar" type="submit" class="btn">
+            {{'MODULES.RESTA_CONTRA.BOTON' | translate}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div> -->
+</div>

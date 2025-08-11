@@ -1,0 +1,308 @@
+<h1 style="margin-top: 3em;">Indicadores de competencia técnica o ICT</h1>
+
+<form [formGroup]="formulario" class="formulario-principal">
+
+
+  <mat-form-field>
+    <mat-label>Fecha desde - hasta </mat-label>
+    <mat-date-range-input [rangePicker]="picker" [max]="maxData">
+      <input formControlName="desde" matStartDate placeholder="Fecha inicial">
+      <input formControlName="hasta" matEndDate placeholder="Fecha final">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error>Campo requerido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      ITC Externo calculado por
+    </mat-label>
+    <mat-select disableOptionCentering formControlName="ict">
+      <mat-option value="">
+        --
+      </mat-option>
+      <mat-option value="zscore">
+        Z-score
+      </mat-option>
+      <mat-option value="valor asignado">
+        Valor asignado
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <mat-select disableOptionCentering formControlName="cliente" (valueChange)="limpiarFormBuscarDatos()">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterCliente" placeholderLabel="Buscar cliente..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.idclient" [matTooltipPosition]="'right'"
+        [matTooltip]="cliente.name" (click)="selectFilter(1,cliente)">
+        {{ cliente.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Sede</mat-label>
+    <mat-select disableOptionCentering formControlName="sede">
+      <mat-option value="">--
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterSedes" placeholderLabel="Buscar sedes..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let sede of sedesActive" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+        [matTooltip]=" sede.desheadquarters" (click)="selectFilter(2,sede)">
+        {{ sede.desheadquarters | titlecase }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <mat-select disableOptionCentering formControlName="programa" (valueChange)="Limpiarprograma()">
+      <mat-option value="">--
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programas..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let programa of listaProgramas" (click)="AsignacionesProgram(programa.IdProgram)"
+        [value]="programa.IdProgram" [matTooltipPosition]="'right'" [matTooltip]="programa.Desprogram">
+        {{ programa.Desprogram}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Equipo
+    </mat-label>
+    <mat-select disableOptionCentering formControlName="equipos" multiple>
+      <mat-option value="" (click)="selectNone('equipos')">
+        --
+      </mat-option>
+
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterEquipo" placeholderLabel="Buscar equipos..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="-1" *ngIf="listaEquipos.length" (click)="selectedAllanalyzer('equipos')">
+       Todos los equipos
+      </mat-option>
+      <mat-option *ngFor="let equipo of listaEquipos" [value]="equipo.idAnalyzer" [matTooltipPosition]="'right'"
+        [matTooltip]="equipo.nameAnalyzer" (click)="selectedanalyzer('equipos')">
+        {{equipo.nameAnalyzer}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Analito
+    </mat-label>
+    <mat-select disableOptionCentering formControlName="analitos" multiple>
+      <mat-option value="" (click)="selectNone('analitos')">
+        --
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analitos..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="-1" *ngIf="vertodosanalitos" (click)="selectedAllanalyte('analitos')">
+        Todos los analitos
+      </mat-option>
+      <mat-option *ngFor="let analito of analitos" [value]="analito.idanalytes" [matTooltipPosition]="'right'"
+        [matTooltip]="analito.desanalytes" (click)="selectedanalyte('analitos')">
+        {{analito.desanalytes}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="filtrar()" [disabled]="formulario.invalid">
+      Buscar <mat-icon>search</mat-icon></button>
+  </div>
+
+
+
+</form>
+
+
+
+<div class="row animate__animated animate__fadeIn fast" *ngIf="verCard">
+
+  <div class="header-info">
+    <h3 class="text-secondary" *ngIf="verTablaExt">ICT Externo calculado por: {{tipo}}</h3>
+    <div class="btn-imprimir-container">
+      <div class="btn-imprimir" (click)="pdfExterno()">
+        Generar reporte
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ***Tablas -->
+
+  <!-- tabla CTI Externo -->
+  <!-- tabla por  zscore -->
+  <div class="tables-unificated" *ngIf="verTablaExt">
+    <div class="contTables scrollable-tbody" *ngIf="verTablaExt && tipo == 'Z-Score'">
+      <table class="mat-elevation-z1">
+        <thead class="backTh thead-scroll">
+          <tr>
+            <th colspan="6" class="borderTh">
+              Información de test
+            </th>
+
+            <th colspan="2" class="borderTh">
+              Grupo de comparación
+            </th>
+
+            <th colspan="3" class="borderTh">
+              Criterios de evaluación
+            </th>
+
+            <th colspan="2">
+              ICT Externo
+            </th>
+          </tr>
+          <tr>
+            <th>N°</th>
+            <th>Programa</th>
+            <th>Equipo</th>
+            <th>Analito</th>
+            <th>Resultado</th>
+            <th class="border-white-right">Und analito</th>
+
+            <th >Media</th>
+            <th class="border-white-right">DS</th>
+
+            <th>Fuente</th>
+            <th>Desv. permitida</th>
+            <th class="border-white-right">Unidades</th>
+
+            <th >Z-Score</th>
+            <th>ID</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dato of dataTableExterno; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td class="text-capitalize">{{ dato.Desprograma | lowercase}}</td>
+            <td>{{ dato.Nameanalyzer }}</td>
+            <td>{{ dato.Desanalytes }}</td>
+            <td>{{ dato.Resultado }}</td>
+            <td>{{ dato.UnidadObjetivo }}</td>
+            <td>{{ dato.media }}</td>
+            <td>{{ dato.ds }}</td>
+            <td>{{ dato.Fuente }}</td>
+            <td>{{ dato.DesvPermitida }}</td>
+            <td>{{ dato.Unidad }}</td>
+            <td>{{ dato.Zscore }}</td>
+            <td  [ngClass]="{
+              'red-smooth': dato.Indicedesvio > 1 && i % 2 === 0,
+              'red': dato.Indicedesvio > 1 && i % 2 !== 0,
+              'green-smooth': dato.Indicedesvio < 1 && i % 2 === 0,
+              'green': dato.Indicedesvio < 1 && i % 2 !== 0
+            }">
+              {{ dato.Indicedesvio }}
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- tabla por  valor asignado -->
+    <div class="contTables scrollable-tbody" *ngIf="verTablaExt && tipo == 'Valor asignado'">
+
+      <table class="mat-elevation-z1">
+        <thead class="backTh thead-scroll">
+          <tr>
+            <th colspan="7" class="borderTh">
+              Información de test
+            </th>
+
+            <th colspan="3" class="borderTh">
+              Criterios de evaluación
+            </th>
+
+            <th colspan="2">
+              ICT Externo
+            </th>
+          </tr>
+          <tr>
+            <th>N°</th>
+            <th>Programa</th>
+            <th>Equipo</th>
+            <th>Analito</th>
+            <th>Resultado</th>
+            <th>Und analito</th>
+            <th class="border-white-right">V. Asignado</th>
+
+            <th>Fuente</th>
+            <th>Desv. permitida</th>
+            <th class="border-white-right">Unidades</th>
+
+            <th>Desv. obtenida</th>
+            <th>ID</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let dato of dataTableExterno; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td class="text-capitalize">{{ dato.Desprograma | lowercase}}</td>
+            <td>{{ dato.Nameanalyzer }}</td>
+            <td>{{ dato.Desanalytes }}</td>
+            <td>{{ dato.Resultado }}</td>
+            <td>{{ dato.Unidadobjetivo }}</td>
+            <td>{{ dato.Valorasignado }}</td>
+            <td>{{ dato.Fuente }}</td>
+            <td>{{ dato.Desvpermitida }}</td>
+            <td>{{ dato.Unidad }}</td>
+            <td>{{ dato.Desvobtenida }}</td>
+            <td  [ngClass]="{
+              'red-smooth': dato.Indicedesvio > 1 && i % 2 === 0,
+              'red': dato.Indicedesvio > 1 && i % 2 !== 0,
+              'green-smooth': dato.Indicedesvio < 1 && i % 2 === 0,
+              'green': dato.Indicedesvio < 1 && i % 2 !== 0
+            }">
+              {{ dato.Indicedesvio }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- *** Graficas data -->
+  <div class=" grafica-container mat-elevation-z1">
+
+    <div class="grafica" id="charts"></div>
+  </div>
+</div>
+
+
+
+
+<!-- **Graficas para el PDF -->
+<div class="container-fluid">
+  <div id="main"></div>
+</div>
+
+<div  id="htmlData">
+
+</div>

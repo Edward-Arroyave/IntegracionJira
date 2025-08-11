@@ -1,0 +1,247 @@
+/* Imagen tipo perfil */
+.foto {
+  min-width: 100px;
+  width: 100px;
+  min-height: 100px;
+  height: 100px;
+  border-radius: 100%;
+  border: 4px solid;
+}
+
+.boxImg{
+  display: flex;
+  gap:2em;
+  align-items: center;
+}
+
+/* Botón regresar */
+.btnBack {
+  margin: 1em auto 0;
+}
+
+/* Ícono de cámara */
+.camera {
+  font-size: 20px;
+  background: #6B4B8B;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 7px;
+  color: white;
+  width: 34px;
+  height: 34px;
+
+}
+
+/* Estilos de items */
+.itemInterno {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: center;
+  background: #E3E7FF;
+  border: 1px solid #A9B3FD;
+  padding: 6px 12px;
+}
+
+.itemInterno > div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Encabezado tabla */
+.headerItems {
+  background: var(--blue-01);
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+/* Niveles */
+.item1 {
+  background: white;
+  border-color: white;
+}
+.item2 {
+  background: #A9B3FD9B;
+  padding-left: 2em;
+}
+.item3 {
+  background: #E3E7FF;
+  padding-left: 4em;
+}
+
+/* Íconos */
+img, i {
+  color: var(--blue-03);
+}
+
+.flex-icon {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+/* Botón en pantallas más grandes */
+@media (min-width: 1368px) {
+  .btnBack {
+    margin: 5em auto 0;
+  }
+}
+@media (min-width: 1568px) {
+  .btnBack {
+    margin: 8em auto 0;
+  }
+}
+
+/* Scroll en contenedor */
+/* .scrollContainer {
+  height: 300px;
+  overflow-y: auto;
+} */
+
+.scrollContainer {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+/* Responsive tabla */
+@media (max-width: 768px) {
+  .itemInterno {
+    grid-template-columns: 2fr 1fr;
+    font-size: 14px;
+  }
+}
+
+/* Contenedor general */
+.contenedorPermisos {
+  position: relative;
+  background: white;
+  padding: 30px;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Imagen decorativa de fondo */
+.imgFondoDecorativa {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: auto;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Flex de permisos */
+.contenedorPermisosFlex {
+  display: flex;
+  gap: 2em;
+  margin-top: 2em;
+  align-items: stretch;
+}
+
+.tablaPermisos {
+  flex-basis: 60%;
+  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* hace que el botón baje al fondo */
+  height: 100%;
+}
+
+/* Imagen decorativa a la derecha */
+.imagenPermisos {
+  flex-basis: 40%;
+  max-width: 40%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.imagenPermisos img {
+  width: 100%;
+  max-width: 500px; /* Aumentado de 400px a 600px */
+  height: auto;
+  opacity: 0.9;      /* Ligeramente más visible */
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .contenedorPermisosFlex {
+    flex-direction: column;
+  }
+
+.tablaPermisos,
+.imagenPermisos {
+  display: flex;
+  flex-direction: column;
+}
+
+  .imagenPermisos {
+    justify-content: center;
+    margin-top: 1em;
+  }
+
+  .imagenPermisos img {
+    max-width: 90%; /* adaptable en móviles */
+  }
+}
+
+
+.tituloGlobalPermisos {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1em;
+}
+.tituloPermisos {
+  color: #6A419C;
+  font-size: 1.8em;
+  margin-top: 0.5em;
+  text-align: center;
+}
+
+.contenedorEncabezadoPermisos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+.iconoUsuario img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 4px solid #6A419C;
+  padding: 0.3em;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tituloPermisos {
+  color: #6A419C;
+  font-size: 1.8em;
+  margin-top: 0.8em; /* Aumentado para dar espacio */
+  text-align: center;
+}
+
+
+
+.iconoUsuario img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 4px solid #6A419C;
+  padding: 0.3em;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+

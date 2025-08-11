@@ -1,0 +1,56 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Sedes'"
+    (onCreate)="openModalRegistroSedes(templateRegistroSede, '')" (onChangeStatus)="actualizarEstadoSede($event)"
+    (onEdit)="openModalRegistroSedes(templateRegistroSede, $event)" (onDelete)="eliminarSede($event)">
+  </app-tabla-comun>
+
+<ng-template #templateRegistroSede>
+  <form [formGroup]="formaRegistroSede" class="grid-3">
+
+    <mat-form-field>
+      <mat-label>Ciudad</mat-label>
+      <mat-select formControlName="idcity" disableOptionCentering>
+        <mat-option value="">--</mat-option>
+        <mat-option *ngFor="let ciudad of listaCiudades" [value]="ciudad.idcity">
+          {{ ciudad.descity }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label >Cód. Sede</mat-label>
+      <input matInput formControlName="codheadquarters" type="text">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label >Sede</mat-label>
+      <input matInput formControlName="desheadquarters" type="text">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="grid-column: span 2;">
+      <mat-label >Email</mat-label>
+      <input matInput formControlName="email" type="text">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label >Dirección</mat-label>
+      <input matInput formControlName="address" type="text">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label >Teléfono</mat-label>
+      <input matInput formControlName="telephone" type="tel">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="Active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>

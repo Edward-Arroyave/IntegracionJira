@@ -1,0 +1,361 @@
+
+<form  autocomplete="off" class="grid-7">
+    <!-- desde -->
+    <mat-form-field [formGroup]="formDates">
+        <mat-label>Desde</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="desde" (dateChange)="observeFechas('desde')">
+        <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- hasta -->
+    <mat-form-field [formGroup]="formDates">
+        <mat-label>Hasta
+        </mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="hasta" (dateChange)="observeFechas('hasta')">
+        <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker1">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- Sedes -->
+    <mat-form-field [formGroup]="formOne">
+        <mat-label>
+            Sede
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="sedes" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+                  noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('sedes', 'formOne')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectedAllheadquaerter('sedes')">
+                Todas las sedes
+            </mat-option>
+            <mat-option *ngFor="let sede of sedes" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+                [matTooltip]="sede.desheadquarters" (click)="selectedHeadquarter0('sedes')">
+                {{sede.desheadquarters}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    
+    <!-- Secciones -->
+    <mat-form-field [formGroup]="formOne">
+        <mat-label>
+            Seccion
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="secciones" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterSeccion" placeholderLabel="Buscar secciones..."
+                  noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('secciones', 'formOne')">
+                --
+            </mat-option>
+            <mat-option value="-1" *ngIf="vertodassecciones" (click)="selectedAllsection('secciones')">
+                Todas las secciones
+            </mat-option>
+            <mat-option *ngFor="let seccion of secciones_Tmp" [value]="seccion.idsection" [matTooltipPosition]="'right'"
+                [matTooltip]="seccion.namesection" (click)="selectedsection('secciones')">
+                {{seccion.namesection}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    
+    <!-- Equipos -->
+    <mat-form-field [formGroup]="formOne">
+        <mat-label>
+            Equipo
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="equipos" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterEquipo" placeholderLabel="Buscar equipo..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('equipos', 'formOne')">
+                --
+            </mat-option>
+            <mat-option value="-1" *ngIf="vertodosequipos" (click)="selectedAllanalyzer('equipos')">
+                Todos los equipos
+            </mat-option>
+            <mat-option *ngFor="let equipo of equipos" [value]="equipo.idAnalyzer" [matTooltipPosition]="'right'"
+                [matTooltip]="equipo.nameAnalyzer" (click)="selectedanalyzer('equipos')">
+                {{equipo.nameAnalyzer}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    
+    <!-- Analitos -->
+    <mat-form-field [formGroup]="formTwo" >
+        <mat-label>
+            Analitos
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="analitos" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analitos..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('analitos', 'formTwo')">
+                --
+            </mat-option>
+            <mat-option value="-1" *ngIf="vertodosanalitos" (click)="selectedAllanalyte('analitos')">
+                Todos los analitos
+            </mat-option>
+            <mat-option *ngFor="let analito of analitos" [value]="analito.idanalytes" [matTooltipPosition]="'right'"
+                [matTooltip]="analito.desanalytes" (click)="selectedanalyte('analitos')">
+                {{analito.desanalytes}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- Lotes -->
+    <mat-form-field [formGroup]="formTwo" >
+        <mat-label>
+            Lote
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="lotes" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterLote" placeholderLabel="Buscar lote..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('lotes', 'formTwo')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('lotes', 'formTwo')">
+                Todos los lotes
+            </mat-option>
+            <mat-option *ngFor="let lote of lotes" [value]="lote.idLot" [matTooltipPosition]="'right'"
+                [matTooltip]="lote.numlot" (click)="selectOne('lotes', 'formTwo')">
+                {{lote.numlot}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    
+    <!-- Tipo -->
+    <mat-form-field [formGroup]="formTwo" >
+        <mat-label>
+            Tipo de reporte
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="reportes" multiple>
+            <mat-option value="" (click)="selectNone('reportes', 'formTwo')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('reportes', 'formTwo')">
+                Todos los reportes
+            </mat-option>
+            <mat-option *ngFor="let reporte of reportes" [value]="reporte.value"
+                (click)="selectOne('reportes', 'formTwo')">
+                {{reporte.item}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    
+    <!-- ICT
+    <mat-form-field [formGroup]="formThree" *ngIf="formAdicional">
+        <mat-label>
+            ICT Externo calculado por
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="ict">
+            <mat-option value="">
+                --
+            </mat-option>
+            <mat-option *ngFor="let ict of ict" [value]="ict.value">
+                {{ict.item}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    
+    <mat-form-field [formGroup]="formThree" *ngIf="formAdicional">
+        <mat-label>
+           Programa
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="programas" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('programas', 'formThree')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('programas', 'formThree')">
+                Todos los programas
+            </mat-option>
+            <mat-option *ngFor="let programa of programas" [value]="programa.idProgram"
+                (click)="selectOne('programas', 'formThree')">
+                {{programa.desprogram}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [formGroup]="formThree" *ngIf="formAdicional">
+        <mat-label>
+            Analitos
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="analitosExterno" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterAnalitoExt" placeholderLabel="Buscar analito..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('analitosExterno', 'formThree')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('analitosExterno', 'formThree')">
+                Todos los analitos
+            </mat-option>
+            <mat-option *ngFor="let analito of analitosExterno" [value]="analito.idanalytes"
+                (click)="selectOne('analitosExterno', 'formThree')">
+                {{analito.desanalytes}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [formGroup]="formThree" *ngIf="formAdicional">
+        <mat-label>
+            Equipo
+        </mat-label>
+        <mat-select disableOptionCentering multiple formControlName="equiposExterno">
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterEquipoExt" placeholderLabel="Buscar equipo..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('equiposExterno', 'formThree')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('equiposExterno', 'formThree')">
+                Todos los equipos
+            </mat-option>
+            <mat-option *ngFor="let equipos of equiposExterno" [value]="equipos.idAnalyzer"
+                (click)="selectOne('equiposExterno', 'formThree')">
+                {{equipos.nameAnalyzer}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>-->
+    
+    <button class="btnPurple-01 " (click)="filtrar()">Generar reporte</button>
+</form>
+
+
+
+
+
+<div *ngIf="ver" id="htmlData">
+    <div style="background: #F5F6FF; border-radius: 5px; padding: 10px; display: flex;gap: .5em; width: auto;margin: 10px 0;">
+        <div style="color: var(--purple-01); font-size: 16px; font-weight: bold;">Reporte De Analitos Con Alerta</div>
+        <div style="display: flex;gap: .5em; font-size: 12px;color: black; font-weight: bold;">
+            <div><mat-icon class="point">fiber_manual_record</mat-icon> Fechas: {{this.desde}} - {{this.hasta}}</div>
+            <div><mat-icon class="point">fiber_manual_record</mat-icon> Reporte generado: {{this.actual}}</div>
+            <div><mat-icon class="point" style="color: var(--blue-01);">fiber_manual_record</mat-icon> Secciónes : {{txtSecciones}}</div>
+            <div><mat-icon class="point" style="color: var(--blue-01);">fiber_manual_record</mat-icon> Sedes : {{txtSedes}}</div>
+            <div><mat-icon class="point" style="color: var(--blue-01);">fiber_manual_record</mat-icon> Equipo : {{txtEquipos}}</div>
+            <div><mat-icon class="point" style="color: var(--blue-01);">fiber_manual_record</mat-icon> Analitos : {{txtAnalitos}}</div>
+            <div><mat-icon class="point" style="color: var(--blue-01);">fiber_manual_record</mat-icon> Lote control calidad : {{txtLotes}}</div>
+            <div><mat-icon class="point" style="color: var(--blue-01);">fiber_manual_record</mat-icon> Tipo de reporte : {{txtReportes}}</div>
+        </div>
+
+    </div>
+    <!-- tabla general -->
+    <div >
+        <div style="width: 100%; height: 330px;overflow-y: scroll;overflow-x: auto;">
+            <table class="table-responsive " style="width: 100% ; overflow-y: hidden;position: relative;" >
+                <thead >
+                    <tr>
+                        <th style="background: var(--blue-03) !important;" colspan="10">QCI</th>
+                    </tr>
+                    <tr>
+                        <th>Sedes</th>
+                        <th>Sección</th>
+                        <th>Analito</th>
+                        <th>Nivel</th>
+                        <th>Sigmometria</th>
+                        <th>CVR</th>
+                        <th>SR</th>
+                        <th>IET</th>
+                        <th style="min-width: 350px;">Observaciones</th>
+                        <th>Validar</th>
+                    </tr>
+                </thead>
+                <tbody style=" height: 330px;overflow-y: scroll;">
+                    <tr *ngFor="let dato of datatablefilter; let i = index">
+
+                        <td>{{ dato.Sede }}</td>
+                        <td>{{ dato.Seccion }}</td>
+                        <td>{{ dato.Analito }}</td>
+                        <td>{{ dato.Nivel }}</td>
+                        <td [ngClass]="{ 'white text-dark': dato.SIG == '--', 'rojo': dato.SIG < dato.Constz}">
+                            {{ dato.SIG > 1 ?'--': dato.SIG}}</td>
+                        <td [ngClass]="dato.CVR != '--' ? dato.CVR >=1 ? 'rojo': '' : ''">{{ dato.CVR < 1 ?'--' :
+                                dato.CVR }}</td>
+                        <td [ngClass]="dato.SR != '--' ? dato.SR >= 1 ? 'rojo':'' :''">{{ dato.SR < 1 ?'--' : dato.SR
+                                }}</td>
+                        <td [ngClass]="dato.IET != '--' ?dato.IET >=1 ? 'rojo': '' : ''">{{ dato.IET < 1 ?'--' :
+                                dato.IET }}</td>
+                        <td >
+                            <textarea style="width: 100%;" rows="3" [value]="dato.obsXY?dato.obsXY:''" id="descripcion-{{dato.idconsecutivo}}"></textarea>
+                        </td>
+                        <td >
+                            <button (click)="validReportObservations(dato)" type="button" class="btnPurple-01" style="min-width:40px;margin: 0 auto;">
+                                <mat-icon>save</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="display: flex;gap: 2em; align-items: center; margin-top: 1em;">
+        <div style="display: flex;gap: 1em; align-items: center;background: #F5F6FF; border-radius: 5px; padding: 10px; display: flex;gap: .5em; width: auto;margin: 10px 0;color: black; font-weight: bold;font-size: 12px">
+            <div style="color: var(--purple-01);font-size: 16px;margin: 0 20px;">Sigmometria</div>
+            <div style="display: flex;gap: 1em;">
+                <div><mat-icon class="point" style="color: var(--color-blue-light);">fiber_manual_record</mat-icon>  Entre {{constante}}  y 2,99</div>
+                <div><mat-icon class="point" style="color: var(--red-01);">fiber_manual_record</mat-icon>  Menor {{constante}}</div>
+            </div>
+            <div style="color: var(--purple-01);font-size: 16px;margin: 0 20px;">Abreviaturas</div>
+            <div style="display: flex; gap: 1em;">
+                <div>
+                    <div>Eta: Error total máximo permitido</div>
+                    <div>DS: Desviación estandar</div>
+                </div>
+                <div>
+                    <div>Cva: Coeficiente de variación máximo permitido</div>
+                    <div>BIASa: Sesgo máximo permitido</div>
+                </div>
+                <div>
+                    <div>CVR: Coeficiente de variación relativo</div>
+                    <div>SR: Sesgo relativo</div>
+                </div>
+                <div>
+                    <div>IET: Índice de error total</div>
+                    <div>&#963; : Sigma</div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="datatablefilter !== undefined">
+            <img [src]="'pdf.png' | imageCdn" class="pdf" (click)="downloadPDF()" width="100" height="30" style="cursor: pointer;">
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="525.223" height="491.27" viewBox="0 0 525.223 491.27">
+  <g id="Grupo_36611" data-name="Grupo 36611" transform="translate(20199.863 8395)">
+    <g id="Grupo_36612" data-name="Grupo 36612">
+      <g id="Layer_2" data-name="Layer 2" transform="translate(-20144.182 -8267.096)">
+        <path id="activity" d="M227.3,296.231h-3.837a36.545,36.545,0,0,1-32.16-28.871L142.334,40.415,91.9,157.36A18.273,18.273,0,0,1,75.09,168.323H20.273a18.273,18.273,0,0,1,0-36.545H63.03l45.864-105.8a36.545,36.545,0,0,1,69.253,6.944l48.97,226.763,50.432-116.579a18.273,18.273,0,0,1,16.811-11.329h54.818a18.273,18.273,0,0,1,0,36.545H306.421l-45.864,105.8A36.545,36.545,0,0,1,227.3,296.231Z" transform="translate(-2 -4.008)" fill="currentColor"/>
+      </g>
+      <g id="Grupo_36568" data-name="Grupo 36568" transform="translate(-20199 -8395)">
+        <g id="Grupo_36567" data-name="Grupo 36567" transform="translate(9.136 100.499)">
+          <line id="Línea_231" data-name="Línea 231" y2="365.452" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-width="20"/>
+          <path id="Trazado_13235" data-name="Trazado 13235" d="M456.815,0H0" transform="translate(0 365.452)" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-width="20"/>
+        </g>
+        <text id="y" transform="translate(0 55)" fill="currentColor" font-size="51" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">y</tspan></text>
+        <text id="x" transform="translate(493.36 476.27)" fill="currentColor" font-size="52" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">x</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

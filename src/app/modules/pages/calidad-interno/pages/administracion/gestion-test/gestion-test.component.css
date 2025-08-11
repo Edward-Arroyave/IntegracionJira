@@ -1,0 +1,25 @@
+
+th{
+  background: var(--blue-01) !important;
+  color: white;
+  text-align: center;
+}
+td{
+  text-align: center;
+  color: black;
+}
+
+table {
+  border-collapse: collapse;
+  border-radius: .3em !important;
+}
+
+table thead tr th{
+  padding: 10px 0;
+}
+
+table  thead{
+  position: sticky;
+  top: 0;
+  /* background: wh; */
+}

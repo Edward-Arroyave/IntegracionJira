@@ -1,0 +1,145 @@
+
+<app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Programas'"
+  (onCreate)="openModalGestionProgramas(templateGestionProgramas, '')"
+  (onChangeStatus)="actualizarEstadoGestionProgramas($event)"
+  (onEdit)="openModalGestionProgramas(templateGestionProgramas, $event)"
+  (onDelete)="eliminarGestionProgramas($event)">
+</app-tabla-comun>
+
+
+<ng-template #templateGestionProgramas>
+
+  <form [formGroup]="formulario">
+
+
+    <mat-form-field style="width:80%">
+      <mat-label >Programa</mat-label>
+      <mat-select disableOptionCentering formControlName="idProgram">
+        <mat-option>
+          --
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let programa of programsActive" [value]="programa.idProgram" [matTooltipPosition]="'right'"
+          [matTooltip]="programa.desprogram">
+          {{ programa.desprogram}}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="grid-3" style="margin-bottom:1em">
+
+      <mat-form-field>
+        <mat-label>Analito</mat-label>
+        <mat-select disableOptionCentering formControlName="idanalytes">
+          <mat-option>
+            --
+          </mat-option>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analito..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let analyte of analytesActive" [value]="analyte.idanalytes" [matTooltipPosition]="'right'"
+            [matTooltip]="analyte.desanalytes">
+            {{ analyte.desanalytes}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Analizador</mat-label>
+        <mat-select disableOptionCentering formControlName="idAnalyzer">
+          <mat-option>
+            --
+          </mat-option>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterAnalizador" placeholderLabel="Buscar analizador..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let analyzer of analyzersActive" [value]="analyzer.idAnalyzer" [matTooltipPosition]="'right'"
+            [matTooltip]="analyzer.nameAnalyzer">
+            {{ analyzer.nameAnalyzer}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Reactivo</mat-label>
+        <mat-select disableOptionCentering formControlName="idReagents">
+          <mat-option>
+            --
+          </mat-option>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterReactivo" placeholderLabel="Buscar reactivo..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let reactivo of reactivosActive" [value]="reactivo.idreagents" [matTooltipPosition]="'right'"
+            [matTooltip]="reactivo.desreagents">
+            {{ reactivo.desreagents}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+
+
+
+      <mat-form-field>
+        <mat-label>Método</mat-label>
+        <mat-select disableOptionCentering formControlName="idmethods">
+          <mat-option>
+            --
+          </mat-option>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterMetodo" placeholderLabel="Buscar método..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let metodo of methodsActive" [value]="metodo.idmethods" [matTooltipPosition]="'right'"
+            [matTooltip]="metodo.desmethods">
+            {{ metodo.desmethods}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Unidad</mat-label>
+        <mat-select disableOptionCentering formControlName="idunits">
+          <mat-option>
+            --
+          </mat-option>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterUnidades" placeholderLabel="Buscar unidades..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let unit of unitsActive" [value]="unit.idunits" [matTooltipPosition]="'right'"
+            [matTooltip]="unit.codunits">
+            {{ unit.codunits}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+
+      <div class="contieneToggle">
+        <label class="labelToggle">Estado</label>
+        <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+      </div>
+    </div>
+  </form>
+
+</ng-template>

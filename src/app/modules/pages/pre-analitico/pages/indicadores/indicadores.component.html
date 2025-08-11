@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <div class="card mt-3 mb-3 borderTable">
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <img class="imageSobreBorde" [src]="'indicadores-icon.png' | imageCdn">
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-12 titulo mt-5"> <strong>INDICADORES</strong></div>
+
+                <div class="row justify-content-center mb-3">
+
+
+                    <div class="col-10">
+
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 m-0 p-0">
+
+                                <div #itemIndicador1 class="indicador" [ngClass]="{'backHover': tipoReporte == 1}" (click)="selectedIndicador(itemIndicador1, pItem1, 1)">
+                                    <!-- <img [src]="'btn_competencia.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab" #pItem1><strong>Errores de Identificación del paciente (Q1)</strong></p>
+                                </div>
+
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 m-0 p-0">
+
+                                <div #itemIndicador2 class="indicador" [ngClass]="{'backHover': tipoReporte == 2}" (click)="selectedIndicador(itemIndicador2, pItem2, 2)">
+                                    <!-- <img [src]="'report_data.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab" #pItem2><strong>Muestras rechazadas(Q2)</strong></p>
+                                </div>
+
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 m-0 p-0">
+
+                                <div #itemIndicador3 class="indicador" [ngClass]="{'backHover': tipoReporte == 3}" (click)="selectedIndicador(itemIndicador3, pItem3, 3)">
+                                    <!-- <img [src]="'btn_competencia.png' | imageCdn" alt="Resultados participantes"> -->
+                                    <p class="m-0 text-center txt-tab p-lg-0" #pItem3><strong> Satisfacción en  la  toma de muestras <br> (Q3)</strong></p>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+                    <div class="col-1"></div>
+
+                </div>
+
+                <app-precision-ident-paciente *ngIf="tipoReporte == 1"></app-precision-ident-paciente>
+                <app-aceptabilidad-muestras-lab [tituloInd]="tituloInd" *ngIf="tipoReporte == 2"></app-aceptabilidad-muestras-lab>
+                <app-satisfaccion-de-muestras *ngIf="tipoReporte == 3"></app-satisfaccion-de-muestras>
+            </div>
+        </div>
+    </div>
+</div>

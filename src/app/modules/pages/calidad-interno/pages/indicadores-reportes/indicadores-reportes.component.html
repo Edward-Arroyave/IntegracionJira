@@ -1,0 +1,21 @@
+<div style="position: absolute;top: -32px; display: flex;gap: 1em;">
+    <div class="taps" (click)="radioSelect = 1" [ngClass]="{ 'active': radioSelect == 1 }">
+      Indicadores de Competencia Técnica
+    </div>
+    <div class="taps" (click)="radioSelect = 2"  [ngClass]="{ 'active': radioSelect == 2 }">
+      Reporte Consolidado ICT
+    </div>
+    <div class="taps" (click)="radioSelect = 3"  [ngClass]="{ 'active': radioSelect == 3 }">
+      Reporte de Analitos con alerta
+    </div>
+    <div class="taps" (click)="radioSelect = 4"  [ngClass]="{ 'active': radioSelect == 4 }">
+      Reporte de Analitos cualitativos
+    </div>
+</div>
+<!-- Llama los componentes -->
+<div style="margin-top: 2em;">
+    <app-indicadores-competencia-tecnica *ngIf="radioSelect === 1" [flagFromParent]="hideElemts"></app-indicadores-competencia-tecnica>
+    <app-reporte-consolidado-ict *ngIf="radioSelect === 2" [flagFromParent]="hideElemts"></app-reporte-consolidado-ict>
+    <app-reporte-analitos-alerta *ngIf="radioSelect === 3" [flagFromParent]="hideElemts"></app-reporte-analitos-alerta>
+    <app-reporte-analito-cualitativo *ngIf="radioSelect === 4"></app-reporte-analito-cualitativo>
+</div>

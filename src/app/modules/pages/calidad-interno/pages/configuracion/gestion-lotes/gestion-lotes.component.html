@@ -1,0 +1,31 @@
+    <app-tabla-comun [viewButton]="crearsi"  [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Lotes'"
+      (onCreate)="openModalGestionLotes(templateGestionLotes, '')" (onChangeStatus)="actualizarGestionLotes($event)"
+      (onEdit)="openModalGestionLotes(templateGestionLotes, $event)" (onDelete)="eliminarGestionLotes($event)">
+    </app-tabla-comun>
+
+
+<ng-template #templateGestionLotes>
+    <p style="text-align: center; color: var(--purple-01);">Una vez el lote esté creado, proceda a asignar el lote con su respectivo material de control. <br> <strong>Configuración => Lote Materiales de control</strong></p>
+    <form [formGroup]="formaGestionLotes" class="grid-3-toggle">
+
+        <mat-form-field>
+            <mat-label>No° Lote</mat-label>
+            <input matInput type="text" formControlName="numLot">
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field >
+            <mat-label >Fecha de vencimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="expDate" [min]="today" (change)="changeDate()">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <div class="contieneToggle">
+            <label class="labelToggle">Estado</label>
+            <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+        </div>
+    </form>
+</ng-template>

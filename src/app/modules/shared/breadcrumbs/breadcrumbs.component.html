@@ -1,0 +1,22 @@
+<nav aria-label="breadcrumb">
+  <div class="bread-container">
+    <div  routerLink="['#']" class="home">
+      <img src="assets/rutas/iconos/casa.svg" />
+    </div>
+    <ol class="breadcrumb" *ngIf="!!pathFull" [ngClass]="{'no-menu-3': pathFull?.menuNameLevel2 && !pathFull?.menuUrlLevel3}">
+      <li class="item-0"></li>
+      <li class="item item-1">
+        <span  routerLink="['#']"> {{ pathFull?.menuNameLevel1 }} </span>
+      </li>
+      <li *ngIf="!!pathFull?.menuNameLevel2" class="item item-2" [ngClass]="{'item-no-menu-3': pathFull?.menuNameLevel2 && !pathFull?.menuUrlLevel3}">
+        <span  routerLink="['#']"> {{ pathFull?.menuNameLevel2 }} </span>
+      </li>
+      <li *ngIf="!!pathFull?.menuNameLevel3" class="item item-3 active" [routerLink]="pathFull?.menuUrlLevel3"
+        aria-current="page">
+       <span> {{ pathFull?.menuNameLevel3 }}</span>
+
+      </li>
+    </ol>
+  </div>
+</nav>
+

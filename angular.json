@@ -1,0 +1,138 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "softwareqa": {
+            "projectType": "application",
+            "schematics": {},
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:application",
+                    "options": {
+                        "allowedCommonJsDependencies": [
+                            "apexcharts",
+                            "jspdf",
+                            "xlsx"
+                        ],
+                        "outputPath": {
+                          "base": "dist"
+                        },
+                        "index": "src/index.html",
+                        "tsConfig": "tsconfig.app.json",
+                        "aot": true,
+                        "assets": [
+                            "src/iconoQC.ico",
+                            "src/assets",
+                            "src/web.config"
+                        ],
+                        "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "./node_modules/ngx-toastr/toastr.css",
+                            "./node_modules/animate.css/animate.min.css",
+                            "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "src/styles.css"
+                        ],
+                        "scripts": [
+                            "./node_modules/jquery/dist/jquery.js",
+                            "./node_modules/popper.js/dist/umd/popper.min.js",
+                            "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+                            "./node_modules/html2canvas/dist/html2canvas.min.js",
+                            "./node_modules/jspdf/dist/jspdf.min.js",
+                            "./node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
+                        ],
+                        "browser": "src/main.ts"
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [{
+                                "replace": "src/environments/environment.ts",
+                                "with": "src/environments/environment.prod.ts"
+                            }],
+                            "optimization": false,
+                            "outputHashing": "all",
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "extractLicenses": false,
+                            "budgets": [{
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6mb",
+                                    "maximumError": "10mb"
+                                }
+                            ]
+                        },
+                        "development":{
+                            "optimization": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "extractLicenses": false
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                      "disableHostCheck": false,
+                        "buildTarget": "softwareqa:build"
+                    },
+                    "configurations": {
+                        "production": {
+                          "buildTarget": "softwareqa:build:production"
+                        },
+                        "development": {
+                          "buildTarget": "softwareqa:build:development"
+                        }
+                    },
+                    "defaultConfiguration":"development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                      "buildTarget": "softwareqa:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma.conf.js",
+                        "assets": [
+                            "src/iconoQC.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+                            "https://cdn.connectovirtual.com/softwareqa/yourland/web/css/styles.css"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "e2e/protractor.conf.js",
+                        "devServerTarget": "softwareqa:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "softwareqa:serve:production"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "cli": {
+        "analytics": false
+    }
+}

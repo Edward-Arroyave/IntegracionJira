@@ -1,0 +1,382 @@
+.styleIcon {
+    font-size: 47px;
+}
+
+.styleVer {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    text-align: center;
+    justify-content: center;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.rojo {
+  color: #EB5F58;
+}
+
+hr {
+    border-top: 1px solid #707070;
+    width: 60%;
+}
+
+
+/*---------------------------**/
+
+.w90 {
+    width: 90px !important;
+}
+
+.w80 {
+    width: 80px !important;
+}
+
+.w50 {
+    width: 50px !important;
+}
+
+.w70 {
+    width: 70px !important;
+    max-width: 70px !important;
+}
+
+.w-ab {
+    width: 70px !important;
+    max-width: 70px !important;
+}
+
+.txt-start {
+    text-align: start;
+}
+
+
+/* colores table */
+
+.rojo {
+    /* background: #EB5F58; */
+    color: #EB5F58;
+}
+
+.verde {
+    /* background: #72C85D; */
+    color: #72C85D;
+}
+
+.azul {
+    /* background: #09C6E1; */
+    color: #09C6E1;
+}
+
+.amarillo {
+    /* background: #FFDD57; */
+    color: #FFDD57;
+}
+
+.verdeOscuro {
+    /* background: #438F63; */
+    color: #438F63;
+}
+
+
+/***Scroll bar***/
+
+.card-scroll {
+    height: 333px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    margin-top: 10px;
+    background: transparent;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+}
+
+
+/*******Table*********/
+
+
+/* ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 11px !important;
+} */
+
+/*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+:host ::ng-deep .mat-form-field-infix {
+    border-top: 0em solid transparent;
+    width: 300px !important;
+}
+
+.table {
+    border-collapse: collapse !important;
+}
+
+.table,
+td,
+th {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.txt-table {
+    color: #A5A4A4;
+    font-size: 16px;
+}
+
+.table-label {
+    font-size: 16px;
+    color: #808080;
+}
+
+
+/***********Tabla Scrolling*****************/
+
+.thead-scroll,
+.tbody-scroll {
+    display: block;
+}
+
+.th-scroll,
+.td-scroll {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tbody-scroll {
+    height: 273px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.selectedRow {
+    background-color: rgb(64, 167, 207) !important;
+    color: white !important;
+}
+
+.selectedRow td {
+    font-family: "myriaasi" !important;
+}
+
+.selectedRow button {
+    background-color: rgb(161, 200, 216) !important;
+    color: white !important;
+}
+
+
+/*******Table Modal*********/
+
+.divTabla {
+    display: flex;
+    align-items: center;
+}
+
+.styleText {
+    text-align: left !important;
+    padding-top: 22px;
+    font-size: 13px;
+    color: black;
+}
+
+.thEstyle {
+    border-right: 1px solid #CECECE;
+}
+
+
+/*******dot*********/
+
+.number {
+    position: relative;
+    font-size: 33px;
+    text-align: center;
+    top: -4px;
+    color: #6B4B8B;
+}
+
+.dot {
+    position: relative;
+    top: 0px;
+    height: 33px;
+    width: 44px;
+    border: 1px solid #6B4B8B;
+    background-color: #6b4b8b40;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+.dot-13 {
+    width: 43px;
+}
+
+.dot-14 {
+    width: 52px;
+}
+
+.dot-15 {
+    width: 45px;
+}
+
+.dot-16 {
+    width: 43px;
+}
+
+.dot-17 {
+    width: 42px;
+}
+
+.line {
+    position: relative;
+    top: 7px;
+    display: block;
+    margin-left: 9px;
+    margin-bottom: 8px;
+    padding: 0;
+    width: 100%;
+    /* white-space: nowrap!important; */
+}
+
+
+/*---------------------------**/
+
+.formFilter {
+    margin-top: 40px;
+}
+
+@media(min-width: 1400px) {
+     /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+     :host ::ng-deep .mat-form-field-infix {
+        width: 410px !important;
+    }
+    .formFilter {
+        padding: 0px 60px;
+    }
+}
+
+@media(min-width: 1600px) {
+    .formFilter {
+        padding: 0px 70px;
+    }
+}
+
+
+/******************** MEDIA BREAKING POINTS *************************/
+
+
+/*=============================================
+PORTATIL 1366
+=============================================*/
+
+@media (max-width:1499px) and (min-width:1200px) {
+     /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+     :host ::ng-deep .mat-form-field-infix {
+        width: 335px !important;
+    }
+    .table {
+        font-size: 12px !important;
+    }
+    .table-label {
+        font-size: 14px;
+    }
+    .flex2 {
+        margin-bottom: 12px !important;
+    }
+    .tituloModal {
+        margin-top: 2px !important;
+    }
+     :host ::ng-deep .matLabelForm {
+        font-size: 18px;
+    }
+}
+
+
+/*=============================================
+  TABLET HORIZONTAL (LG revisamos en 1024px)
+  =============================================*/
+
+@media (max-width:1199px) and (min-width:992px) {
+     /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
+     :host ::ng-deep .mat-form-field-infix {
+        width: 400px !important;
+    }
+    .flex2 {
+        margin-bottom: 12px !important;
+    }
+    .tituloModal {
+        margin-top: 2px !important;
+    }
+     :host ::ng-deep .matLabelForm {
+        font-size: 16px;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+  TABLET VERTICAL (MD revisamos en 768px)
+  =============================================*/
+
+@media (max-width:991px) and (min-width:768px) {
+     :host ::ng-deep .matLabelForm {
+        font-size: 14px;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+  MÓVIL HORIZONTAL (SM revisamos en 576px)
+  =============================================*/
+
+@media (max-width:767px) and (min-width:576px) {
+     :host ::ng-deep .matLabelForm {
+        font-size: 13px;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+  MOVIL VERTICAL (revisamos en 320px)
+  =============================================*/
+
+@media screen and (max-width:575px) {
+     :host ::ng-deep .matLabelForm {
+        font-size: 13px;
+    }
+}
+
+
+/******************** MEDIA MEDIA BREAKING POINTS  END *************************/

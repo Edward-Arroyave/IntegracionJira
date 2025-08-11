@@ -1,0 +1,466 @@
+<div class="container" *ngIf="!habilitarGraficas">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <div class="card mt-3 mb-3 borderTable">
+        <div class="col-12 d-flex justify-content-center">
+          <img class="imageSobreBorde" [src]="'IngresoDatos.png' | imageCdn">
+        </div>
+        <div class="row justify-content-center mt-4">
+          <div class="col-12 titulo"> GRÁFICAS</div>
+
+          <div class="col-12 col-lg-2 col-xl-12">
+
+
+            <form [formGroup]="formFiltro">
+
+              <div class="form-row  gap-2 ">
+                <div class="col-sm-1 col-lg-1 offset-lg-1 form-group">
+                  <div role="group">
+                    <img class="imagCongig" [src]="'config.svg' | imageCdn">
+
+                  </div>
+                </div>
+
+                <div class="col-sm-2 col-lg-2form-group">
+                  <div role="group">
+                    <mat-form-field>
+                      <mat-label for="sede">
+                        Sede
+                      </mat-label>
+                      <mat-select disableOptionCentering [disabled]="habilitarSede" formControlName="sede">
+                        <mat-option value="">
+                          --
+                        </mat-option>
+                        <mat-option *ngFor="let sede of sedes" [value]="sede.Idheadquarters">
+                          {{ sede.Desheadquarters }}
+                        </mat-option>
+                      </mat-select>
+                      <small
+                        *ngIf="sedeForm.invalid  && sedeForm.touched && !sedeForm.errors?.minlength && !sedeForm.errors?.maxlength"
+                        class="text-danger animated fadeIn">Campo requerido</small>
+
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-2 col-lg-2 form-group">
+                  <div role="group">
+                    <mat-form-field>
+                      <mat-label for="seccion">
+                        Sección
+                      </mat-label>
+                      <mat-select disableOptionCentering formControlName="seccion"
+                        (selectionChange)="materialControl($event.value)">
+                        <mat-option value="">
+                          --
+                        </mat-option>
+                        <mat-option *ngFor="let seccion of secciones" [value]="seccion.idsection">
+                          {{ seccion.namesection }}
+                        </mat-option>
+                      </mat-select>
+
+                      <small
+                        *ngIf="seccionForm.invalid  && seccionForm.touched && !seccionForm.errors?.minlength && !seccionForm.errors?.maxlength"
+                        class="text-danger animated fadeIn">Campo requerido</small>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-2 col-lg-2 form-group">
+                  <div role="group">
+                    <mat-form-field>
+                      <mat-label for="material">
+                        N° Material Control
+                      </mat-label>
+                      <mat-select disableOptionCentering formControlName="material">
+                        <mat-option value="">
+                          --
+                        </mat-option>
+                        <mat-option *ngFor="let material of materiales" [value]="material.IdControlMaterial">
+                          {{ material.Descontmat }}
+                        </mat-option>
+                      </mat-select>
+
+                      <small
+                        *ngIf="materialForm.invalid  && materialForm.touched && !materialForm.errors?.minlength && !materialForm.errors?.maxlength"
+                        class="text-danger animated fadeIn">Campo requerido</small>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-2 col-lg-2 form-group">
+                  <div role="group">
+                    <mat-form-field>
+                      <mat-label for="ingresodatos">
+                        Ingreso de datos
+                      </mat-label>
+                      <mat-select disableOptionCentering formControlName="ingresodatos">
+                        <mat-option value="">
+                          --
+                        </mat-option>
+                        <mat-option value="C">
+                          {{'Cualitativo' | translate}}
+                        </mat-option>
+                        <mat-option value="N">
+                          {{'Cuantitativo' | translate}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <small
+                      *ngIf="ingresodatosForm.invalid  && ingresodatosForm.touched && !ingresodatosForm.errors?.minlength && !ingresodatosForm.errors?.maxlength"
+                      class="text-danger animated fadeIn">Campo requerido</small>
+                  </div>
+                </div>
+
+                <div class="col-sm-1 col-lg-1 form-group">
+                  <div role="group" class="sf-2">
+
+                    <button class="boton btnDuplicarLote animate__animated animate__fadeIn fast" type="button"
+                      style="margin-top: 39%;height: 1.8em;">
+                      <i class="fas fa-check" (click)="ConsultaLoteTest()"></i>
+                    </button>
+                  </div>
+                </div>
+
+
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- -- Cards - -->
+        <div class="row justify-content-center mt-12" *ngIf="mostrarTabla">
+
+          <div class="col-10">
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-12 p-0">
+                <div class="card borderTable px-xl-2">
+                  <div class="row">
+                    <div class="col-6 row">
+                      <div class=" col-12 centro">
+                        <img class="flecha" [src]="'flecha.png' | imageCdn">
+                        <div class="card-body">
+                          <mat-label class=" texto-centro">
+                            Selecciona los datos de Los filtros para continuar
+                          </mat-label>
+                        </div>
+
+                      </div>
+
+
+
+                    </div>
+                    <div class="col-6">
+                      <img [src]="'grafica_imagen.png' | imageCdn">
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+        <!-- -- Cards - -->
+        <div class="row justify-content-center mt-3" *ngIf="!mostrarTabla">
+
+          <div class="col-sm-10">
+            <div class="row">
+              <div class="col-sm-3 ">
+                <div class="card borderTable px-xl-2">
+                  <div class="row espacio-1">
+                    <div class="col-sm-10 row">
+                      <div class="col-sm-4">
+                        <img class="imagen-lote" [src]="'lote.svg' | imageCdn">
+
+                      </div>
+                      <div class="col-sm-7 offset-md-1 centro-lote">
+                        <mat-label class="texto-lote">
+                          Lote
+                        </mat-label>
+                      </div>
+
+                    </div>
+
+
+                    <div class="card-body overflow-auto tamano-lote">
+
+                      <div class="row text-center">
+                        <div class="col-12 mb-3">
+
+
+                          <!-- ** Lista Indicadores desde HARD CODE -->
+                          <ul class="list-group">
+                            <li class="list-group-item border-0" *ngFor="let lote of lotes">
+                              <div class="card border-0" style="cursor: pointer;">
+                                <div
+                                  [ngClass]=" lote.IdLot == LoteSeleccionado ? 'indicador_seleccionado' : 'indicador'"
+                                  class=" mb-1">
+                                  <div>
+                                    <a [ngClass]=" lote.IdLot == LoteSeleccionado ? 'text-item_seleccionado' : 'text-item'"
+                                      (click)="SeleccionarTest(lote.IdLot)">{{lote.Numlot}}</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-9">
+                <div class="card borderTable px-xl-2">
+                  <div class="row">
+                    <div class=" offset-md-1 col-11 " style="margin-top: 1em;">
+
+                      <div class=" row">
+                        <div class="col-sm-2 ">
+                          <img class="imagen-lote" style="float: left;" [src]="'testSeleccinados.png' | imageCdn">
+
+                        </div>
+                        <div class="col-sm-8 centro-lote">
+                          <mat-label class="texto-lote">
+                            Test seleccionados
+                          </mat-label>
+                        </div>
+                        <div class="col-sm-1">
+                          <img class="imagen-lote" (click)="generarGraficas(templateTest,'')"
+                            [src]="'lote-test.png' | imageCdn">
+
+                        </div>
+                      </div>
+
+
+                      <div class=" row" style="margin-top: 1em;">
+                        <table class=" table-striped_lote ">
+                          <tbody>
+                            <tr class="tr-borde solid" *ngFor="let test of tests">
+                              <td style="    padding-bottom: 1em;">
+
+                                <div class="col-lg-12">
+                                  <div class="row">
+                                    <div class="col-sm-1">
+                                      <input type="checkbox" class="form-check-input" id="test_{{test.IdTest}}"
+                                        (click)="AgregarTest(test , 'test_'+test.IdTest)" />
+                                    </div>
+                                    <div class="col-sm-11 texto-tabla" style="text-align: left !important;">
+                                      {{test.Desanalytes}}|{{test.NameAnalyzer}}|{{test.Desunits}}|{{test.Desreagents}}|{{test.Desmethods}}
+                                    </div>
+                                  </div>
+
+                                </div>
+
+
+                              </td>
+
+                            </tr>
+
+
+
+
+                          </tbody>
+
+                        </table>
+                      </div>
+
+                    </div>
+
+
+
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="col-12  botonAceptarCenter">
+              <button class="botonAceptar btnAceptar" type="button" (click)="obtenerValores()">Aceptar</button>
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container" *ngIf="habilitarGraficas">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <div class="card mt-3 mb-3 borderTable">
+        <div class="col-12 d-flex justify-content-center">
+          <img class="imageSobreBorde" [src]="'IngresoDatos.png' | imageCdn">
+        </div>
+        <div class="row justify-content-center mt-4">
+          <div class="col-12 titulo"> GRÁFICAS LEVEY JENNINGS</div>
+
+          <div class="col-12 col-lg-2 col-xl-12">
+            <form [formGroup]="formFecha">
+
+              <div class="form-row">
+                <div class="col-sm-1 col-lg-1 offset-lg-1 form-group">
+                  <div role="group">
+                    <img class="imagCongig" [src]="'calendario.svg' | imageCdn">
+
+                  </div>
+                </div>
+
+
+
+                <div class="col-sm-2 col-lg-2 form-group">
+                  <div role="group">
+
+                    <label class="labelForm" for="fechaInicio">Fecha Inicio<span class="colorAsterisco"> *</span></label>
+                    <mat-form-field style="display: inherit;">
+                      <input matInput [matDatepicker]="picker" class="form-control styleForm "
+                        formControlName="fechaInicio" id="expDate" autocomplete="off"
+                        style="background-image: none !important;font-size: 1rem">
+                      <mat-datepicker-toggle matSuffix [for]="picker" style="color:#2edad8; width: 18px;">
+                      </mat-datepicker-toggle>
+                      <mat-datepicker #picker style="color:white !important"></mat-datepicker>
+                    </mat-form-field>
+                    <small *ngIf="fechaInicioselecciobada.invalid  && fechaInicioselecciobada.touched"
+                      class="text-danger animated fadeIn">Campo requerido</small>
+
+                  </div>
+                </div>
+
+
+                <div class="col-sm-2 col-lg-2 form-group">
+                  <div role="group">
+
+                    <label class="labelForm" for="fechaFin">Fecha Fin<span class="colorAsterisco"> *</span></label>
+                    <mat-form-field style="display: inherit;">
+                      <input matInput [matDatepicker]="picker2" class="form-control styleForm "
+                        formControlName="fechaFin" id="expDate" autocomplete="off"
+                        style="background-image: none !important;font-size: 1rem" [min]="today">
+                      <mat-datepicker-toggle matSuffix [for]="picker2" style="color:#2edad8; width: 18px;">
+                      </mat-datepicker-toggle>
+                      <mat-datepicker #picker2 style="color:white !important"></mat-datepicker>
+                    </mat-form-field>
+
+                    <small *ngIf="fechaFin.invalid  && fechaFin.touched"
+                      class="text-danger animated fadeIn">Campo requerido</small>
+
+
+                  </div>
+                </div>
+
+                <div class="col-sm-1 col-lg-1 form-group">
+                  <div role="group" class="sf-2">
+
+                    <button class="boton btnDuplicarLote animate__animated animate__fadeIn fast" type="button"
+                      style="margin-top: 39%;height: 1.8em;">
+                      <i class="fas fa-check" (click)="consultaGraficaFecha()"></i>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+            </form>
+
+            <!-- -- Cards - -->
+            <div class="row justify-content-center mt-12" *ngIf="mostrarGraficas">
+              <div class="col-sm-10">
+                <div class="row">
+                  <div class="card borderTable px-xl-2">
+
+                    <div class="col-sm-11 row" style=" margin-top: 2%;"
+                      *ngFor="let datos of DatosSeleccionadosDatosGrafica; let i = index">
+                      <div class=" col-sm-12 row ">
+                        <p class="texto-negrilla col-sm-2">Test:</p>
+                        <p class="col-sm-8">{{datos.nombre}}</p>
+                      </div>
+
+
+                      <div class=" col-sm-12 row">
+                        <p class="texto-negrilla texto-negrilla col-sm-2">Sección:</p>
+                        <p class="col-sm-3">{{datos.seccion}}|</p>
+                        <p class="texto-negrilla col-sm-3">Material Control:</p>
+                        <p class="col-sm-3">{{datos.meterialControl}}</p>
+
+                      </div>
+
+                      <div class="error-1 ml-2" [id]="'error'+i">
+                        <div [id]="'graficas'+i"></div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #templateTest>
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeVentana()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body" style="overflow-y: scroll; height: 27rem;">
+
+    <div class="row">
+
+      <div class="col flex2" style="margin-top: 0px !important;">
+
+
+        <img class="img" [src]="'datosSeleccionados.svg' | imageCdn">
+
+        <h3 class=" tituloLote">{{tituloLote}}</h3>
+        <div class="hr" style="width: 40% !important;"></div>
+
+      </div>
+    </div>
+    <div class="form-row" *ngFor="let datos of DatosSeleccionadosData">
+      <div class="col-sm-2 col-lg-2 form-group">
+        <div role="group">
+          <img [src]="'lote.svg' | imageCdn" style="height: 50px;">
+
+        </div>
+      </div>
+      <div class="col-sm-10 col-lg-10 form-group">
+        <div role="group row">
+          <div class="col-sm-12 texto-datos">{{ datos.lote}}</div>
+          <div class="col-sm-12">{{datos.nombre }}</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,21 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Acciones correctivas'"
+    (onCreate)="openModalAccionesCorrectivas(templateAccionesCorrectivas, '')" (onChangeStatus)="actualizarEstadoAccionesCorrectivas($event)"
+    (onEdit)="openModalAccionesCorrectivas(templateAccionesCorrectivas, $event)" (onDelete)="eliminarAccionCorrectiva($event)">
+  </app-tabla-comun>
+
+<ng-template #templateAccionesCorrectivas>
+  <form [formGroup]="formaAccionesCorrectivas" class="grid-2">
+    
+    <mat-form-field>
+      <mat-label>Acción correctiva</mat-label>
+      <input matInput type="text" formControlName="descorrectiveactions">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>

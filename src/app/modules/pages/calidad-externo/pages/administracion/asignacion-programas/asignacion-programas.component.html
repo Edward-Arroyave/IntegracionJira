@@ -1,0 +1,400 @@
+<h1 style="margin-top: 3em;">Asignación programa</h1>
+
+
+<form [formGroup]="formaBuscarDatos" class="form_busqueda">
+
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <mat-select formControlName="cliente">
+      <mat-option value="">--
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterClients" placeholderLabel="Buscar clientes..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let cliente of clientes" [value]="cliente.idclient" [matTooltipPosition]="'right'"
+        [matTooltip]="cliente.name" (onSelectionChange)="selectFilter(1,cliente)">
+        {{ cliente.name }} </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>Sede</mat-label>
+    <mat-select formControlName="sede">
+      <mat-option value="">--
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let sede of sedesActive" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+        [matTooltip]="sede.desheadquarters" (onSelectionChange)="selectFilter(2,sede)">
+        {{ sede.desheadquarters }} </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <mat-select formControlName="programa">
+      <mat-option value="">--
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let programa of listaProgramas" [value]="programa.IdProgram" [matTooltipPosition]="'right'"
+        [matTooltip]="programa.Desprogram" (click)="selectFilter(3,programa)">
+        {{ programa.Desprogram }} </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="buscarInfoProgramConf(); buscar()" [disabled]="formaBuscarDatos.invalid">
+      Buscar</button>
+  </div>
+</form>
+
+<div class="tabs_container" *ngIf="verTabla">
+  <div class="tab" (click)="changeTab(1)" [ngClass]="{'noFocus': !openT1}">
+
+    <div class="text-tab">
+      Configuración emisor
+    </div>
+  </div>
+  <div class="tab"
+    [ngClass]="{'disable': dataSourceconfig.data.length == 0 ,'noFocus': openT1 && dataSourceconfig.data.length > 0}"
+    (click)="changeTab(2)">
+    <div class="text-tab text2 ">
+      Configuración cliente
+    </div>
+  </div>
+</div>
+
+<div class=" tables_container mat-elevation-z2" *ngIf="verTabla">
+
+  
+  @if(dataSource.data.length > 0 && openT1){
+    <div class="table-cont">
+
+      <div>
+        <p style="text-align: left; font-size:14px; color : var(--blue-01)"><b>Programa : {{desprogramconfig}}</b></p>
+      </div>
+  
+      @if(verTabla){
+        <table mat-table [dataSource]="dataSource" class="table-responsive" matSort>
+  
+          <ng-container matColumnDef="analito">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Analito</th>
+            <td mat-cell *matCellDef="let row"> {{row.Desanalytes}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="equipo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Equipo</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.NameAnalyzer }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="reactivo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Reactivo</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.Desreagents }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="metodo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Método</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.Desmethods }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="unidades">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Unidades</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.Codunits }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Estado</th>
+            <td mat-cell *matCellDef="let row">
+              <mat-slide-toggle [checked]="row.Active" (change)="actualizarEstadoGestionProgramas(row)">
+              </mat-slide-toggle>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>  
+
+        <mat-paginator [pageSize]="5" #paginator="matPaginator" [length]="dataSource?.data.length" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          
+        <div class="cont-bns">
+          <button class="btnPurple-01 boder-01" style="width: 80px;" (click)="cancelarAsig()">Cancelar</button>
+          <button class="btnPurple-03" style="width: 80px;" [disabled]="buttonClicked"
+            (click)="crearAsignacion()">Asignar</button>
+        </div>
+  
+      }
+
+    </div>
+  }
+
+
+  
+
+  <!-- @if(dataSourceconfig.data.length > 0 && !openT1){
+    <div class="table-cont">
+      <div>
+        <p style="text-align: left; font-size:14px; color : var(--blue-01)"><b>Programa : {{desprogramconfig}}</b></p>
+      </div>
+      <table mat-table [dataSource]="dataSourceconfig" class="table-responsive" matSort *ngIf="verTabla">
+  
+        <ng-container matColumnDef="analito">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+            Analito</th>
+          <td mat-cell *matCellDef="let row"> {{row.desanalytes}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="equipo">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+            Equipo</th>
+          <td mat-cell *matCellDef="let row" style="width: 3em !important;">
+  
+  
+            <mat-form-field style="height: 32px;">
+  
+              <mat-select style="font-size: 12px;" disableOptionCentering id="analizador{{row.idProgramConfClientHeadq}} "
+                [(ngModel)]="row.id_Analyzer">
+                <mat-option value="">--
+                </mat-option>
+                <mat-option *ngFor="let analizador of analyzers" [value]="analizador.idAnalyzer"
+                  (click)="selectOne(1,row,analizador.idAnalyzer )">{{
+                  analizador.nameAnalyzer }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+          </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="reactivo">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+            Reactivo</th>
+          <td mat-cell *matCellDef="let row" style="width: 3em !important;">
+            <div class="col m-auto">
+  
+  
+  
+              <mat-form-field style="height: 32px;">
+  
+                <mat-select style="font-size: 12px;" disableOptionCentering id="react{{row.idProgramConfClientHeadq}}"
+                  [(ngModel)]="row.idReagents">
+                  <mat-option value="">--
+                  </mat-option>
+                  <mat-option *ngFor="let react of reactivos" [value]="react.idreagents"
+                    (click)="selectOne(2,row,react.idreagents )">
+                    {{ react.desreagents }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+            </div>
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="metodo">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+            Método</th>
+          <td mat-cell *matCellDef="let row">
+            <div class="col m-auto">
+  
+  
+              <mat-form-field style="height: 32px;">
+                <mat-select style="font-size: 12px;" disableOptionCentering id="metodo{{row.idProgramConfClientHeadq}}"
+                  [(ngModel)]="row.idMethod">
+                  <mat-option value="">--
+                  </mat-option>
+                  <mat-option *ngFor="let metodo of methodsActive" [value]="metodo.idmethods"
+                    (click)="selectOne(3,row,metodo.idmethods )">
+                    {{ metodo.desmethods }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="unidades">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+            Unidades</th>
+          <td mat-cell *matCellDef="let row">
+  
+            <mat-form-field style="height: 32px;">
+              <mat-select style="font-size: 12px;" disableOptionCentering id="unit{{row.idUnit}}"
+                [(ngModel)]="row.idUnit">
+                <mat-option value="">--
+                </mat-option>
+                <mat-option *ngFor="let unidad of listaUnits" [value]="unidad.idunits"
+                  (click)="selectOne(4,row,unidad.idunits )">
+                  {{ unidad.codunits }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef>
+            Estado</th>
+          <td mat-cell *matCellDef="let row" [id]="row.idProgramConfClientHeadq">
+            <mat-slide-toggle [checked]="row.active" (change)="selectOne(5,row,row.idProgramConfClientHeadq)">
+            </mat-slide-toggle>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSize]="5" [length]="dataSourceconfig?.data.length" #paginator2="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+      <div class="cont-bns" *ngIf="verTabla">
+        <button class="btnPurple-01 boder-01" style="width: 80px;" (click)="cancelarAsig()">Cancelar</button>
+        <button class="btnPurple-03" style="width: 80px;" (click)="guardar()">Actualizar</button>
+      </div>
+    </div>
+  } -->
+
+  <!-- configuración cliente -->
+  @if(dataSourceconfig.data.length > 0 && !openT1) {
+    <div class="table-cont">
+      <div>
+        <p style="text-align: left; font-size:14px; color: var(--blue-01)">
+          <b>Programa : {{ desprogramconfig }}</b>
+        </p>
+      </div>
+
+      <table mat-table [dataSource]="dataSourceconfig" class="table-responsive" matSort>
+
+        <!-- ANALITO -->
+        <ng-container matColumnDef="analito">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>Analito</th>
+          <td mat-cell *matCellDef="let row; let i = index"> {{ row.desanalytes }} </td>
+        </ng-container>
+
+        <!-- EQUIPO -->
+        <ng-container matColumnDef="equipo">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>Equipo</th>
+          <td mat-cell *matCellDef="let row; let i = index">
+            <mat-form-field style="height: 32px;">
+              <mat-select [formControl]="rowControls[row.idTab]?.analizador" disableOptionCentering
+                (selectionChange)="selectOne(1, row, $event.value)">
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="rowControls[i]?.analizadorSearch" placeholderLabel="Buscar equipo..." noEntriesFoundLabel="No se encontró el equipo"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="">--</mat-option>
+                <mat-option *ngFor="let analizador of rowControls[i]?.filteredAnalyzers" [value]="analizador.idAnalyzer">
+                  {{ analizador.nameAnalyzer }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- REACTIVO -->
+        <ng-container matColumnDef="reactivo">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>Reactivo</th>
+          <td mat-cell *matCellDef="let row; let i = index">
+            <mat-form-field style="height: 32px;">
+              <mat-select [formControl]="rowControls[row.idTab]?.reactivo" disableOptionCentering
+                (selectionChange)="selectOne(2, row, $event.value)">
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="rowControls[i]?.reactivoSearch" placeholderLabel="Buscar reactivo..." noEntriesFoundLabel="No se encontró el reactivo"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="">--</mat-option>
+                <mat-option *ngFor="let react of rowControls[i]?.filteredReactivos" [value]="react.idreagents">
+                  {{ react.desreagents }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- MÉTODO -->
+        <ng-container matColumnDef="metodo">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>Método</th>
+          <td mat-cell *matCellDef="let row; let i = index">
+            <mat-form-field style="height: 32px;">
+              <mat-select [formControl]="rowControls[row.idTab]?.metodo" disableOptionCentering
+                (selectionChange)="selectOne(3, row, $event.value)">
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="rowControls[i]?.metodoSearch" placeholderLabel="Buscar método..." noEntriesFoundLabel="No se encontró el método"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="">--</mat-option>
+                <mat-option *ngFor="let metodo of rowControls[i]?.filteredMetodos" [value]="metodo.idmethods">
+                  {{ metodo.desmethods }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- UNIDADES -->
+        <ng-container matColumnDef="unidades">
+          <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>Unidades</th>
+          <td mat-cell *matCellDef="let row; let i = index">
+            <mat-form-field style="height: 32px;">
+              <mat-select [formControl]="rowControls[row.idTab]?.unidad" disableOptionCentering
+                (selectionChange)="selectOne(4, row, $event.value)">
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="rowControls[i]?.unidadSearch" placeholderLabel="Buscar unidad..." noEntriesFoundLabel="No se encontró la unidad"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option value="">--</mat-option>
+                <mat-option *ngFor="let unidad of rowControls[i]?.filteredUnidades" [value]="unidad.idunits">
+                  {{ unidad.codunits }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- ESTADO -->
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let row; let i = index" [id]="row.idProgramConfClientHeadq">
+            <mat-slide-toggle [checked]="row.active" (change)="selectOne(5, row, row.idProgramConfClientHeadq)">
+            </mat-slide-toggle>
+          </td>
+        </ng-container>     
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSize]="5" [length]="dataSourceconfig?.data.length" #paginator2="matPaginator" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+
+      <div class="cont-bns" *ngIf="verTabla">
+        <button class="btnPurple-01 boder-01" style="width: 80px;" (click)="cancelarAsig()">Cancelar</button>
+        <button class="btnPurple-03" style="width: 80px;" (click)="guardar()">Actualizar</button>
+      </div>
+    </div>
+  }
+
+  </div>

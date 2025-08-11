@@ -1,0 +1,21 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Diccionario de resultados'"
+    (onCreate)="openModalRegistroDiccionario(templateRegistroDiccionario, '')" (onChangeStatus)="actualizarEstadoDiccionario($event)"
+    (onEdit)="openModalRegistroDiccionario(templateRegistroDiccionario, $event)" (onDelete)="eliminarDiccionario($event)">
+  </app-tabla-comun>
+
+<ng-template #templateRegistroDiccionario>
+  <form [formGroup]="formaRegistroDiccionario" class="grid-2">
+    <mat-form-field>
+
+      <mat-label>Resultado</mat-label>
+      <input matInput type="text" formControlName="desresults">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>

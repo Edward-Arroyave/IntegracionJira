@@ -1,0 +1,353 @@
+@if(!openForm){
+
+<h1 style="margin-top: 3em;">Rondas</h1>
+
+
+<form [formGroup]="formaBuscarDatos" class="form_busqueda">
+
+
+
+  <mat-form-field>
+    <mat-label>{{'MODULES.RONDASQCE.FILTRO.CLIENTE' |
+      translate}}</mat-label>
+    <mat-select formControlName="cliente" (selectionChange)="limpiarFormBuscarDatos()">
+      <mat-option value="">{{'MODULES.RONDASQCE.FORMULARIO.SELECCIONE' | translate}}
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterClients" placeholderLabel="Buscar clientes..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let cliente of listaClientes" [value]="cliente.idclient" [matTooltipPosition]="'right'"
+        [matTooltip]="cliente.name" (click)="selectFilter(1,cliente)">
+        {{ cliente.name }} </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>{{'MODULES.RONDASQCE.FILTRO.SEDE' |
+      translate}}</mat-label>
+    <mat-select formControlName="sede" (valueChange)="limpiarFormBuscarDatosSede()">
+      <mat-option value="">{{'MODULES.RONDASQCE.FORMULARIO.SELECCIONE' | translate}}
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let sede of sedesActive" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+        [matTooltip]="sede.desheadquarters" (click)="selectFilter(2,sede)">
+        {{ sede.desheadquarters }} </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+
+
+
+
+  <mat-form-field>
+    <mat-label>{{'MODULES.RONDASQCE.FILTRO.PROGRAMA' |
+      translate}}</mat-label>
+    <mat-select formControlName="programa">
+      <mat-option value="">{{'MODULES.RONDASQCE.FORMULARIO.SELECCIONE' | translate}}
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let programa of listaProgramas" [value]="programa.IdProgram" [matTooltipPosition]="'right'"
+        [matTooltip]="programa.Desprogram" (click)="selectFilter(3,programa)">
+        {{ programa.Desprogram }} </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+
+
+
+
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="buscarDatos()" [disabled]="formaBuscarDatos.invalid">
+      {{'MODULES.BUSCAR' | translate}}</button>
+  </div>
+</form>
+
+
+
+@if(show){
+
+
+@defer(when show ){
+<app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [hidden]="!show"
+  (onCreate)="openRegistroRondas('')" (onChangeStatus)="toggleChanged($event)" (onEdit)="openRegistroRondas($event)"
+  (onDelete)="eliminarRondaQce($event)" (onPermissions)="openModalDetalleRondasQce( templateDetalleQce , $event)">
+</app-tabla-comun>
+}
+
+
+
+<ng-template #templateDetalleQce>
+  <div class="tableDetalle">
+    <table class="table" *ngIf="dataSourceDetalle.length !== 0">
+      <thead>
+        <tr>
+          <th>{{ 'MODULES.RONDASQCE.COLUMNSDETALLE.NUMMUESTRA' | translate }}</th>
+          <th>{{ 'MODULES.RONDASQCE.COLUMNSDETALLE.IDMUESTRA' | translate }}</th>
+          <th>{{ 'MODULES.RONDASQCE.COLUMNSDETALLE.INICIAL' | translate }}</th>
+          <th>{{ 'MODULES.RONDASQCE.COLUMNSDETALLE.FINAL' | translate }}</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sample of dataSourceDetalle; let i = index">
+
+          <td style="font-weight: 600;">{{ i + 1 }}</td>
+          <td style="font-weight: 600;">{{ sample.Serialsample }}</td>
+          <td style="font-weight: 600;">{{ sample.Begindate | date: 'dd-MM-yyyy' }}</td>
+          <td style="font-weight: 600;">{{ sample.Enddate | date: 'dd-MM-yyyy' }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+</ng-template>
+
+
+}
+
+}@else {
+
+<h1 style="margin-top: 3em;">{{this.accion == 'Crear' ? 'Crear' : 'Editar'}}</h1>
+
+<div class="container_formSamples">
+
+
+  <div class="desc_form">
+    <span class="title-op">Cliente</span>
+    <span class="title-os" [matTooltip]="programSelected.name"> {{clienteSeleccionado.name}}</span>
+
+  </div>
+  <div class="desc_form">
+    <span class="title-op">Programa</span>
+    <span class="title-os" [matTooltip]="programSelected.Desprogram"> {{programSelected.Desprogram}}</span>
+
+  </div>
+
+  <form [formGroup]="formaRegistroRondasQce" class="formulario_ronda">
+    <mat-form-field>
+      <mat-label>{{'MODULES.RONDASQCE.FORMULARIO.RONDAS' |
+        translate}}
+      </mat-label>
+      <input matInput formControlName="nroround" type="number" id="nroround">
+      <mat-error>Campo requerido</mat-error>
+    </mat-form-field>
+
+    @if(!show2){
+    <div class="btn_change_round" (click)="!isButtonDisabled && updateNroRound()">
+      Actualizar n° ronda
+      <img src="../../../../../../../assets/rutas/iconos/cambio_icon.svg" alt="Icono cambiar ronda">
+    </div>
+
+    }
+
+  </form>
+
+
+
+  <form [formGroup]="formularioSamples" class="formSamples" *ngIf="show2">
+
+    <mat-form-field>
+      <mat-label>{{'MODULES.RONDASQCE.COLUMNS.MUESTRA' | translate}}</mat-label>
+      <mat-select disableOptionCentering formControlName="idSample">
+        <ngx-mat-select-search
+            [formControl]="sampleFilterControl"
+            placeholderLabel="Buscar muestra..."
+            noEntriesFoundLabel="No se encontró una muestra">
+          </ngx-mat-select-search>
+
+          <!-- Opciones filtradas -->
+        <mat-option (click)="AnalitosSinAsignar(muestra.idSample, idPrograma)"
+          *ngFor="let muestra of filteredSamples"
+          [value]="muestra.idSample"
+          [matTooltip]="muestra.serialsample"
+          [matTooltipPosition]="'right'">
+          {{ muestra.serialsample }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Campo requerido</mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        {{'MODULES.REPORTECONSOLIDADOICT.ANALITOS' | translate}}
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="idProgramConfClientHeadq" multiple>
+        <mat-option value="" (click)="formularioSamples.get('idProgramConfClientHeadq')?.setValue(null)">
+          --
+        </mat-option>
+        <mat-option value="-1" *ngIf="validselect()" (click)="selectedAllanalyte('idProgramConfClientHeadq')">
+          Todas las asignaciones de programa
+        </mat-option>
+        <mat-option *ngFor="let parametrization of listaAnalitosXPrograma" [value]="parametrization.idProgramConfClientHeadq"
+          [matTooltipPosition]="'right'" [matTooltip]="parametrization.desanalytes" (click)="selectedanalyte('idProgramConfClientHeadq')">
+          {{ parametrization.desanalytes + ' / ' + parametrization.nameanalyzer + ' / ' + parametrization.codunits }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Campo requerido</mat-error>
+
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Fecha desde - hasta </mat-label>
+      <mat-date-range-input [rangePicker]="picker" [min]="maxEndDate">
+        <input formControlName="fechaInicio" matStartDate placeholder="Fecha inicial">
+        <input formControlName="fechaFin" matEndDate placeholder="Fecha final">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error>Campo requerido</mat-error>
+    </mat-form-field>
+
+
+    <button class="btnPurple-01" type="button" (click)="addProgramAnalyteConfig()">
+      {{ 'Agregar' | translate}}
+      <mat-icon>library_add</mat-icon>
+    </button>
+
+
+  </form>
+
+
+
+</div>
+
+
+<div id="table_muestras">
+
+  <table class="table" *ngIf="nroSamples.length !== 0">
+    <thead>
+      <tr>
+        <th>{{ 'MODULES.RONDASQCE.COLUMNSDETALLE.NUMMUESTRA' | translate }}</th>
+        <th>{{ 'MODULES.RONDASQCE.COLUMNSDETALLE.IDMUESTRA' | translate }}</th>
+        <th>{{ 'MODULES.RONDASQCE.COLUMNSDETALLE.INICIAL' | translate }}</th>
+        <th>{{ 'MODULES.RONDASQCE.COLUMNSDETALLE.FINAL' | translate }}</th>
+        <th [hidden]="show2">{{ 'MODULES.RONDASQCE.COLUMNS.EDITAR' | translate
+          }}</th>
+        <th scope="col">{{ 'MODULES.RONDASQCE.COLUMNS.ELIMINAR' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sample of nroSamples; let i = index">
+
+        <td style="font-weight: 600;">{{ i + 1 }}</td>
+        <td style="font-weight: 600;">{{ sample.Serialsample }}</td>
+        <td style="font-weight: 600;">{{ sample.Begindate | date: 'dd-MM-yyyy' }}</td>
+        <td style="font-weight: 600;">{{ sample.Enddate | date: 'dd-MM-yyyy' }}</td>
+        <td [hidden]="show2">
+          <div class="editarIcon" (click)="editarSample( sample , editarRondaMuestra )">
+            <mat-icon style="font-size: 21px;">edit</mat-icon>
+          </div>
+
+        </td>
+        <td>
+          <div class="eliminarIcon">
+            <mat-icon (click)="removeSample( sample, i )">close</mat-icon>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="form-row">
+  <div>
+
+    <div class="buttons_form">
+
+      <button class="btnPurple-01 border-01" type="button" (click)="closeCrear()">{{'MODULES.BOTONCANCELAR' |
+        translate}}
+      </button>
+
+      <button *ngIf="!verSamples && programAnalytes.length > 0" class="btnPurple-03" type="button"
+        (click)="addSample()">{{'MODULES.BOTONACEPTAR' | translate}}</button>
+      <button *ngIf="show2" class="btnPurple-03 " type="button" [disabled]="isButtonDisabled"
+        (click)="crearEditarRodasQce()">{{'MODULES.BOTONACEPTAR' | translate}}
+      </button>
+
+
+    </div>
+  </div>
+</div>
+
+
+<ng-template #editarRondaMuestra>
+
+  <form [formGroup]="formularioSamples" class="form_samples_modal">
+
+    <mat-form-field>
+      <mat-label>{{'MODULES.RONDASQCE.COLUMNS.MUESTRA' | translate}}</mat-label>
+      <mat-select disableOptionCentering formControlName="idSample">
+
+        <mat-option *ngFor="let muestra of listaSamples" [value]="muestra.idSample" [matTooltipPosition]="'right'"
+          [matTooltip]="muestra.serialsample">
+          {{ muestra.serialsample }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Campo requerido</mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        {{'MODULES.REPORTECONSOLIDADOICT.ANALITOS' | translate}}
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="idProgramConfClientHeadq" multiple>
+        <mat-option value="" (click)="formularioSamples.get('idProgramConfClientHeadq')?.setValue(null)">
+          --
+        </mat-option>
+        <mat-option value="-1" *ngIf="validselect()" (click)="selectedAllanalyte('idProgramConfClientHeadq')">
+          Todas las asignaciones de programa
+        </mat-option>
+        <mat-option *ngFor="let parametrization of listaAnalitosXPrograma" [value]="parametrization.idProgramConfClientHeadq"
+          [matTooltipPosition]="'right'" [matTooltip]="parametrization.desanalytes" (click)="selectedanalyte('idProgramConfClientHeadq')">
+          {{ parametrization.desanalytes + ' / ' + parametrization.nameanalyzer + ' / ' + parametrization.codunits }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Campo requerido</mat-error>
+
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Fecha desde - hasta </mat-label>
+      <mat-date-range-input [rangePicker]="picker" [min]="maxEndDate">
+        <input formControlName="fechaInicio" matStartDate placeholder="Fecha inicial">
+        <input formControlName="fechaFin" matEndDate placeholder="Fecha final">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error>Campo requerido</mat-error>
+    </mat-form-field>
+
+
+
+
+
+  </form>
+
+</ng-template>
+
+
+
+}

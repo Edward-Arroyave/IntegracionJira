@@ -1,0 +1,73 @@
+<section>
+  <h1 style="margin-top: 3em;">Permisos especiales</h1>
+  <button  (click)="showCard(formularioPermisos)" class="btnPurple-01">
+    Crear
+    <mat-icon>note_add</mat-icon>
+  </button>
+  <app-tabla-permisos></app-tabla-permisos>
+</section>
+
+<ng-template #formularioPermisos >
+  <form [formGroup]="form" >
+    <div class="grid-3-toggle" style="margin-bottom: 1.5em;">
+      <mat-form-field>
+        <mat-label>
+         Modulo
+        </mat-label>
+        <mat-select formControlName="Modulo" required>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterModule" placeholderLabel="Buscar..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          @for(modulo of moduleAccesses; track $index){
+            <mat-option [value]="modulo">
+              {{modulo.desmoduleaccess}}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+      <!-- seleción de rol -->
+      <mat-form-field>
+        <mat-label>
+          Rol
+        </mat-label>
+        <mat-select formControlName="Rol" required>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterRole" placeholderLabel="Buscar..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          @for(rol of roles; track $index){
+            <mat-option [value]="rol">
+              {{rol.namerol}}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <button type="submit" class="btnPurple-01" [disabled]="!form.valid">
+        {{ "MODULES.PERMISOSESPECIALES.BOTONCREAR" | translate }}
+        <mat-icon>loop</mat-icon>
+      </button>
+    </div>
+    <div style="height: 3em; display: flex; justify-content: space-around; width:100%;">
+      @if(form.valid){
+        <div class="contieneToggle">
+          <label class="labelToggle">Crear</label>
+          <mat-slide-toggle formControlName="Crear"></mat-slide-toggle>
+        </div>
+        <div class="contieneToggle">
+          <label class="labelToggle">Editar</label>
+          <mat-slide-toggle formControlName="Editar"></mat-slide-toggle>
+        </div>
+        <div class="contieneToggle">
+          <label class="labelToggle">Eliminar</label>
+          <mat-slide-toggle formControlName="Eliminar"></mat-slide-toggle>
+        </div>
+      }
+    </div>
+  </form>
+</ng-template>

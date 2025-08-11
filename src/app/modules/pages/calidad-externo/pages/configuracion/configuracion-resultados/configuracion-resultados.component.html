@@ -1,0 +1,208 @@
+<h1 style="margin-top: 3em;">Configuración resultados</h1>
+<form [formGroup]="formaBuscarDatos" class="form_busqueda">
+
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <mat-select disableOptionCentering formControlName="programa">
+      <mat-option value="">--
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+
+      <mat-option *ngFor="let programa of listaProgramas" [value]="programa.IdProgram" [matTooltipPosition]="'right'"
+        [matTooltip]="programa.Desprogram">
+        {{ programa.Desprogram }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="buscarDatos()" [disabled]="formaBuscarDatos.invalid">Buscar</button>
+  </div>
+</form>
+
+
+<app-tabla-comun [hidden]="!ver" [cabeceros]="displayedColumns" [info-tabla]="dataTableBody"
+  (onCreate)="openModalRegistroRondasQce(templateRegistroCA, '')" (onChangeStatus)="actualizarEstado($event)"
+  (onEdit)="openModalRegistroRondasQceEdit(templateRegistroCAEdit, $event)"
+  (onDelete)="eliminarConfResult($event.Idconfanalyteresult)">
+</app-tabla-comun>
+
+<ng-template #templateRegistroCA>
+  <form [formGroup]="formaRegistroConf" class="grid-3">
+
+    <mat-form-field>
+      <mat-label>Analito</mat-label>
+      <mat-select disableOptionCentering formControlName="idanalytes">
+        <mat-option value="">--
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analito..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let analito of listaAnalitos" [value]="analito.Idanalytes" [matTooltipPosition]="'right'"
+          [matTooltip]="analito.Desanalytes">
+          {{ analito.Desanalytes }}
+        </mat-option>
+  
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Equipo</mat-label>
+      <mat-select disableOptionCentering formControlName="idanalyzer">
+        <mat-option value="">--
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterEquipo" placeholderLabel="Buscar equipo..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let equipo of listaEquipos" [value]="equipo.idAnalyzer" [matTooltipPosition]="'right'"
+          [matTooltip]="equipo.nameAnalyzer">
+          {{ equipo.nameAnalyzer }}
+        </mat-option>
+  
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label for="idresultsdictionary">
+        Resultado
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="idresultsdictionary">
+        <mat-option>
+          --
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterResultados" placeholderLabel="Buscar resultado..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let resultado of listaResultados" [value]="resultado.desresults" [matTooltipPosition]="'right'"
+        [matTooltipPosition]="'right'" [matTooltip]="resultado.desresults">
+          {{ resultado.desresults}}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Interpretación
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="interpretation">
+        <mat-option value="">--</mat-option>
+        <mat-option value="P">P</mat-option>
+        <mat-option value="N">N</mat-option>
+        <mat-option value="I">I</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Orden gráfica</mat-label>
+      <input matInput formControlName="ordergraph" type="number" autocomplete="off">
+    </mat-form-field>
+
+
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+
+</ng-template>
+
+<ng-template #templateRegistroCAEdit>
+
+  <form [formGroup]="formaRegistroConfEdit" class="grid-3">
+
+    <mat-form-field>
+      <mat-label>Analito</mat-label>
+      <mat-select disableOptionCentering formControlName="idanalytes">
+        <mat-option value="">--
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analito..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let analito of listaAnalitos" [value]="analito.Idanalytes" [matTooltipPosition]="'right'"
+          [matTooltip]="analito.Desanalytes">
+          {{ analito.Desanalytes }}
+        </mat-option>
+  
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Equipo</mat-label>
+      <mat-select disableOptionCentering formControlName="idanalyzer">
+        <mat-option value="">--</mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterEquipo" placeholderLabel="Buscar equipo..."
+            noEntriesFoundLabel="No se encontró un resultado del equipo buscado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let equipo of listaEquipos" [value]="equipo.idAnalyzer" [matTooltipPosition]="'right'"
+          [matTooltip]="equipo.nameAnalyzer">
+          {{ equipo.nameAnalyzer }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label for="idresultsdictionary">
+        Resultado
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="idresultsdictionary">
+        <mat-option>
+          --
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterResultados" placeholderLabel="Buscar resultado..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let resultado of listaResultados" [value]="resultado.desresults" [matTooltipPosition]="'right'"
+        [matTooltipPosition]="'right'" [matTooltip]="resultado.desresults">
+          {{ resultado.desresults}}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Interpretación
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="interpretation">
+        <mat-option value="">--</mat-option>
+        <mat-option value="P">P</mat-option>
+        <mat-option value="N">N</mat-option>
+        <mat-option value="I">I</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Orden gráfica</mat-label>
+      <input matInput formControlName="ordergraph" type="number" autocomplete="off">
+    </mat-form-field>
+
+
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+
+</ng-template>

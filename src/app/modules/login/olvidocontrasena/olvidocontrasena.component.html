@@ -1,0 +1,50 @@
+<div id="fondo">
+
+  <div class="login_container">
+
+    <div class="cont-form">
+
+      <form id="fondoFormulario" [formGroup]="formulario">
+        <div class="contImg">
+          <img src="../../assets/rutas/iconos/logoQC.png" class="logo" alt="Annar QC">
+        </div>
+        <div>
+          <h1 class="title">Recuperar contraseña</h1>
+          <p class="subtitle">Para recuperar su contraseña, ingrese el correo electrónico asociado a su usuario y le enviaremos un email. </p>
+
+        </div>
+
+
+        <div class="container_input">
+          <img src="../../assets/rutas/iconos/mensaje.png" class="icon_iput" alt="Usuario">
+
+
+
+            <div style="width: 100%;">
+              <mat-form-field>
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput formControlName="username">
+              </mat-form-field>
+              <mat-error *ngIf="formulario.get('username').errors?.required  && formulario.get('username').touched"
+              class="text-danger animated fadeIn">Campo requerido</mat-error>
+            </div>
+
+        </div>
+
+
+        <div class="butons_option">
+          <button [routerLink]="['/login/login']" type="button"  class="btn purple btnPurple-03">
+            Cancelar
+          </button>
+          <button id="enviar" (click)="ingresar()" type="submit"  class="btn btnPurple-03">
+            Recuperar
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+
+</div>

@@ -1,0 +1,21 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Métodos'"
+    (onCreate)="openModalRegistroMetodoQce(templateRegistroMetodoQce, '')" (onChangeStatus)="actualizarEstadoMetodoQce($event)"
+    (onEdit)="openModalRegistroMetodoQce(templateRegistroMetodoQce, $event)" (onDelete)="eliminarMetodoQce($event.idmethods)">
+  </app-tabla-comun>
+
+<ng-template #templateRegistroMetodoQce>
+
+  <form [formGroup]="formaRegistroMetodoQce" class="grid-2">
+    <mat-form-field>
+      <mat-label>Método</mat-label>
+      <input matInput type="text" formControlName="desmethods">
+      <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div class="contieneToggle">
+    <label class="labelToggle">Estado</label>
+    <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+  </div>
+  </form>
+</ng-template>
+

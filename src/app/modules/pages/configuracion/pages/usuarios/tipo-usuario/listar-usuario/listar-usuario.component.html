@@ -1,0 +1,421 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <div class="card mt-3 mb-3 borderTable">
+        <div class="col-12 d-flex justify-content-center">
+          <img class="imageSobreBorde" [src]="'Usuarios.png' | imageCdn">
+        </div>
+        <div class="row justify-content-center mt-4">
+
+          <div class="col-12 titulo">USUARIOS</div>
+          <div class="col-11">
+
+            <div class="row boxBtnFilter">
+
+              <div class="col-sm-4 boxBtnCreate form-group">
+                <button class="boton btnCreate animate__animated animate__fadeIn fast" type="button"
+                  (click)="openModalRegistroUsuario(templateRegistroUsuario, '')">Crear</button>
+              </div>
+
+              <div class="col-sm-8 boxFilter">
+                <i class="fa fa-search"></i>
+                <mat-form-field class="filter">
+                  <input matInput (keyup)="applyFilter($event)"
+                    placeholder="Buscar" #input>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-11" style="margin:  0 !important;">
+            <table mat-table [dataSource]="dataSource" class="table-responsive" matSort>
+
+              <!-- ID Column -->
+
+              <ng-container matColumnDef="name">
+                <th style="width: 300px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Nombre </th>
+                <td mat-cell *matCellDef="let row"> {{ row.name | titlecase }} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="lastname">
+                <th style="width: 300px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Apellido </th>
+                <td mat-cell *matCellDef="let row"> {{ row.lastname | titlecase }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="username">
+                <th style="width: 300px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Usuario </th>
+                <td mat-cell *matCellDef="let row"> {{row.username}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="email">
+                <th style="width: 300px" mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Email </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Active">
+                <th style="width: 300px" mat-header-cell *matHeaderCellDef>
+                 Estado</th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-slide-toggle [checked]="row.active" (change)="actualizarEstadoUsuario(row)">
+                  </mat-slide-toggle>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="permisos">
+                <th style="width: 300px" mat-header-cell *matHeaderCellDef>
+                 Permisos</th>
+                <td mat-cell *matCellDef="let row">
+                  <ng-container>
+                    <i class="far fa-check-circle" (click)="openModalAsignarMenu(templateAsignarMenu, row)"
+                      style="font-size: 24px; color: #6B4B8B; cursor: pointer;"></i>
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="editar">
+                <th style="width: 300px" mat-header-cell *matHeaderCellDef>
+                  Editar </th>
+                <td mat-cell *matCellDef="let row">
+                  <ng-container>
+                    <img [src]="'imagenEditar.png' | imageCdn"
+                      (click)="openModalRegistroUsuario(templateRegistroUsuario, row)" style="cursor: pointer;">
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="borrar">
+                <th style="width: 300px" mat-header-cell *matHeaderCellDef>
+                  Eliminar </th>
+                <td mat-cell *matCellDef="let row">
+                  <img [src]="'imagenEliminar.png' | imageCdn" (click)="eliminarUsuario(row.userid)"
+                    style="cursor: pointer;">
+                </td>
+
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+              </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #templateRegistroUsuario>
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeVentana()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <div class="row">
+
+      <div class="col flex2">
+
+        <img *ngIf="accionEditar" class="img" [src]="'edit.png' | imageCdn">
+        <img *ngIf="!accionEditar" class="img" [src]="'crear2.png' | imageCdn">
+        <h3 class="tituloModal">{{tituloAccion}}</h3>
+        <div class="hr" style="width: 33% !important;"></div>
+
+      </div>
+
+    </div>
+    <form [formGroup]="formaRegistroParametro" (ngSubmit)="crearEditarUsusario()" autocomplete="off"
+      style="display: grid; grid-template-columns:1fr 1fr 1fr 1fr; gap: 1em;">
+      <div style="margin-bottom: 1em;">
+        <label class="labelForm" for="nombres">Nombre<span
+            class="colorAsterisco"> *</span></label>
+        <input formControlName="nombres" type="text" class="form-control"
+          [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'">
+        <small *ngIf="nombreNoValido.errors?.minlength" class="text-danger animated fadeIn">Mínimo 5 caracteres</small>
+        <small *ngIf="nombreNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Máximo 50 caracteres</small>
+        <small
+          *ngIf="nombreNoValido.invalid  && nombreNoValido.touched && !nombreNoValido.errors?.minlength && !nombreNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Campo requerido</small>
+      </div>
+
+      <div>
+        <label class="labelForm" for="apellidos">Apellido<span
+            class="colorAsterisco"> *</span></label>
+        <input formControlName="apellidos" type="text" class="form-control"
+          [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'">
+        <small *ngIf="apellidoNoValido.errors?.minlength" class="text-danger animated fadeIn">Mínimo 5 caracteres</small>
+        <small *ngIf="apellidoNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Máximo 50 caracteres</small>
+        <small
+          *ngIf="apellidoNoValido.invalid  && apellidoNoValido.touched && !apellidoNoValido.errors?.minlength && !apellidoNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Campo requerido</small>
+      </div>
+
+
+
+      <div>
+        <label class="labelForm" for="estado">Usuario<span
+            class="colorAsterisco"> *</span></label>
+        <input formControlName="nombreUsuario" type="text" class="form-control"
+          [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'">
+        <small *ngIf="nombreUsuarioNoValido.errors?.minlength"
+          class="text-danger animated fadeIn">Mínimo 5 caracteres</small>
+        <small *ngIf="nombreUsuarioNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Máximo 50 caracteres</small>
+        <small
+          *ngIf="nombreUsuarioNoValido.invalid  && nombreUsuarioNoValido.touched && !nombreUsuarioNoValido.errors?.minlength && !apellidoNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Campo requerido</small>
+      </div>
+
+
+      <div>
+        <label class="labelForm" for="pass">Contraseña<span
+            class="colorAsterisco"> *</span></label>
+        <input formControlName="pass" type="password" class="form-control"
+          [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'">
+        <small *ngIf="passwordUsuarioNoValido.errors?.minlength"
+          class="text-danger animated fadeIn">Mínimo 5 caracteres</small>
+        <small *ngIf="passwordUsuarioNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Máximo 50 caracteres</small>
+        <small
+          *ngIf="passwordUsuarioNoValido.invalid  && passwordUsuarioNoValido.touched && !passwordUsuarioNoValido.errors?.minlength && !passwordUsuarioNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Campo requerido</small>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label for="tipoDocumento">
+            Tipo Documento</mat-label>
+          <mat-select formControlName="tipoDocumento" disableOptionCentering>
+            <mat-option value="">--
+            </mat-option>
+            <mat-option *ngFor="let doc of docsActive" [value]="doc.idparametro"> {{ doc.desparam }}
+            </mat-option>
+          </mat-select>
+          <small *ngIf="tipoDocumentoNoValido.invalid  && tipoDocumentoNoValido.touched"
+            class="text-danger animated fadeIn">Campo requerido</small>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label class="labelForm" for="numeroDocumento">N° Documento
+          <span class="colorAsterisco"> *</span></label>
+        <input formControlName="numeroDocumento" type="number" class="form-control"
+          [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'">
+        <small *ngIf="numeroDocumentoNoValido.invalid  && numeroDocumentoNoValido.touched"
+          class="text-danger animated fadeIn">Campo requerido</small>
+      </div>
+
+      <div>
+        <mat-form-field style="display: inherit;">
+          <mat-label style="font-size: 20px;">Fecha Nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento" class="form-control"
+            [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'" id="fechaNacimiento"
+            (change)="changeDate('fechaNacimiento')">
+          <mat-datepicker-toggle matSuffix [for]="picker" style="color:#2edad8; width: 18px;">
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker style="color:white !important"></mat-datepicker>
+        </mat-form-field>
+        <small
+          *ngIf="fechaNacimientoNoValido.invalid  && fechaNacimientoNoValido.touched && !fechaNacimientoNoValido.errors?.minlength && !fechaNacimientoNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Campo requerido</small>
+      </div>
+
+      <div>
+        <label class="labelForm" for="tarjetaProfesional">Tarjeta Profesional<span class="colorAsterisco"> *</span></label>
+        <input formControlName="tarjetaProfesional" type="number" class="form-control"
+          [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'">
+        <small *ngIf="tarjetaProfesionalNoValido.errors?.minlength"
+          class="text-danger animated fadeIn">Mínimo 5 caracteres</small>
+        <small *ngIf="tarjetaProfesionalNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Máximo 50 caracteres</small>
+        <small
+          *ngIf="tarjetaProfesionalNoValido.invalid  && tarjetaProfesionalNoValido.touched && !tarjetaProfesionalNoValido.errors?.minlength && !tarjetaProfesionalNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Campo requerido</small>
+      </div>
+
+
+      <div>
+        <label class="labelForm" for="correoElectronico">Email<span class="colorAsterisco"> *</span></label>
+        <input formControlName="correoElectronico" type="text" class="form-control"
+          [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'">
+        <small *ngIf="correoElectronicoNoValido.errors?.minlength"
+          class="text-danger animated fadeIn">Mínimo 5 caracteres</small>
+        <small *ngIf="correoElectronicoNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Máximo 50 caracteres</small>
+        <small
+          *ngIf="correoElectronicoNoValido.invalid  && correoElectronicoNoValido.touched && !correoElectronicoNoValido.errors?.minlength && !correoElectronicoNoValido.errors?.maxlength && !correoElectronicoNoValido.errors?.pattern"
+          class="text-danger animated fadeIn">Campo requerido</small>
+        <small
+          *ngIf="correoElectronicoNoValido.errors?.pattern && !correoElectronicoNoValido.errors?.minlength && !correoElectronicoNoValido.errors?.maxlength"
+          class="text-danger animated fadeIn">Debe ser tipo de tipo email</small>
+      </div>
+
+
+      <div>
+        <label class="labelForm" for="celular">Celular<span
+            class="colorAsterisco"> *</span></label>
+        <input formControlName="celular" type="number" class="form-control"
+          [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'">
+        <small *ngIf="celularNoValido.invalid  && celularNoValido.touched"
+          class="text-danger animated fadeIn">Campo requerido</small>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label for="rol" class="matLabelForm">Rol
+          </mat-label>
+          <mat-select formControlName="rol" disableOptionCentering>
+            <mat-option value="">--
+            </mat-option>
+            <mat-option *ngFor="let rol of listaRoles" [value]="rol.rolid"> {{ rol.namerol | titlecase }}
+            </mat-option>
+          </mat-select>
+          <small *ngIf="rolNoValido.invalid  && rolNoValido.touched"
+            class="text-danger animated fadeIn">Campo requerido</small>
+        </mat-form-field>
+      </div>
+
+      <div >
+        <!-- <label class="labelForm" for="fechaExpiracion"> <span
+          class="colorAsterisco"> *</span></label> -->
+        <mat-form-field style="display: inherit;">
+          <mat-label style="font-size: 20px;">Fecha Expiración</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="fechaExpiracion" id="fechaExpiracion" [min]="today"
+            id="fechaExp" (change)="changeDate('fechaExp')" class="form-control styleForm"
+            [ngClass]="tituloAccion == 'Crear' ? 'styleForm' : 'styleForm2'" style="font-size: 16px;">
+          <mat-datepicker-toggle matSuffix [for]="picker2" style="color:#2edad8; width: 18px;">
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker2 style="color:white !important"></mat-datepicker>
+        </mat-form-field>
+        <small *ngIf="fechaExpiracionNoValido.invalid  && fechaExpiracionNoValido.touched"
+          class="text-danger animated fadeIn">Campo requerido</small>
+      </div>
+
+
+
+      <div class="btnActive">
+        <div role="group">
+          <label class="labelForm" for="Active">Estado</label><br>
+          <mat-slide-toggle formControlName="Active"></mat-slide-toggle>
+        </div>
+      </div>
+
+      <div class="boxImg">
+
+        <div class="spin" *ngIf="spin">
+          <div class="spinner-border text-primary" role="status"></div>
+        </div>
+
+        <img [src]="'data:image/jpg;base64,'+foto | defaultImage" class="foto animate__animated animate__fadeIn fast"
+          *ngIf="!spin">
+        <input type="file" id="userPicture" style="display: none;" accept=".png, .jpg, .jpeg"
+          (change)="getFoto( $event.target.files[0] )">
+        <img src="../../../../assets/rutas/iconos/camera.svg" onclick="userPicture.click();" class="camera">
+
+      </div>
+
+      <div class="form-row" style="grid-column: span 4;">
+        <div class="col-12 boxBtnAceptCancel">
+          <button class="boton btnAceptar" type="submit" [disabled]="desactivar">Aceptar</button>
+          <button class="botonCancelar btnCancel" type="button" (click)="closeVentana()">Cancelar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #templateAsignarMenu>
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeVentana()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+
+      <div class="col flex2">
+        <img class="img" [src]="'usuarioPermisos.png' | imageCdn">
+        <h3 class="tituloModal"> Asignar Menú</h3>
+        <br>
+        <div class="hr" style="width: 33% !important;"></div>
+      </div>
+    </div>
+    <!-- <div class="col-md-12 text-center">
+      <label class="tituloMenus">Deslizar de derecha a izquierda o viceversa según lo requiera</label>
+    </div>-->
+    <div class="col-md-12">
+
+
+
+      <div class="row">
+        <div class="col-2"></div>
+
+        <div class="card col-9 borderTable ">
+
+          <div class="col-12">
+            <h2 class="SubtituloModal">Menú</h2>
+          </div>
+          <div class="scroll-permisos">
+            <section class="example-section row" *ngFor="let menu of MenusXuserid">
+              <span class="example-list-section col-11 fondoMenu">
+                <img style="    color: #6b4b8b;" *ngIf="menu.menuIcon.includes('iconosModal/')" [src]="menu.menuIcon">
+
+                <i style="    color: #6b4b8b;" class="{{menu.menuIcon}}"></i> {{menu.label}} <mat-slide-toggle
+                  (change)="crearEditar(menu)" [checked]="menu.activeMenu" class="alineado-derecha"></mat-slide-toggle>
+              </span>
+              <span class="example-list-section col-11  " *ngIf="menu.activeMenu">
+                <li style=" list-style:none;" *ngFor="let submenu of menu.items">
+                  <mat-slide-toggle [checked]="submenu.activeSubMenu"
+                    (change)="crearEditar(submenu)"></mat-slide-toggle>
+                  <img style="color: #6b4b8b;margin-left: 3PX;" *ngIf="submenu.menuIcon.includes('iconosModal/')"
+                    [src]="submenu.menuIcon">
+
+                  <i style="color: #6b4b8b;margin-left: 3PX;" class="{{submenu.menuIcon}}"></i>
+                  {{submenu.label}}
+                  <span class="example-list-section" *ngIf="submenu.activeSubMenu">
+                    <ul>
+                      <li style="margin-left: 3%;" *ngFor="let submenus of submenu.items">
+                        <mat-slide-toggle [checked]="submenus.activeSubMenu"
+                          (change)="crearEditar(submenus)"></mat-slide-toggle> {{submenus.label}}
+                      </li>
+                    </ul>
+                  </span>
+                </li>
+              </span>
+            </section>
+          </div>
+
+        </div>
+        <div class="col-2"></div>
+
+      </div>
+
+      <div class="form-row">
+        <div class="col-12 boxBtnAceptCancel">
+          <button class="boton btnAceptar" type="button" (click)="closeVentana()">Aceptar</button>
+          <button class="botonCancelar btnCancel" type="button" (click)="closeVentana()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</ng-template>

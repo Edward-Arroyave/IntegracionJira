@@ -1,0 +1,259 @@
+.formulario-principal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 1em;
+  align-items: center;
+}
+
+.tabs-imprimir {
+  display: grid;
+  grid-template-columns: 70% 29%;
+  gap: 1em;
+}
+
+.btn-imprimir-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.btn-imprimir {
+  width: 140px;
+  height: 36px;
+  background-color: var(--purple-01);
+  border-radius: 16px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+  cursor: pointer;
+}
+
+.bar-nav-tabs {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-radius: 8px;
+  position: relative;
+  height: 36px;
+  overflow: hidden;
+}
+.container-tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #a3a2a2;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 2;
+  gap: 1em;
+  overflow: hidden;
+  &:hover {
+    color: var(--purple-03);
+    border-bottom: var(--purple-03) solid 1px;
+  }
+}
+
+.container-tab:hover .concordancia {
+  z-index: 2;
+  color: var(--purple-03);
+}
+.container-tab:hover .desempeno {
+  z-index: 2;
+  color: var(--purple-03);
+}
+.container-tab:hover .resultado {
+  z-index: 2;
+  color: var(--purple-03);
+}
+.container-tab:hover .puntaje {
+  z-index: 2;
+  color: var(--purple-03);
+}
+
+.tab-active {
+  color: white;
+  &:hover {
+    color: white;
+  }
+}
+.tab-active img {
+  fill: white !important;
+}
+
+.tab-active:hover .concordancia {
+  z-index: 2;
+  color: white;
+}
+.tab-active:hover .desempeno {
+  z-index: 2;
+  color: white;
+}
+.tab-active:hover .resultado {
+  z-index: 2;
+  color: white;
+}
+.tab-active:hover .puntaje {
+  z-index: 2;
+  color: white;
+}
+
+
+.cuadro-ambulante {
+  position: absolute;
+  background: transparent;
+  height: 36px; /* Ajustar según la altura del contenedor */
+  width: 25%; /* 1fr del grid-template-columns equivale a 25% en este caso */
+  left: 0; /* Inicia en el primer elemento */
+  transition: transform 0.3s ease; /* Para un efecto suave si se necesita moverlo */
+  z-index: 1;
+}
+
+.move-to-firts {
+  transform: translateX(0);
+  background: var(--purple-03);
+}
+.move-to-second {
+  transform: translateX(100%);
+  background: var(--purple-03);
+}
+.move-to-third {
+  transform: translateX(200%);
+  background: var(--purple-03);
+}
+.move-to-fourth {
+  transform: translateX(300%);
+  background: var(--purple-03);
+}
+
+.container-tab span {
+  text-overflow: ellipsis;
+  max-width: 80%;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+.graphs-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  overflow: auto;
+  padding: 1em;
+  border-radius: 8px;
+}
+
+.container-concordancia {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.cont_report {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+table thead {
+  background-color: var(--blue-01);
+  color: white;
+}
+
+tr {
+  height: 40px !important;
+  text-align: center;
+}
+.even-class {
+  background-color: #f58ffa; /* Color para índices impares */
+  color: white;
+}
+
+.odd-class {
+  background-color: #cc15d6; /* Color para índices pares */
+  color: white;
+}
+#contResult {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+
+.cont_puntaje {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+.cont_graf {
+  display: flex;
+  align-items: center;
+}
+
+.table-btn-float {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  top: 10px;
+  right: 10px;
+  background-color: var(--purple-03);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.table-btn-float img {
+  width: 60%;
+}
+
+@media (max-width: 1380px) {
+  .container-tab {
+    font-size: 12px;
+  }
+  .cont_report {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  mat-form-field {
+    font-size: 12px !important;
+  }
+
+  table {
+    font-size: 12px !important;
+  }
+  .bar-nav-tabs {
+    width: 100%;
+  }
+}
+@media (max-width: 1120px) {
+  .cont_report {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .formulario-principal {
+    grid-template-columns: auto auto auto;
+  }
+  .bar-nav-tabs {
+    width: 100%;
+  }
+  .cont_report {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .container-tab span{
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .formulario-principal {
+    grid-template-columns: auto auto;
+  }
+}

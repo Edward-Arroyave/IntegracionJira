@@ -1,0 +1,30 @@
+export interface User {
+    userid:                    number;
+    rolid:                     number;
+    typeid:                    number;
+    nrodoc:                    string;
+    tarprof:                   string;
+    name:                      string;
+    lastname:                  string;
+    birthdate:                 Date;
+    phone:                     string;
+    username:                  string;
+    pass:                      string;
+    email:                     string;
+    datecreate:                Date;
+    dateexp:                   Date;
+    ativeexp:                  boolean;
+    active:                    boolean;
+    superusersede:             boolean;
+    idparametro:               number;
+    imagenuser:                string;
+    tbAddmenu:                 any[];
+    tbAverageds:               any[];
+    tbConfobjquaanalyte:       any[];
+    tbPermissions:             any[];
+    tbResultSupervisorDetalle: any[];
+    tbResultUser:              any[];
+    tbResultqualitative:       any[];
+    tbUserheadquarter:         any[];
+    tbPatientidaccuracy:       any[];
+}

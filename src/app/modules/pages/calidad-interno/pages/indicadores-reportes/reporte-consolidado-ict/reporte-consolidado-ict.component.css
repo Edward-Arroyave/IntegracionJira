@@ -1,0 +1,80 @@
+.icon-circulo{
+  color: var(--purple-03);
+  font-size: 8px;
+  margin-top: 3px;
+}
+
+.grid-template-icon-info{
+  display: flex;
+  align-items: center;
+  gap: .5em;
+  border-top-left-radius:1em ;
+  border-top-right-radius:5px ;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 5px;
+  background: #e3e6ff;
+  /* overflow: hidden; */
+  white-space: nowrap; 
+  width: auto;
+  padding: 0px 1em 0em 0em;
+  position: relative;
+}
+
+p{
+  margin: 0;
+  padding: 0;
+}
+
+.centerItems{
+  display: flex; 
+  align-items: center;
+  gap: .5em;
+}
+
+.flexColumn{
+  display: flex;
+  flex-direction: column;
+}
+
+.contendorCharts{
+  position: relative;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
+  border: 1px solid var(--gray-02);
+  border-radius: 10px;
+  margin: 1em 0;
+  height: 424px;
+  overflow-y: auto;
+}
+
+.contieneInformacion-oculta{
+  height: 0px;
+  padding: 0px 10px;
+  background: #e3e6ff;
+  width: 100%;
+  border-radius: 5px;
+  /* margin-top: 1em; */
+  font-size: 12px;
+  position: absolute;
+  top: 44px;
+  z-index: 999;
+  overflow: hidden;
+  transition: .5s ease-in-out;
+}
+
+.contieneInformacion-desplegada{
+  height: 180px;
+  padding: 10px 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.estiloGeneralSlide:hover{
+  color: var(--purple-01) !important;
+}
+
+.styleSeccion:hover{
+  background: #20319f8f;
+  color: white;
+}

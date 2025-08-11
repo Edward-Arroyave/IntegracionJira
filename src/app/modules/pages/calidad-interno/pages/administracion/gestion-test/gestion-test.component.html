@@ -1,0 +1,437 @@
+  @if(!verLoteFlag()){
+    <app-tabla-comun [viewButton2]="true" [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Tests'"
+      (onCreate)="openModalGestionTest(templateGestionTest, '')" (onChangeStatus)="actualizarGestionTest($event)"
+      (onEdit)="openModalGestionTestEdit(templateGestionTestEdit, $event.IdTest)"
+      (onDelete)="eliminarGestionTest($event.IdTest)"
+      (onPermissions)="openModalDetalleGestionTest(templateDetallesGestionTest,$event)" (onButton2)="openLote()">
+  </app-tabla-comun>
+  }@else {
+    <ng-container *ngTemplateOutlet="templateDuplicarLote"></ng-container>
+  }
+
+<ng-template #templateGestionTest>
+  <form [formGroup]="formularioTest" class="grid-4">
+    <mat-form-field>
+      <mat-label>Control Material</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto01" formControlName="idControlMaterial" #contmatPr>
+      <mat-autocomplete #auto01="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsControlMaterial | async);" [value]="option.descontmat"
+          [matTooltipPosition]="'right'" [matTooltip]="option.descontmat | NombreControlmaterial">
+          {{option.descontmat | NombreControlmaterial}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lote</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto" formControlName="idLot" #lotePr01>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="seleccionarlot(lotePr01.value)">
+        <mat-option *ngFor="let option of (filteredOptionsLots | async);" [value]="option.Numlot"
+          [matTooltipPosition]="'right'" [matTooltip]="option.Numlot | nombreLote">
+          {{option.Numlot | nombreLote}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Sede</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto02" formControlName="idheadquarters" #sedePr>
+      <mat-autocomplete #auto02="matAutocomplete" (optionSelected)="seleccionarsede(sedePr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsSedes | async);" [value]="option.desheadquarters"
+          [matTooltipPosition]="'right'" [matTooltip]="option.desheadquarters | NombreSede">
+          {{option.desheadquarters | NombreSede}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Analito</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto03" formControlName="idanalytes" #analytePr>
+      <mat-autocomplete #auto03="matAutocomplete" (optionSelected)="setLevel(analytePr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsAnalitos | async);" [value]="option.Desanalyte"
+          [matTooltipPosition]="'right'" [matTooltip]="option.Desanalyte | NombreAnalito">
+          {{option.Desanalyte | NombreAnalito}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label> Analizador</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto04" formControlName="idAnalyzer" #analyzerPr>
+      <mat-autocomplete #auto04="matAutocomplete" (optionSelected)="seleccionaranalizadores(analyzerPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsAnalizadores | async);" [value]="option.Desanalyzer"
+          [matTooltipPosition]="'right'" [matTooltip]="option.Desanalyzer | NombreAnalyzer">
+          {{option.Desanalyzer | NombreAnalyzer}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Método</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto05" formControlName="idmethods" #metodoPr>
+      <mat-autocomplete #auto05="matAutocomplete" (optionSelected)="seleccionarmetodos(metodoPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsMethods | async);" [value]="option.Desmethods"
+          [matTooltipPosition]="'right'" [matTooltip]="option.Desmethods | NombreMetodo">
+          {{option.Desmethods | NombreMetodo}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Reactivo</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto06" formControlName="idreagents" #reagentPr>
+      <mat-autocomplete #auto06="matAutocomplete" (optionSelected)="seleccionarreactivos(reagentPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsReagents | async);" [value]="option.Desreagents"
+          [matTooltipPosition]="'right'" [matTooltip]="option.Desreagents | NombreReactivo">
+          {{option.Desreagents | NombreReactivo}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Unidad Medida</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto07" formControlName="idunits" #unitsPr>
+      <mat-autocomplete #auto07="matAutocomplete" (optionSelected)="seleccionarUnidades(unitsPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsUnits | async);" [value]="option.Desunits"
+          [matTooltipPosition]="'right'" [matTooltip]="option.Desunits | NombreUnidad">
+          {{option.Desunits | NombreUnidad}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Decimales</mat-label>
+      <input type="number" matInput formControlName="decimals">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Homologación</mat-label>
+      <input type="text" matInput formControlName="homologation">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nivel</mat-label>
+      <input type="text" matInput formControlName="level">
+      <mat-error>Maximo hasta el nivel 3</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>
+
+<ng-template #templateGestionTestEdit>
+  <form [formGroup]="formularioTestEdit" class="grid-4">
+    <mat-form-field>
+      <mat-label>Control Material</mat-label>
+      <input type="text" matInput [matAutocomplete]="autoedit01" formControlName="idControlMaterial" #contmatPr>
+      <mat-autocomplete #autoedit01="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsControlMaterialEdit | async);" [value]="option.descontmat"
+          [matTooltipPosition]="'right'" [matTooltip]="option.descontmat">
+          {{option.descontmat}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lote</mat-label>
+      <input type="text" matInput [matAutocomplete]="autoedit02" formControlName="idLot" #lotePr01>
+      <mat-autocomplete #autoedit02="matAutocomplete" (optionSelected)="seleccionarlot(lotePr01.value)">
+        <mat-option *ngFor="let option of (filteredOptionsLotsEdit | async);" [value]="option.Numlot"
+          [matTooltipPosition]="'right'" [matTooltip]="option.Numlot">
+          {{option.Numlot}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Sede</mat-label>
+      <input type="text" matInput [matAutocomplete]="autoedit03" formControlName="idheadquarters" #sedePr>
+      <mat-autocomplete #autoedit03="matAutocomplete" (optionSelected)="seleccionarsede(sedePr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsSedesEdit | async);" [value]="option.desheadquarters"
+          [matTooltipPosition]="'right'" [matTooltip]="option.desheadquarters">
+          {{option.desheadquarters}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Analito</mat-label>
+      <input type="text" matInput [matAutocomplete]="autoedit04" formControlName="idanalytes" #analytePr>
+      <mat-autocomplete #autoedit04="matAutocomplete">
+        <mat-option *ngFor="let option of (filteredOptionsAnalitosEdit | async);" [value]="option.desanalytes"
+          [matTooltipPosition]="'right'" [matTooltip]="option.desanalytes">
+          {{option.desanalytes}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label> Analizador</mat-label>
+      <input type="text" matInput [matAutocomplete]="autoedit05" formControlName="idAnalyzer" #analyzerPr>
+      <mat-autocomplete #autoedit05="matAutocomplete" (optionSelected)="seleccionaranalizadores(analyzerPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsAnalizadoresEdit | async);" [value]="option.nameAnalyzer"
+          [matTooltipPosition]="'right'" [matTooltip]="option.nameAnalyzer">
+          {{option.nameAnalyzer}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Método</mat-label>
+      <input type="text" matInput [matAutocomplete]="autoedit06" formControlName="idmethods" #metodoPr>
+      <mat-autocomplete #autoedit06="matAutocomplete" (optionSelected)="seleccionarmetodos(metodoPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsMethodsEdit | async);" [value]="option.desmethods"
+          [matTooltipPosition]="'right'" [matTooltip]="option.desmethods">
+          {{option.desmethods}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Reactivo</mat-label>
+      <input type="text" matInput [matAutocomplete]="autoedit07" formControlName="idreagents" #reagentPr>
+      <mat-autocomplete #autoedit07="matAutocomplete" (optionSelected)="seleccionarreactivos(reagentPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsReagentsEdit | async);" [value]="option.desreagents"
+          [matTooltipPosition]="'right'" [matTooltip]="option.desreagents">
+          {{option.desreagents}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Unidad Medida</mat-label>
+      <input type="text" matInput [matAutocomplete]="autoedit08" formControlName="idunits" #unitsPr>
+      <mat-autocomplete #autoedit08="matAutocomplete" (optionSelected)="seleccionarUnidades(unitsPr.value)">
+        <mat-option *ngFor="let option of (filteredOptionsUnitsEdit | async);" [value]="option.desunits"
+          [matTooltipPosition]="'right'" [matTooltip]="option.desunits">
+          {{option.desunits}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Decimales</mat-label>
+      <input type="number" matInput formControlName="decimals">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Homologación</mat-label>
+      <input type="text" matInput formControlName="homologation">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nivel</mat-label>
+      <input type="text" matInput formControlName="level">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #templateDetallesGestionTest>
+  <div class="grid-6-completo"
+    style="border: 1px solid var(--gray-02);border-radius: 10px; padding: 10px;margin-bottom: 1em;box-shadow: 0px 3px 6px #00000029;">
+    <div>
+      <p>Control Material</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Descontmat }}</p>
+    </div>
+
+    <div>
+      <p>Lote</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Numlot }}</p>
+    </div>
+
+    <div>
+      <p>Sede</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Desheadquarters }}</p>
+    </div>
+
+    <div>
+      <p>Analito</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Desanalytes }}</p>
+    </div>
+
+    <div>
+      <p>Analizador</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.NameAnalyzer }}</p>
+    </div>
+
+    <div>
+      <p>Método</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Desmethods }}</p>
+    </div>
+
+    <div>
+      <p>Reactivo</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Desreagents }}</p>
+    </div>
+
+    <div>
+      <p>Unidad Medida</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Desunits }}</p>
+    </div>
+
+    <div>
+      <p>Nivel</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Level }}</p>
+    </div>
+
+    <div>
+      <p>Decimales</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Decimals }}</p>
+    </div>
+
+    <div>
+      <p>Homologación</p>
+      <p style="font-weight: bold;color: black;">{{ dataModalDetalles.Homologation }}</p>
+    </div>
+
+    <div>
+      <p>Estado</p>
+      <mat-slide-toggle [(ngModel)]="est" disabled></mat-slide-toggle>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #templateDuplicarLote>
+  <br>
+  <h1 style="margin-top: 2em;">Duplicar lotes</h1>
+  <form [formGroup]="formularioLote" class="grid-4">
+    <mat-form-field>
+      <mat-label>Lote actual</mat-label>
+      <input type="text" matInput [matAutocomplete]="auto" formControlName="idLote" #lotePr>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="cambiarLote(lotePr.value)">
+        <mat-option *ngFor="let option of (filteredOptions | async);" [value]="option.Numlot"
+          [matTooltipPosition]="'right'" [matTooltip]="option.Numlot | nombreLote">
+          {{option.Numlot | nombreLote}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lote nuevo</mat-label>
+      <input type="text" matInput [matAutocomplete]="autoNuevo" formControlName="LoteNuevo" (change)="consultar($event)"
+        [readonly]="desactivarTest">
+      <mat-autocomplete #autoNuevo="matAutocomplete">
+        <mat-option *ngFor="let option of (filteredOptionsNuevo | async)" [value]="option.Numlot"
+          [matTooltipPosition]="'right'" [matTooltip]="option.Numlot" (onSelectionChange)="select($event)">
+          {{option.Numlot}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+      <mat-form-field style="display: flex;flex-direction: column;" [ngClass]="desactivarTest ? 'datapicker' : ''">
+        <mat-label>F.Vencimiento</mat-label>
+        <input matInput [readonly]="desactivarTest" [matDatepicker]="picker" formControlName="fVencimiento"
+          id="expDate" autocomplete="off" (change)="changeDate()" [min]="today">
+        <mat-datepicker-toggle [disabled]="desactivarTest" matSuffix [for]="picker" [ngClass]="desactivarTest ? 'colorimg' : ''">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field style="display: flex;flex-direction: column;" >
+        <mat-label>M.Control</mat-label>
+        <mat-select [disabled]="desactivarTest" [ngClass]="desactivarTest ? 'colorBloqueado' : ''"
+          disableOptionCentering formControlName="mContro" >
+          <mat-option value="">--</mat-option>
+          <mat-option *ngFor="let contmates of controlmaterialActive " [value]="contmates.idControlMaterial"
+            [matTooltipPosition]="'right'" [matTooltip]="contmates.idControlMaterial">
+            {{ contmates.descontmat }}
+          </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+      @if(!desactivarTest){
+        <button class="btnPurple-01" id="nodup" (click)="createLoteTest()">
+          Crear Lote
+          <mat-icon>save</mat-icon>
+        </button>
+      }
+  </form>
+
+  <mat-form-field style="width: 300px;" *ngIf="visibleDuplicar">
+    <input matInput (keyup)="applyFilter($event)"
+      placeholder="Buscar" #input>
+  </mat-form-field>
+
+  <div *ngIf="visibleDuplicar"
+    style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; height: 350px;overflow-y: scroll;overflow-x: auto;">
+    <table style="height: 350px;">
+      <thead>
+        <tr>
+          <th style="padding: 10px 10px;">
+            <input [disabled]="desactivarTestCreado" type="checkbox" id="testall" value="*"
+              (click)="selectAllTest($event.checked)" />
+          </th>
+          <th>Lote actual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let element of dataSourcesTabla.filteredData">
+          <td style="padding: 10px 10px;">
+            <input type="checkbox" [disabled]="desactivarTestCreado" id="lote_{{element.IdTest}}"
+              (click)="[AgregarLotes(element.IdTest, 'lote_'+element.IdTest),agregarTablaLoteNuevo(element)]" />
+          </td>
+          <td style="padding: 10px 10px;">
+            {{element.Desanalytes}}|{{element.Desheadquarters}}|{{element.Desunits}}|{{element.NameAnalyzer}}|{{element.Desmethods}}|{{element.Descontmat}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table style="height: 350px;">
+      <thead>
+        <tr>
+          <th style="padding: 10px 10px;">Lote nuevo</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of dataTableNuevoLote; track $index) {
+          <tr>
+            <td style="padding: 10px 10px;">{{item[1]}}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div style="display: flex; justify-content: center;gap: 1em;margin-top: 1em;">
+    <button class="btnPurple-03" type="button" (click)="[verLoteFlag.set(false),dataTableNuevoLote = []]">Regresar</button>
+    <button class="btnPurple-01" id="nodup" [disabled]="(formularioLote.get('lotes')?.value).length === 0 " (click)="DuplicarLotes()">
+      Duplicar lotes
+      <mat-icon>save</mat-icon>
+    </button>
+  </div>
+</ng-template>

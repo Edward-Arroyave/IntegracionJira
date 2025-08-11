@@ -1,0 +1,65 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Gestión de laboratorio'"
+    (onCreate)="openModalGestionLab(templateGestionLab, '')"
+    (onEdit)="openModalGestionLab(templateGestionLab, $event)">
+  </app-tabla-comun>
+
+<ng-template #templateGestionLab>
+    <form class="grid-3" style="margin-bottom: 1em;" [formGroup]="formaGestionLab">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" formControlName="name" >
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nit</mat-label>
+        <input matInput type="text" formControlName="nit" >
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Dirección</mat-label>
+        <input matInput type="text" formControlName="addres" >
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Teléfono</mat-label>
+        <input matInput type="text" formControlName="phone" >
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Correo</mat-label>
+        <input matInput type="text" formControlName="email" >
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Contacto</mat-label>
+        <input matInput type="text" formControlName="contact" >
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Profesión</mat-label>
+        <input matInput type="text" formControlName="profession" >
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+
+      <div class="boxImg" style="position: relative; margin-bottom: 1em;">
+        @if(spin){
+          <div class="spin">
+            <div class="spinner-border text-primary" role="status"></div>
+          </div>
+        }@else {
+          <img [src]="'data:image/jpg;base64,'+foto | defaultImage" class="foto animate__animated animate__fadeIn fast">
+        }
+        <input type="file" id="userPicture" style="display: none;" accept=".png, .jpg, .jpeg"
+          (change)="getFoto( $event.target.files[0] )">
+        <img src="../../../../assets/rutas/iconos/camera.svg" onclick="userPicture.click();" class="camera">
+
+      </div>
+    </form>
+  
+</ng-template>

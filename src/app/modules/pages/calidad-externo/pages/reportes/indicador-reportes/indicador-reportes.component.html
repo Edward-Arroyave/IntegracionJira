@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <div class="row" style="margin-right: -13px !important;">
+        <div class="col-md-12 mt-2">
+            <div class="card mt-3 mb-3 borderTable">
+                <div class="col-12 d-flex justify-content-center">
+                    <img class="imageSobreBorde" [src]="'ICT.png' | imageCdn">
+                </div>
+
+                <div class="boxIndicadores">
+
+                    <div class="indicador mb-2" [ngClass]="{'backHover': tipoReporte == 1}" (click)="tipo(1)">
+                        <img [src]="'btn_competencia.png' | imageCdn" alt="Resultados participantes">
+                        <h2>Resultados participantes</h2>
+                    </div>
+
+                    <div class="indicador mb-2" [ngClass]="{'backHover': tipoReporte == 2}" (click)="tipo(2)">
+                        <img [src]="'report_data.png' | imageCdn" alt="Resultados participantes">
+                        <h2>Cliente Cualitativo</h2>
+                    </div>
+
+                </div>
+
+                <app-reporte-resultado-participantes *ngIf="tipoReporte == 1"></app-reporte-resultado-participantes>
+                <app-reporte-cliente-cualitativo *ngIf="tipoReporte == 2"></app-reporte-cliente-cualitativo>
+
+            </div>
+        </div>
+    </div>
+</div>

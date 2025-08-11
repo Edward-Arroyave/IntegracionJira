@@ -1,0 +1,376 @@
+<form class="grid-7">
+    <!-- desde -->
+    <mat-form-field [formGroup]="formDates">
+        <mat-label>Desde</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="desde" (dateChange)="observeFechas('desde')">
+        <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- hasta -->
+    <mat-form-field [formGroup]="formDates">
+        <mat-label>Hasta</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="hasta" (dateChange)="observeFechas('hasta')">
+        <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker1">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- Meta -->
+    <mat-form-field [formGroup]="formDates">
+        <mat-label>Meta</mat-label>
+        <input matInput type="number" formControlName="meta">
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- Sedes -->
+    <mat-form-field [formGroup]="formOne">
+        <mat-label>
+            Sede
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="sedes" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+                  noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('sedes', 'formOne')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectedAllheadquaerter('sedes')">
+                Todas las sedes
+            </mat-option>
+            <mat-option *ngFor="let sede of sedes" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+                [matTooltip]="sede.desheadquarters" (click)="selectedHeadquarter0('sedes')">
+                {{sede.desheadquarters}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Secciones -->
+    <mat-form-field [formGroup]="formOne">
+        <mat-label>
+            Sección
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="secciones" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterSeccion" placeholderLabel="Buscar secciones..."
+                  noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('secciones', 'formOne')">
+                --
+            </mat-option>
+            <mat-option value="-1" *ngIf="vertodassecciones" (click)="selectedAllsection('secciones')">
+                Todas las secciones
+            </mat-option>
+            <mat-option *ngFor="let seccion of secciones_Tmp" [value]="seccion.idsection" [matTooltipPosition]="'right'"
+                [matTooltip]="seccion.namesection" (click)="selectedsection('secciones')">
+                {{seccion.namesection}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- Equipos -->
+    <mat-form-field [formGroup]="formOne">
+        <mat-label>
+            Equipo
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="equipos" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterEquipo" placeholderLabel="Buscar equipo..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('equipos', 'formOne')">
+                --
+            </mat-option>
+            <mat-option value="-1" *ngIf="vertodosequipos" (click)="selectedAllanalyzer('equipos')">
+                Todos los equipos
+            </mat-option>
+            <mat-option *ngFor="let equipo of equipos" [value]="equipo.idAnalyzer" [matTooltipPosition]="'right'"
+                [matTooltip]="equipo.nameAnalyzer" (click)="selectedanalyzer('equipos')">
+                {{equipo.nameAnalyzer}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- Analitos -->
+    <mat-form-field [formGroup]="formTwo">
+        <mat-label>
+            Analito
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="analitos" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analitos..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('analitos', 'formTwo')">
+                --
+            </mat-option>
+            <mat-option value="-1" *ngIf="vertodosanalitos" (click)="selectedAllanalyte('analitos')">
+                Todos los analitos
+            </mat-option>
+            <mat-option *ngFor="let analito of analitos" [value]="analito.idanalytes" [matTooltipPosition]="'right'"
+                [matTooltip]="analito.desanalytes" (click)="selectedanalyte('analitos')">
+                {{analito.desanalytes}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Lotes -->
+    <mat-form-field [formGroup]="formTwo">
+        <mat-label>Lote</mat-label>
+        <mat-select disableOptionCentering formControlName="lotes" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterLote" placeholderLabel="Buscar lote..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('lotes', 'formTwo')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('lotes', 'formTwo')">Todos los lotes</mat-option>
+            <mat-option *ngFor="let lote of lotes" [value]="lote.idLot" [matTooltipPosition]="'right'"
+                [matTooltip]="lote.numlot" (click)="selectOne('lotes', 'formTwo')">
+                {{lote.numlot}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Tipo -->
+    <mat-form-field [formGroup]="formTwo">
+        <mat-label>
+            Tipo de reporte
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="reportes" multiple>
+            <mat-option value="" (click)="selectNone('reportes', 'formTwo')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('reportes', 'formTwo')">
+                Todos los reportes
+            </mat-option>
+            <mat-option *ngFor="let reporte of reportes" [value]="reporte.value"
+                (click)="selectOne('reportes', 'formTwo')">
+                {{reporte.item}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- ict
+    <mat-form-field *ngIf="formAdicional" [formGroup]="formThree">
+        <mat-label>
+            ICT Externo calculado por
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="ict">
+            <mat-option value="">
+                --
+            </mat-option>
+            <mat-option *ngFor="let ict of ict" [value]="ict.value">
+                {{ict.item}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="formAdicional" [formGroup]="formThree">
+        <mat-label>
+            Programa
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="programas" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('programas', 'formThree')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('programas', 'formThree')">
+                Todos los programas
+            </mat-option>
+            <mat-option *ngFor="let programa of programas" [value]="programa.idProgram"
+                (click)="selectOne('programas', 'formThree')">
+                {{programa.desprogram}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="formAdicional" [formGroup]="formThree">
+        <mat-label>
+            Analito
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="analitosExterno" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterAnalitoExt" placeholderLabel="Buscar analito..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('analitosExterno', 'formThree')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('analitosExterno', 'formThree')">
+                Todos los analitos
+            </mat-option>
+            <mat-option *ngFor="let analito of analitosExterno" [value]="analito.idanalytes"
+                (click)="selectOne('analitosExterno', 'formThree')">
+                {{analito.desanalytes}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="formAdicional" [formGroup]="formThree">
+        <mat-label>
+            Equipo
+        </mat-label>
+        <mat-select disableOptionCentering multiple formControlName="equiposExterno">
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterEquipoExt" placeholderLabel="Buscar equipo..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('equiposExterno', 'formThree')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('equiposExterno', 'formThree')">
+                Todos los equipos
+            </mat-option>
+            <mat-option *ngFor="let equipos of equiposExterno" [value]="equipos.idAnalyzer"
+                (click)="selectOne('equiposExterno', 'formThree')">
+                {{equipos.nameAnalyzer}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>-->
+
+    <button class="btnPurple-01" (click)="filtrar()">Generar reporte</button>
+</form>
+
+<div id="htmlData">
+    <div *ngIf="show" style="display: grid;gap: 1em; grid-template-columns: 90% 10%;">
+
+        <div class="grid-template-icon-info">
+            <div class="editarIcon" style="margin: 0;"
+                (click)="flagVisualizarInfo()?flagVisualizarInfo.set(false):flagVisualizarInfo.set(true)">
+                <mat-icon style="margin: 0px 0px 2px"> list_alt</mat-icon>
+            </div>
+            <div style="display: flex; gap: 1em;">
+                <div class="centerItems">
+                    <i class="icon-circulo fas fa-circle "></i>
+                    <p> Reportado desde: {{ desde }}
+                        Hasta: {{ hasta }}</p>
+                </div>
+                <div class="centerItems">
+                    <i class="icon-circulo fas fa-circle "></i>
+                    <p> Reportado generado: {{ actual }}
+                        Meta: {{ meta }}%</p>
+                </div>
+                <!-- <div class="centerItems">
+                    <i class="icon-circulo fas fa-circle "></i>
+                    <p> Secciones: {{ jsonTxtSecciones[1] }}</p>
+                </div>
+                <div class="centerItems">
+                    <i class="icon-circulo fas fa-circle "></i>
+                    <p> Analitos: {{ jsonTxtAnalitos[1] }}</p>
+                </div>
+                <div class="centerItems">
+                    <i class="icon-circulo fas fa-circle "></i>
+                    <p> Sedes: {{ jsonTxtSedes[1] }}</p>
+                </div>
+                <div class="centerItems">
+                    <i class="icon-circulo fas fa-circle "></i>
+                    <p> Equipos: {{ jsonTxtEquipos[1] }}</p>
+                </div> -->
+            </div>
+
+            <div [ngClass]="{'contieneInformacion-desplegada':flagVisualizarInfo()}" class="contieneInformacion-oculta" id="info-oculta">
+                <div class="flexColumn">
+                    <h1 style="text-align: left;">Consolidado Sigmometría</h1>
+                    <div class="flexColumn">
+                        <div class="flexColumn">
+                            <div class="centerItems">
+                                <i class="icon-circulo fas fa-circle "></i>
+                                <p> Reportado desde: {{ desde }}
+                                    Hasta: {{ hasta }}</p>
+                            </div>
+                            <div class="centerItems">
+                                <i class="icon-circulo fas fa-circle "></i>
+                                <p> Reportado generado: {{ actual }}
+                                    Meta: {{ meta }}%</p>
+                            </div>
+                        </div>
+                        <div style="display: flex ; gap: 1em;">
+                            <div class="flexColumn">
+                                <div class="centerItems">
+                                    <i style="color: var(--blue-03);" class="icon-circulo fas fa-circle "></i>
+                                    <p> Secciones: {{ jsonTxtSecciones[1] }}</p>
+                                </div>
+                                <div class="centerItems">
+                                    <i style="color: var(--blue-03);" class="icon-circulo fas fa-circle "></i>
+                                    <p> Analitos: {{ jsonTxtAnalitos[1] }}</p>
+                                </div>
+                            </div>
+                            <div class="flexColumn">
+                                <div class="centerItems">
+                                    <i style="color: var(--blue-03);" class="icon-circulo fas fa-circle "></i>
+                                    <p> Sedes: {{ jsonTxtSedes[1] }}</p>
+                                </div>
+                                <div class="centerItems">
+                                    <i style="color: var(--blue-03);" class="icon-circulo fas fa-circle "></i>
+                                    <p> Equipos: {{ jsonTxtEquipos[1] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="flexColumn">
+                                <div class="centerItems">
+                                    <i style="color: var(--blue-03);" class="icon-circulo fas fa-circle "></i>
+                                    <p> Lotes: {{ jsonTxtLotes[1] }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="centerItems">
+                            <i style="color: var(--blue-03);" class="icon-circulo fas fa-circle "></i>
+                            <p> Tipo de reportes: {{ jsonTxtReportes[1] }}</p>
+                        </div>
+     
+                    </div>
+                </div>
+                <div *ngIf="show && formAdicional">
+                    <h1 style="text-align: left;">Información para el control de calidad externo</h1>
+                    <div class="flexColumn">
+                        <div class="centerItems">
+                            <i style="color: var(--blue-03);" class="icon-circulo fas fa-circle "></i>
+                            <p>ICT Externo calculado por: {{ calculadoPor }}</p>
+                        </div>
+                        <div class="centerItems">
+                            <i style="color: var(--blue-03);" class="icon-circulo fas fa-circle "></i>
+                            <p>Programa: {{ jsonTxtProgramas[1] }} </p>
+                        </div>
+                        <div class="centerItems">
+                            <i style="color: var(--blue-03);" class="icon-circulo fas fa-circle "></i>
+                            <p>Equipo: {{ jsonTxtEquiposExterno[1] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <h3>Tipo de reporte: {{ jsonTxtReportes[1] }}</h3 -->
+        </div>
+
+        <img [src]="'pdf.png' | imageCdn" style="cursor:pointer;" class="pdf" height="27" (click)="downloadPDF()">
+
+    </div>
+
+    @if(graficasFlag()){
+    <div class="contendorCharts" id="charts">
+        <!-- infoprueba 2 -->
+    </div>
+    }
+
+</div>

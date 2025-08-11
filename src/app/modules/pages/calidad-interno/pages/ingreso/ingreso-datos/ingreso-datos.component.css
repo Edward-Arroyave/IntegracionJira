@@ -1,0 +1,208 @@
+.icon-circulo{
+    color: var(--purple-03);
+    font-size: 8px;
+}
+
+.pantalla-blanca{
+    background :white;
+    width:100%;
+    height:100%;
+    z-index:98;
+    position: absolute;
+    left: 0;
+    transition: .5s ease-in;
+}
+
+.grid-top-info{
+    display: grid;
+    grid-template-columns: 30% 68%;
+    gap: 1em;
+    align-items: center;
+}
+
+.grid-englobado-reducido{
+    display: grid;
+    grid-template-columns: 15px 95%;
+    gap: 1em;
+    /* padding-bottom: 1em; */
+    overflow: hidden;
+    transition: 1s ease-out;
+}
+
+.grid-englobado{
+    display: grid;
+    grid-template-columns: 30% 68%;
+    gap: 1em;
+    /* padding-bottom: 1em; */
+    overflow: hidden;
+    transition: 1s ease-out;
+}
+
+.grid-template-icon-info{
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    border-top-left-radius:1em ;
+    border-top-right-radius:5px ;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 5px;
+    background: #e3e6ff;
+    overflow: hidden;
+    white-space: nowrap; 
+    box-shadow: 0px 3px 6px #00000029;
+}
+
+.contieneInformacion-oculta{
+    height: 0px;
+    padding: 0px 20px;
+    background: #e3e6ff;
+    width: 100%;
+    border-radius: 5px;
+    /* margin-top: 1em; */
+    font-size: 12px;
+    position: absolute;
+    top: 14px;
+    z-index: 999;
+    overflow: hidden;
+    transition: 1.5s ease-in-out;
+}
+
+.contieneInformacion-desplegada{
+    height: 425px;
+    padding: 30px 20px;
+}
+
+.titulo-card-oculta{
+    font-weight: bold;
+    margin-bottom: 1em;
+    font-size: 16px;
+    color: var(--purple-03);
+}
+
+.card-formulario{
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #00000029;
+    border-radius: 5px;
+    padding: 30px 20px;
+    margin-top: 1em;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap; 
+}
+
+.card-graficas{
+    border: 1px solid #00000029;
+    border-radius: 5px;
+    padding: 2px;
+    width: 100%;
+    margin: 1em 0;
+    height: 385px;
+    background: #F7F7F7;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Ajusta según el número de columnas */
+    border-radius: 10px;
+    border: 1px solid #00000029;
+    position: relative;
+    box-shadow: 0px 3px 6px #00000029;
+}
+
+.highlight {
+    background: var(--purple-01);
+    color: white;
+    border-radius: 10px;
+    transition: .5s ease-in-out;
+}
+
+.estiloGeneralSlide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    position: relative; /* Asegura que el z-index funcione */
+    z-index: 1;
+    transition: color 0.3s ease; 
+    padding: 5px 10px;
+    border-radius: 5px;
+    gap: 1em;
+    transition: .5s all;
+}
+
+.estiloGeneralSlide:hover{
+    color: var(--purple-01);
+    font-weight: bold;
+}
+
+.highlight-active {
+    color: white; /* Cambia el color del texto a blanco cuando el highlight está sobre el div */
+}
+.highlight:hover{
+    color: white;
+}
+
+
+th{
+    background: var(--blue-01) !important;
+    color: white;
+    text-align: center;
+}
+td{
+    text-align: center;
+    color: black;
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: .3em;
+    overflow: hidden;
+}
+
+table thead tr th{
+    padding: 10px 0;
+}
+
+.icon-verde{
+    color: var(--color-blue-light);
+    font-size: 26px;
+}
+.icon-rojo{
+    color: var(--red-01);
+    font-size: 26px;
+}
+.icon-amarillo{
+    color: rgb(255, 255, 1);
+    font-size: 26px;
+}
+.icon-flotante{
+    cursor: pointer;
+    border: 3px solid var(--blue-01);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    top: 45%;
+    right: -10px;
+    position: absolute;
+    transition: .5s ease-in;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-flotante-style{
+    font-size: 23px;
+    /* margin: -1px -1px 0px; */
+    margin-bottom: 1px;
+    cursor: pointer;
+    color: var(--blue-01);
+}
+
+.icon-flotante:hover{
+    transform: rotate(180deg);
+}
+
+

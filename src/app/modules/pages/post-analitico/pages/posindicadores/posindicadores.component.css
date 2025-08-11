@@ -1,0 +1,111 @@
+
+/* Decorations */
+
+.testimonial-group > .row {
+  overflow-x:hidden ;overflow-y: hidden;height: 100%;scroll-behavior: smooth;
+}
+.testimonial-group > .row > .col-sm-4 {
+  display: inline-block;
+  float: none;
+}
+.col-sm-4 {  padding-bottom: 20px; padding-top: 18px; }
+
+.boxIndicadores {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 16px;
+  background: white;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.backHover,
+.indicador:hover {
+  background: #f8f8f8bd;
+  border-bottom: 3px solid #3B58BD;
+  color: #3B58BD !important;
+}
+
+.indicador {
+  /* border: 1px solid #CECECE; */
+  border-radius: 4px;
+  box-shadow: 3px 3px 3px #e8e8e8;
+  cursor: pointer;
+  flex-grow: 1;
+  /* margin-right: 12px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #A5A4A4;
+  padding-left: 16px;
+  padding-right: 14px;
+  height: 92%;
+
+}
+
+.txt-tab {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+/******************** MEDIA BREAKING POINTS *************************/
+
+@media(min-width: 1499px) {
+  .txt-tab {
+    max-width: 86%;
+  }
+}
+
+
+/*=============================================
+PORTATIL 1366
+=============================================*/
+
+@media (max-width:1499px) and (min-width:1200px) {
+  .txt-tab {
+    max-width: 86%;
+  }
+}
+
+
+/*=============================================
+TABLET HORIZONTAL (LG revisamos en 1024px)
+=============================================*/
+
+@media (max-width:1199px) and (min-width:992px) {}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+TABLET VERTICAL (MD revisamos en 768px)
+=============================================*/
+
+@media (max-width:991px) and (min-width:768px) {}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MÓVIL HORIZONTAL (SM revisamos en 576px)
+=============================================*/
+
+@media (max-width:767px) and (min-width:576px) {}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MOVIL VERTICAL (revisamos en 320px)
+=============================================*/
+
+@media screen and (max-width:575px) {}
+
+
+/******************** MEDIA MEDIA BREAKING POINTS  END *************************/

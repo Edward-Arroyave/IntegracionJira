@@ -1,0 +1,390 @@
+.form_busqueda {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.grid-filtro {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.no-data {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-data img {
+  height: 50%;
+}
+
+.container_formSamples {
+  display: grid;
+  grid-template-columns: 10% 10% auto 1fr;
+  width: 100%;
+  gap: 1em;
+}
+
+.formSamples {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1em;
+  align-items: center;
+}
+.form_samples_modal {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+  align-items: center;
+}
+.desc_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.title-op {
+  font-size: 12px;
+  text-align: left;
+}
+
+.title-os {
+  font-size: 12px;
+  text-align: left;
+  font-weight: bold;
+  color: var(--gray-05);
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+.tableDetalle {
+  overflow: auto;
+}
+mat-form-field {
+  font-size: 12px;
+}
+
+mat-label {
+  font-size: 12px;
+}
+
+.table th {
+  background: #3850eb;
+  color: white;
+  text-align: center;
+}
+.table td {
+  text-align: center;
+}
+
+.buttons_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.border-01 {
+  border-radius: 25px;
+}
+
+#table_muestras {
+  overflow: auto;
+  padding-bottom: 1em;
+}
+.formulario_ronda{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.btn_change_round {
+  width: 150px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-wrap: nowrap;
+  border-radius: 20px;
+  background-color: var(--purple-03);
+  height: 30px;
+  font-size: 12px;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.btn_change_round img {
+  width: 15px;
+}
+.btn_change_round img {
+  width: 15px;
+  transition: transform 0.5s ease-in-out; /* Agregar transición para un efecto más suave */
+}
+
+.btn_change_round:hover{
+  background-color: var(--purple-03-transparent);
+}
+
+.btn_change_round:hover img {
+  animation: rotation 2s infinite linear; /* Animación de rotación */
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+ngb-pagination ::ng-deep .page-item .page-link {
+  border: 0px;
+}
+
+ngb-pagination ::ng-deep .page-item:first-child .page-link {
+  color: #3850eb;
+  font-size: 36px !important;
+  position: relative;
+  padding: 0px;
+  top: -7px;
+  right: -4px;
+}
+
+ngb-pagination ::ng-deep .page-item:last-child .page-link {
+  color: #3850eb;
+  font-size: 36px !important;
+  position: relative;
+  padding: 0px;
+  top: -7px;
+  right: -4px;
+}
+
+ngb-pagination ::ng-deep .page-item:first-child .page-link:hover,
+ngb-pagination ::ng-deep .page-item:first-child .page-link:focus {
+  background-color: white;
+  box-shadow: none;
+}
+
+ngb-pagination ::ng-deep .page-item:last-child .page-link:hover,
+ngb-pagination ::ng-deep .page-item:last-child .page-link:focus {
+  background-color: white;
+  box-shadow: none;
+}
+
+ngb-pagination ::ng-deep a {
+  font-size: 14px !important;
+}
+
+ngb-pagination ::ng-deep .page-item.active .page-link {
+  border-radius: 50%;
+}
+
+ngb-pagination ::ng-deep .page-item .page-link:hover {
+  border-radius: 50%;
+}
+
+@media (min-width: 320px) {
+  .dateInput {
+    display: inherit;
+    margin-top: 33px;
+    margin-left: 8px;
+    width: 70%;
+  }
+  .boxFilterDos {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin: 16px 0px;
+    flex-wrap: wrap;
+  }
+  .btnAceptar,
+  .btnCancel,
+  .btnAceptarDetalles {
+    width: 33%;
+  }
+  .btnAceptarDetalles {
+    margin-top: 16px;
+  }
+  .boxBtnSearch {
+    text-align: center;
+  }
+  .btnSearch {
+    width: 30%;
+    margin-top: 8px;
+  }
+  .boxBtnCreatefilter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 32px;
+  }
+  .boxFilter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .filter {
+    width: 100%;
+    margin-left: 4px;
+  }
+  .btnCreate {
+    width: 90%;
+  }
+}
+
+@media (min-width: 375px) {
+  .btnSearch {
+    width: 26%;
+  }
+  .btnCreate {
+    width: 80%;
+  }
+  .btnAceptar,
+  .btnCancel,
+  .btnAceptarDetalles {
+    width: 27%;
+  }
+}
+
+@media (min-width: 425px) {
+  .dateInput {
+    width: 60%;
+  }
+  .btnSearch {
+    width: 22%;
+  }
+  .btnCreate {
+    width: 65%;
+  }
+  .btnAceptar,
+  .btnCancel,
+  .btnAceptarDetalles {
+    width: 23%;
+  }
+}
+
+@media (min-width: 470px) {
+  .dateInput {
+    width: 45%;
+  }
+  .btnSearch {
+    width: 18%;
+  }
+  .btnCreate {
+    width: 56%;
+  }
+}
+
+@media (min-width: 500px) {
+  .btnAceptar,
+  .btnCancel,
+  .btnAceptarDetalles {
+    width: 18%;
+  }
+}
+
+@media (min-width: 576px) {
+  .btnAddProgAnalyte {
+    margin-top: 16px;
+    margin-left: 36px;
+  }
+  .select {
+    width: 40% !important;
+  }
+  .boxFilterDos {
+    flex-direction: row;
+  }
+  .boxbtnFilter2 {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 768px) {
+  .boxBtnSelects {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .btnSearch {
+    width: 15%;
+  }
+  .btnCreate {
+    width: 50%;
+  }
+}
+
+@media (min-width: 900px) {
+  .btnSearch {
+    width: 13%;
+  }
+  .btnCreate {
+    width: 43%;
+  }
+}
+
+@media (min-width: 992px) {
+  .btnAceptar,
+  .btnCancel {
+    width: 11%;
+  }
+  .btnSearch {
+    width: 11%;
+  }
+  .btnCreate {
+    width: 36%;
+  }
+}
+
+@media (min-width: 1100px) {
+  .btnSearch {
+    width: 10%;
+  }
+  .btnCreate {
+    width: 32%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .contTable {
+    display: flex;
+    justify-content: center;
+  }
+  .filter {
+    width: 60%;
+  }
+  .boxBtnSearch {
+    text-align: left;
+  }
+  .btnSearch {
+    width: 54%;
+    margin-top: 27px;
+    margin-left: 4px;
+  }
+  .btnCreate {
+    width: 27%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .btnSearch {
+    width: 45%;
+  }
+  .btnCreate {
+    width: 23%;
+  }
+}

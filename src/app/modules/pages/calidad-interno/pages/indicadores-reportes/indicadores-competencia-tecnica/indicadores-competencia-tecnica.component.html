@@ -1,0 +1,470 @@
+<form [formGroup]="formulario" autocomplete="off" class="grid-6-completo">
+
+    <mat-form-field>
+        <mat-label>Desde</mat-label>
+        <input disable matInput [matDatepicker]="picker" formControlName="desde" (dateChange)="observeFechas('desde')">
+        <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Hasta</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="hasta" (dateChange)="observeFechas('hasta')">
+        <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker1">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- Calculado por 
+    <mat-form-field>
+        <mat-label>
+           ITC Externo calculado por
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="ict">
+            <mat-option value="">
+                --
+            </mat-option>
+            <mat-option value="zscore">
+                Z-score
+            </mat-option>
+            <mat-option value="valor asignado">
+                Valor asignado
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>-->
+    <!-- Sedes -->
+    <mat-form-field>
+        <mat-label>
+            Sede
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="sedes" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('sedes')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectedAllheadquaerter('sedes') ">
+                Todas las sedes
+            </mat-option>
+            <mat-option *ngFor="let sede of sedes" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+                [matTooltip]="sede.desheadquarters" (click)="selectedHeadquarter0('sedes')">
+                {{sede.desheadquarters}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>
+            Sección
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="secciones" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterSeccion" placeholderLabel="Buscar secciones..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('secciones')">
+                --
+            </mat-option>
+            <mat-option value="-1" *ngIf="vertodassecciones" (click)="selectedAllsection('secciones')">
+                Todas las secciones
+            </mat-option>
+            <mat-option *ngFor="let seccion of secciones_Tmp" [value]="seccion.idsection" [matTooltipPosition]="'right'"
+                [matTooltip]="seccion.namesection" (click)="selectedsection('secciones')">
+                {{seccion.namesection}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Equipos -->
+    <mat-form-field>
+        <mat-label>
+            Equipo
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="equipos" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterEquipo" placeholderLabel="Buscar equipo..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('equipos')">
+                --
+            </mat-option>
+            <mat-option value="-1" *ngIf="vertodosequipos" (click)="selectedAllanalyzer('equipos')">
+                Todos los equipos
+            </mat-option>
+            <mat-option *ngFor="let equipo of equipos" [value]="equipo.idAnalyzer" [matTooltipPosition]="'right'"
+                [matTooltip]="equipo.nameAnalyzer" (click)="selectedanalyzer('equipos')">
+                {{equipo.nameAnalyzer}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Analitos -->
+    <mat-form-field>
+        <mat-label>
+            Analitos
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="analitos" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analitos..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('analitos')">
+                --
+            </mat-option>
+            <mat-option value="-1" *ngIf="vertodosanalitos" (click)="selectedAllanalyte('analitos')">
+                Todos los analitos
+            </mat-option>
+            <mat-option *ngFor="let analito of analitos" [value]="analito.idanalytes" [matTooltipPosition]="'right'"
+                [matTooltip]="analito.desanalytes" (click)="selectedanalyte('analitos')">
+                {{analito.desanalytes}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Lotes -->
+    <mat-form-field>
+        <mat-label>
+            Lote
+        </mat-label>
+        <mat-select disableOptionCentering formControlName="lotes" multiple>
+            <mat-option>
+                <ngx-mat-select-search [formControl]="filterLote" placeholderLabel="Buscar lote..."
+                    noEntriesFoundLabel="No se encontró un resultado">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option value="" (click)="selectNone('lotes')">
+                --
+            </mat-option>
+            <mat-option value="-1" (click)="selectAll('lotes')">
+                Todos los lotes
+            </mat-option>
+            <mat-option *ngFor="let lote of lotes" [value]="lote.idLot" [matTooltipPosition]="'right'"
+                [matTooltip]="lote.numlot" (click)="selectOne('lotes')">
+                {{lote.numlot}}
+            </mat-option>
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div>
+        <button class="btnPurple-01" (click)="filtrar()">Generar reporte</button>
+    </div>
+
+</form>
+
+@if(verTablaInt){
+<div class="boxSecciones">
+    <div>
+        <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(-1)">arrow_back_ios</mat-icon>
+    </div>
+    <div #scroll class="boxSeccionesContainer">
+        <div *ngFor="let item of secciones; let i = index">
+            <div #btnSecc id="bntSecc-{{i}}" class="styleSeccion"
+                [ngStyle]="{'background-color': seccionSeleccionado === item ? 'var(--blue-03)' : '','color': seccionSeleccionado === item ? 'white' : ''  }"
+                (click)="buscarSeccion(item, btnSecc)">
+                <h2 style="margin: 0; font-size: 15px;">{{item.namesection | titlecase}}</h2>
+            </div>
+        </div>
+    </div>
+    <div>
+        <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(1)">arrow_forward_ios</mat-icon>
+    </div>
+</div>
+}
+<!-- **Nuevo diseño -->
+<div *ngIf="verCard">
+
+    <div class="cardReportes">
+
+        <div *ngIf=" (verTablaExt || verTablaInt) && dataTableInterno.length > 0"
+            style="display: flex; margin: 1em 0; align-items: center; gap: 1em;">
+            <div class="grid-container"
+                style="height: 34px; width: 450px; grid-template-columns: repeat(2, 1fr) !important;">
+                <div class="estiloGeneralSlide"
+                    [style]="!flagViewTable()?'background: var(--purple-03);color:white;':''"
+                    (click)="flagViewTable.set(false)">
+                    <mat-icon svgIcon="table_line" class="icon-custom" style="width: 18px;"></mat-icon>
+                    Tabla de datos
+                </div>
+                <div #slide class="estiloGeneralSlide"
+                    [style]="flagViewTable()?'background: var(--purple-03);color:white;':''" (click)="pruebaGra()">
+                    <mat-icon svgIcon="score" class="icon-custom"></mat-icon> Grafica
+                </div>
+            </div>
+
+            <div *ngIf="ver"
+                style="display: flex;justify-content: start; align-items: center;  margin-top:10px; margin-bottom: 1em; width: 100%;">
+                <img *ngIf="verTablaInt && dataTableInterno.length > 0" [src]="'pdf2.png' | imageCdn"
+                    alt="Reporte cuantitativo" style="height: 30px; margin-right: 20px; cursor: pointer;"
+                    (click)="pdfInterno()">
+                <img *ngIf="verTablaInt && dataTableInterno.length > 0" [src]="'descargar_Excel.png' | imageCdn"
+                    alt="Reporte cuantitativo" style="height: 30px; margin-right: 20px; cursor: pointer;"
+                    (click)="exportToExcelInt()">
+
+                <img *ngIf="verTablaExt" [src]="'pdf2.png' | imageCdn" alt="Reporte cuantitativo"
+                    style="height: 30px; margin-right: 20px; cursor: pointer;" (click)="pdfExterno()">
+            </div>
+        </div>
+
+        <!-- ** Secciones - Menu -->
+        <div *ngIf="(flagViewTable() === false) && verTablaInt && dataTableInterno.length > 0">
+            <div style="overflow-x: auto;height: 300px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="border-right: 2px solid white;" colspan="5">
+                                Información de laboratorio
+                            </th>
+
+                            <th style="border-right: 2px solid white;" colspan="5">
+                                Información de test
+                            </th>
+
+                            <th style="border-right: 2px solid white;" colspan="4">
+                                Metas de calidad
+                            </th>
+
+                            <th style="border-right: 2px solid white;" colspan="8">
+                                Datos desempeño
+                            </th>
+
+                            <th style="border-right: 2px solid white;" colspan="4">
+                                ICT
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th style="white-space: nowrap;padding: 10px 20px;">N°</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">Sección</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">Sede</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">Ciudad</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;border-right: 2px solid white;"># Lab</th>
+
+                            <th style="white-space: nowrap;padding: 10px 20px;">Equipo</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">Lote QC</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">Analito</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">Nivel</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;border-right: 2px solid white;">Unidad
+                            </th>
+
+                            <th style="white-space: nowrap;padding: 10px 20px;">Fuente</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">%Tea</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">%CVa</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;border-right: 2px solid white;">%BIASa
+                            </th>
+
+                            <th style="white-space: nowrap;padding: 10px 20px;">Objetivo de Calidad</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">Media</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">DS</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">%CV</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">%Bias</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">%ET</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">IDM</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;border-right: 2px solid white;">N° datos
+                            </th>
+
+                            <th style="white-space: nowrap;padding: 10px 20px;">CVR</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">SR</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">IET</th>
+                            <th style="white-space: nowrap;padding: 10px 20px;">σ</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let dato of dataTableInterno; let i = index">
+
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ dato.Seccion | lowercase}}</td>
+                            <td>{{ dato.Sede }}</td>
+                            <td>{{ dato.Ciudad }}</td>
+                            <td style="border-right: 2px solid white;">{{ dato.Laboratorio }}</td>
+
+                            <td>{{ dato.Equipo }}</td>
+                            <td>{{ dato.Lote }}</td>
+                            <td>{{ dato.Analito }}</td>
+                            <td>{{ dato.Nivel }}</td>
+                            <td style="border-right: 2px solid white;">{{ dato.Unidad }}</td>
+
+                            <td>{{ dato.Fuente }}</td>
+                            <td>{{ dato.Tea }}</td>
+                            <td>{{ dato.Cva }}</td>
+                            <td style="border-right: 2px solid white;">{{ dato.Sesgo }}</td>
+
+                            <td>{{ dato.Dianavalue }}</td>
+                            <td>{{ dato.Media }}</td>
+                            <td>{{ dato.Ds }}</td>
+                            <td>{{ dato.Cv }}</td>
+                            <td>{{ dato.Bias }}</td>
+                            <td>{{ dato.ET }}</td>
+                            <td>{{ dato.IDM }}</td>
+                            <td style="border-right: 2px solid white;">{{ dato.ndatos}}</td>
+
+                            <td style="min-width: 130PX;"
+                                [ngClass]="{ 'rojo td-scroll': dato.CVR > 1 , 'amarillo td-scroll': dato.CVR == 1, 'verde td-scroll': dato.CVR < 1   }">
+                                {{ dato.CVR }}</td>
+                            <td style="min-width: 130PX;"
+                                [ngClass]="{ 'rojo td-scroll': dato.SR > 1 , 'amarillo td-scroll': dato.SR == 1, 'verde td-scroll': dato.SR < 1  }">
+                                {{ dato.SR }}</td>
+                            <td style="min-width: 130PX;"
+                                [ngClass]="{ 'rojo td-scroll': dato.IET > 1 , 'amarillo td-scroll': dato.IET == 1, 'verde td-scroll': dato.IET < 1  }">
+                                {{ dato.IET }}</td>
+                            <td style="min-width: 130PX;"
+                                [ngClass]="{ 'white text-dark': dato.SIG == '--', 'rojo td-scroll': dato.SIG < dato.Constz, 'azul td-scroll': dato.SIG >= dato.Constz && dato.SIG < 3, 'amarillo td-scroll': dato.SIG >= 3 && dato.SIG < 4, 'verde td-scroll': dato.SIG >= 4 && dato.SIG < 6, 'verdeOscuro td-scroll': dato.SIG > 6 }">
+                                {{ dato.SIG }}
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ***Tablas -->
+        <div *ngIf="(flagViewTable() === false) && verTablaExt">
+            <div *ngIf="verTablaExt && tipo == 'Z-Score'">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="6">
+                                Información de test
+                            </th>
+
+                            <th colspan="2">
+                                Grupo de comparación
+                            </th>
+
+                            <th colspan="3">
+                                Criterios de evaluación
+                            </th>
+
+                            <th colspan="2">
+                                ICT Externo
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>N°</th>
+                            <th>Programa</th>
+                            <th>Equipo</th>
+                            <th>Analito</th>
+                            <th>Resultado</th>
+                            <th>Und analito</th>
+
+                            <th>Media</th>
+                            <th>DS</th>
+
+                            <th>Fuente</th>
+                            <th>Desv. permitida</th>
+                            <th>Unidades</th>
+
+                            <th>Z-Score</th>
+                            <th>ID</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let dato of dataTableExterno; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ dato.Desprograma | lowercase}}</td>
+                            <td>{{ dato.Nameanalyzer }}</td>
+                            <td>{{ dato.Desanalytes }}</td>
+                            <td>{{ dato.Resultado }}</td>
+                            <td>{{ dato.UnidadObjetivo }}</td>
+                            <td>{{ dato.media }}</td>
+                            <td>{{ dato.ds }}</td>
+                            <td>{{ dato.Fuente }}</td>
+                            <td>{{ dato.DesvPermitida }}</td>
+                            <td>{{ dato.Unidad }}</td>
+                            <td>{{ dato.Zscore }}</td>
+                            <td
+                                [ngClass]="{ 'rojo td-scroll-1': dato.Indicedesvio > 1, 'verde td-scroll-1': dato.Indicedesvio < 1 }">
+                                {{ dato.Indicedesvio }}
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- tabla por  valor asignado -->
+            <!-- <div *ngIf="verTablaExt && tipo == 'Valor asignado'">
+
+                <table >
+                    <thead >
+                        <tr>
+                            <th colspan="7">
+                                Información de test
+                            </th>
+
+                            <th colspan="3">
+                                Criterios de evaluación
+                            </th>
+
+                            <th colspan="2">
+                                ICT Externo
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>N°</th>
+                            <th>Programa</th>
+                            <th>Equipo</th>
+                            <th>Analito</th>
+                            <th>Resultado</th>
+                            <th>Und analito</th>
+                            <th>V. Asignado</th>
+
+                            <th>Fuente</th>
+                            <th>Desv. permitida</th>
+                            <th>Unidades</th>
+
+                            <th>Desv. obtenida</th>
+                            <th>ID</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let dato of dataTableExterno; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ dato.Desprograma | lowercase}}</td>
+                            <td>{{ dato.Nameanalyzer }}</td>
+                            <td>{{ dato.Desanalytes }}</td>
+                            <td>{{ dato.Resultado }}</td>
+                            <td>{{ dato.Unidadobjetivo }}</td>
+                            <td>{{ dato.Valorasignado }}</td>
+                            <td>{{ dato.Fuente }}</td>
+                            <td>{{ dato.Desvpermitida }}</td>
+                            <td>{{ dato.Unidad }}</td>
+                            <td>{{ dato.Desvobtenida }}</td>
+                            <td
+                                [ngClass]="{ 'rojo td-scroll-1': dato.Indicedesvio > 1, 'verde td-scroll-1': dato.Indicedesvio < 1 }">
+                                {{ dato.Indicedesvio }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div> -->
+
+        </div>
+        <!-- *** Graficas data -->
+        @if(flagViewTable() === true){
+        <div id="charts" class="grid-2-completo"></div>
+        <!-- **Graficas para el PDF -->
+        <div>
+            <div id="main"></div>
+        </div>
+        <div id="htmlData" class="grid-2-completo"></div>
+        }
+    </div>
+</div>

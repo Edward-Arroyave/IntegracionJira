@@ -1,0 +1,78 @@
+<app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Analitos'"
+  (onCreate)="openModalRegistroAnalitosQce(templateGestionMaterialesControl, '')"
+  (onChangeStatus)="actualizarEstadoAnalitoQce($event)"
+  (onEdit)="openModalRegistroAnalitosQceEdit(templateGestionMaterialesControl, $event)"
+  (onDelete)="eliminarAnalitoQce($event.Idanalytes)">
+</app-tabla-comun>
+
+<ng-template #templateGestionMaterialesControl>
+
+  <form [formGroup]="formaRegistroAnalitosQce" class="grid-3">
+    <mat-form-field>
+      <mat-label>Analito</mat-label>
+      <input matInput type="text" formControlName="desanalytes">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+      <mat-label>Sección</mat-label>
+      <input type="text" matInput [matAutocomplete]="autosectionscreate" formControlName="idsection"
+        style="font-family: 'Open Sans' !important;font-size: 16px;">
+      <mat-autocomplete #autosectionscreate="matAutocomplete">
+        @if(accion == 'Crear'){
+          <mat-option *ngFor="let section of filteredOptionssectionsCreate | async" [value]="section.dessection">
+            {{ section.dessection}}
+          </mat-option>
+        }@else{
+          <mat-option *ngFor="let section of filteredOptionssectionsEdit | async" [value]="section.dessection">
+            {{ section.dessection}}
+          </mat-option>
+        }
+
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field>
+     <mat-label>Sección</mat-label>
+      <mat-select disableOptionCentering formControlName="idsection">
+        <mat-option>
+          --
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterSeccion" placeholderLabel="Buscar sección..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let seccion of listaSections" [value]="seccion.idsection" [matTooltipPosition]="'right'"
+          [matTooltip]="seccion.dessection" >
+          {{ seccion.dessection }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>
+        Tipo resultado
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="typeresult">
+        <mat-option value="">
+          --
+        </mat-option>
+        <mat-option value="N">Cuantitativo</mat-option>
+        <mat-option value="C">Cualitativo</mat-option>
+        <mat-option value="S">Semi-Cuantitativo</mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+
+
+</ng-template>

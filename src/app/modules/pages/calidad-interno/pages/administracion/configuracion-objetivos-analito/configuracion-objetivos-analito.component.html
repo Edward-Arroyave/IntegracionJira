@@ -1,0 +1,214 @@
+<h1 style="margin-top: 3em;">Metas de calidad por test</h1>
+<form [formGroup]="formaBuscarDatos" class="grid-6-buttton">
+
+  <mat-form-field>
+    <mat-label>Sede</mat-label>
+    <mat-select disableOptionCentering formControlName="numLaboratorio" [disabled]="habilitarSede">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterHeadquarters" placeholderLabel="Buscar..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let sede of sedesActive" [value]="sede.idheadquarters">
+        {{ sede.desheadquarters | titlecase }}</mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Sección
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto01" formControlName="seccion" #seccionPr>
+    <mat-autocomplete #auto01="matAutocomplete" (optionSelected)="cambiarSeccion(seccionPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsSections | async);" [value]="option.namesection"
+        [matTooltipPosition]="'right'" [matTooltip]="option.namesection | NombreSeccion">
+        {{option.namesection | NombreSeccion}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>N° Material Control</mat-label>
+    <input type="text" matInput [matAutocomplete]="auto02" formControlName="numMaterialControl" #contmatPr>
+    <mat-autocomplete #auto02="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsControlmaterial | async);" [value]="option.descontmat"
+      [matTooltipPosition]="'right'" [matTooltip]="option.descontmat | NombreControlmaterial">
+        {{option.descontmat | NombreControlmaterial}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Lote</mat-label>
+    <input type="text" matInput [matAutocomplete]="auto03" formControlName="numLote" #lotPr>
+    <mat-autocomplete #auto03="matAutocomplete" (optionSelected)="lotesPre(lotPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsLots | async);" [value]="option.Numlot"
+      [matTooltipPosition]="'right'" [matTooltip]="option.Numlot | nombreLote">
+        {{option.Numlot | nombreLote}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+        Test
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto04" formControlName="idtest" #testPr>
+    <mat-autocomplete #auto04="matAutocomplete" (optionSelected)="setTest(testPr.value)">
+        <mat-option *ngFor="let test of (filteredOptionsTest | async);" [value]="test.value"
+            [matTooltipPosition]="'right'" [matTooltip]="test.value | nombreTest">
+            {{ test.value | nombreTest }} 
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+  
+  <!-- <mat-form-field>
+    <mat-label>Test</mat-label>
+    <mat-select disableOptionCentering formControlName="idtest" (selectionChange)="setTest($event)">
+      <mat-option value="">--</mat-option>
+      <mat-option *ngFor="let test of tests" [value]="test.IdTest">
+        {{ test.Desanalytes | titlecase }} | {{ test.Desunits }} |
+        {{ test.Desmethods | titlecase }} | {{ test.Desreagents | titlecase }} |
+        {{ test.NameAnalyzer | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field> -->
+
+  <div>
+    <button class="btnPurple-01" type="button" (click)="loadData()"
+      [disabled]="formaBuscarDatos.invalid">Buscar</button>
+  </div>
+</form>
+
+  <app-tabla-comun [hidden]="!ver" [cabeceros]="displayedColumns" [info-tabla]="dataTableBody"
+    (onCreate)="openModalRegistroConfiObj(templateRegistroConfiObj, '')"
+    (onChangeStatus)="actualizarConfiObjEstado($event)"
+    (onEdit)="openModalRegistroConfiObjEdit(templateRegistroConfiObjEdit, $event)"
+    (onDelete)="eliminarConfiAnalito($event.Idconfobjquaanalyte)">
+  </app-tabla-comun>
+  
+<ng-template #templateRegistroConfiObj>
+  <form [formGroup]="formaRegistroConfiObj" class="grid-4">
+
+    <mat-form-field>
+      <mat-label >Fuente</mat-label>
+      <input type="text" matInput [matAutocomplete]="autosourcecreate" formControlName="idsource">
+      <mat-autocomplete #autosourcecreate="matAutocomplete">
+        <mat-option *ngFor="let fuente of filteredOptionsSourcesCreate | async" [value]="fuente.dessource"
+        [matTooltipPosition]="'right'" [matTooltip]="fuente.dessource" (onSelectionChange)="cambioDeFuente(fuente,$event,1)">
+          {{ fuente.dessource}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label >Unidad</mat-label>
+      <input type="text" matInput [matAutocomplete]="autounitscreate" formControlName="idunits">
+      <mat-autocomplete #autounitscreate="matAutocomplete">
+        <mat-option *ngFor="let units of filteredOptionsUnitsCreate | async" [value]="units.desunits"
+        [matTooltipPosition]="'right'" [matTooltip]="units.desunits">
+          {{ units.desunits}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    
+    <mat-form-field>
+      <mat-label>ETmp</mat-label>
+      <input matInput type="number" formControlName="etmp">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cvmp</mat-label>
+      <input matInput type="number" formControlName="cvmp">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Sesgo mp</mat-label>
+      <input matInput type="number" formControlName="sesgomp">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nivel</mat-label>
+      <input matInput type="number" formControlName="level">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #templateRegistroConfiObjEdit>
+
+  <form [formGroup]="formaRegistroConfiObjEdit" class="grid-4">
+    <mat-form-field>
+      <mat-label >Fuente</mat-label>
+      <input type="text" matInput [matAutocomplete]="autosourcemodify" formControlName="idsource">
+      <mat-autocomplete #autosourcemodify="matAutocomplete">
+        <mat-option *ngFor="let fuente of filteredOptionssourceEdit | async" [value]="fuente.dessource"
+        [matTooltipPosition]="'right'" [matTooltip]="fuente.dessource" (onSelectionChange)="cambioDeFuente(fuente,$event,1)">
+          {{ fuente.dessource}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label >Unidad</mat-label>
+      <input type="text" matInput [matAutocomplete]="autounitsmodity" formControlName="idunits">
+      <mat-autocomplete #autounitsmodity="matAutocomplete">
+        <mat-option *ngFor="let units of filteredOptionsunitsEdit | async" [value]="units.desunits"
+        [matTooltipPosition]="'right'" [matTooltip]="units.desunits">
+          {{ units.desunits}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    
+    <mat-form-field>
+      <mat-label>ETmp</mat-label>
+      <input matInput type="number" formControlName="etmp">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cvmp</mat-label>
+      <input matInput type="number" formControlName="cvmp">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Sesgo mp</mat-label>
+      <input matInput type="number" formControlName="sesgomp">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nivel</mat-label>
+      <input matInput type="number" formControlName="level">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+  
+</ng-template>

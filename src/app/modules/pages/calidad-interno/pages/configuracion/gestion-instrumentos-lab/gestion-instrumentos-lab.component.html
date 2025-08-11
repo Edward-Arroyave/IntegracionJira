@@ -1,0 +1,44 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Instrumentos de laboratorio'"
+    (onCreate)="openModalGestionInstrumentos(templateGestionInstrumentos, '')" (onChangeStatus)="actualizarEstadoGestionInstrumento($event)"
+    (onEdit)="openModalGestionInstrumentos(templateGestionInstrumentos, $event)" (onDelete)="eliminarGestionInstrumento($event)">
+  </app-tabla-comun>
+
+<ng-template #templateGestionInstrumentos>
+
+  <form [formGroup]="formaGestionIntrumentos" class="grid-2-completo ">
+    <mat-form-field >
+      <mat-label>
+        Casa Comercial
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="idtrademark">
+        <mat-option value="">--</mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterTradeMark" placeholderLabel="Buscar..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let lista of listaTradeMark" [value]="lista.idtrademark"> {{ lista.destrademark }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" formControlName="nameAnalyzer">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Modelo</mat-label>
+      <input matInput type="text" formControlName="model">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>

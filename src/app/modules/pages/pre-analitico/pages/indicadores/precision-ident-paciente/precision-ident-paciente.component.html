@@ -1,0 +1,328 @@
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="card border-0 mt-3 mb-3">
+
+            <div class="row justify-content-center mt-4">
+
+                <div class="col-11">
+
+                    <div class="row mb-2">
+                        <!-- ** Mes - Año -->
+                        <form class="col-12" [formGroup]="formulario" autocomplete="off" (submit)="[getFiltro()]">
+                            <div class="row gap-2">
+
+                                <div class="col-1 m-0 p-0 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                    <img [src]="'calendar.svg' | imageCdn" style="width: 50%;">
+                                </div>
+                                <div class="col-5 col-sm-3 col-md-3 col-lg-3 col-xl-2 m-0 p-0">
+
+                                    <div role="group">
+                                        <mat-form-field>
+                                            <mat-label>Mes</mat-label>
+                                            <mat-select disableOptionCentering formControlName="mes">
+                                                <mat-option value="">--</mat-option>
+                                                <mat-option *ngFor="let item of meses" [value]="item.idmes">
+                                                    {{ item.mes }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="mesNoValido.hasError('required')" class="animated fadeIn">
+                                                Campo requerido
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-5 col-sm-3 col-md-3 col-lg-3 col-xl-2 m-0 p-0">
+                                    <div role="group">
+                                        <mat-form-field>
+                                            <mat-label>Año</mat-label>
+                                            <mat-select disableOptionCentering formControlName="anio">
+                                                <mat-option value="">--</mat-option>
+                                                <mat-option *ngFor="let item of anios" [value]="item">
+                                                    {{ item }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="anioNoValido.hasError('required')"
+                                                class="animated fadeIn">
+                                                Campo requerido
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 m-0 p-0">
+                                    <button type="submit"
+                                        class="botonCirculo btnDuplicarLote animate__animated animate__fadeIn fast">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                                <div class="col"></div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- -- Cards - -->
+            <div class="row justify-content-center mt-3">
+                <div class="col-11" *ngIf="alert">
+                    <p class="text-danger p-0 m-0 float-right">No de Ordenes excedidas</p>
+                </div>
+                <div class="col-11">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 mb-2">
+                            <div class="card borderTable text-center" [class.card-alert]="alert">
+                                <div class="card-body">
+                                    <p class="table-label"><strong>Total de ordenes con falla en el mes</strong></p>
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            <mat-card-content class="mt-2">
+
+                                                <div class="d-inline-flex progress-bar-color">
+                                                    <div class="dot-lg text-center"
+                                                        [class.dot-disabled-up]="disabledUp">
+                                                        <span id="circle" *ngIf="value > 0"></span>
+                                                        <span class="number-lg">{{totalOrdPB}}</span>
+                                                        <br>
+                                                        <span class="txt-lg">Ordenes</span>
+                                                        <mat-progress-spinner class="mx-auto progress-circle"
+                                                            [color]="color" [mode]="mode" [value]="value"
+                                                            [strokeWidth]="3" [diameter]="168"></mat-progress-spinner>
+                                                    </div>
+
+                                                </div>
+                                            </mat-card-content>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <p class="float-right m-0" style="font-size: 15px;"
+                                                [class.text-danger]="alert">No Total de Ordenes</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <!-- Input -->
+                                            <div role="group">
+                                                <mat-form-field class="w70 float-right">
+                                                    <input class="txt-total" matInput type="number" minlength="1"
+                                                        min="0" pattern="[0-9]*" [(ngModel)]="totalOrdenes"
+                                                        #totalordenes="ngModel" (change)="setTotalOrdenes()"
+                                                        [class.text-danger]="alert"
+                                                        [class.input-disabled-up]="disabledUp">
+
+                                                </mat-form-field>
+                                                <div *ngIf="totalordenes.invalid && (totalordenes.dirty || totalordenes.touched)"
+                                                    class="text-danger">
+                                                    <div *ngIf="totalordenes.errors?.pattern">*Error</div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 p-0 mb-2">
+                            <div class="card borderTable px-xl-2">
+
+                                <div class="card-body px-lg-4 px-xl-4">
+
+                                    <table class="table table-sm table-borderless table-responsive-ab">
+                                        <thead>
+                                            <tr>
+                                                <td style="text-align: left !important;">
+                                                    <p class="table-label"><strong>Item a evaluar</strong></p>
+                                                </td>
+                                                <td style="text-align: right !important;">
+                                                    <p class="table-label text-nowrap"><strong>No Ordenes</strong></p>
+                                                </td>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="text-align: left !important;">
+                                                    <div class="d-inline-flex">
+                                                        <div class="dot text-center"
+                                                            [class.dot-disabled-up]="disabledUp"><span class="number"
+                                                                [class.txt-disabled-up]="disabledUp">1</span></div>
+                                                        <span class="line" [class.txt-disabled-up]="disabledUp"> Número
+                                                            ordenes ilegibles</span>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align: right !important;">
+                                                    <!-- Input -->
+                                                    <div role="group">
+                                                        <div *ngIf="itemuno.invalid && (itemuno.dirty || itemuno.touched)"
+                                                            class="text-danger">
+                                                            <small
+                                                                *ngIf="itemuno.errors?.pattern || itemuno.errors?.max">*Error</small>
+                                                        </div>
+                                                        <mat-form-field class="w-ab">
+                                                            <input matInput [class.input-disabled-up]="disabledUp"
+                                                                class="txt-item" type="number" name="input1"
+                                                                minlength="1" min="0" pattern="[0-9]*"
+                                                                [(ngModel)]="valItem1" #itemuno="ngModel"
+                                                                (change)="setTotalProgressBar(itemuno)"
+                                                                [disabled]="isDisabled" [class.text-danger]="txtInput1">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: left !important;">
+                                                    <div class="d-inline-flex">
+                                                        <div class="dot text-center"
+                                                            [class.dot-disabled-up]="disabledUp"><span class="number"
+                                                                [class.txt-disabled-up]="disabledUp">2</span></div>
+                                                        <span class="line" [class.txt-disabled-up]="disabledUp">Número
+                                                            ordenes con errores en la identificación del paciente</span>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align: right !important;">
+                                                    <!-- Input -->
+                                                    <div role="group">
+                                                        <div *ngIf="itemdos.invalid && (itemdos.dirty || itemdos.touched)"
+                                                            class="text-danger">
+                                                            <small
+                                                                *ngIf="itemdos.errors?.pattern || itemdos.errors?.max">*Error</small>
+                                                        </div>
+                                                        <mat-form-field class="w-ab">
+                                                            <input matInput [class.input-disabled-up]="disabledUp"
+                                                                class="txt-item" type="number" name="input2"
+                                                                minlength="1" min="0" pattern="[0-9]*"
+                                                                [(ngModel)]="valItem2" #itemdos="ngModel"
+                                                                (change)="setTotalProgressBar(itemdos)"
+                                                                [disabled]="isDisabled" [class.text-danger]="txtInput2">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: left !important;">
+                                                    <div class="d-inline-flex">
+                                                        <div class="dot text-center"
+                                                            [class.dot-disabled-up]="disabledUp"><span class="number"
+                                                                [class.txt-disabled-up]="disabledUp">3</span></div>
+                                                        <span class="line" [class.txt-disabled-up]="disabledUp"> Número
+                                                            de solicitudes con información faltante</span>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align: right !important;">
+                                                    <!-- Input -->
+                                                    <div role="group">
+                                                        <div *ngIf="itemtres.invalid && (itemtres.dirty || itemtres.touched)"
+                                                            class="text-danger">
+                                                            <small
+                                                                *ngIf="itemtres.errors?.pattern || itemtres.errors?.max">*Error</small>
+                                                        </div>
+                                                        <mat-form-field class="w-ab">
+                                                            <input matInput [class.input-disabled-up]="disabledUp"
+                                                                class="txt-item" type="number" name="input3"
+                                                                minlength="1" min="0" pattern="[0-9]*"
+                                                                [(ngModel)]="valItem3" #itemtres="ngModel"
+                                                                (change)="setTotalProgressBar(itemtres)"
+                                                                [disabled]="isDisabled" [class.text-danger]="txtInput3">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: left !important;">
+                                                    <div class="d-inline-flex">
+                                                        <div class="dot text-center"
+                                                            [class.dot-disabled-up]="disabledUp"><span class="number"
+                                                                [class.txt-disabled-up]="disabledUp">4</span></div>
+                                                        <span class="line" [class.txt-disabled-up]="disabledUp"> Número
+                                                            de solicitudes con pruebas no pertinentes</span>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align: right !important;">
+                                                    <!-- Input -->
+                                                    <div role="group">
+                                                        <div *ngIf="itemcuatro.invalid && (itemcuatro.dirty || itemcuatro.touched)"
+                                                            class="text-danger">
+                                                            <small
+                                                                *ngIf="itemcuatro.errors?.pattern || itemcuatro.errors?.max">*Error</small>
+                                                        </div>
+                                                        <mat-form-field class="w-ab">
+                                                            <input matInput [class.input-disabled-up]="disabledUp"
+                                                                class="txt-item" type="number" name="input4"
+                                                                minlength="1" min="0" pattern="[0-9]*"
+                                                                [(ngModel)]="valItem4" #itemcuatro="ngModel"
+                                                                (change)="setTotalProgressBar(itemcuatro)"
+                                                                [disabled]="isDisabled" [class.text-danger]="txtInput4">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: left !important;">
+                                                    <div class="d-inline-flex">
+                                                        <div class="dot text-center"
+                                                            [class.dot-disabled-up]="disabledUp"><span class="number"
+                                                                [class.txt-disabled-up]="disabledUp">5</span></div>
+                                                        <span class="line" [class.txt-disabled-up]="disabledUp"> Error
+                                                            de transcripción en el ingreso de la muestra al
+                                                            sistema</span>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align: right !important;">
+                                                    <!-- Input -->
+                                                    <div role="group">
+                                                        <div *ngIf="itemcinco.invalid && (itemcinco.dirty || itemcinco.touched)"
+                                                            class="text-danger">
+                                                            <small
+                                                                *ngIf="itemcinco.errors?.pattern || itemcinco.errors?.max">*Error</small>
+                                                        </div>
+                                                        <mat-form-field class="w-ab">
+                                                            <input matInput [class.input-disabled-up]="disabledUp"
+                                                                class="txt-item" type="number" name="input5"
+                                                                minlength="1" min="0" pattern="[0-9]*"
+                                                                [(ngModel)]="valItem5" #itemcinco="ngModel"
+                                                                (change)="setTotalProgressBar(itemcinco)"
+                                                                [disabled]="isDisabled" [class.text-danger]="txtInput5">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- Btns Guardar - Cancelar -->
+            <div class="row justify-content-center gap-2 mt-3">
+                <button type="button" class="boton float-right" (click)="crearEditar()" [ngClass]="{ 'off' : alert }"
+                    [disabled]="alert">Guardar</button>
+                <button type="button" class="boton-back" (click)="reset()">Cancelar</button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+</div>

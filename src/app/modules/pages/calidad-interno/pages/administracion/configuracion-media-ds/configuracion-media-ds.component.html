@@ -1,0 +1,180 @@
+<h1 style="margin-top: 3em;">Configuración media y DS</h1>
+<form [formGroup]="formaBuscarDatos" class="grid-6-buttton">
+
+  <mat-form-field>
+    <mat-label>Sedes
+    </mat-label>
+    <mat-select disableOptionCentering formControlName="numLaboratorio" [disabled]="habilitarSede">
+      <mat-option value="">--</mat-option>
+      <mat-option *ngFor="let sede of sedesActive" [value]="sede.idheadquarters">
+        {{ sede.desheadquarters | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Sección
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto01" formControlName="seccion" #seccionPr>
+    <mat-autocomplete #auto01="matAutocomplete" (optionSelected)="cambiarSeccion(seccionPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsSections | async);" [value]="option.namesection"
+        [matTooltip]="option.namesection | NombreSeccion" matTooltipPosition="right">
+        {{option.namesection | NombreSeccion}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      N° Material Control
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto02" formControlName="numMaterialControl" #contmatPr>
+    <mat-autocomplete #auto02="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsControlmaterial | async);" [value]="option.descontmat"
+        [matTooltip]="option.descontmat | NombreControlmaterial" matTooltipPosition="right">
+        {{option.descontmat | NombreControlmaterial}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Lote
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto03" formControlName="numLote" #lotPr>
+    <mat-autocomplete #auto03="matAutocomplete" (optionSelected)="lotesPre(lotPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsLots | async);" [value]="option.Numlot"
+        [matTooltip]="option.Numlot | nombreLote" matTooltipPosition="right">
+        {{option.Numlot | nombreLote}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!--
+    <mat-form-field>
+    <mat-label>Test</mat-label>
+    <mat-select disableOptionCentering formControlName="idtest" (selectionChange)="setTest($event.value)">
+      <mat-option value="">--</mat-option>
+      <mat-option *ngFor="let test of tests" [value]="test.IdTest">
+        {{ test.Desanalytes | titlecase }} | {{ test.Desunits }} |
+        {{ test.Desmethods | titlecase }} | {{ test.Desreagents | titlecase }} |
+        {{ test.NameAnalyzer | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+  -->
+  
+  <mat-form-field>
+    <mat-label>
+        Test
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto04" formControlName="idtest" #testPr>
+    <mat-autocomplete #auto04="matAutocomplete" (optionSelected)="setTest(testPr.value)">
+        <mat-option *ngFor="let dtTest of (filteredOptionsTest | async);" [value]="dtTest.value"
+            [matTooltipPosition]="'right'" [matTooltip]="dtTest.value | nombreTest">
+            {{ dtTest.value | nombreTest }} 
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!-- <div>
+    <button class="btnPurple-01" type="button" (click)="loadData()"
+      [disabled]="formaBuscarDatos.invalid">Buscar</button>
+  </div> -->
+</form>
+
+<app-tabla-comun *ngIf="formaBuscarDatos.get('idtest')?.value" [viewButton]="true" [cabeceros]="displayedColumns"
+  [info-tabla]="dataTableBody" (onEdit)="openModalConfiMedia(templateConfigMedia, $event)"
+  (onDelete)="deleteConfigMedia($event)" (onCreate)="openModalCreateMediaDS(templateConfigMedia, '')">
+</app-tabla-comun>
+
+<ng-template #templateConfigMedia>
+  <form [formGroup]="formaRegistroConfiMedia" class="grid-2-completo " (ngSubmit)="validarSeleccion()">
+
+    <!-- Contenedor vertical de todas las filas -->
+    <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
+
+      <!-- Primera fila horizontal: Nivel, Tipo dato, Media -->
+      <div style="display: flex; gap: 8px; flex-wrap: nowrap; align-items: flex-end;">
+        <mat-form-field style="width: 100px;">
+          <mat-label>Nivel</mat-label>
+          <input matInput formControlName="level" type="number" readonly>
+        </mat-form-field>
+
+        <!-- <mat-form-field style="flex: 1;">
+          <mat-label>Tipo dato</mat-label>
+          <mat-select disableOptionCentering formControlName="datatype" (selectionChange)="changeValue()">
+            <mat-option value="">--</mat-option>
+            <mat-option *ngFor="let tipo of arrayTipo" [value]="tipo.value">{{ tipo.text }}</mat-option>
+          </mat-select>
+          <mat-error>Obligatorio</mat-error>
+        </mat-form-field> -->
+        <mat-form-field style="flex: 1;">
+        <mat-label>Tipo de Dato</mat-label>
+        <mat-select formControlName="datatype" (selectionChange)="changeValue()">
+          <!-- Opción predeterminada vacía -->
+          <mat-option value="">--</mat-option>
+
+          <!-- Opción Manual -->
+          <mat-option value="manual">Manual</mat-option>
+
+          <!-- Opción Fecha -->
+          <mat-option value="fecha">Fecha</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formaRegistroConfiMedia.get('datatype').hasError('required')">
+          Este campo es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+
+        <mat-form-field style="width: 150px;" *ngIf="!hidden">
+          <mat-label>Media</mat-label>
+          <input matInput formControlName="average" type="number">
+          <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Segunda fila horizontal: DS y CV -->
+      <div *ngIf="!hidden" style="display: flex; gap: 8px; flex-wrap: nowrap; align-items: flex-end;">
+        <mat-form-field style="width: 120px;">
+          <mat-label>DS</mat-label>
+          <input matInput formControlName="ds" type="number">
+          <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field style="width: 120px;">
+          <mat-label>CV</mat-label>
+          <input matInput formControlName="cv" type="number">
+          <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+
+
+    <!-- Ocultar estas fechas si tipoDato no es 'fecha' -->
+    <mat-form-field *ngIf="hidden">
+      <mat-label>Fecha desde</mat-label>
+      <input matInput [matDatepicker]="pickerInicio" formControlName="fechaInicio">
+      <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+      <mat-datepicker #pickerInicio></mat-datepicker>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="hidden">
+      <mat-label>Fecha hasta</mat-label>
+      <input matInput [matDatepicker]="pickerFin" formControlName="fechaFin">
+      <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFin></mat-datepicker>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+  </form>
+</ng-template>

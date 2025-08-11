@@ -1,0 +1,256 @@
+<h1 style="margin-top: 3em;">Filtros Grubbs</h1>
+<form [formGroup]="formaBuscarDatos" class="grid-6-buttton">
+
+  <mat-form-field>
+    <mat-label>Sede</mat-label>
+    <mat-select disableOptionCentering formControlName="numLaboratorio" [disabled]="habilitarSede">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterHeadquarters" placeholderLabel="Buscar..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let sede of sedesActive" [value]="sede.idheadquarters">
+        {{ sede.desheadquarters | titlecase }}</mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>Sección</mat-label>
+    <input type="text" matInput [matAutocomplete]="auto01" formControlName="seccion" #seccionPr>
+    <mat-autocomplete #auto01="matAutocomplete" (optionSelected)="cambiarSeccion(seccionPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsSections | async);" [value]="option.namesection"
+        [matTooltip]="option.namesection | NombreSeccion" matTooltipPosition="right">
+        {{option.namesection | NombreSeccion}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Material Control</mat-label>
+    <input type="text" matInput [matAutocomplete]="auto02" formControlName="numMaterialControl" #contmatPr>
+    <mat-autocomplete #auto02="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsControlmaterial | async);" [value]="option.descontmat"
+        [matTooltip]="option.descontmat | NombreControlmaterial" matTooltipPosition="right">
+        {{option.descontmat | NombreControlmaterial}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Lote</mat-label>
+    <input type="text" matInput [matAutocomplete]="auto03" formControlName="numLote" #lotPr>
+    <mat-autocomplete #auto03="matAutocomplete" (optionSelected)="lotesPre(lotPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsLots | async);" [value]="option.Numlot"
+        [matTooltip]="option.Numlot | nombreLote" matTooltipPosition="right">
+        {{option.Numlot | nombreLote}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+        Test
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto04" formControlName="idtest" #testPr>
+    <mat-autocomplete #auto04="matAutocomplete" (optionSelected)="setTest(testPr.value)">
+        <mat-option *ngFor="let test of (filteredOptionsTest | async);" [value]="test.value"
+            [matTooltipPosition]="'right'" [matTooltip]="test.value | nombreTest">
+            {{ test.value | nombreTest }} 
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+  
+  <!-- <mat-form-field>
+    <mat-label>Test</mat-label>
+    <mat-select disableOptionCentering formControlName="idtest" (selectionChange)="setTest($event.value)">
+      <mat-option value="">--</mat-option>
+      <mat-option *ngFor="let test of tests" [value]="test.IdTest">
+        {{ test.Desanalytes | titlecase }} | {{ test.Desunits }} |
+        {{ test.Desmethods | titlecase }} | {{ test.Desreagents | titlecase }} |
+        {{ test.NameAnalyzer | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field> -->
+
+  <div>
+    <button class="btnPurple-01" type="button" (click)="loadData()"
+      [disabled]="formaBuscarDatos.invalid">Buscar</button>
+  </div>
+</form>
+
+<div style="display: grid; grid-template-columns: 1fr;">
+  <div *ngIf="ver">
+    <table class="table2 " style="margin: 0 auto 0;" >
+      <thead>
+        <tr>
+          <th style="text-align: center;" *ngIf="tablaNiveles1.length !== 0" colspan="3" class="fondo-niveles">Nivel 1</th>
+          <th style="text-align: center;" *ngIf="tablaNiveles2.length !== 0" colspan="3" class="fondo-niveles">Nivel 2</th>
+          <th style="text-align: center;" *ngIf="tablaNiveles3.length !== 0" colspan="3" class="fondo-niveles">Nivel 3</th>
+        </tr>
+        <tr class="fuente-color">
+          <th *ngIf="tablaNiveles1.length !== 0" colspan="3">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 75px !important;">Media</th>
+                  <th style="width: 75px !important;">DS</th>
+                  <th style="width: 75px !important;">CV</th>
+                  <th style="width: 75px !important;">N Datos</th>
+                </tr>
+              </thead>
+            </table>
+          </th>
+          <th *ngIf="tablaNiveles2.length !== 0" colspan="3">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 75px !important;">Media</th>
+                  <th style="width: 75px !important;">DS</th>
+                  <th style="width: 75px !important;">CV</th>
+                  <th style="width: 75px !important;">N Datos</th>
+                </tr>
+              </thead>
+            </table>
+          </th>
+          <th *ngIf="tablaNiveles3.length !== 0" colspan="3">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 75px !important;">Media</th>
+                  <th style="width: 75px !important;">DS</th>
+                  <th style="width: 75px !important;">CV</th>
+                  <th style="width: 75px !important;">N Datos</th>
+                </tr>
+              </thead>
+            </table>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tr-principal2">
+          <td *ngIf="tablaNiveles1.length !== 0" class="td-externo2" colspan="3">
+            <table>
+              <tbody>
+                <tr>
+                  <td style="width: 75px !important;">{{dataInicial.averageInitiallvl1}}</td>
+                  <td style="width: 75px !important;">{{dataInicial.sdInitiallvl1}}</td>
+                  <td style="width: 75px !important;">{{dataInicial.cvInitiallvl1}}</td>
+                  <td style="width: 75px !important;">{{dataInicial.ndataInitiallvl1}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td *ngIf="tablaNiveles2.length !== 0" class="td-externo2" colspan="3">
+            <table>
+              <tbody>
+                <tr>
+                  <td style="width: 75px !important;">{{dataInicial.averageInitiallvl2}}</td>
+                  <td style="width: 75px !important;">{{dataInicial.sdInitiallvl2}}</td>
+                  <td style="width: 75px !important;">{{dataInicial.cvInitiallvl2}}</td>
+                  <td style="width: 75px !important;">{{dataInicial.ndataInitiallvl2}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td *ngIf="tablaNiveles3.length !== 0" class="td-externo2" colspan="3">
+            <table>
+              <tbody>
+                <tr>
+                  <td style="width: 75px !important;">{{dataInicial.averageInitiallvl3}}</td>
+                  <td style="width: 75px !important;">{{dataInicial.sdInitiallvl3}}</td>
+                  <td style="width: 75px !important;">{{dataInicial.cvInitiallvl3}}</td>
+                  <td style="width: 75px !important;">{{dataInicial.ndataInitiallvl3}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        
+        <tr class="tr-principal2">
+          <td *ngIf="tablaNiveles1.length !== 0" class="td-externo2" colspan="3">
+            <table>
+              <tbody>
+                <tr>
+                  <td style="width: 75px !important;">{{dataFinal.averagefinallvl1}}</td>
+                  <td style="width: 75px !important;">{{dataFinal.sdfinallvl1}}</td>
+                  <td style="width: 75px !important;">{{dataFinal.cvfinallvl1}}</td>
+                  <td style="width: 75px !important;">{{dataFinal.ndatafinallvl1}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td *ngIf="tablaNiveles2.length !== 0" class="td-externo2" colspan="3">
+            <table>
+              <tbody>
+                <tr>
+                  <td style="width: 75px !important;">{{dataFinal.averagefinallvl2}}</td>
+                  <td style="width: 75px !important;">{{dataFinal.sdfinallvl2}}</td>
+                  <td style="width: 75px !important;">{{dataFinal.cvfinallvl2}}</td>
+                  <td style="width: 75px !important;">{{dataFinal.ndatafinallvl2}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td *ngIf="tablaNiveles3.length !== 0" class="td-externo2" colspan="3">
+            <table>
+              <tbody>
+                <tr>
+                  <td style="width: 75px !important;">{{dataFinal.averagefinallvl3}}</td>
+                  <td style="width: 75px !important;">{{dataFinal.sdfinallvl3}}</td>
+                  <td style="width: 75px !important;">{{dataFinal.cvfinallvl3}}</td>
+                  <td style="width: 75px !important;">{{dataFinal.ndatafinallvl3}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="ver" style="padding-top: 8px; display: flex; justify-content: center; gap: 2em; width: 100%; height: 250px;overflow-y: scroll;overflow-x: hidden;">
+
+    <table *ngFor="let tabla of tablaTotales;index as i" class="table-responsive"
+      style="width: 299.76px !important; height: 250px !important; overflow-y: hidden;position: relative;">
+      <thead>
+        <tr style="background: blue; border-bottom: 1px solid white;">
+          <th colspan="2">Nivel {{i+1}}</th>
+        </tr>
+        <tr style="background: blue;">
+          <th>Resultado</th>
+          <th>Z-Score</th>
+        </tr>
+      </thead>
+
+      <tbody style="color: black !important; height: 250px;overflow-y: scroll;">
+        <tr *ngFor="let item of tabla;index as j" class="tr-principal" [style]="item.Aberrante?'background:#FFECA3;':''"
+          colspan="2">
+          <td *ngIf="item.Valuelevel1 || item.Valuelevel1 != undefined">{{item.Valuelevel1}}</td>
+          <td *ngIf="item.Valuelevel2 || item.Valuelevel2 != undefined">{{item.Valuelevel2}}</td>
+          <td *ngIf="item.Valuelevel3 || item.Valuelevel3 != undefined">{{item.Valuelevel3}}</td>
+          <td *ngIf="item.Zlevel1 || item.Zlevel1 === 0" [style]="item.Aberrante?'color:#D11C22;':''">
+            {{item.Zlevel1}}</td>
+          <td *ngIf="item.Zlevel2 || item.Zlevel2 === 0" [style]="item.Aberrante?'color:#D11C22;':''">
+            {{item.Zlevel2}}</td>
+          <td *ngIf="item.Zlevel3 || item.Zlevel3 === 0" [style]="item.Aberrante?'color:#D11C22;':''">
+            {{item.Zlevel3}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+<div *ngIf="ver" style="margin: 2em 0 2em;">
+  <button class="btnPurple-01 " type="button" style="margin: 0 auto 0;"
+    (click)="updateConfigAvergadsxtest()">Actualizar</button>
+</div>

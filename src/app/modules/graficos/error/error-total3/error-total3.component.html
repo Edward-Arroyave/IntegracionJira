@@ -1,0 +1,41 @@
+<div id="error-3" class="error-3">
+    <!-- <button type="button" class="botonCancelar btnCancel mt-0 float-right mr-3 d-none d-sm-none d-md-none d-lg-block d-xl-block" style="width: 100px !important; top: 1em; position: relative; z-index: 2;" (click)="openGraficaModal(graficaModal)" [hidden]="btnHide">
+        <img style="width: 20px; margin-bottom: 1px;" [src]="'ampliar_icon.png' | imageCdn"> Ampliar
+    </button> -->
+    <div id="main3"></div>
+</div>
+
+<!-- ***Modal Ampliar-->
+<ng-template #graficaModal>
+    <div class="modal-header">
+        <button type="button" class="close pull-right" arial-label="Close" (click)="closeVentana()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <div class="row">
+            <div class="col flex2">
+                <img class="img img-fluid" [src]="'acumulados.png' | imageCdn">
+                <h3 class="tituloModal" style="color: #3F2E63;">Levey Jennings Nivel 3</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+
+            </div>
+            <div class="col text-center">
+                <div id="modalchart3"></div>
+            </div>
+            <div class="col-1">
+
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12 boxBtnAceptCancel text-center">
+                <button type=" button " class="boton btnAceptar " style="width: 100px !important; " (click)="closeVentana() ">Aceptar</button>
+
+            </div>
+        </div>
+    </div>
+</ng-template>

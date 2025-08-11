@@ -1,0 +1,133 @@
+<h1 style="margin-top: 3em;">Porcentaje de confianza</h1>
+<form [formGroup]="formFiltro" class="grid-6-buttton">
+  <!-- <mat-form-field>
+    <mat-label>
+      Sede
+    </mat-label>
+    <mat-select #sedeselect disableOptionCentering formControlName="sede" disabled>
+      <mat-option *ngFor="let sede of sedes" [value]="sede.Idheadquarters">
+        {{ sede.Desheadquarters }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field> -->
+
+  <mat-form-field>
+    <mat-label>Sede</mat-label>
+    <mat-select disableOptionCentering formControlName="sede">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterHeadquarters" placeholderLabel="Buscar..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let sede of sedes" [value]="sede.Idheadquarters">
+        {{ sede.Desheadquarters | titlecase }}</mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Sección
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto01" formControlName="seccion" #seccionPr>
+    <mat-autocomplete #auto01="matAutocomplete" (optionSelected)="cambiarSeccion(seccionPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsSections | async);" [value]="option.namesection"
+        [matTooltipPosition]="'right'" [matTooltip]="option.namesection | NombreSeccion">
+        {{option.namesection | NombreSeccion}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Material Control
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto02" formControlName="material" #contmatPr>
+    <mat-autocomplete #auto02="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsControlmaterial | async);" [value]="option.descontmat"
+        [matTooltipPosition]="'right'" [matTooltip]="option.descontmat | NombreControlmaterial">
+        {{option.descontmat | NombreControlmaterial}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Lote
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto03" formControlName="lote" #lotPr>
+    <mat-autocomplete #auto03="matAutocomplete" (optionSelected)="lotesPre(lotPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsLots | async);" [value]="option.Numlot"
+        [matTooltipPosition]="'right'" [matTooltip]="option.Numlot | nombreLote">
+        {{option.Numlot | nombreLote}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+        Test
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto04" formControlName="test" #testPr>
+    <mat-autocomplete #auto04="matAutocomplete" (optionSelected)="byTest(testPr.value)">
+        <mat-option *ngFor="let test of (filteredOptionsTest | async);" [value]="test.value"
+            [matTooltipPosition]="'right'" [matTooltip]="test.value | nombreTest">
+            {{ test.value | nombreTest }} 
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+    <mat-label>
+      Test
+    </mat-label>
+    <mat-select (selectionChange)="byTest( $event.value )" formControlName="test">
+      <mat-option value="">
+        --
+      </mat-option>
+      <mat-option *ngFor="let test of tests" [value]="test.IdTest">
+        {{ test.Desanalytes | titlecase }} | {{ test.Desunits }} | {{ test.Desmethods | titlecase }} |
+        {{ test.Desreagents | titlecase }} | {{ test.NameAnalyzer | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field> -->
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="search(true)" [disabled]="!verBtn">
+      Buscar</button>
+  </div>
+</form>
+
+  <app-tabla-comun [hidden]="!ver" [cabeceros]="displayedColumns" [info-tabla]="dataTableBody"
+    (onCreate)="openModalRegistroPorctconf(templateRegistroPorcentajeconf, '')" (onChangeStatus)="actualizarConfiObjEstado($event)"
+    (onEdit)="openModalRegistroPorctconf(templateRegistroPorcentajeconf, $event)" (onDelete)="eliminarPorcentajeconfianza($event.Idconfidencepercent)">
+  </app-tabla-comun>
+
+<ng-template #templateRegistroPorcentajeconf>
+  <form [formGroup]="formularioRegistroEditar" class="grid-3-toggle">
+    <mat-form-field>
+      <mat-label>% Confianza</mat-label>
+      <input matInput type="number" formControlName="Percentconf">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nivel</mat-label>
+      <input matInput type="number" formControlName="leveltest">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+    </div>
+  </form>
+</ng-template>
+

@@ -1,0 +1,502 @@
+.contenedorAjustes{
+  position:absolute;
+  bottom: -78px;
+  background: white;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  right: -35px;
+  padding: 10px; 
+  box-sizing: border-box; 
+  border-radius: 5px; 
+  box-shadow: 0px 3px 6px #00000029;
+}
+
+.activoAjustes{
+  opacity: 0;
+}
+
+.desaparece {
+  opacity: 0;
+  transition: 1s all;
+}
+
+.contenerdorHoja {
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.123);
+  border-radius: 10px;
+  position: relative;
+  background: white;
+  width: 95%;
+  margin: 0 auto 0;
+  height: 85%;
+  margin-top: 4em;
+}
+
+.hoja {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding: 0px 40px;
+}
+
+/* Inactividad */
+.contiene-modal-inactividad {
+  text-align: center !important;
+  gap: 1em !important;
+  border-bottom: 15px solid var(--purple-01);
+  border-radius: 6px;
+}
+
+.titulo-inactividad {
+  font-weight: 500;
+
+  margin-top: 1em !important;
+}
+
+.flex-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+/* Inactividad */
+
+.page-wrapper {
+  height: 100vh;
+}
+
+.page-wrapper .page-content {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  /* padding-top: 20px; */
+  transition: padding-left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.continer-body {
+  height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-color: rgba(243, 243, 243, 0.8);
+}
+
+@media screen and (min-width: 768px) {
+  .page-wrapper .page-content {
+    padding-left: var(--width-sidebar);
+  }
+}
+
+.page-wrapper .page-content .overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 998;
+  background: #000;
+  opacity: 0.5;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .page-wrapper .page-content .overlay.show {
+    display: block;
+  }
+}
+
+.page-wrapper .sidebar {
+  left: 0px;
+}
+
+.page-wrapper.toggled .page-content {
+  padding-left: 80px;
+}
+
+.page-wrapper .attribution {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+  margin: 5px;
+  letter-spacing: 1px;
+}
+
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: end;
+  align-items: center;
+  justify-items: end;
+  background-color: var(--white-01);
+  width: 100%;
+  height: 60px;
+  color: var(--purple-01);
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 0px 10px;
+}
+
+.icons-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.colorAsterisco {
+  font-weight: 600 !important;
+}
+
+.labelProfile {
+  color: #dbd9d9;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.camera {
+  font-size: 20px;
+  background: #6b4b8b;
+  cursor: pointer;
+  border-radius: 100%;
+  padding: 7px;
+  color: white;
+  font-size: 20px;
+  width: 34px;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
+.imgProfile {
+  width: 30px;
+  float: right;
+  border-radius: calc(var(--size-profile) / 2);
+  margin-right: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  height: 23px;
+}
+
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.fa-cog:before {
+  transition: transform 1s ease-in-out;
+}
+.fa-cog:hover:before {
+  transform: rotate(90deg);
+  transform-origin: center;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  margin-left: -130px;
+  display: none;
+  position: fixed;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+.tipoletra {
+  font-family: "Open Sans";
+  font-size: 16px;
+  color: #6b4b8b;
+  font-weight: bold;
+}
+
+.btnUpdate {
+  width: 88px;
+}
+.door {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: gap 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.left-door {
+  width: 8px;
+  height: 23px;
+  background-color: var(--purple-01);
+  border-radius: 2px;
+}
+.rigth-door {
+  width: 15px;
+  height: 28px;
+  background-color: var(--purple-01);
+  clip-path: polygon(0 0, 100% 14%, 100% 85%, 0% 100%);
+  border-radius: 2px;
+  transition: width 0.3s ease-in-out;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 4px;
+}
+.point {
+  background-color: var(--white-01);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+}
+
+.door:hover {
+  gap: 5px;
+}
+.door:hover .rigth-door {
+  width: 12px;
+  background: #dad3e0;
+}
+.door:hover .left-door {
+  background: #dad3e0;
+}
+
+@media (min-width: 320px) {
+  .camera {
+    position: absolute;
+    top: 80%;
+    right: 30%;
+  }
+  .boxBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 24px 0px;
+  }
+}
+
+@media (min-width: 330px) {
+  .camera {
+    right: 32%;
+  }
+}
+
+@media (min-width: 350px) {
+  .camera {
+    right: 34%;
+  }
+}
+
+@media (min-width: 380px) {
+  .camera {
+    right: 35%;
+  }
+}
+
+@media (min-width: 410px) {
+  .camera {
+    right: 37%;
+  }
+}
+
+@media (min-width: 460px) {
+  .camera {
+    right: 39%;
+  }
+}
+
+@media (min-width: 530px) {
+  /* .modal-notification {
+        left: 22%;
+    } */
+}
+
+.camera {
+  z-index: 10 !important;
+}
+
+.notification {
+  position: absolute;
+  top: 5px;
+  z-index: 109;
+  border: 1px solid #fff;
+  right: 148px;
+  font-size: 9px;
+  background: #d11c22;
+  color: #ffffff;
+  min-width: 20px;
+  padding: 0px 5px;
+  height: 20px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 19px;
+  vertical-align: middle;
+  display: block;
+}
+
+/* Modal Content/Box */
+
+.modal-notification {
+  border-radius: 10px;
+  background-color: #fefefe;
+  padding: 7px;
+  width: 80%;
+  position: fixed;
+  z-index: 110;
+  right: 161px;
+  top: 11px;
+  width: auto;
+  /* height: 60%; */
+  /* overflow: auto; */
+  border: 1px solid var(--purple-01);
+}
+
+.titulo {
+  color: var(--purple-01);
+  font-weight: bold;
+  text-align: left;
+}
+
+.styleCard {
+  height: auto;
+  background: #dad3e0;
+  border-radius: 10px;
+}
+
+.linea {
+  border-top: 1px solid var(--purple-01);
+  height: 2px;
+  margin-top: 0%;
+  margin-bottom: 2%;
+}
+
+/* The Close Button */
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  overflow-y: scroll;
+  background: #dad3e0;
+  box-shadow: inset 0 0 4px #dad3e0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3850eb;
+  border-radius: 10px;
+}
+
+/* input select  */
+/* input select  */
+
+/******************** MEDIA BREAKING POINTS *************************/
+
+@media (min-width: 1499px) {
+  /* .modal-notification {
+        left: 86%;
+    } */
+}
+
+/*=============================================
+  PORTATIL 1366
+  =============================================*/
+
+@media (max-width: 1499px) and (min-width: 1200px) {
+  /* .modal-notification {
+        left: 70%;
+    } */
+}
+
+/*=============================================
+  TABLET HORIZONTAL (LG revisamos en 1024px)
+  =============================================*/
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  /* .modal-notification {
+        left: 70%;
+    } */
+}
+
+/*---------------------------------------------------------------------*/
+
+/*=============================================
+  TABLET VERTICAL (MD revisamos en 768px)
+  =============================================*/
+
+@media (max-width: 991px) and (min-width: 768px) {
+  /* .modal-notification {
+        left: 50%;
+    } */
+}
+
+/*---------------------------------------------------------------------*/
+
+/*=============================================
+  MÓVIL HORIZONTAL (SM revisamos en 576px)
+  =============================================*/
+
+@media (max-width: 767px) and (min-width: 576px) {
+  /* .modal-notification {
+        left: 70%;
+    } */
+}
+
+/*---------------------------------------------------------------------*/
+
+/*=============================================
+  MOVIL VERTICAL (revisamos en 320px)
+  =============================================*/
+
+@media screen and (max-width: 575px) {
+  /* .modal-notification {
+        left: 38%;
+    } */
+}
+
+@media (min-width: 576px) {
+  /* .modal-notification {
+        left: 69%;
+    } */
+}
+
+/******************** MEDIA MEDIA BREAKING POINTS  END *************************/

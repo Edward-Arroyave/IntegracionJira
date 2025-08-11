@@ -1,0 +1,20 @@
+<div class="overlay" *ngIf="isLoading$ | async">
+  <div class="cont_loader">
+      <img class="loader_gif" src="../../../../assets/gif/loader.gif" alt="">
+      <span class="porcetaje">{{porcentajeMax}}  &nbsp;%</span>
+
+      <div style="height: 3em;">
+          <div class="text_loader text" *ngIf="porcentajeMax<3">
+              {{dataText.text}}
+          </div>
+
+          <div class="text_loader text" *ngIf="porcentajeMax>3 && porcentajeMax<100">
+              {{dataText.text1}}
+          </div>
+
+          <div class="text_loader text" *ngIf="porcentajeMax>7">
+              {{dataText.text2}}
+          </div>
+      </div>
+  </div>
+</div>

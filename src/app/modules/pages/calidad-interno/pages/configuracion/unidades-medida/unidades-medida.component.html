@@ -1,0 +1,19 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Unidades de medida'"
+    (onCreate)="openModalUnidadMedida(templateUnidadMedida, '')" (onChangeStatus)="actualizarUnidadMedida($event)"
+    (onEdit)="openModalUnidadMedida(templateUnidadMedida, $event)" (onDelete)="eliminarUnidadMedida($event)">
+  </app-tabla-comun>
+
+<ng-template #templateUnidadMedida>
+  <form [formGroup]="formaUnidadMedida" class="grid-2">
+    <mat-form-field>
+      <mat-label>Unidad</mat-label>
+      <input matInput type="text" formControlName="desunits">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+</ng-template>

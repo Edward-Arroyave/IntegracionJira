@@ -1,0 +1,140 @@
+
+.formulario-principal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 1em;
+  align-items: center;
+}
+
+/* <-------TABS-----> */
+.tabs_container {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1em;
+  overflow: hidden;
+  width: 100%;
+}
+
+.tab {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  cursor: pointer;
+  padding: 7px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.active-tab {
+  color: white;
+  background-color: var(--blue-01);
+}
+
+.desactive-tab {
+  background-color: white;
+  color: var(--blue-03);
+  border: 1px solid var(--blue-03);
+  &:hover {
+    color: white;
+    background-color: var(--blue-03);
+  }
+}
+
+.slider-analitos {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1em;
+}
+
+.arrow-left,
+.arrow-right {
+  color: var(--blue-03);
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.no-data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-data img {
+  width: 10%;
+  min-width: 16px;
+}
+
+.container-tables {
+  width: 100%;
+  overflow: auto;
+  padding: 1em;
+}
+
+.tables-top {
+  display: grid;
+  grid-template-columns: 40% 1fr 1fr;
+  gap: 1em;
+  margin: 1em 0px;
+}
+
+table th {
+  text-align: center !important;
+}
+
+table td {
+  text-align: center !important;
+}
+
+table thead {
+  background-color: var(--blue-01);
+  color: white;
+}
+
+tr {
+  height: 40px !important;
+}
+
+.tables-bottom {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.cont-table{
+  display: grid;
+}
+
+@media (max-width: 1100px) {
+  .tables-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .tables-top {
+    grid-template-columns: 1fr;
+  }
+  .tables-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .formulario-principal {
+    grid-template-columns: auto auto auto;
+  }
+}
+@media (max-width: 600px) {
+  .formulario-principal {
+    grid-template-columns: auto auto;
+  }
+}

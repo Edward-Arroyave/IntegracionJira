@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="156" height="208" viewBox="0 0 156 208">
+  <g id="Grupo_36603" data-name="Grupo 36603" transform="translate(-992.522 -691.629)" opacity="0.5">
+    <g id="Grupo_36531" data-name="Grupo 36531" transform="translate(992.996 853.697)">
+      <text id="Sin_datos" data-name="Sin datos" transform="translate(-0.474 35.932)" fill="#a3a2a2" font-size="34" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">Sin datos</tspan></text>
+    </g>
+    <g id="Grupo_36532" data-name="Grupo 36532" transform="translate(997.772 691.87)">
+      <g id="Elipse_1270" data-name="Elipse 1270" transform="translate(-0.25 -0.241)" fill="none" stroke="#a3a2a2" stroke-width="1">
+        <ellipse cx="75" cy="74.5" rx="75" ry="74.5" stroke="none"/>
+        <ellipse cx="75" cy="74.5" rx="74.5" ry="74" fill="none"/>
+      </g>
+      <path id="_22._Information" data-name="22. Information" d="M47.841,0A47.841,47.841,0,1,0,95.683,47.841,47.841,47.841,0,0,0,47.841,0Zm3.987,71.762a3.987,3.987,0,1,1-7.974,0V43.855H39.868a3.987,3.987,0,1,1,0-7.974h7.974a3.987,3.987,0,0,1,3.987,3.987ZM47.921,27.907a3.987,3.987,0,0,1-.04-7.974h.04a3.987,3.987,0,1,1,0,7.974Z" transform="translate(27.556 27.426)" fill="#a3a2a2"/>
+    </g>
+  </g>
+</svg>

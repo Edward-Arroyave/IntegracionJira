@@ -1,0 +1,8 @@
+.estiloGeneralSlide:hover{
+    color: var(--purple-03) !important;
+}
+
+.styleSeccion:hover{
+    background: #20319f8f;
+    color: white;
+}

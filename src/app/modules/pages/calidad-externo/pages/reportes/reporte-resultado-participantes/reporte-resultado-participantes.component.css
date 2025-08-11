@@ -1,0 +1,266 @@
+div[role="group"] {
+    width: 200px;
+    margin-right: 8px;
+}
+
+.sSample {
+    width: 100px !important;
+    margin-right: 230px !important;
+}
+
+.boxFiltro {
+    border: 1px solid #CECECE;
+    border-radius: 6px;
+    padding: 16px;
+    box-shadow: 3px 3px 3px #e8e8e8;
+    margin: 0px 12px;
+}
+
+.formulario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.boxPagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.aH {
+    color: #3850eb !important;
+}
+
+.boxPagination .pagineitor {
+    background: #3850eb;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    text-align: center;
+    padding: 6px;
+    margin: 0px 8px;
+    color: white;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-caret-left,
+.fa-caret-right {
+    font-size: 18px;
+    color: #3850eb;
+    margin: 0px 8px;
+}
+
+.boton {
+    margin-left: 8px;
+}
+
+.boxExport {
+    margin-top: 32px;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pdf {
+    width: 132px;
+    margin: 0 16px;
+    cursor: pointer;
+}
+
+.excel {
+    cursor: pointer;
+}
+
+#boxInfo {
+    background: #F6F6F6;
+    text-align: center;
+    padding: 8px 0px;
+}
+
+h1,
+h4 {
+    font-weight: 500;
+    color: var(--purple-01);
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+h2 {
+    font-weight: 500;
+    color: #434C5D;
+    font-size: 17px;
+}
+
+h3 {
+    margin: 40px 0px;
+    color: #434C5D;
+    font-size: 17px;
+    text-align: center;
+}
+
+.boxAll {
+    margin: 16px 0px;
+}
+
+.collap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 12px;
+    border: 1px solid #C9C9C9;
+    padding: 16px;
+}
+
+i {
+    font-size: 28px;
+    color: var(--purple-01);
+    cursor: pointer;
+}
+
+.boxSelect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.boxTables {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+
+/*------------------------*/
+
+.w75 {
+    width: 75% !important;
+}
+
+.w95 {
+    width: 95% !important;
+}
+
+.w60px {
+    width: 60px !important;
+}
+
+.w75px {
+    width: 75px !important;
+}
+
+.w50px {
+    width: 50px !important;
+}
+
+.w100px {
+    width: 100px !important;
+}
+
+.w120px {
+    width: 120px !important;
+}
+
+.w150px {
+    width: 150px !important;
+}
+
+.w200px {
+    width: 200px !important;
+}
+
+.w250px {
+    width: 250px !important;
+}
+
+.w300px {
+    width: 300px !important;
+}
+
+.w350px {
+    width: 350px !important;
+}
+
+.rounded-start {
+    border-radius: 5px 0px 0px 5px !important;
+}
+
+.rounded-end {
+    border-radius: 0px 5px 5px 0px !important;
+}
+
+.rounded {
+    border-radius: 5px 5px 5px 5px !important;
+}
+
+.p13px {
+    padding: 13px 0px;
+}
+
+.p5px {
+    padding: 5px 0px;
+}
+
+
+/*------------------------*/
+
+table {
+    width: auto !important;
+    font-weight: 600;
+    height: 1px !important;
+}
+
+.backTh {
+    background: #3850EB;
+    color: white;
+}
+
+.backThDos {
+    background: var(--purple-02);
+    color: white;
+}
+
+.line {
+    border-bottom: 1px solid white;
+}
+
+.boxTablesIzq {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 8px;
+}
+
+.boxTablesMed {
+    display: flex;
+    flex-direction: column;
+    margin-right: 8px;
+}
+
+#boxLogo {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.logo {
+    width: 200px;
+}
+
+th,
+td {
+    padding: 8px 12px;
+}
+
+td {
+    color: #434A4A;
+}
+
+.aLeft {
+    text-align: right !important;
+}

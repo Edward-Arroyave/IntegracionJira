@@ -1,0 +1,2209 @@
+{
+    "tituloApp": "Software QC",
+    "MODULES": {
+        "tituloApp0": "Software QC",
+        "FOOTER": "IT Health Todos los derechos reservados - 2021",
+        "BOTONCANCELAR": "Cancelar",
+        "BOTONACEPTAR": "Aceptar",
+        "ADJUNTAR": "Adjuntar imágen",
+        "DATOSCREADOS": "Datos creados exitosamente",
+        "DATOSACTUALIZADOS": "Datos actualizados exitosamente",
+        "BOTONAGREGAR": "Agregar",
+        "BOTONEDITAR": "Aceptar",
+        "BUSCAR": "Buscar",
+        "TITULOCREADO": "Creado correctamente",
+        "TITULOACTUALIZADO": "Actualizado correctamente",
+
+        "NOTIFICACIONES": {
+            "REGISTROELIMINADO": "Registro eliminado!",
+            "REGISTROELIMINADOCONEXITO": "Registro eliminado con éxito",
+            "REGISTROACTUALIZADO": "Registro actualizado!",
+            "REGISTROCREADO": "Registro creado!",
+            "REGISFALLIDO": "Fallo al enviar el correo intente en unos minutos!",
+            "CLAVEFALLIDA": "Fallo al cambiar la clave",
+            "REGISTROCREADOFILE": "Registro creado!",
+            "ERRORCANTIDADARCHIVOS": "Has seleccionado 5 archivos.",
+            "REGISTROCREADOLOTE": "Nuevo Lote creado!",
+            "REGISTROCREADOLDUPLICIDAD": "Test Duplicado exitosamente",
+            "EXITOSAMENTE": "exitosamente",
+            "NOHAYRONDAS": "No hay rondas para este programa",
+            "NOHAYANALITOS": "No hay analitos para este programa",
+            "NOHAYPROGRAMAS": "No hay programas para este filtro",
+            "YAEXISTENIT": "Ya hay un cliente con ese nit",
+            "YAEXISTEANALITO": "Ya hay una meta de calidad con ese analito",
+            "YAEXISTEPARTICIPANTES": "Ya hay un registro con ese número de participantes",
+            "SOLOUNLAB": "Ya hay un laboratorio registrado.",
+            "NOHAYSUFICIENTES": "Filtro incompleto",
+            "EXISTEFUENTE": "Ya hay una meta de calidad registrado con esta fuente.",
+            "LOTEINACTIVO": " Lote inactivo por fecha caducada.",
+            "USUARIONOEXSITE": "¡Error! Usuario no existe",
+            "NOHAYCRITERIOS": "Faltan criterios de aceptación para realizar un registro en este test",
+            "CLAVEINCORRECTA": "¡Error! Clave incorrecta",
+            "USUARIOCADUCADO": "¡Error! Usuario caducado",
+            "SELECTMUESTRA": "Seleccione una muestra para esta acción",
+            "USUARIOINACTIVO": "¡Error! Usuario inactivo",
+            "NOSEDEASGINADA": "¡Error! Usuario no tiene asociada la sede",
+            "NOHAYDATOS": "No se encontraron datos",
+            "YAHAYORDERGRAPH2": "Ya hay un registro con ese orden grafica",
+            "YAHAYORDERGRAPH": "Ya hay un criterio con ese orden grafica",
+            "YAHAYRESULTADO": "Ya hay un criterio con ese resultado",
+            "YAHAYRESULTADOYODERGRAPH": "Ya hay un criterio con ese resultado y orden grafica",
+            "CREADOCORRECTAMENTE": "Creado correctamente",
+            "TITULO_SESION_EXPIRADA": "Sesión expirada",
+            "TEXT_SESION_EXPIRADA": "ingrese nuevamente",
+            "BOTON_ACEPTAR": "Aceptar",
+            "CIERRE_SESION": "Has cerrado sesión",
+            "ERRORALCREAR": "Error al crear",
+            "ERRORALCREARFILE": "Error al subir  los adjuntos",
+            "ERRORALACTUALIZAR": "Error al actualizar",
+            "CIERRE_SESION_BOTON": "Cerrar",
+            "USUARIO": "El usuario no es administrador",
+            "LOGIN_BIENVENIDA": "¡Bienvenido software QC",
+            "ESTADO_ACTUALIZADO": "Estado actualizado!",
+            "LICENCIA_CREADA": "La licencia ha sido registrada!",
+            "LICENCIA_ACTUALIZADA": "La licencia ha sido actualizada!",
+            "LICENCIA_ELIMINADA": "Datos eliminados",
+            "LOTE_CREADO": "Lote",
+            "LOTE_ELIMINADO": "Datos eliminados",
+            "METODO_CREADO": "Método",
+            "METODO_ELIMINADO": "Datos eliminados",
+            "LOTCONTROLMATERIAL_CREADO": "Lote Material-Control",
+            "LOTCONTROLMATERIAL_CREADO_ELIMINADO": "Datos eliminados",
+            "TEST_CREADO": "Test",
+            "TESTELIMINADO": "Datos eliminados",
+            "MENU_ASIGNADO": "Menú Asignado!",
+            "MENU_DESASIGNADO": "Menú Desasignado!",
+            "SUBMENU_ASIGNADO": "Submenú Asignado!",
+            "ANALITICOS_CREADO": "Analito",
+            "ANALITICOS_ELIMINADO": "Datos eliminados",
+            "UNIDAD_CREADA": "Unidad",
+            "UNIDAD_ELIMINADA": "Datos eliminados",
+            "GESTIONM_CREADA": "Material de control",
+            "GESTIONM_ELIMINADA": "Datos eliminados",
+            "GESTIONF_CREADA": "Fuente",
+            "GESTIONF_ELIMINADA": "Datos eliminados",
+            "REACTIVO_CREADO": "Reactivo",
+            "REACTIVO_ELIMINADO": "Datos eliminados",
+            "INSTRUMENTO_CREADO": "Instrumento",
+            "INSTRUMENTO_ELIMINADO": "Datos eliminados",
+            "ACCION_CORRECTIVA_CREADA": "Acción correctiva",
+            "ACCION_CORRECTIVA_ELIMINADA": "Datos eliminados",
+            "CASA_COMERCIAL_CREADA": "Casa comercial",
+            "CASA_COMERCIAL_ELIMINADA": "Datos eliminados",
+            "MENSAJE_ERROR_RECUPERACIONCONTRASENA": "La contraseña ha sido enviada",
+            "MENSAJE_RECUPERACIONCONTRASENA": "La contraseña ha sido enviada",
+            "MENSAJE_REGISTRO_USUARIO": "Usuario creado",
+            "USUARIO_ACTUALIZADO": "Usuario actualizado!",
+            "USUARIO_ELIMINADO": "Usuario eliminado!",
+            "MSJ_USUARIO_NO_AUTORIZADO": "El usuario no tiene privilegios de administrador",
+            "OBJETIVO_CALIDAD_ANALITO_CREADO": "Meta de calidad creado!",
+            "OBJETIVO_CALIDAD_ANALITO_ACTUALIZADO": "Meta de calidad actualizado!",
+            "OBJETIVO_CALIDAD_ANALITO_ELIMINADO": "Datos eliminados",
+            "OBJETIVO_CALIDAD_CONFIGURACION_CREADO": "Meta de calidad configuración creado!",
+            "OBJETIVO_CALIDAD_CONFIGURACION_ACTUALIZADO": "Meta de calidad configuración actualizado!",
+            "OBJETIVO_CALIDAD_CONFIGURACION_ELIMINADO": "Datos eliminados",
+            "WESTGARD_CREADO": "Westgard",
+            "WESTGARD_ELIMINADO": "Datos eliminados",
+            "WESTGARDCONFIGURACION_CREADO": "Configuración Westgard",
+            "WESTGARDCONFIGURACION_ELIMINADO": "Datos eliminados",
+            "INGRESODATOS_CREADO": "Parrilla de datos",
+            "INGRESODATOS_ELIMINADO": "Datos eliminados",
+            "METODOLOGCREADO": "creación",
+            "METODOLOGACTUALIZACION": "actualización",
+            "METODOLOGELIMINACION": "eliminación",
+            "METODOLOGELIMINACIONTEST": "no se puede eliminar test, existe configuración en resultados",
+            "ANALITO_FUENTE_CREADO": "Analito fuente creado!",
+            "ANALITO_FUENTE_ACTUALIZADO": "Analito fuente actualizado!",
+            "ANALITO_FUENTE_ELIMINADO": "Datos eliminados",
+            "CONFIGURACION_DE_OBJETIVO_CREADO": "Configuración de meta de calidad creado!",
+            "CONFIGURACION_DE_OBJETIVO_ACTUALIZADO": "Configuración de meta de calidad actualizado!",
+            "CONFIGURACION_DE_OBJETIVO_ELIMINADO": "Datos eliminados",
+            "VALOR_DIANA_CREADO": "Valor Diana creado!",
+            "VALOR_DIANA_ACTUALIZADO": "Valor Diana actualizado!",
+            "VALOR_DIANA_ELIMINADO": "Datos eliminados",
+            "DIANA_CALCULATE_CREADO": "Fórmula Diana creada!",
+            "DIANA_CALCULATE_ACTUALIZADO": "Fórmula Diana actualizada!",
+            "DIANA_CALCULATE_ELIMINADO": "Datos eliminados",
+            "FUENTE_CREADA": "Fuente",
+            "FUENTE_ACTUALIZADA": "Fuente actualizada!",
+            "FUENTE_ELIMINADA": "Datos eliminados",
+            "CONFIOBJ_CREADA": "Configuración creada!",
+            "CONFIOBJ_ACTUALIZADA": "Configuración actualizada!",
+            "CONFIOBJ_ELIMINADA": "Datos eliminados",
+            "CLIENTE_ACTUALIZADO": "Cliente",
+            "CLIENTE_CREADO": "Cliente",
+            "CLIENTE_ELIMINADO": "Datos eliminados",
+            "PROVEEDOR_CREADO": "Proveedor",
+            "PROVEEDOR_ELIMINADO": "Datos eliminados",
+            "LOTE2_CREADO": "Lote",
+            "LOTE2_ELIMINADO": "Datos eliminados",
+            "CONTROLMATERIAL_CREADO": "Material de control",
+            "CONTROLMATERIAL_ELIMINADO": "Datos eliminados",
+            "UNIDADCREADA": "Unidad",
+            "UNIDADELIMINADA": "Datos eliminados",
+            "PROGRAMA_CREADO": "Programa",
+            "PROGRAMA_ACTUALIZADO": "Programa actualizado!",
+            "PROGRAMA_ELIMINADO": "Datos eliminados",
+            "MUESTRA_CREADA": "Muestra!",
+            "MUESTRA_ELIMINADA": "Datos eliminados",
+            "ANALIZADOR_CREADO": "Analizador",
+            "ANALIZADOR_ELIMINADO": "Datos eliminados",
+            "RONDA_ACTUALIZADO": "Ronda actualizada",
+            "RONDA_CREADO": "Ronda",
+            "RONDA_ELIMINADO": "Datos eliminados",
+            "DICCIONARIORESULT_CREADO": "Resultado",
+            "DICCIONARIORESULT_ELIMINADO": "Datos eliminados",
+            "CAC": "Criterio de aceptación creado!",
+            "CAA": "Criterio de aceptación actualizado!",
+            "CAE": "Datos eliminados",
+            "DATOSABERRANTES_CREADO": "Datos aberrantes Grubbs",
+            "DATOSABERRANTES_ELIMINADO": "Datos eliminados",
+            "SECCION_CREADA": "Sección",
+            "SECCION_ELIMINADA": "Datos eliminados",
+            "OBJETIVO_CALIDAD_CREADO": "Objetivo calidad",
+            "OBJETIVO_CALIDAD_ACTUALIZADO": "Objetivo calidad",
+            "OBJETIVO_CALIDAD_ELIMINADO": "Datos eliminados",
+            "DATOS_ACTUALIZADOS": "Datos actualizados correctamente",
+            "DATOS_CREADOS": "Datos creados correctamente",
+            "NO_DATOS": "No se encontraron datos",
+            "VALIDLEVELTEST": "El nivel no es valido para la meta de calidad",
+            "VALIDLEVELTESTCONF": "El nivel no es valido para el porcentaje de confianza",
+            "VALIDCREATEOBJETIVO": "Ya hay una meta de calidad para ese nivel",
+            "VALIDCREATEPORCENTAJECONF": "Ya hay un porcentaje de confianza para ese nivel",
+            "NOANALITO": "Seleccione un analito de la lista",
+            "NOLOTE": "No se ha creado un lote",
+            "PROGRAMA_RECORDATORIO": "Recordatorio Programado",
+            "MANTENIMIENTO_PREV": "Mantenimiento Agendado",
+            "METODOLOGELIMINACIONEQUIPO": "no se puede eliminar equipo, existe configuración en mtos preventivos y/o correctivos.",
+            "INTERPRETATION": "Ya existe un registro con esa Interpretación"
+        },
+        "MENU": {
+            "TITLE": "Bienvenido al menú",
+            "LOGOUT": "Salir",
+            "SETTINGS": {
+                "TITLE": "Configuración",
+                "OPTIONS": [{
+                        "NAME": "Ciudades",
+                        "PATH": "panel/ciudades"
+                    },
+                    {
+                        "NAME": "Países",
+                        "PATH": "panel/países"
+                    },
+                    {
+                        "NAME": "Tipos de usuario",
+                        "PATH": "panel/tipo-usuario"
+                    },
+                    {
+                        "NAME": "Roles",
+                        "PATH": "panel/roles"
+                    },
+                    {
+                        "NAME": "Sedes",
+                        "PATH": "panel/sedes"
+                    }
+                ]
+            },
+            "MANAGENTMENT": {
+                "TITLE": "Administración"
+            },
+            "USERS": {
+                "TITLE": "Usuarios"
+            }
+        },
+        "SWALSINCONTROLXIDLOT": {
+            "TITULO": "Advertencia",
+            "TEXT": "El lote no tiene control material asociado.",
+            "TEXTADD": "Por favor registre uno o más control-material para continuar con el registro.",
+            "CONFIRM": "Aceptar",
+            "TEXTERROR": "Error",
+            "MESAGEERROR": "No es posible eliminar, dato asociado a información."
+        },
+        "SWALSINANALITOSXIDLOTMAT": {
+            "TITULO": "Advertencia",
+            "TEXT": "El lote material de control, no tiene analítos asociados.",
+            "TEXTADD": "Por favor registre uno o más analítos para continuar con el registro de test",
+            "CONFIRM": "Aceptar",
+            "TEXTERROR": "Error",
+            "MESAGEERROR": "No es posible eliminar, dato asociado a información."
+        },
+        "SWAL": {
+            "ELIMINAR": "Eliminar datos",
+            "PERMANENTE": "de manera permanente",
+            "SI": "SI",
+            "NO": "NO",
+            "TITULO": "Advertencia",
+            "TITULO_ERROR": "Anotación",
+            "TEXT": "La información no se podrá recuperar. ¿Está seguro que desea eliminar?",
+            "TEXT3": "Ya hay una configuración activa.",
+            "CANCEL": "Cancelar",
+            "ACEPTAR": "Aceptar",
+            "CONFIRM": "Confirmar",
+            "OK": "Ok",
+            "TEXTERROR": "Error",
+            "MESAGEERROR": "No es posible eliminar, dato asociado a información.",
+            "ERRORESTADO": "No se puede actualizar el estado",
+            "MENSAJEALERTA": "Para visualizar datos precisos es necesario tener dos o más registros del analito en la plantilla de entrada de datos.",
+            "SINDATOS": "No se encontraron datos.",
+            "SINCONFIGOBJ": "Configurar meta de calidad para el nivel seleccionado",
+            "SINDATOSPARAGRAFICAR": "No hay datos para graficar."
+        },
+        "SWALUSUARIO": {
+            "TITULO": "Advertencia",
+            "TEXT": "La información no se podrá recuperar. ¿Está seguro que desea eliminar?",
+            "CANCEL": "Cancelar",
+            "CONFIRM": "Confirmar",
+            "TEXTERROR": "Error",
+            "MESAGEERROR": "El dato esta relacionado."
+        },
+        "SWALUSEDE": {
+            "TITULO": "Información",
+            "TEXT": "La información no se podrá recuperar. ¿Está seguro?",
+            "CANCEL": "Cancelar",
+            "CONFIRM": "Confirmar",
+            "TEXTERROR": "Error",
+            "MESAGEERROR": "El dato esta relacionado."
+        },
+        "FILTER": {
+            "PLACEHOLDER": "Buscar",
+            "LABEL": "Filtro"
+        },
+        "CAMPOS": {
+            "CAMPOREQUIRED": "Campo requerido",
+            "ANALITO_YA_EXISTENTE": "Analito ya existente",
+            "MININO": "Mínimo 5 caracteres",
+            "MIN_0": "Mínimo 0",
+            "ESPACIO": "Serial sin espacios",
+            "MIN": "Mínimo 1",
+            "MAXANALYTE": "Máximo",
+            "MAXTRES": "Máx 3",
+            "MAXTRESPUNTOCINCO": "Máx 3.5",
+            "MAXCIEN": "Máx 100",
+            "SOLOENTEROS": "Sólo numeros enteros",
+            "MININOUNO": "Mínimo 1 carácter",
+            "MINIMODOS": "Mínimo 2 caracteres",
+            "MINIMOTRES": "Mínimo 3 caracteres",
+            "MINIMOSIETE": "Mínimo 7 caracteres",
+            "MAXIMOUNO": "Máximo 1 carácter",
+            "MAXIMODIEZ": "Máximo 10 caracteres",
+            "MAXIMOVEINTE": "Máximo 20 caracteres",
+            "MAXIMOCIEN": "Máximo 100 caracteres",
+            "MAXIMOCIENTOCINCUENTA": "Máximo 150 caracteres",
+            "MAXIMODOCIENTOS": "Máximo 200 caracteres",
+            "MAXIMOCINCUENTA": "Máximo 50 caracteres",
+            "MAXIMOTREINTAYDOS": "Máximo 32 dígitos",
+            "MAXIMOCUATROCIENTOS": "Máximo 400 caracteres",
+            "EMAIL": "Debe ser tipo de tipo email"
+        },
+        "SEDES": {
+            "TITLE": "SEDES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Nombre",
+                "EMAIL": "Email",
+                "CIUDAD": "Ciudad",
+                "SEDE": "Sede",
+                "CODIGO": "Cód. Sede",
+                "DIRECCION": "Dirección",
+                "TELEFONO": "Teléfono",
+                "NUMERATION": "Numeración",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "CIUDAD": "Ciudad",
+                "CODIGO": "Cód. Sede",
+                "EMAIL": "Email",
+                "DIRECCION": "Dirección",
+                "TELEFONO": "Teléfono",
+                "NUMERATION": "Numeración",
+                "DESCRIPCION": "Sede",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "PAISES": {
+            "TITLE": "PAÍSES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "País",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "País",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "REPORTESDATOSCUANTITATIVOS": {
+            "TITLE": "GRÁFICAS",
+            "TITLEGRAFICAS": "GRÁFICAS LEVEY JENNINGS",
+            "FECHAINICIO": "Fecha Inicio",
+            "FECHAFIN": "Fecha Fin",
+            "VALORMAXIMO": "Se ha seleccionado el valor masivo de test",
+            "VALORSIN": "No se ha seleccionado test",
+            "DATOSSELECCIONADOS": "Datos Seleccionados",
+            "FORMULARIO": {
+                "SEDES": "Sede",
+                "SECCION": "Sección",
+                "MCONTROL": "Material de control",
+                "INGRESODATOS": "Ingreso de datos"
+            }
+        },
+        "REPORTESDATOSCUALITATIVOS": {
+            "TITLE": "REPORTE DESEMPEÑO CUALITATIVO",
+            "FORMULARIO": {
+                "PROGRAMA": "Programa",
+                "RONDA": "Ronda",
+                "LOTE": "Lote",
+                "MUESTRA": "Muestra",
+                "ANALITOS": "Analitos"
+            }
+        },
+        "REPORTESDATOSSEMICUALITATIVOS": {
+            "TITLE": "REPORTE SEMICUANTITATIVO",
+            "FORMULARIO": {
+                "PROGRAMA": "Programa",
+                "RONDA": "ronda",
+                "LOTE": "Lote",
+                "MUESTRA": "Muestra",
+                "ANALITOS": "Analitos"
+            },
+            "CONT1": {
+              "TCONT1": "Estadística General",
+              "TCONT2": "Estadística de comparación",
+              "TCONT3": "Valor asignado",
+              "TABLE1": {
+                "COL1": "25+",
+                "COL2": "80++",
+                "COL3": "200+++",
+                "COL4": "Negativo"
+              }
+            },
+            "CONT2": {
+              "TCONT2": "Evaluación del procedimiento de medida",
+              "TABLE1": {
+                "COL1": "Sistema de medición/equipo",
+                "COL2": "Reactivo",
+                "COL3": "Analito",
+                "COL4": "Unidades"
+              },
+              "TABLE2": {
+                "COL1": "Resultado",
+                "COL2": "Valor asignado",
+                "COL3": "Score",
+                "COL4": "Rms"
+              }
+            },
+            "CONT3": {
+              "TCONT3": "Gráficas de concordancia",
+              "TABLE1": {
+                "COL1": "Control",
+                "COL2": "N Datos",
+                "COL3": "Aceptados",
+                "COL4": "Rechazados",
+                "COL5": "% Aceptación",
+                "COL6": "% Rechazados"
+              }
+            },
+            "CONT4": {
+              "TCONT4": "Fin de ciclo",
+              "TABLE1": {
+                "COL1": "Muestra",
+                "COL2": "N Datos",
+                "COL3": "Concordante",
+                "COL4": "No concordante",
+                "COL5": "% Concordante",
+                "COL6": "% No concordante"
+              }
+            }
+        },
+        "CIUDADES": {
+            "TITLE": "CIUDADES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Ciudad",
+                "CODIGODIVIPOLA": "Cód. divipola",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "Ciudad",
+                "DESCRIPCIONDEPART": "Departamento",
+                "CODIGODIPOLA": "Cód. divipola",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "LICENCIAMIENTO": {
+            "TITLE": "REGISTRO LICENCIAMIENTO",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "FECHA_INICIAL": "Fecha inicial",
+                "FECHA_FINAL": "Fecha final",
+                "COD_ACT_LIC": "Cod. Activación Licencia",
+                "CLIENTE": "Cliente",
+                "MODULOS": "Módulos",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "FECHA_INICIAL": "Fecha inicial",
+                "FECHA_FINAL": "Fecha final",
+                "COD_ACT_LIC": "Cod. Activación Licencia",
+                "CLIENTE": "Cliente",
+                "MODULOS": "Módulos",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "DEPARTAMENTOS": {
+            "TITLE": "DEPARTAMENTOS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Departamento",
+                "CODIGODIVIPOLA": "Cód. divipola",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "PAIS": "País",
+                "NOMBRE": "Departamento",
+                "CODIGODIPOLA": "Cód. divipola",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "DICCIONARIOPARAMETROS": {
+            "TITLE": "DICCIONARIO DE PARÁMETROS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Parámetro",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "Parámetro",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Aceptar",
+                "ACTUALIZAR": "Aceptar",
+                "MODALCREAR": "Crear",
+                "MODALEDITAR": "Editar"
+            }
+        },
+        "PARAMETROSGLOBALES": {
+            "TITLE": "PARÁMETROS GLOBALES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "TIPO": "Tipo Parámetro",
+                "NOMBRE": "Parámetro",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "TIPO": "Diccionario",
+                "CODIGO": "Código",
+                "DESCRIPCION": "Parámetro",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Registrar Parámetro",
+                "ACTUALIZAR": "Actualizar Parámetro",
+                "MODALCREAR": "Crear",
+                "MODALEDITAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "USUARIOS": {
+            "TITLE": "USUARIOS",
+            "ASIGNAR": "Asignar Menú",
+            "DESLIZAR": "Deslizar de derecha a izquierda o viceversa según lo requiera",
+            "MENU": "Menú",
+            "MENUA": "Menús Asignados",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRES": "Nombre",
+                "APELLIDOS": "Apellido",
+                "NOMBREUSUARIO": "Usuario",
+                "CORREOELECTRONICO": "Email",
+                "ACTIVO": "Estado",
+                "PERMISOS": "Permisos",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRES": "Nombre completo",
+                "NOMBRE": "Nombre",
+                "APELLIDOS": "Apellido",
+                "CARGO": "Cargo",
+                "TELEFONO": "Teléfono",
+                "CORREO": "Correo electrónico",
+                "NOMBREUSUARIO": "Usuario",
+                "CONTRASEÑA": "Contraseña",
+                "TIPODOCUMENTO": "Tipo Documento",
+                "NUMDOCUMENTO": "N° Documento",
+                "FECHANACIMIENTO": "Fecha Nacimiento",
+                "CELULAR": "Celular",
+                "TARJETAPROF": "Tarjeta Profesional",
+                "CORREOELECTRONICO": "Email",
+                "ROL": "Rol",
+                "TIPOUSUARIO": "Tipo Usuario",
+                "SEDE": "Sede",
+                "ESTADO": "Estado",
+                "FECHACREACION": "Fecha Creación",
+                "FECHAEXP": "Fecha Expiración",
+                "REGISTRAR": "Registrar Usuario",
+                "ACTUALIZAR": "Actualizar",
+                "NUEVACLAVE": "Nueva clave",
+                "SELECCIONE": "--"
+            }
+        },
+        "ASIGNACIONSEDE": {
+            "TITLE": "ASIGNACIÓN DE SEDES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "IDUSUARIOSEDE": "Sede",
+                "IDUSUARIO": "Usuario",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "USUARIO": "Usuario",
+                "SEDES": "Sede",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "PERMISOSESPECIALES": {
+            "TITLE": "Permisos especiales",
+            "BOTONCREAR": "Generar",
+            "BOTONGUARDAR": "Guardar",
+            "BOTONCANCELAR": "Cancelar",
+            "BOTONCONFIRMAR":"Sí",
+            "BOTONDESCARTAR":"NO",
+            "COLUMNS": {
+                "MODULO": "Módulo",
+                "ROL": "Rol",
+                "USUARIO": "Usuario"
+            },
+            "FORMULARIO": {
+                "MODULO": "Módulo",
+                "ROL": "Rol",
+                "USUARIO": "Usuario"
+            },
+            "ASIGNACIONPERMISO":{
+              "SUBTITLE":"Asignación de permisos",
+              "CREAR":"Crear",
+              "EDITAR":"Editar",
+              "ELIMINAR":"Eliminar"
+            },
+            "CONFIRMACION":{
+                "SUBTITLE":"Modificados correctamente"
+            },
+            "CANCELACION":{
+                "SUBTITLE":"Desea descartar ajustes",
+                "PARRAFO": "de manera permanente"
+            }
+        },
+        "UNIDADESMEDIDA": {
+            "TITLE": "UNIDADES DE MEDIDA",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Unidad",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "Unidad",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "GESTIONASOCIACIONES": {
+            "TITLE": "GESTIÓN DE ASOCIACIONES DE MATERIAS DE CONTROL",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBREMATERIAL": "Nombre Material",
+                "NUMEROLOTE": "Número Lote",
+                "NOMBREANALITICO": "Nombre analítico",
+                "NOMBREINSTRUMENTO": "Nombre Instrumento",
+                "NOMBREREACTIVO": "Nombre Reactivo",
+                "NOMBREMETODO": "Nombre método",
+                "UNIDADESMEDIDA": "Unidades Medida",
+                "NIVELESCONTROL": "Niveles Control",
+                "DECIMALES": "Decimales",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBREMATERIAL": "Nombre Material",
+                "NUMEROLOTE": "Número Lote",
+                "NOMBREANALITICO": "Nombre analítico",
+                "NOMBREINSTRUMENTO": "Nombre Instrumento",
+                "NOMBREREACTIVO": "Nombre Reactivo",
+                "NOMBREMETODO": "Nombre método",
+                "UNIDADESMEDIDA": "Unidades Medida",
+                "NIVELESCONTROL": "Niveles Control",
+                "DECIMALES": "Decimales",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "GESTIONMATERIALES": {
+            "TITLE": "MATERIALES DE CONTROL",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION": "M. de control",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESCRIPCION": "M. de control",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "CONTROLMATERIAL": {
+            "TITLE": "MATERIAL DE CONTROL",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "MATERIALCONTROL": "M. de Control",
+                "LOTE": "N° Lote",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESCRIPCION": "M. de Control",
+                "LOTE": "N° Lote",
+                "ESTADO": "Estado",
+                "CREAR": "Crear",
+                "EDITAR": "Editar",
+                "ACEPTAR": "Aceptar"
+            }
+        },
+        "UNIDADES": {
+            "TITLE": "UNIDADES DE MEDIDA",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION": "Unidad",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "COD": "Cód. Unidad",
+                "DESCRIPCION": "Unidad",
+                "ESTADO": "Estado",
+                "CREAR": "Crear",
+                "EDITAR": "Editar",
+                "ACEPTAR": "Aceptar"
+            }
+        },
+        "PROVEEDORES_": {
+            "TITLE": "PROVEEDORES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "PROVEEDORES": "Proveedor",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "PROVEEDORES": "Proveedor",
+                "ESTADO": "Estado",
+                "CREAR": "Crear",
+                "EDITAR": "Editar",
+                "ACEPTAR": "Aceptar"
+            }
+        },
+        "LOTES": {
+            "TITLE": "LOTE",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "PROVEEDOR": "Proveedor",
+                "MCONTROL": "M. Control",
+                "NUMLOTE": "N° Lote",
+                "FECHA": "Fecha Exp",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "SELECCIONE": "--",
+                "PROVEEDOR": "Proveedor",
+                "MCONTROL": "M. Control",
+                "NUMLOTE": "N° Lote",
+                "FECHA": "Fecha Exp",
+                "ESTADO": "Estado",
+                "CREAR": "Crear",
+                "EDITAR": "Editar",
+                "ACEPTAR": "Aceptar"
+            }
+        },
+        "MUESTRAS": {
+            "TITLE": "MUESTRAS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NUMEROMUESTRA": "N° muestra",
+                "MCONTROL": "Material control",
+                "NUMLOTE": "N° Lote",
+                "FECHA": "Fecha",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "SELECCIONE": "--",
+                "NUMEROMUESTRA": "N° Muestra",
+                "MCONTROL": "Material control",
+                "NUMLOTE": "Lote",
+                "ESTADO": "Estado",
+                "CREAR": "Crear",
+                "EDITAR": "Editar",
+                "ACEPTAR": "Aceptar"
+            }
+        },
+        "PORCENTAJE-CONFIANZA": {
+            "TITLE": "Porcentaje de Confianza",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "ANALITO": "Analito",
+                "EQUIPO": "Equipo",
+                "CONTROLMATERIAL": "Control Material",
+                "NIVELTEST":"Nivel",
+                "PORCENTAJECONFIANZA":"% Confianza",
+                "ESTADO": "Estado"
+            },
+            "FORMULARIO": {
+                "PORCENTAJECONFIANZA": "% Confianza",
+                "LEVELTEST": "Nivel",
+                "ESTADO": "Estado",
+                "CREAR": "Crear",
+                "EDITAR": "Editar",
+                "ACEPTAR": "Aceptar"
+            },
+            "NOTIFICACIONES":{
+                "REGISTROCREADO":"Registro creado!"
+            }
+        },
+
+        "ASIGNACIONPROGRAMA":{
+          "TITLE": "ASIGNACIÓN PROGRAMA",
+          "BOTONBUSCAR": "Buscar",
+          "COLUMNS": {
+              "ANALITO": "Analito",
+              "EQUIPO": "Equipo",
+              "REACTIVO": "Reactivo",
+              "METODO": "Método",
+              "UNIDADES": "Unidades",
+              "ESTADO": "Estado"
+          },
+          "FORMULARIO": {
+              "CLIENTE": "Cliente",
+              "SEDE": "Sede",
+              "PROGRAMA": "Programa"
+          }
+        },
+        "ASIGNACIONVALORESPERADO":{
+          "TITLE": "ASIGNACIÓN DE VALORES ESPERADO",
+          "TITLECUALI": "ASIGNACIÓN DE VALORES ESPERADO CUALI Y SEMI-CUALI",
+          "BOTONBUSCAR": "Buscar",
+          "COLUMNS": {
+              "ANALITO": "Analito",
+              "EQUIPO": "Equipo",
+              "REACTIVO": "Reactivo",
+              "METODO": "Método",
+              "UNIDADES": "Unidades",
+              "VALOR": "Valor esperado"
+          },
+          "FORMULARIO": {
+              "LOTE": "Lote",
+              "PROGRAMA": "Programa"
+          }
+        },
+        "PROGRAMAS": {
+            "TITLE": "PROGRAMAS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "PROGRAMA": "Programa",
+                "ANALITOS": "Analito",
+                "ANALIZADOR": "Analizador",
+                "METODO": "Método",
+                "REACTIVO": "Reactivo",
+                "UNIDADES": "Unidad",
+                "DESCRIPCION": "Descripción",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+              },
+              "FORMULARIO": {
+                "SELECCIONE": "--",
+                "PROGRAMA": "Programa",
+                "ANALITO": "Analito",
+                "ANALIZADOR": "Analizador",
+                "METODO": "Método",
+                "REACTIVO": "Reactivo",
+                "UNIDADES": "Unidad",
+                "VALOR": "Valor asignado",
+                "ESTADO": "Estado",
+                "CREAR": "Crear",
+                "EDITAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "AGREGAR": "Agregar"
+            }
+        },
+        "CREAR_PROGRAMA": {
+            "TITLE": "CREACIÓN PROGRAMA",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "PROGRAMA": "Programa",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "PROGRAMA": "Programa",
+                "DESCRIPCION": "Programa",
+                "ESTADO": "Estado",
+                "CREAR": "Crear",
+                "EDITAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "AGREGAR": "Agregar"
+            }
+        },
+        "CRITERIOS_ACEPTACION": {
+            "TITLE": "CRITERIOS DE ACEPTACIÓN",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "ID": "ID",
+                "TEST": "Test",
+                "ANALITOS": "Analito",
+                "NIVEL": "Nivel",
+                "RESULTADO": "Resultado",
+                "AR": "AR",
+                "ORDER": "Orden Grafica",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "PROGRAMA": "Programa",
+                "DESCRIPCION": "Descripción",
+                "ESTADO": "Estado",
+                "CREAR": "Crear",
+                "REGISTRAR": "Crear",
+                "EDITAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "SELECCIONE": "--",
+                "SEDES": "Sede",
+                "NUMMATERIALCONTROL": "Material",
+                "NUMLOTE": "Lote",
+                "SECCION": "Sección",
+                "TEST": "Test",
+                "NIVEL": "Nivel",
+                "RESULTADO": "Resultado",
+                "AR": "A/R",
+                "ORDERGRAPH": "Orden gráfica"
+            }
+        },
+        "GESTIONLOTES": {
+            "TITLE": "LOTES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NUMERO": "N° lote",
+                "FECHA": "FV",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NUMERO": "N° lote",
+                "FECHA": "Fecha de vencimiento",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "GESTIONLAB": {
+            "TITLE": "LABORATORIOS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Laboratorio",
+                "NIT": "NIT",
+                "ADDRES": "Dirección",
+                "PHONE": "Teléfono",
+                "EMAIL": "Email",
+                "CONTACT": "Contacto",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "Laboratorio",
+                "NIT": "NIT",
+                "ADDRES": "Dirección",
+                "PHONE": "Teléfono",
+                "EMAIL": "Email",
+                "CONTACT": "Contacto",
+                "PROFESION": "Profesión",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "GESTIONMETHODS": {
+            "TITLE": "MÉTODOS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESMETHODS": "Método",
+                "ACTIVE": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESMETHODS": "Método",
+                "ACTIVE": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "GESTIONANALITICOS": {
+            "TITLE": "ANALITOS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION": "Analito",
+                "NIVEL": "Nivel",
+                "SECCION": "Sección",
+                "RESULTTYPE": "Tipo Resultado",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "SELECCIONE": "--",
+                "DESCRIPCION": "Analito",
+                "NIVEL": "Nivel",
+                "SECTION": "Sección",
+                "RESULTYPE": "Tipo resultado",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "GESTIONREACTIVOS": {
+            "TITLE": "REACTIVOS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION": "Reactivo",
+                "GENERACION": "Generación",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESCRIPCION": "Reactivo",
+                "GENERACION": "Generación",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "GESTIONLOTMATCONTROL": {
+            "TITLE": "LOTES - MATERIALES DE CONTROL",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "IDLOT": "N° Lote",
+                "IDCONTROLMATERIAL": "M. de Control",
+                "ACTIVE": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "IDLOT": "N° Lote",
+                "IDCONTROLMATERIAL": "M. de Control",
+                "ACTIVE": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "DATOSABERRANTES": {
+            "TITLE": "DATOS ABERRANTES GRUBBS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NUMPAR": "N° Participantes",
+                "ZSCORE": "Z-Score",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NUMPAR": "N° Datos",
+                "ZSCORE": "Z-Score",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "ACCIONESCORRECTIVAS": {
+            "TITLE": "ACCIONES CORRECTIVAS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Acción correctiva",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "Acción correctiva",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "CASASCOMERCIALES": {
+            "TITLE": "CASAS COMERCIALES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Casa comercial",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "Casa comercial",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "GESTIONFUENTES": {
+            "TITLE": "FUENTES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION": "Fuente",
+                "UNIDAD": "U. de Medida",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESCRIPCION": "Fuente",
+                "UNIDAD": "U. de Medida",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            }
+        },
+        "GESTIONINSTRUMENTOS": {
+            "TITLE": "INSTRUMENTOS DE LABORATORIO",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Instrumento",
+                "MODELO": "Modelo",
+                "COMERCIAL": "Casa comercial",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "TRADEMARK": "Casa Comercial",
+                "NOMBRE": "Instrumento",
+                "MODELO": "Modelo",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "GRUBBS": {
+            "TITLE": "FILTROS GRUBBS",
+            "BOTONBUSCAR": "Buscar",
+            "COLUMNS": {
+                "NUMERO": "N° Datos",
+                "RESULTADO": "Resultado",
+                "ZSCORE": "Z-Score",
+                "MEDIA": "Media",
+                "SD": "SD",
+                "NDATOS": "N Datos",
+                "INICIAL": "Datos iniciales",
+                "FINAL": "Datos finales"
+            },
+            "FORMULARIO": {
+                "PROGRAMA": "Programa",
+                "ANALITO": "Analito",
+                "EQUIPO": "Equipo",
+                "METODO": "Método",
+                "UNIDADES": "Unidades",
+                "SELECCIONE": "--"
+            }
+        },
+        "GESTIONTEST": {
+            "TITLE": "TEST",
+            "TITLEDETALLE": "Detalle de Test",
+            "BOTONCREAR": "Crear",
+            "DUPLICARLOTE": "Duplicar Lote",
+            "DETALLES": "Ver Detalles",
+            "COLUMNS": {
+                "CONTROLMAT": "Control Material",
+                "TEST": "Test",
+                "ESTADO": "Estado",
+                "LOTE": "Lote",
+                "DETALLES": "Detalles",
+                "SEDE": "Sede",
+                "ANALITOS": "Analito",
+                "ANALIZADOR": "Analizador",
+                "METODO": "Método",
+                "UNIDADMEDIDA": "Unidad Medida",
+                "REACTIVO": "Reactivo",
+                "CREAR": "Crear",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "TITLEFORM": "Información del Test",
+                "CONTROLMAT": "Control Material",
+                "LOTE": "Lote",
+                "SEDE": "Sede",
+                "ANALITOS": "Analito",
+                "ANALIZADOR": "Analizador",
+                "METODO": "Método",
+                "UNIDADMEDIDA": "Unidad Medida",
+                "REACTIVO": "Reactivo",
+                "NIVEL": "Nivel",
+                "DECIMALES": "Decimales",
+                "HOMOLOGACION":"Homologación",
+                "LEVEL": "Nivel",
+                "ACTIVO": "Estado",
+                "BUSCAR": "Buscar ",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--",
+                "LOTEACTUAL": "Lote actual",
+                "LOTENUEVO": "Lote nuevo",
+                "FVENCIMIENTO": "F.Vencimiento",
+                "MCONTROL": "M.Control"
+            },
+            "FORMDUPLICIDAD":{
+                "TEST":"Test",
+                "SELECTALLTEST":"Todos los test"
+            }
+        },
+        "INICIO": {
+            "TITLE": "ACCESOS DIRECTOS",
+            "LOTES": "Lotes",
+            "ANALITOS": "Analitos",
+            "CASACOMERCIAL": "Casas Comerciales",
+            "METODOS": "Métodos",
+            "PRUEBAS": "Pruebas",
+            "LABORATORIOS": "Laboratorios",
+            "GESTIONANALITOS": "Gestión analitos",
+            "GESTIONMATERIALES": "Gestión Materiales Control",
+            "INGRESODATOSCUANTITATIVOS": "Ingreso de datos cuantitativos",
+            "INGRESODATOSCUALITATIVOS": "Ingreso de datos cualitativos",
+            "TEST": "Test"
+        },
+        "INGRESODATOSEXTERNO": {
+            "TITLE": "INGRESO DE DATOS",
+            "SUBTITLE": "Ingreso de datos",
+            "FORMULARIO": {
+                "PROGRAMA": "Programa",
+                "SELECCIONE": "--",
+                "RESPONDER": "Responder",
+                "VISUALIZAR": "Visualizar",
+                "MUESTRA": "Muestra"
+            },
+            "COLUMNS": {
+                "RONDAS": "Rondas",
+                "CANT": "Cant.",
+                "MUESTRA": "Muestra",
+                "MUESTRAS": "Cant. Muestras",
+                "VENCIDO": "Vencido",
+                "RESPONDER": "Responder",
+                "VISUALIZAR": "Visualizar",
+                "ANALITO": "Analito",
+                "RESULTADO": "Resultado",
+                "INICIOREPORTE": "Inicio reporte",
+                "FINREPORTE": "Fin reporte",
+                "EDITRESULT": "Editar"
+            }
+        },
+        "TRAZABILIDAD":{
+          "FORMULARIO":{
+            "FECHADESDE":"Fecha desde",
+            "FECHAHASTA":"Fecha hasta",
+             "MODULO":"Módulo",
+             "SUBMODULO":"Submódulo",
+             "ITEM":"Item",
+             "ACCION":"Accion",
+             "USUARIO":"Usuario",
+             "ALLACCIONES": "Todas las Acciones"
+
+          },
+          "COLUMNS":{
+            "FECHA":"Fecha",
+            "HORA":"Hora",
+            "MODULO":"Módulo",
+            "SUBMODULO":"Sub Módulo",
+            "ITEM":"Item",
+            "ACCION":"Accion",
+            "DATOSNUEVOS":"Datos nuevos",
+            "DATOSANTERIORES":"Datos anteriores",
+            "USUARIOS":"Usuarios",
+            "ESTADO":"Estado"
+          }
+        },
+        "INGRESODATOS": {
+            "TITLE": "INGRESO DE DATOS CUANTITATIVOS",
+            "TITLEDETALLE": "Entrada de datos por prueba/única",
+            "PARRILLA": "Parrilla de entrada de datos",
+            "DATOSESTADISTICOSTITULO": "Datos Estadísticos Acumulados",
+            "DATOSESTADISTICOSTITULO2": "Datos estadísticos acumulados",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "IT": "IT",
+                "FECHA": "Fecha",
+                "HORA": "Hora",
+                "METODO": "Método",
+                "NIVEL1": "Nivel 1",
+                "NIVEL2": "Nivel 2",
+                "NIVEL3": "Nivel 3",
+                "VALOR": "Valor",
+                "AR": "A/R",
+                "REGLAS": "Reglas",
+                "Z": "Z",
+                "ACC": "Acción correctiva",
+                "COM": "Comentarios",
+                "GENERACION": "Generación",
+                "DETALLES": "Detalles",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar",
+                "USUARIOASIGNADO": "Responsable"
+            },
+            "COLUMNSACUMULADOS": {
+                "NIVEL1": "Nivel 1",
+                "NIVEL2": "Nivel 2",
+                "NIVEL3": "Nivel 3",
+                "GRUPOPAR": "(GP)",
+                "MEDIA": "Media",
+                "DE": "DE",
+                "CV": "CV",
+                "MES": "Mes",
+                "ACUMULADO": "Acu",
+                "TOTAL": "Total"
+            },
+            "COLUMNSCOSOLIDADO": {
+                "N1": "N1",
+                "N2": "N2",
+                "N3": "N3"
+            },
+            "FORMULARIO": {
+                "SEDES": "Sede",
+                "SECTION": "Sección",
+                "NUMMATERIALCONTROL": "N° Material Control",
+                "NUMLOTE": "N° Lote",
+                "ANALITO": "Analito",
+                "NOMBREINSTRUMENTO": "Instrumento",
+                "SEARCH": "Buscar",
+                "CLEAN": "Limpiar",
+                "INFOGENERAL": "Información general de la prueba",
+                "SELECCIONE": "--",
+                "TEST": "Test",
+                "ACCIONCORECTIVA": "Acción Correctiva",
+                "FECHA": "Fecha",
+                "HORA": "Hora",
+                "METODO": "Método",
+                "NIVEL1": "Nivel 1",
+                "NIVEL2": "Nivel 2",
+                "NIVEL3": "Nivel 3",
+                "VALOR": "Valor",
+                "APLICAR": "Aplicar",
+                "LIMPIAR": "Limpiar",
+                "ARLEVEL1": "A/R-Nivel 1",
+                "ARLEVEL2": "A/R-Nivel 2",
+                "ARLEVEL3": "A/R-Nivel 3",
+                "REGLAS": "Reglas",
+                "Z": "Z",
+                "GROUP": "Group",
+                "COMENTARIOS": "Comentarios",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Registrar",
+                "CREAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            },
+            "INFOPRUEBA": {
+                "NOMBREPRUEBA": "Nombre prueba",
+                "SECCION": "SECCIÓN",
+                "LABORATORIO": "# Laboratorio",
+                "METODO": "Método",
+                "LOTE": "Lote",
+                "FECHA": "FV",
+                "EQUIPO": "Equipo",
+                "ANALITO": "Analito",
+                "REACTIVO": "Reactivo",
+                "MC": "Material de control",
+                "UNIDADMEDIDA": "Unidades",
+                "SEDE": "Sede",
+                "REGLASWESTGARD": "Reglas de westgard"
+            }
+        },
+        "INGRESODATOS_CUALITATIVOS": {
+            "TITLE": "INGRESO DE DATOS CUALITATIVOS"
+        },
+        "ANALITOS_FUENTE": {
+            "TITLE": "ANALITOS FUENTE",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "OBJETIVO_ETMP": "Meta ETMP",
+                "ID_SOURCE": "Fuente",
+                "ID_ANALYTES": "Analito",
+                "SESGO": "Sesgo",
+                "CVMP": "CVMP",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "OBJETIVO_ETMP": "Meta ETMP",
+                "ID_SOURCE": "Fuente",
+                "ID_ANALYTES": "Analito",
+                "SESGO": "Sesgo",
+                "CVMP": "CVMP",
+                "MESES": "Mes",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "CONFIGURACION_DE_OBJETIVOS": {
+            "TITLE": "CONFIGURACIÓN DE METAS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "OBJETIVO_ETMP": "Meta ETMP",
+                "ANALITO": "Analito",
+                "SESGO": "Sesgo",
+                "CVMP": "CVMP",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "OBJETIVO_ETMP": "Meta ETMP",
+                "ANALITO": "Analito",
+                "SESGO": "Sesgo",
+                "CVMP": "CVMP",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "VALORES_DIANA": {
+            "TITLE": "OBJETIVOS DE CALIDAD",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "ANALITO": "Analito",
+                "NIVEL": "Nivel",
+                "VALOR_DIANA": "Objetivo de Calidad",
+                "LIMITE_INFERIOR": "Limite Inferior",
+                "LIMITE_SUPERIOR": "Limite Superior",
+                "ET": "ET",
+                "ULTACTUALIZACION": "Última actualización",
+                "RESPONSABLE": "Responsable",
+                "SIGMA": "Sigma",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NIVEL": "Nivel",
+                "VALOR_DIANA": "Objetivo Calidad",
+                "LIMITE_INFERIOR": "Limite Inferior",
+                "LIMITE_SUPERIOR": "Limite Superior",
+                "ET": "ET",
+                "RESPONSABLE": "Responsable",
+                "SIGMA": "Sigma",
+                "ESTABLECER": "Establecer Objetivo de Calidad por:",
+                "FECHAINICIO": "Fecha desde",
+                "FECHAFIN": "Fecha hasta",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "DIANA_CALCULATE": {
+            "TITLE": "FÓRMULAS DIANA",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DES_DIANA_CALCULATE": "Descripción",
+                "FORMULA": "Fórmula",
+                "DATA": "Datos",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DES_DIANA_CALCULATE": "Descripción",
+                "FORMULA": "Fórmula",
+                "DATA": "Datos",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "FUENTES": {
+            "TITLE": "FUENTES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION_FUENTE": "Descripción",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESCRIPCION_FUENTE": "Descripción",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "FUENTESQCE": {
+            "TITLE": "FUENTES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION_FUENTE": "Fuente",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESCRIPCION_FUENTE": "Fuente",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "WESTGARD": {
+            "TITLE": "REGLAS DE WESTGARD",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "ID": "Id",
+                "CODIGO": "Código",
+                "DESCRIPCION": "Descripción",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "ID": "Id",
+                "CODIGO": "Código",
+                "DESCRIPCION": "Descripción",
+                "ESTADO": "Estado",
+                "ACEPTAR": "Aceptar",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "CONFIGURACIONWESTGARD": {
+            "TITLE": "CONFIGURACIÓN REGLAS DE WESTGARD",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "CODE": "Reglas",
+                "WESTGARD": "Código",
+                "IDTEST": "Nivel",
+                "NOTICE": "Alarma",
+                "REJECT": "Rechazado",
+                "DISABLED": "Desactivado",
+                "INTERCORRIDA":"Intracorrida" ,
+                "INTRACORRIDA": "Intercorrida",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "SEDES": "Sede",
+                "NUMMATERIALCONTROL": "Material",
+                "NUMLOTE": "Lote",
+                "NOMBREINSTRUMENTO": "Instrumento",
+                "ANALITO": "Analito",
+                "WESTGARD": "Código",
+                "IDTEST": "Nivel",
+                "REJECT": "Rechazado",
+                "NOTICE": "Notifica",
+                "DISABLED": "Habilitado",
+                "ESTADO": "Estado",
+                "INTRACORRIDA": "Intracorrida",
+                "INTERCORRIDA": "Inter corrida",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--",
+                "BOTONBUSCAR": "Buscar",
+                "BOTONGUARDAR": "Guardar"
+            }
+        },
+        "LEVEY_JENNINGS": {
+            "TITLE": "Gráfico de Levey Jennings"
+        },
+        "CONFIGMEDIADS": {
+            "TITLE": "CONFIGURACIÓN MEDIA Y DS",
+            "FORMULARIO": {
+                "SELECCIONE": "--",
+                "SEDES": "Sede",
+                "NUMMATERIALCONTROL": "Material",
+                "NUMLOTE": "Lote",
+                "ANALITO": "Analito",
+                "NOMBREINSTRUMENTO": "Instrumento",
+                "BOTON": "Buscar"
+            },
+            "COLUMNS": {
+                "ANALITO": "Analito",
+                "NIVEL": "Nivel",
+                "UNIDADES": "Unidades",
+                "MEDIA": "Media",
+                "DS": "DS",
+                "CV": "CV",
+                "MESES": "Mes",
+                "TIPO": "Tipo dato",
+                "ULTACTUALIZACION": "Última actualización",
+                "RESPONSABLE": "Responsable",
+                "FECHAINICIO": "Fecha desde",
+                "FECHAFIN": "Fecha hasta",
+                "EDITAR": "Editar",
+                "REGISTRAR": "Guardar",
+                "ACTUALIZAR": "Actualizar"
+            }
+        },
+        "MULTI_LEVEY_JENNINGS": {
+            "PRINCIPAL": "Multi Levey Jennings"
+        },
+        "YOUDEN_PLOT": {
+            "PRINCIPAL": "Youden Plot"
+        },
+        "CONFIGURACIONOBJETIVOSANALITO": {
+            "TITLE": "CONFIGURACIÓN METAS DE CALIDAD POR TEST",
+            "FORMULARIO": {
+                "SELECCIONE": "--",
+                "SEDES": "Sede",
+                "NUMMATERIALCONTROL": "Material",
+                "NUMLOTE": "Lote",
+                "SECCION": "Sección",
+                "ANALITO": "Analito",
+                "TEST": "Test",
+                "NIVEL": "Nivel",
+                "FUENTE": "Fuente",
+                "UNIDADES": "Unidad",
+                "CVMP": "Cvmp",
+                "ETMP": "ETmp",
+                "SESGO": "Sesgo mp",
+                "NOMBREINSTRUMENTO": "Instrumento",
+                "ULTACTUALIZACION": "Últ. act.",
+                "RESPONSABLE": "Responsable",
+                "ESTADO": "Estado",
+                "BOTON": "Buscar",
+                "CLEAN": "Limpiar",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            },
+            "COLUMNS": {
+                "ANALITO": "Analito",
+                "FUENTE": "Fuente",
+                "UNIDADES": "Unidad",
+                "ETMP": "ETMP",
+                "LEVEL": "Nivel",
+                "SESGO": "Sesgo mp",
+                "ULTACTUALIZACION": "Últ. act.",
+                "RESPONSABLE": "Responsable",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            }
+        },
+        "PROVEEDORES": {
+            "TITLE": "PROVEEDORES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "PROVEEDORES": "Proveedores",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "PROVEEDORES": "Proveedores",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar"
+            }
+        },
+        "LOGIN": {
+            "TITLE": "¡Bienvenido a!",
+            "OLVIDO_CLAVE": "Olvidé mi contraseña",
+            "FORMULARIO": {
+                "PLACEHOLDER": "Ingrese su nombre de usuario",
+                "PLACEHOLDER2": "Ingrese su contraseña",
+                "USUARIO": "Usuario",
+                "CLAVE": "Contraseña",
+                "SEDE": "Sede",
+                "BOTON": "Acceder"
+            }
+        },
+        "OLVIDOCLAVE": {
+            "TITLE": "Recuperar contraseña",
+            "SUBTITLE": "Para recuperar su contraseña, ingrese el correo electrónico asociado a su usuario y le enviaremos un email",
+            "FORMULARIO": {
+                "PLACEHOLDER": "Correo electrónico",
+                "ENVIAR": "Recuperar",
+                "CANCELAR": "Cancelar"
+            }
+        },
+        "RESTA_CONTRA": {
+            "TITULO": "Restaurar Contraseña",
+            "SUBTITULO": "Por favor escriba la nueva contraseña con su respectiva información",
+            "INGRE_CONTRA": "Ingrese contraseña enviada al correo",
+            "NUEVA_CONTRA": "Nueva contraseña",
+            "CONFI_CONTRA": "Confirme la contraseña",
+            "CLAVES_IGUALES": "Las claves deben ser iguales",
+            "BOTON": "Guardar"
+        },
+        "CLIENTES": {
+            "TITLE": "CLIENTES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "CODIGO":"Código",
+                "NOMBRE": "Cliente",
+                "NIT": "NIT",
+                "DIRECCION": "Dirección",
+                "TELEFONO": "Teléfono",
+                "EMAIL": "Email",
+                "CONTACTO": "Contacto",
+                "LOGO": "Logo",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "Cliente",
+                "NIT": "NIT",
+                "DIRECCION": "Dirección",
+                "TELEFONO": "Teléfono",
+                "EMAIL": "Email",
+                "CONTACTO": "Contacto",
+                "LOGO": "Cargar logo aquí",
+                "ESTADO": "Estado",
+                "SELECCIONEARCHIVO": "Seleccionar archivo",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar"
+            }
+        },
+        "ANALIZADORES": {
+            "TITLE": "ANALIZADORES",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Analizador",
+                "MODELO": "Modelo",
+                "MARCA": "Marca",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "Analizador",
+                "MODELO": "Modelo",
+                "MARCA": "Marca",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar"
+            }
+        },
+        "ANALITOSQCE": {
+            "TITLE": "ANALITOS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "NOMBRE": "Analito",
+                "SECCION": "Sección",
+                "TIPO": "TR",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "NOMBRE": "Analito",
+                "SECCION": "Sección",
+                "TIPO": "Tipo de resultado",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "SELECCIONE": "--"
+            }
+        },
+        "METODOSQCE": {
+            "TITLE": "MÉTODOS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION": "Método",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESCRIPCION": "Método",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "SELECCIONE": "--"
+            }
+        },
+        "REPORTESEXTERNO": {
+            "REPORTE1": "Resultados participantes",
+            "TITULO": "Resultados Participantes - Datos Control",
+            "GENERADO": "Reporte generado:",
+            "REPORTE2": "Cliente Cualitativo",
+            "REPORTE3": "Reporte tres",
+            "TEXTO": "Selecciona (el o los) analitos que deseas visualizar",
+            "TEXTO2": "Selecciona la prueba que deseas visualizar",
+            "FORMULARIO": {
+
+                "PROGRAMA": "Programa",
+                "ANALITO": "Analito",
+                "RONDA": "Ronda"
+
+            },
+            "TABLAS": {
+                "ID": "ID laboratorio",
+                "LAB": "Nombre laboratorio",
+                "CONCORDANCIA": "% Concordancia global",
+                "GLOBAL": "Desempeño global",
+                "TEXTO3": "Datos control (resultados participante)",
+                "ASIGNADO": "VALOR ASIGNADO",
+                "CONSENSO": "CONSENSO",
+                "REACTIVO": "Positivo",
+                "NOREACTIVO": "Negativo",
+                "INDETERMINADO": "Indeterminado",
+                "TOTAL": "N° total de participantes",
+                "MINIMO": "Mínimo consenso (80%)"
+            }
+        },
+        "RONDASQCE": {
+            "TITLE": "RONDAS",
+            "BOTONCREAR": "Crear",
+            "BOTONAGREGAR": "Agregar",
+            "FILTRO": {
+                "CLIENTE": "Cliente",
+                "SEDE": "Sede",
+                "PROGRAMA": "Programa",
+                "BOTON": "Buscar"
+            },
+            "COLUMNS": {
+                "CLIENTE": "Cliente",
+                "RONDAS": "Rondas",
+                "INICIAL": "Fecha reporte",
+                "CANTMUESTRAS": "N° Muestras",
+                "DETALLES": "Detalles",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar",
+                "MUESTRA": "Muestra",
+                "ANALITO": "Analito",
+                "RESULTADO": "Resultado",
+                "VALORASIGNADO": "Valor asignado",
+                "TIPOVALOR": "Tipo Valor"
+            },
+            "COLUMNSDETALLE": {
+                "NUMMUESTRA": "N° Muestra",
+                "IDMUESTRA": "Muestra",
+                "INICIAL": "F. Inicial",
+                "FINAL": "F. Final"
+
+            },
+            "FORMULARIO": {
+                "SAMPLE": "Muestra",
+                "PROGRAMA": "Programa",
+                "CLIENTE": "Cliente",
+                "FECHAREPORTE": "Fecha reporte",
+                "RONDAS": "Rondas",
+                "CANTMUESTRAS": "N° Muestras",
+                "FECHA": "Fecha",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "SELECCIONE": "--"
+            }
+        },
+        "CONFIGRESULTS": {
+
+            "TITLE": "CONFIGURACIÓN RESULTADOS",
+
+            "COLUMNS": {
+                "INTERPRETACION": "Interpretación",
+                "RESULTADO": "Resultado",
+                "ORDEN": "Orden gráfica",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FILTRO": {
+                "PROGRAMA": "Programa",
+                "ANALITO": "Analito"
+            },
+            "SELECCIONE": {
+                "INTERPRETACION": ""
+            }
+
+        },
+        "DICCIONARIORESULT": {
+            "TITLE": "DICCIONARIO DE RESULTADOS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "ID": "ID",
+                "RESULTADO": "Resultado",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "ID": "ID",
+                "RESULTADO": "Resultado",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "SELECCIONE": "--"
+            }
+        },
+        "DICCIONARIORESULTQCE": {
+            "TITLE": "DICCIONARIO DE RESULTADOS",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "ID": "ID",
+                "RESULTADO": "Resultado",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "ID": "ID",
+                "RESULTADO": "Resultado",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "SELECCIONE": "--"
+            }
+        },
+        "SECCIONESQCE": {
+            "TITLE": "SECCIÓN",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION": "Sección",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESCRIPCION": "Sección",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "SELECCIONE": "--"
+            }
+        },
+        "REPORTECONSOLIDADOICT": {
+            "TITLE": "REPORTE CONSOLIDADO DE INDICADORES DE COMPETENCIA TÉCNICA",
+            "DESDE": "Desde",
+            "HASTA": "Hasta",
+            "META": "Meta",
+            "SECCION": "Sección",
+            "PROGRAMA": "Programa",
+            "ICT": "ICT Externo calculado por",
+            "SEDE": "Sede",
+            "EQUIPO": "Equipo",
+            "ANALITOS": "Analito",
+            "LOTE": "Lote",
+            "REPORTADODESDE": "Reportado desde",
+            "REPORTEGENERADO": "Reportado generado",
+            "INFORMACION": "Información Para El Control De Calidad Externo",
+            "TIPO": "Tipo de reporte",
+            "TEXTO": "Filtros necesarios para el cálculo del índice de desvío de control de calidad externo",
+            "ALLSECCIONES": "Todas las secciones",
+            "ALLSEDES": "Todas las sedes",
+            "ALLPROGRAMAS": "Todos los programas",
+            "ALLEQUIPOS": "Todos los equipos",
+            "ALLMETODOS": "Todos los métodos",
+            "ALLUNIDADES": "Todas las unidades",
+            "ALLANALITOS": "Todos los analitos",
+            "ALLOTES": "Todos los lotes",
+            "TIPO1": "Sigmometría",
+            "TIPO2": "Coeficiente de variación",
+            "TIPO3": "Sesgo relativo",
+            "TIPO4": "Indice de error",
+            "TIPO5": "Indice de desvio",
+            "TIPO6": "Todos los reportes",
+            "BOTON": "Generar reporte",
+            "TITULOINFO": "Consolidado Sigmometría",
+            "SELECCIONE": "--"
+
+        },
+        "ICT": {
+            "TITLE": "INDICADORES DE COMPETENCIA TÉCNICA O ICT",
+            "DESDE": "Desde",
+            "FECHAS": "Fechas",
+            "ICT": "ITC Externo calculado por",
+            "FECHAREPORTE": "Fecha de reporte",
+            "HASTA": "Hasta",
+            "BOTON": "Generar reporte",
+            "SELECCIONE": "--",
+            "OPT1": "Z-score",
+            "OPT2": "Valor asignado",
+            "TITULOINFO": "Indicadores de competencia técnica"
+        },
+        "SECCIONES": {
+            "TITLE": "SECCIÓN",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "DESCRIPCION": "Sección",
+                "Z": "Constante Z",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "DESCRIPCION": "Sección",
+                "ESTADO": "Estado",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "ACEPTAR": "Aceptar",
+                "SELECCIONE": "--"
+            }
+        },
+        "OBLETIVOSCALIDADQCE": {
+            "TITLE": "ESPECIFICACIONES ANALÍTICAS DE DESEMPEÑO",
+            "BOTONCREAR": "Crear",
+            "COLUMNS": {
+                "ANALITO": "Analito",
+                "FUENTE": "Fuente",
+                "OBJETIVO": "Objetivo",
+                "UNIDADES": "Unidad",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            },
+            "FORMULARIO": {
+                "ANALITO": "Analito",
+                "FUENTE": "Fuente",
+                "OBJETIVO": "Objetivo",
+                "UNIDADES": "Unidad",
+                "ESTADO": "Estado",
+                "PROGRAMA": "Programa",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar",
+                "SELECCIONE": "--"
+            }
+        },
+        "CONSOLIDADORESULTADOS": {
+            "TITLE": "CONSOLIDADO DE RESULTADOS",
+            "FORMULARIO": {
+                "SELECCIONE": "--",
+                "CLIENTES": "Cliente",
+                "FECHADESDE": "Desde",
+                "FECHAHASTA": "Hasta",
+                "PROGRAMA": "Programa",
+                "RONDA": "Ronda",
+                "FUENTE": "Fuente",
+                "UNIDADES": "Unidad",
+                "OBJETIVE": "Obj. Calidad",
+                "DATEMOD": "Fecha modificación",
+                "ESTADO": "Estado",
+                "BOTON": "Buscar",
+                "CLEAN": "Limpiar",
+                "REGISTRAR": "Crear",
+                "ACTUALIZAR": "Editar"
+            },
+            "COLUMNS": {
+                "PROGRAMA": "Programa",
+                "RONDA": "Ronda",
+                "NUMEROMUESTRA": "N° Muestra",
+                "USERCLIENT": "Cliente",
+                "MUESTRA": "Muestra",
+                "ANALITO": "Analito",
+                "RESULTADO": "Resultado",
+                "FECHAREPORTE": "Fecha Reporte",
+                "ESTADO": "Estado",
+                "EDITAR": "Editar",
+                "ELIMINAR": "Eliminar"
+            }
+        },
+        "REPORTEANALITOSALERTA": {
+            "TITLE": "REPORTE DE ANALITOS CON ALERTA",
+            "DESDE": "Fecha desde",
+            "HASTA": "Fecha hasta",
+            "META": "Meta",
+            "SECCION": "Sección",
+            "SECCIONEX": "Secciónes",
+            "PROGRAMA": "Programa",
+            "ICT": "ICT Externo calculado por",
+            "SEDE": "Sedes",
+            "EQUIPO": "Equipos",
+            "EQUIPOEX": "Equipo",
+            "ANALITOS": "Analitos",
+            "ANALITOSEX": "Analito",
+            "LOTE": "Lote control calidad",
+            "TIPO": "Tipo de reporte",
+            "ALLSECCIONES": "Todas las secciones",
+            "ALLSEDES": "Todas las sedes",
+            "ALLPROGRAMAS": "Todos los programas",
+            "ALLEQUIPOS": "Todos los equipos",
+            "ALLANALITOS": "Todos los analitos",
+            "ALLOTES": "Todos los lotes",
+            "TIPO1": "Sigmometría",
+            "TIPO2": "Coeficiente de variación",
+            "TIPO3": "Sesgo relativo",
+            "TIPO4": "Indice de error",
+            "TIPO5": "Indice de desvio",
+            "TIPO6": "Todos los reportes",
+            "BOTON": "Generar reporte",
+            "SELECCIONE": "--",
+            "TEXTO": "Filtros necesarios para el cálculo del índice de desvío de control de calidad externo",
+            "TITULOREPORTE": "Reporte De Analitos Con Alerta",
+            "FECHAS": "Fechas:",
+            "REPORTEG": "Reporte generado:",
+            "INFOCALIDADEXT": "Información Para El Control De Calidad Externo",
+            "ITCCALCULADO": "ITC Externo calculado por",
+            "QCI": "QCI",
+            "NIVEL": "Nivel",
+            "SIGOMETRIA": "Sigmometria",
+            "CVR": "CVR",
+            "SR": "SR",
+            "IET": "IET",
+            "OBSERVACIONES":"Observaciones",
+            "VALIDAR":"Validar",
+            "QCE": "QCE",
+            "INDICEDES": "Indice desvio",
+            "ENTRE": "Entre ",
+            "ENTRE1": " y 2,99",
+            "MENOR": "Menor ",
+            "ABREVIATURA": "Abreviaturas",
+            "CVRABRE": "CVR: Coeficiente de variación relativo",
+            "SRABRE": "SR: Sesgo relativo",
+            "IETABRE": "IET: Índice de error total",
+            "O": "o: Sigma",
+            "ETAABRE": "Eta: Error total máximo permitido",
+            "DSABRE": "DS: Desviación estanda",
+            "CVAABRE": "Cva: Coeficiente de variación máximo permitido",
+            "BIAS": "BIASa: Sesgo máximo permitido"
+
+        },
+        "REPORTECUANTITATIVO": {
+            "REPORTE1": "Reporte Cuantitativo",
+            "BOTON": "Generar reporte",
+            "SELECCIONE": "--",
+            "TITULO": "EVALUACIÓN EXTERNA DE LA CALIDAD/ ENSAYO DE APTITUD",
+            "REPORTEG": "Estadistica general",
+            "EVALUACIONP": "Datos Laboratorio Annar",
+            "ALLANALITOS": "Todos los analitos",
+            "RESUMENRONDA": "Resumen ronda",
+            "REPORTECICLO": "Reporte ciclo",
+            "TABLAREPORTEFINRONDA": "Reporte fin de ronda",
+            "GENERADO": "Reporte generado:",
+            "REPORTE2": "Reporte dos",
+            "REPORTE3": "Reporte tres",
+            "TEXTO": "Selecciona (el o los) analitos que deseas visualizar",
+            "TEXTO2": "Selecciona la prueba que deseas visualizar",
+            "ANALITOS1": "Selecciona (el o los analitos)",
+            "ANALITOS2": "que deseas ver",
+            "VALORASIGNADO": "VALOR ASIGNADO:",
+            "EQUIPOMETODO": "Equipo - Método",
+            "METODO": "Método",
+            "TODOSRESULTADOS": "Todos los resultados",
+            "N": "N",
+            "MEDIA": "Media",
+            "DS": "DS",
+            "CV": "CV",
+            "UM": "Um",
+            "SMEDICION": "Sistema de medición/Equipo:",
+            "ANALITO": "Analito",
+            "UNIDADES": "Unidades",
+            "SOPCION": "selecciona una opción para continuar:",
+            "ESTADISTICAZSCORE": "Estadística de comparación Z-score",
+            "TIPOMUESTRA": "Selecciona la muestra que deseas ver:",
+            "MUESTRA": "Muestra:",
+            "RESULTADOSRONDA": "Resultado Ronda 1",
+            "VASIGNADO": "Valor asignado",
+            "DESVIO": "% Desvío",
+            "DESVIOACEPTABLE": "% Desviación Aceptable",
+            "INDICEDESVIO": "% Indice de Desvío",
+            "RMID": "RMID",
+            "FORMULARIO": {
+                "PROGRAMA": "Programa",
+                "RONDA": "Ronda",
+                "ANALYTE": "Análitos"
+            },
+            "TABLAS": {
+                "ID": "ID laboratorio",
+                "LAB": "Nombre laboratorio",
+                "CONCORDANCIA": "% Concordancia global",
+                "GLOBAL": "Desempeño global",
+                "TEXTO3": "Datos control (resultados participante)",
+                "ASIGNADO": "VALOR ASIGNADO",
+                "CONSENSO": "CONSENSO",
+                "REACTIVO": "Positivo",
+                "NOREACTIVO": "Negativo",
+                "INDETERMINADO": "Indeterminado",
+                "TOTAL": "N° total de participantes",
+                "MINIMO": "Mínimo consenso (80%)",
+                "TIPO": "Tipo",
+                "PROGRAMA": "Programa: ",
+                "MUESTRA": "Muestra: ",
+                "FECHAREPORTE": "Fecha Reporte: ",
+                "RONDA": "Ronda: ",
+                "PARTICIPANTE": "Participante: ",
+                "NLABORATORIO": "N° Laboratorio: ",
+                "TMUESTRA": "Tipo de muestra: ",
+                "CONDICIONESM": "Condiciones de la muestra: ",
+                "FECHARECEPCION": "Fecha de recepción: ",
+                "MUESTRASRECIBIDASBUENASCOND": "Muestras recibidas en buenas condiciones: ",
+                "SI": "Si: ",
+                "NO": "No: "
+            }
+        },
+        "REPORTESIXSIGMA": {
+            "TITLE": "Reporte Consolidado",
+            "AREA": "Área",
+            "LOTE": "Lote",
+            "REPORTE": "Tipo reporte",
+            "RANGODATOS": "Rango de datos para evaluación",
+            "META": "Meta",
+            "EXPORTAR": "Exportar a PDF"
+        }
+    }
+}

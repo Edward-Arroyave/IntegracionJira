@@ -1,0 +1,1310 @@
+<div style="position: absolute;top: -32px; display: flex;gap: 1em;">
+  <div class="taps" (click)="[tipoReporte = 1,tipo(1)]" [ngClass]="{ 'active': tipoReporte == 1 }">
+    Reporte cuantitativo
+  </div>
+  <div class="taps" (click)="[tipoReporte = 2,tipo(2)]" [ngClass]="{ 'active': tipoReporte == 2 }">
+    Reporte Consolidado cuantitativo
+  </div>
+</div>
+<div style="margin-top: 1em;"></div>
+<!-- <button  type="button" class="btnInformativo rounded parpadeo" (click)="[openModalInformativo()]">
+  <span class="text-green">Importante</span>
+  <div class="divInformation">
+    <img class="imgInformativo" src="assets/imagenes/prueba2.png">
+  </div>
+</button> -->
+<!-- Reporte 1 -->
+<div *ngIf="reporteUno">
+  <form [formGroup]="formaCuantitativo" class="grid-6-completo" autocomplete="off">
+    <!-- Clientes -->
+    <mat-form-field *ngIf="flagCliente">
+      <mat-label>Cliente</mat-label>
+      <mat-select disableOptionCentering formControlName="idclient">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterCliente" placeholderLabel="Buscar cliente..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="">
+          --
+        </mat-option>
+        <mat-option *ngFor="let cliente of clientes" [value]="cliente.idclient" [matTooltipPosition]="'right'"
+          [matTooltip]="cliente.name" (click)="cargarSedes(cliente.header)">
+          {{ cliente.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+    <!-- Sedes -->
+    <mat-form-field>
+      <mat-label>
+        Sede
+      </mat-label>
+      <mat-select [disabled]="formaCuantitativo.get('idclient')?.invalid" disableOptionCentering
+        formControlName="idsede" (selectionChange)="consultarProgramas()">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="" (click)="formaCuantitativo.get('idsede')?.setValue(null)">
+          --
+        </mat-option>
+        <mat-option *ngFor="let sede of sedes" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+          [matTooltip]="sede.desheadquarters">
+          {{ sede.desheadquarters }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- programa -->
+    <mat-form-field>
+      <mat-label>
+        Programa
+      </mat-label>
+      <mat-select [disabled]="formaCuantitativo.get('idsede')?.invalid" disableOptionCentering
+        formControlName="programa">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="">
+          --
+        </mat-option>
+        <mat-option *ngFor="let programa of programas" [value]="programa.IdProgram" [matTooltipPosition]="'right'"
+          [matTooltip]="programa.Desprogram">
+          {{ programa.Desprogram }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- ronda -->
+    <mat-form-field>
+      <mat-label>
+        Ronda
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="ronda">
+        <mat-option value="" (click)="selectNone('ronda')">
+          --
+        </mat-option>
+        <mat-option *ngFor="let ronda of rondas" [value]="ronda.Nroround" (click)="selectOne('ronda')">
+          {{ ronda.Nroround }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- analytes -->
+    <mat-form-field>
+      <mat-label>
+        Análitos
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="analyte" multiple>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analito..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="" (click)="selectNone('analyte')">
+          --
+        </mat-option>
+        <mat-option value="-1" (click)="selectAll('analyte')" *ngIf="analitos.length != 0">
+          Todos los analitos
+        </mat-option>
+        <mat-option *ngFor="let analito of analitos" [value]="analito.Idanalytes" [matTooltipPosition]="'right'"
+          [matTooltip]="analito.Desanalytes" (click)="selectOne('analyte')">
+          {{ analito.Desanalytes }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!--Radio button-->
+    <div>
+      <button type="button" class="btnPurple-01" (click)="search()">Buscar</button>
+    </div>
+
+
+    <div style="grid-column: span 2;">
+      <mat-radio-group style="display: flex; gap: 1em;" formControlName="dataGenerate">
+        <mat-radio-button value=true>Datos Acumulados</mat-radio-button>
+        <mat-radio-button value=false>Datos Configurados</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+  </form>
+
+  @if (mostrarReportes) {
+  <ng-container>
+      <div style="position: relative;margin: 1em 0;">
+        <div class="grid-template-icon-info">
+          <div class="editarIcon" style="margin: 0;"
+            (click)="flagVisualizarInfo()?flagVisualizarInfo.set(false):flagVisualizarInfo.set(true)">
+            <mat-icon style="margin: 0px 2px 0"> list_alt</mat-icon>
+          </div>
+          <div style="display: grid;grid-template-columns: repeat(2,1fr); gap:1em;">
+            <p class="texto-truncado " style="font-size: 12px;margin: 0 !important;"><mat-icon class="point">fiber_manual_record</mat-icon>
+              <strong>Programa: </strong> {{programaSeleccionado[0].Desprogram}}
+            </p>
+            <p class="texto-truncado " style="font-size: 12px;margin: 0 !important;"><mat-icon class="point">fiber_manual_record</mat-icon>
+              <strong>Fecha Reporte: </strong> {{fechaActual}}
+            </p>
+          </div>
+        </div>
+
+        <div [ngClass]="{'contieneInformacion-desplegada':flagVisualizarInfo()}" class="contieneInformacion-oculta" [style]="flagVisualizarInfo()?'height: 180px;':''">
+          <p class="titulo-card-oculta">Información general</p>
+          <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Programa: </strong> {{programaSeleccionado[0].Desprogram}}</p>
+          <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Fecha Reporte: </strong> {{fechaActual}}</p>
+          <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Ronda: </strong>{{this.formaCuantitativo.value.ronda}}</p>
+          <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Participante: </strong>{{participante}}</p>
+          <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>N° Laboratorio: </strong>{{codigoparticipante}}</p>
+        </div>
+      </div>
+
+    <div class="boxSecciones">
+      <div>
+        <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(-1)">arrow_back_ios</mat-icon>
+      </div>
+      <div #scroll class="boxSeccionesContainer">
+        <div *ngFor="let analito of listaAnalytes; let i = index">
+          <div #btnSecc id="bntSecc-{{i}}" class="styleSeccion" [ngClass]="{'active':analitoSeleccionado === analito  }"
+            (click)="buscarAnalitos(analito)">
+            <h2 style="margin: 0; font-size: 15px;">{{analito | titlecase}}</h2>
+          </div>
+        </div>
+      </div>
+      <div>
+        <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(1)">arrow_forward_ios</mat-icon>
+      </div>
+    </div>
+
+    @if (itemSeleccionado !== -1) {
+    <div class="cardReportes" style="padding: 20px 20px 0 20px;">
+      <div style="display: flex; justify-content: space-between;">
+        <div class="grid-container">
+          <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSeleccionado === 1}" (click)="setItem(1)">
+            <mat-icon class="icon-custom" svgIcon="table_line" style="width: 18px;"></mat-icon>
+            <p>Datos Laboratorio Annar</p>
+          </div>
+          <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSeleccionado === 2}"
+            (click)="setItem(2)">
+            <mat-icon class="icon-custom" svgIcon="score" ></mat-icon>
+            <p>Estadistica general</p>
+          </div>
+          <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSeleccionado === 3}"
+            (click)="setItem(3)">
+             <mat-icon class="icon-custom" svgIcon="resumen" ></mat-icon>
+            <p>Resumen ronda</p>
+          </div>
+          <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSeleccionado === 4}"
+            (click)="setItem(4)">
+            <mat-icon class="icon-custom" svgIcon="chart_custom"></mat-icon>
+            <p>Reporte fin de ronda</p>
+          </div>
+        </div>
+
+        <div class="grid-consolidado" *ngIf="mostrarReportes">
+          <img *ngIf="itemSeleccionado !== -1" [src]="'pdf2.png' | imageCdn" alt="Reporte cuantitativo"
+            style="height: 30px; cursor: pointer;" (click)="[openSelecionMuestra()]">
+        </div>
+      </div>
+
+      <ng-container [ngSwitch]="itemSeleccionado">
+        <ng-container *ngSwitchCase="1" [ngTemplateOutlet]="item_1"></ng-container>
+        <ng-container *ngSwitchCase="2" [ngTemplateOutlet]="item_2"></ng-container>
+        <ng-container *ngSwitchCase="3" [ngTemplateOutlet]="item_3"></ng-container>
+        <ng-container *ngSwitchCase="4" [ngTemplateOutlet]="item_4"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="item_noSelect"></ng-container>
+      </ng-container>
+    </div>
+    }
+  </ng-container>
+  }
+</div>
+
+<!-- Reporte 2 consolidado -->
+@defer (when reporteDos) {
+<div *ngIf="reporteDos">
+  <form [formGroup]="formCuantitativoReporte2" autocomplete="off" class="grid-6-completo">
+    <!-- Clientes -->
+    <mat-form-field *ngIf="flagCliente">
+      <mat-label>Cliente</mat-label>
+      <mat-select disableOptionCentering formControlName="Nit">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterCliente" placeholderLabel="Buscar cliente..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="">
+          --
+        </mat-option>
+        <mat-option *ngFor="let cliente of clientes" [value]="cliente.nit" [matTooltipPosition]="'right'"
+          [matTooltip]="cliente.name" (click)="[datosClienteSelect(cliente.nit),cargarSedes(cliente.header)]">
+          {{ cliente.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Sede
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="Idheadquarters" multiple
+        (selectionChange)="[limpiar1('Idheadquarters')]">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="" (click)="formCuantitativoReporte2.get('Idheadquarters')?.setValue(null)">
+          --
+        </mat-option>
+        <mat-option *ngFor="let sede of sedes" [matTooltipPosition]="'right'" [matTooltip]="sede.desheadquarters"
+          [value]="sede.idheadquarters">
+          {{ sede.desheadquarters }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Programa
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="Idprogram">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="">
+          --
+        </mat-option>
+        <mat-option *ngFor="let programa of programas" [value]="programa.IdProgram" [matTooltipPosition]="'right'"
+          [matTooltip]="programa.Desprogram">
+          {{ programa.Desprogram }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Equipo
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="Idanalyzer" multiple
+        (selectionChange)="limpiar1('Idanalyzer')">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterEquipo" placeholderLabel="Buscar equipo..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="" (click)="formCuantitativoReporte2.get('Idanalyzer')?.setValue(null)">
+          --
+        </mat-option>
+        <mat-option value="-1" *ngIf="equipoList.length !== 0"
+          (click)="formCuantitativoReporte2.get('Idanalyzer')?.setValue(['-1'])">
+          Todas los equipos
+        </mat-option>
+        <mat-option *ngFor="let programa of equipoList" [matTooltipPosition]="'right'"
+          [matTooltip]="programa.nameAnalyzer" [value]="programa.idAnalyzer">
+          {{ programa.nameAnalyzer }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- analytes -->
+    <mat-form-field>
+      <mat-label>
+       Analito
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="IdAnalytes" multiple>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterAnalito2" placeholderLabel="Buscar analito..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option value="" (click)="formCuantitativoReporte2.get('IdAnalytes')?.setValue(null)">
+          --
+        </mat-option>
+        <mat-option value="-1" *ngIf="analitosList.length !== 0"
+          (click)="[formCuantitativoReporte2.get('IdAnalytes')?.setValue(['-1']),this.analitosFiltradosVer = this.analitosList]">
+          Todos los analitos
+        </mat-option>
+        <mat-option *ngFor="let analito of analitosList" [value]="analito.Idanalytes" [matTooltipPosition]="'right'"
+          [matTooltip]="analito.Desanalytes" (click)="filtrarAnalitos('IdAnalytes')">
+          {{ analito.Desanalytes }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button type="button" class="btnPurple-01" (click)="consultarReporte2()">Buscar</button>
+  </form>
+
+  <ng-container *ngIf="mostrarBotonExportar && mostrarReportes">
+    <div style="position: relative;">
+      <div class="grid-template-icon-info">
+        <div class="editarIcon" style="margin: 0;"
+          (click)="flagVisualizarInfo2()?flagVisualizarInfo2.set(false):flagVisualizarInfo2.set(true)">
+          <mat-icon style="margin: 0px 2px 0"> list_alt</mat-icon>
+        </div>
+        <div style="display: grid;grid-template-columns: repeat(2,1fr); gap:1em;">
+          <p class="texto-truncado " style="font-size: 12px;margin: 0 !important;"><mat-icon class="point">fiber_manual_record</mat-icon>
+            <strong>Nombre laboratorio: </strong>{{ datosLab['name'] }}
+          </p>
+          <p class="texto-truncado " style="font-size: 12px;margin: 0 !important;"><mat-icon class="point">fiber_manual_record</mat-icon>
+            <strong>Programa: </strong>{{ itemData[2] }}
+          </p>
+        </div>
+      </div>
+
+      <div [ngClass]="{'contieneInformacion-desplegada':flagVisualizarInfo2()}" class="contieneInformacion-oculta">
+        <p class="titulo-card-oculta">Información general</p>
+        <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Nombre laboratorio: </strong>{{ datosLab['name'] }}</p>
+        <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Programa: </strong>{{ itemData[2] }}</p>
+        <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Equipo: </strong>{{ itemData[3] }}</p>
+        <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Reactivo: </strong>{{ itemData[4] }}</p>
+        <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Analito: </strong>{{ itemData[5] }}</p>
+        <p><mat-icon class="point">fiber_manual_record</mat-icon><strong>Unidades: </strong>{{ itemData[1] }}</p>
+      </div>
+    </div>
+
+    <div class="boxSecciones">
+      <div>
+        <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(-1)">arrow_back_ios</mat-icon>
+      </div>
+      <div #scroll class="boxSeccionesContainer">
+        <div *ngFor="let item of analitosFiltradosVer; let i = index">
+          <div #btnSecc id="bntSecc-{{i}}" class="styleSeccion"
+            [ngClass]="{'active':seccionSeleccionado === item.Desanalytes }"
+            (click)="traerInfoAnalitoReporte2Individual(item.Desanalytes)">
+            <h2 style="margin: 0; font-size: 15px;">{{item.Desanalytes | titlecase}}</h2>
+          </div>
+        </div>
+      </div>
+      <div>
+        <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(1)">arrow_forward_ios</mat-icon>
+      </div>
+    </div>
+
+    <div class="cardReportes" style="padding: 20px 20px 0 20px; height: 495px;">
+      <div style="display: flex; justify-content: space-between;">
+
+        <div class="grid-container" style="grid-template-columns: repeat(3, 1fr); width: 654px;">
+          <div class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSeleccionado === 1}"
+            (click)="reporteDosSeleccionar(1)">
+            <mat-icon class="icon-custom"  svgIcon="chart_line"></mat-icon>
+            Índice de desvío
+          </div>
+          <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSeleccionado === 2}"
+            (click)="reporteDosSeleccionar(2)">
+            <mat-icon class="icon-custom" svgIcon="score" ></mat-icon>
+            Z-Score
+          </div>
+          <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSeleccionado === 3}"
+            (click)="reporteDosSeleccionar(3)">
+            <mat-icon class="icon-custom" svgIcon="resumen"></mat-icon>
+            Fin del ciclo
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1em;">
+          <img *ngIf="reporteDos" [src]="'pdf2.png' | imageCdn" alt="Reporte cuantitativo"
+            style="height: 30px; cursor: pointer;" (click)="reportePDF2()">
+          <img *ngIf="reporteDos" [src]="'PDFconsolidado.svg' | imageCdn" alt="Reporte cuantitativo"
+            style="height: 30px; cursor: pointer;" (click)="traerInfoAnalitoReporte2Grupal(this.dataAnalitoFiltrada)">
+        </div>
+
+      </div>
+
+      <ng-container [ngSwitch]="itemSeleccionado">
+        <ng-container *ngSwitchCase="1" [ngTemplateOutlet]="reporteDos1"></ng-container>
+        <ng-container *ngSwitchCase="2" [ngTemplateOutlet]="reporteDos2"></ng-container>
+        <ng-container *ngSwitchCase="3" [ngTemplateOutlet]="reporteDos3"></ng-container>
+        <ng-container *ngSwitchCase="4" [ngTemplateOutlet]="reporteIndividual"></ng-container>
+        <ng-container *ngSwitchCase="5" [ngTemplateOutlet]="reporteCompleto"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="item_noSelect"></ng-container>
+      </ng-container>
+
+    </div>
+  </ng-container>
+
+</div>
+}
+
+@defer (when verMuestraModal()) {
+  @if (verMuestraModal()) {
+    <div>
+      <h1 style="text-align: center;margin: 0;">Selección de muestra</h1>
+
+      <form [formGroup]="formaSelecionMuestra">
+        <div class="contenedor-center">
+          <!-- <mat-form-field>
+            <mat-select disableOptionCentering formControlName="muestra" placeholder="Código de muestra">
+              <mat-option value="--" (click)="listAnalytesReport = []">
+                --
+              </mat-option>
+              <mat-option (click)="traerAnalitos(muestra)" *ngFor="let muestra of totalSamples" [value]="muestra">
+                {{muestra | json}}
+              </mat-option>
+            </mat-select>
+            <mat-error>Obligatorio</mat-error>
+          </mat-form-field> -->
+
+           <!-- <mat-form-field>
+              <mat-select
+                disableOptionCentering
+                formControlName="muestra"
+                placeholder="Código de muestra"
+                (selectionChange)="traerAnalitos($event.value)">
+                
+                <ngx-mat-select-search
+                  [formControl]="filterSamples"
+                  placeholderLabel="Buscar muestra..."
+                  noEntriesFoundLabel="Sin resultados">
+                </ngx-mat-select-search>
+
+                <mat-option value="--" (click)="listAnalytesReport = []">
+                  --
+                </mat-option>
+
+                <mat-option *ngFor="let muestra of filteredSamples" [value]="muestra">
+                  {{ muestra }}
+                </mat-option>
+              </mat-select>
+
+              <mat-error>Obligatorio</mat-error>
+            </mat-form-field> -->
+
+            <!-- <mat-form-field>
+              <mat-select
+                disableOptionCentering
+                formControlName="muestra"
+                placeholder="Código de muestra"
+                (selectionChange)="traerAnalitos($event.value)">
+
+                <mat-option>
+                  <ngx-mat-select-search
+                    [formControl]="filterSamples"
+                    placeholderLabel="Buscar muestra..."
+                    noEntriesFoundLabel="Sin resultados">
+                  </ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option value="--" (click)="listAnalytesReport = []">--</mat-option>
+
+                <mat-option *ngFor="let muestra of filteredSamples" [value]="muestra">
+                  {{ muestra }}
+                </mat-option>
+
+              </mat-select>
+              <mat-error>Obligatorio</mat-error>
+            </mat-form-field> -->
+
+            <mat-form-field style="width: 400px;">
+                <mat-select
+                  disableOptionCentering
+                  formControlName="muestra"
+                  placeholder="Código de muestra"
+                  (openedChange)="UpdateFilterIfNecessary()"
+                  (selectionChange)="traerAnalitos($event.value)">
+                  
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [formControl]="filterSamples"
+                      placeholderLabel="Buscar muestra..."
+                      noEntriesFoundLabel="Sin resultados">
+                    </ngx-mat-select-search>
+                  </mat-option>
+
+                  <mat-option value="--" (click)="listAnalytesReport = []">--</mat-option>
+
+                  <mat-option *ngFor="let muestra of filteredSamples" [value]="muestra">
+                    {{ muestra }}
+                  </mat-option>
+
+                </mat-select>
+                <mat-error>Obligatorio</mat-error>
+              </mat-form-field>
+
+          <!--Campos comentariados ya que sera un modal aparte-->
+          <!--
+          <mat-form-field>
+            <input matInput placeholder="Tipo de muestra" formControlName="tipoMuestra">
+            <mat-error>Obligatorio</mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field>
+            <input matInput placeholder="Condicion de la muestra" formControlName="condicionMuestra">
+            <mat-error>Obligatorio</mat-error>
+          </mat-form-field>
+
+          <div>
+            <mat-form-field class="stylePicker">
+              <input disable matInput [matDatepicker]="picker" placeholder="Fecha de recepción"
+                formControlName="recepcion">
+              <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div style="display:flex; justify-content: flex-start; gap: 1em; align-items: center;">
+            <p style="color: var(--gray-05);font-weight: bold;" id="texto">Muestra recibida en buenas condiciones</p>
+            <mat-radio-group formControlName="calidad" style="display: flex; gap: 1em; justify-content: center;"
+              aria-labelledby="texto">
+              <mat-radio-button value="1">Si </mat-radio-button>
+              <mat-radio-button value="2">No </mat-radio-button>
+            </mat-radio-group>
+          </div>
+              -->
+        </div>
+
+
+        <div *ngIf="listAnalytesReport.length">
+          <div class="grid-template-icon-info" style="padding: 10px 20px; width: auto; display: flex; align-items: center;color: black;font-size: 12px;">
+            <mat-icon class="point" style="margin-bottom: 7px;">fiber_manual_record</mat-icon>
+            En este apartado el usuario seleccionará los analitos a agrupar en el resumen de muestra del reporte cuantitativo QCE.Por favor seleccionar si es por Zcore / Valor asignado y su sistema de medicion correspondiente:
+          </div>
+        </div>
+
+        <div *ngIf="listAnalytesReport.length" class="grid-3"  style="margin-top: 1em; grid-template-columns: repeat(3,auto); justify-content: left;">
+          <div style="display: flex; justify-content: flex-start; gap: 1em">
+            <p style="color: var(--gray-05);font-weight: bold; text-align: left; white-space: nowrap;" id="texto">Todos:
+            </p>
+            <!--los analitos</p><!-->
+            <mat-slide-toggle [checked]="allAnalytes" (change)="activarTodos($event)">
+            </mat-slide-toggle>
+          </div>
+          <div *ngIf="allAnalytes" style="display:flex; justify-content: flex-start; align-items: center; gap: 1em">
+            <p style="color: var(--gray-05);font-weight: bold; text-align: left; white-space: nowrap;" id="texto">
+              Asignación: </p>
+            <mat-radio-group [formControl]="asignacion" style="display: flex; gap: 1em; justify-content: center;"
+              aria-labelledby="texto">
+              <mat-radio-button value="Z-Score">Z-Score </mat-radio-button>
+              <mat-radio-button value="Valor asignado">Valor asignado </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div *ngIf="allAnalytes" style="display:flex; justify-content: flex-start; gap: 1em;align-items: center;">
+            <p style="color: var(--gray-05);font-weight: bold; text-align: left;" id="texto">Sistema medición: </p>
+            <mat-radio-group [formControl]="sistema" (change)="selectSistema($event)"
+              style="display: flex; gap: 0.5em; justify-content: center; align-items: center;" aria-labelledby="texto">
+              <mat-radio-button class="example-radio-button" value="EM"> Equipo - Método </mat-radio-button>
+              <mat-radio-button value="M"> Metodo </mat-radio-button>
+              <mat-radio-button value="T"> Todos los resultados </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        
+        @if(formaSelecionMuestra.value.muestra !== '' && formaSelecionMuestra.value.muestra !== '--' && allAnalytes){
+
+        <div style="display: flex; justify-content: center;gap: 1em;">
+          <button class="btnPurple-01 " [disabled]="formaSelecionMuestra.invalid"
+          (click)="openModalConditionsSample(templateReportQuantitative)">Aceptar</button>
+          <button class="btnPurple-03" (click)="clearCancellation()">Cancelar</button>
+        </div>
+      }
+      </form>
+
+      @if(formaSelecionMuestra.invalid || formaSelecionMuestra.value.muestra === '--'){
+        <div class="no-data mat-elevation-z1">
+          <img style="display: block; margin-left: auto; margin-right: auto;" [src]="'sin-seleccion.svg' | imageCdn" alt="sin selección">
+        </div>
+      } @else {
+
+      }
+
+      @if(!allAnalytes){
+        @if(formaSelecionMuestra.value.muestra !== '' && formaSelecionMuestra.value.muestra !== '--' && listAnalytesReport.length > 0){
+
+          <div class="boxSecciones">
+            <div #scroll class="boxSeccionesContainer">
+              <div class="styleSeccion" style="width: auto;" [ngClass]="{'active':alternarSeleccionMuestrasFlag() }"
+                (click)="alternarSeleccionMuestrasFlag.set(true)">
+                <h2 style="margin: 0; font-size: 15px;">Resumen de muestra</h2>
+              </div>
+  
+              <div class="styleSeccion" style="width: auto;" [ngClass]="{'active':!alternarSeleccionMuestrasFlag() }"
+                (click)="alternarSeleccionMuestrasFlag.set(false)">
+                <h2 style="margin: 0; font-size: 15px;">Resumen de ronda</h2>
+              </div>
+            </div>
+          </div>
+  
+          <div class="cardReportes" style="padding: 20px 20px 0 20px;height: 350px;">
+            @if (alternarSeleccionMuestrasFlag() ) {
+                <table mat-table [dataSource]="dataSource" matSort>
+                
+                  <ng-container matColumnDef="analito">
+                    <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Analito</th>
+                    <td mat-cell *matCellDef="let row">{{row.desAnalytes}} </td>
+                  </ng-container>
+      
+                  <ng-container matColumnDef="analizador">
+                    <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Equipo</th>
+                    <td mat-cell *matCellDef="let row"> {{row.analyzer}} </td>
+                  </ng-container>
+      
+                  <ng-container matColumnDef="asignacion">
+                    <th style="width: 300px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Asignación</th>
+                    <td mat-cell *matCellDef="let row">
+                      <div *ngIf="allAnalytes">
+                        -
+                      </div>
+                      <div *ngIf="!allAnalytes" class="col m-auto">
+                        <select class="form-control select">
+                          <option [value]="">-</option>
+                          <option *ngFor="let asignacion of asignaciones" [value]="asignacion.name">{{ asignacion.name }}
+                          </option>
+                        </select>
+                      </div>
+                    </td>
+                  </ng-container>
+      
+                  <ng-container matColumnDef="sistema_medicion">
+                    <th style="width: 300px;border-top-right-radius: 5px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Sistema medición</th>
+                    <td mat-cell *matCellDef="let row">
+                      <div *ngIf="allAnalytes">-</div>
+                      <form *ngIf="!allAnalytes" [formGroup]="formSystem" class="col m-auto">
+      
+                        <select  class="form-control select" [formControlName]="'analyte_' + row.idAnalytes + '_analyzer_' + row.idAnalyzer"
+                          (change)="selectSistemInInput($event.target.value, row)">
+                          <option [value]="">-</option>
+                          <option *ngFor="let sistem of sistema_medicion" [value]="sistem.name">{{ sistem.name }}</option>
+                        </select>
+                      </form>
+                    </td>
+                  </ng-container>
+      
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+                </table>
+    
+                <mat-paginator [pageSize]="5" [length]="dataSource?.data.length" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+              
+            }@else{
+                <table mat-table [dataSource]="dataSourceMuestra" matSort>
+    
+                  <ng-container matColumnDef="Muestra">
+                    <th style="width: 300px;border-top-left-radius: 5px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Muestra</th>
+                    <td mat-cell *matCellDef="let row"> {{row.Serialsample}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="asigparametros">
+                    <th style="width: 300px;border-top-right-radius: 5px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Asignación de parámetros</th>
+                    <td mat-cell *matCellDef="let row">
+                      <div class="buttonCircle" (click)="seleccionMuestraParametros(asignacionparametros,row)">
+                        <mat-icon style="font-size: 21px;">add_circle</mat-icon>
+                      </div>
+                    </td>
+                  </ng-container>
+      
+                  <!--
+                  <ng-container matColumnDef="sistema_medicion">
+                    <th style="width: 300px;border-top-right-radius: 5px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Sistema medición</th>
+                    <td mat-cell *matCellDef="let row">
+                      <div *ngIf="allAnalytes">-</div>
+                      <form *ngIf="!allAnalytes" class="col m-auto">
+      
+                        <select class="form-control select" (change)="row.statisticalGeneral = $event.target.value">
+                          <option [value]="">-</option>
+                          <option *ngFor="let sistem of sistema_medicion" [value]="sistem.name">{{ sistem.name }}</option>
+                        </select>
+                      </form>
+                    </td>
+                  </ng-container>
+                  -->
+      
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsMuestras"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsMuestras;"></tr>
+      
+                </table>
+                <mat-paginator [pageSize]="5" [length]="dataSourceMuestra?.data.length"  [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            }
+    
+          </div>
+          
+          <div style="display: flex; justify-content: center;gap: 1em;">
+            <button class="btnPurple-01 " [disabled]="formaSelecionMuestra.invalid"
+            (click)="openModalConditionsSample(templateReportQuantitative)">Aceptar</button>
+            <button class="btnPurple-03" (click)="clearCancellation()">Cancelar</button>
+          </div>
+      
+        }
+      }
+    </div>
+  }
+}
+
+
+
+<ng-template #item_noSelect>
+
+</ng-template>
+<!-- ? REPORTE UNO -->
+
+<ng-template #item_1>
+  <div style="display: grid;grid-template-columns: 30% 68%;gap:1em;margin-top: 1em;">
+    <div style="height: 100%;">
+      <div style="display: flex; flex-direction: column;">
+        <div style="text-align: left; margin-top: 20px;">
+          <h2><mat-icon class="point" style="color: var(--purple-01);">fiber_manual_record</mat-icon> Informacion para
+            el control de calidad externo</h2>
+          <span class="morado">Sistema de medición/Equipo:</span><span> Prueba </span>
+          <span class="morado">Analito</span><span> Prueba </span>
+          <span class="morado">Unidades</span><span> Prueba </span>
+        </div>
+
+        <form [formGroup]="formaEvaluacion" autocomplete="off" class="grid-2-completo">
+          <mat-form-field>
+            <mat-select disableOptionCentering formControlName="tipoFiltro"
+              (selectionChange)="reiniciarCampos($event.value,1)">
+              <mat-option value="">
+                --
+              </mat-option>
+              <mat-option value="1">
+                z-score
+              </mat-option>
+              <mat-option value="2">
+                Valor asignado
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="formaEvaluacion.value.tipoFiltro">
+            <mat-select disableOptionCentering formControlName="idestadistica"
+              (selectionChange)="[tipoOpcion(),reiniciarCampos($event.value,2)]">
+              <mat-option value="1">
+                Equipo - Método
+              </mat-option>
+              <mat-option value="2">
+                Método
+              </mat-option>
+              <mat-option value="3">
+                Todos los resultados
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+
+      </div>
+
+      <form [formGroup]="formaSelecione" *ngIf="mostrarMuestras">
+        <div>
+          <h2><mat-icon class="point" style="color: var(--purple-01);">fiber_manual_record</mat-icon>
+            Estadística de comparación Z-score</h2>
+          <span>Selecciona la muestra que deseas ver:</span>
+        </div>
+
+        <mat-form-field>
+          <mat-select disableOptionCentering formControlName="tipoFiltro">
+            <mat-option value="">
+              --
+            </mat-option>
+            <mat-option *ngFor="let muestra of selectMuestra" [value]="muestra.Serialsample"
+              (click)="obtenerDatosCliente()">
+              {{muestra.Serialsample}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+
+    @if (clientesEvaluacionMuestra.length > 0 && mostrarDivOculto()) {
+    <div style="display: grid; grid-template-columns: 25% 75% ;gap:1em; align-items: center;"
+      [style]="tipoFiltro.value ==='2'?'grid-template-columns: 1fr ;':''">
+      @if( tipoFiltro.value === '0'){
+      <div class="flexTable">
+        <p style="color: #007bff;">Muestra:
+          {{this.clientesEvaluacionMuestra[0].Serialsample}}</p>
+        <div style="display: flex;gap: 1em; ">
+          <ul style="list-style: none;padding: 0;">
+            <li> Resultados de ronda</li>
+            <li> Valor asignado</li>
+            <li> % Desvío</li>
+            <li> % Desviación Aceptable</li>
+            <li> % Indice de Desvío</li>
+          </ul>
+          <ul style="list-style: none;padding: 0;" *ngFor="let cliente of clientesEvaluacionMuestra">
+            <li>{{cliente.Resultado}}</li>
+            <li>{{cliente.ValorAsign}}</li>
+            <li>{{cliente.Desvio}}</li>
+            <li>{{cliente.DesvAceptable}}</li>
+            <li>{{cliente.IndiceDesv}}</li>
+          </ul>
+        </div>
+      </div>
+      }
+      @if (tipoFiltro.value === '1') {
+      <div class="flexTable">
+        <p style="color: #007bff;">Muestra:
+          {{this.clientesEvaluacionMuestra[0].Serialsample}}</p>
+        <div style="display: flex; gap: 1em;">
+          <ul style="list-style: none;padding: 0;">
+            <li>Resultados de ronda</li>
+            <li>Z-score</li>
+            <li>Media</li>
+            <li>DS</li>
+            <li>RMZs</li>
+          </ul>
+          <ul style="list-style: none;padding: 0;" *ngFor="let cliente of clientesEvaluacionMuestra">
+            <li>{{cliente.Resultado}}</li>
+            <li>{{cliente.Zscore}}</li>
+            <li>{{cliente.Media}}</li>
+            <li>{{cliente.DS}}</li>
+            <li>''</li>
+          </ul>
+        </div>
+      </div>
+      }
+        
+      @defer (when ZscoreData1().length !== 0 && ZscoreData2().length !== 0) {
+      @if(ZscoreData1().length !== 0 && ZscoreData2().length !== 0){
+      <div class="cardChart">
+        @for (item of ZscoreData1(); track $index) {
+        <div style="width: 100%;height: 300px;">
+          <app-graficas-puntos [alto]="'300px'" [data]="[item]" [id]="'0'+$index"
+            (base64Puntos)="onImgChart($event,$index)" [titulo]="'Z-score'" [subTitulo]="item"
+            [labelEjeX]="'Muestra'"></app-graficas-puntos>
+        </div>
+        }
+        @for (item of ZscoreData2(); track $index){
+        <div style="width: 100%;height: 300px;">
+          <app-graficas-puntos [alto]="'300px'" [data]="[item]" [id]="'1'+$index"
+            (base64Puntos)="onImgChart2($event,$index)" [titulo]="'Z-score concentración'" [subTitulo]="item"
+            [labelEjeX]="'Concentración'"></app-graficas-puntos>
+        </div>
+        }
+      </div>
+      }
+      }
+    </div>
+    }
+
+  </div>
+</ng-template>
+
+<ng-template #item_2>
+  <h4 style="margin-top: 1em;">VALOR ASIGNADO: {{valorAsignado}}</h4>
+  <div style="display: grid; grid-template-columns: 40% 60%; align-items: center;">
+    <table style="height: 90px;">
+      <tr>
+        <th rowspan="4" class="styleText">
+          <mat-icon class="point colorAzul">fiber_manual_record</mat-icon>Metodo<br>
+          <mat-icon class="point colorVerde">fiber_manual_record</mat-icon>Equipo-Metodo<br>
+          <mat-icon class="point colorAmarillo">fiber_manual_record</mat-icon>
+         Todos los resultados:
+        </th>
+        <th class="thEstyle">N</th>
+        <th class="thEstyle">Media</th>
+        <th class="thEstyle">DS</th>
+        <th class="thEstyle">CV</th>
+        <th class="thEstyle">Um</th>
+      </tr>
+      <tr *ngFor="let analito of tablaEstadisticaGeneral">
+        <td class="thEstyle">{{analito![0].participantes}}</td>
+        <td class="thEstyle">{{analito![0].media}}</td>
+        <td class="thEstyle">{{analito![0].DS}}</td>
+        <td class="thEstyle">{{analito![0].CV}}</td>
+        <td class="thEstyle">{{analito![0].Um}}</td>
+      </tr>
+    </table>
+    <!-- <div style="height: 270px;" id="exporEstadisticaGeneral">
+      <canvas id="myChart" #mychart></canvas>
+    </div> -->
+  </div>
+  <!--<h1>Estadistica general</h1>-->
+
+</ng-template>
+
+<ng-template #item_3>
+  <div style="margin-top: 1em; height: 300px; overflow: auto;">
+    <table>
+      <thead>
+        <tr style="background: var(--blue-01);color: white;">
+          <th>Muestra</th>
+          <th>Resultado</th>
+          <th>Media</th>
+          <th>DS</th>
+          <th>CV</th>
+          <th>Um</th>
+          <!-- <th>Indice Desvío</th> -->
+          <th>Z-score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let analito of listaResumenRonda">
+          <td>{{analito.Serialsample}}</td>
+          <td>{{analito.Resultado}}</td>
+          <td>{{analito.Media}}</td>
+          <td>{{analito.DS}}</td>
+          <td>{{analito.CV}}</td>
+          <td>{{analito.UM}}</td>
+          <!-- <td>{{analito.IndiceDesv}}</td> -->
+          <td *ngIf="analito.Zscore !='No Determinado'">{{analito.Zscore}}</td>
+          <td *ngIf="analito.Zscore ==='No Determinado'"> &infin;</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+</ng-template>
+
+<ng-template #item_4>
+  <div style="margin-top: 1em; width: 100%; height: 100px; overflow: auto;">
+    <table>
+      <thead>
+        <tr style="background: var(--blue-01);color: white;">
+          <th>muestra</th>
+          <th>Resultado</th>
+          <th>Media</th>
+          <th>DS</th>
+          <th>CV</th>
+          <th>Um</th>
+          <!-- <th>Indice Desvío</th> -->
+          <th>Z-score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaResumenRondaTable">
+          <td>{{item.Serialsample}}</td>
+          <td>{{item.Resultado}}</td>
+          <td>{{item.Media}}</td>
+          <td>{{item.DS}}</td>
+          <td>{{item.CV}}</td>
+          <td>{{item.UM}}</td>
+          <!-- <td>{{item.IndiceDesv}}</td> -->
+          <td *ngIf="item.Zscore !='No Determinado'">{{item.Zscore}}</td>
+          <td *ngIf="item.Zscore ==='No Determinado'"> &infin;</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="grid-2-completo">
+    <div class="contiene-graficas">
+      <app-grafica-barras [idB]="'ronda01'" [tipoGrafica]="4" [titulo]="'Indice Desvío'" [constantes]="1"
+        [heightGraficaPx]="'200px'" [xAxis]="datosFinRondaTabla.desvio" [data]="datosFinRondaTabla.desvio"
+        (base64Barras)="obtenerGraficas(0,$event)"></app-grafica-barras>
+    </div>
+    <div class="contiene-graficas">
+      <app-grafica-barras [idB]="'ronda02'" [tipoGrafica]="4" [titulo]="'Z-score'" [constantes]="2"
+        [heightGraficaPx]="'200px'" [xAxis]="datosFinRondaTabla.zscore" [data]="datosFinRondaTabla.zscore"
+        (base64Barras)="obtenerGraficas(1,$event)"></app-grafica-barras>
+    </div>
+  </div>
+</ng-template>
+<!-- ? REPORTE UNO -->
+
+<!-- ? REPORTE DOS -->
+<ng-template #reporteDos1>
+  <div class="grid-2-completo" style="height: 425px;">
+    <div class="grid-table-info" *ngFor="let objeto of dataTablaReporte2;index as i">
+      <div *ngIf="objeto.titulo" class="listasEstilo">
+        <ul class="listas " style="color:var(--blue-01);font-weight:bold">
+          <li *ngFor="let x of objeto.titulo;index as j">{{x}}</li>
+        </ul>
+      </div>
+      <div *ngIf="objeto.informacion" class="listasEstilo" style="border: none;">
+        <ul class="listas ">
+          <li *ngFor="let x of objeto.informacion;index as j">{{x}}</li>
+        </ul>
+      </div>
+      <div style="overflow: auto;display: flex;">
+        <div *ngIf="objeto.sedeNumber" class="listasEstilo">
+          <ul class="listas ">
+            <li *ngFor="let x of objeto.sedeNumber;index as j"
+              [style]="j === 0?'color:var(--blue-01);font-weight:bold':''" class="listaCentro">
+              {{x}}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="objeto.desvio" class="listasEstilo">
+          <ul class="listas ">
+            <li *ngFor="let x of objeto.desvio;index as j" [style]="j === 0?'color:var(--blue-01);font-weight:bold':''"
+              class="listaCentro">
+              {{x}}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="objeto.zScore" class="listasEstilo">
+          <ul class="listas ">
+            <li *ngFor="let x of objeto.zScore;index as j" [style]="j === 0?'color:var(--blue-01);font-weight:bold':''"
+              class="listaCentro">
+              {{x}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="dataLineasReporte2[0]">
+      <app-grafica-lineas [idG]="'A01'" [titulo]="'Índice de desvío'" [data]="dataLineasReporte2[0]"
+        (base64Lineas)="obtenerGraficas(0,$event)"></app-grafica-lineas>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #reporteDos2>
+  <div style="display: grid;grid-template-columns: 1fr; align-items: center;width: 100%;height: 425px; ">
+    <div *ngIf="dataLineasReporte2[1]">
+      <app-grafica-lineas [idG]="'B01'" [data2]="dataLineasReporte2[1]" [titulo]="'Z-Score'"
+        (base64Lineas)="obtenerGraficas(1,$event)"></app-grafica-lineas>
+    </div>
+    <div>
+      <table class="table " style="width: 80% !important;margin: 0 auto 0;">
+        <thead class="thead-dark bg-primary">
+          <tr>
+            <th></th>
+            <th *ngFor="let item of headerMayor;index as i ">
+              {{i+1}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let objeto of dataTablaReporte2;index as i">
+            <td> <strong> {{objeto.sedeNumber[0]}} </strong> </td>
+            <ng-container *ngFor="let x of objeto.zScore;index as j">
+              <td *ngIf="j !== 0">{{x}}</td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #reporteDos3>
+  <div style="width: 100%;height: 425px; display: flex; align-items: center;">
+    <app-grafica-barras style="width: 100%;" [widthGraficaPx]="'100%'" [heightGraficaPx]="'300px'" [idB]="'BB01'"
+      [titulo]="'Resumen de ronda'" [data]="dataBarraReporte2"
+      (base64Barras)="obtenerGraficas(2,$event)"></app-grafica-barras>
+  </div>
+</ng-template>
+
+<ng-template #reporteCompleto>
+  <ng-container *ngFor="let item of datosCompletosOrdenados;index as i">
+
+    <div >
+      <app-grafica-lineas [idG]="'A0Grafica'+(i+1)" [titulo]="'Índice de desvío'" [multiple]="false"
+        [data]="item.lineas" (base64Lineas1)="item.base64Grafica[0]=($event)">
+      </app-grafica-lineas>
+    </div>
+    <div >
+      <app-grafica-lineas [idG]="'C0Grafica'+(i+1)" [data2]="item.lineas" [titulo]="'Z-Score'" [multiple]="false"
+        (base64Lineas2)="item.base64Grafica[1]=($event)">
+      </app-grafica-lineas>
+    </div>
+    <div >
+      <app-grafica-barras [idB]="'B0Grafica'+(i+1)" [titulo]="'Resumen de ronda'" [multiple]="false"
+        [data]="item.lineas" (base64Barras)="item.base64Grafica[2]=($event)"></app-grafica-barras>
+    </div>
+  </ng-container>
+
+</ng-template>
+
+<ng-template #reporteIndividual>
+  <div >
+    <app-grafica-lineas [idG]="'GraficaIndividual01'" [titulo]="'Índice de desvío'" [data]="dataLineasReporte2[0]"
+      (base64Lineas1)="obtenerGraficas(0,$event)"></app-grafica-lineas>
+  </div>
+  <div >
+    <app-grafica-barras [idB]="'GraficaIndividual02'" [titulo]="'Resumen de ronda'" [data]="dataBarraReporte2"
+      (base64Barras)="obtenerGraficas(2,$event)"></app-grafica-barras>
+  </div>
+  <div >
+    <app-grafica-lineas [idG]="'GraficaIndividual03'" [data2]="dataLineasReporte2[1]" [titulo]="'Z-Score'"
+      (base64Lineas2)="obtenerGraficas(1,$event)"></app-grafica-lineas>
+  </div>
+</ng-template>
+<!-- ? REPORTE DOS -->
+
+
+<!-- <div *ngIf="mostrarDivOculto()">
+
+  <div class="row col-12 mb-3">
+    <div class="col-md-7" id="exporEstadisticaGeneral">
+      <canvas id="myChartDiv" #mychartDiv></canvas>
+    </div>
+    <div class="col-md-7" *ngIf="datosClienteTableDivZscore.length > 0" id="divocultoZcoreuno">
+      <canvas id="myChartEvaluacion3DivOcultoZscore" #myChartEvaluacion3DivOcultoZscore></canvas>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-7" *ngIf="datosClienteTableDivZscore.length > 0" id="divOcultoZcoreDos">
+      <canvas id="myChartEvaluacionDivocultoZescore" #myChartEvaluacionDivocultoZescore></canvas>
+    </div>
+    <div class="col-md-7" *ngIf="datosClienteTableDivVasignado.length > 0" id="divOcultoIndiceUno">
+      <canvas id="mychartDivTres" #mychartDivTres></canvas>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-7" *ngIf="datosClienteTableDivVasignado.length > 0" id="divOcultoIndiceDos">
+      <canvas id="myChartEvaluacion2DivOculto" #myChartEvaluacion2DivOculto></canvas>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-7" *ngIf="datosClienteTableDivVasignado.length > 0" id="divOcultoIndiceTres">
+      <canvas id="myChartEvaluacion3DivOculto" #myChartEvaluacion3DivOculto></canvas>
+    </div>
+    <div class="col-md-7">
+      <canvas id="myChartGraficaResumenRondaDivOculto" #myChartGraficaResumenRondaDivOculto></canvas>
+    </div>
+    <div class="col-md-7">
+      <canvas id="myChartGraficaResumenRondaDivOculto2" #myChartGraficaResumenRondaDivOculto2></canvas>
+    </div>
+</div> -->
+
+
+<ng-template #modalInformativo>
+  <div class="contiene-modal">
+    <img style="width: 20%; height: 20%;" [src]="'assets/imagenes/alertaValimodal.svg'">
+    <h3 class="tituloModal">Información Importante</h3>
+    <p>Para la generación correcta del reporte cuantitativo y su coherencia de los calculos debe tener en cuenta lo
+      siguiente:</p>
+    <br>
+    <p>1. Si selecciona "Datos almacenados", los analitos que se deseen visualizar en el reporte deben estar
+      parametrizados anteriormente en los módulos de: </p>
+    <ul>Asignacion de valores</ul>
+    <ul>Asignacion de valor esperado 2</ul>
+    <ul>Especificaciones analiticas de desempeño (APS)</ul>
+
+    <p>2. Si selecciona "Datos Configurados", los analitos que se deseen visualizar en el reporte deben estar
+      parametrizados anteriormente en los módulos de: "Especificaciones analiticas de desempeño (APS)". Además, es
+      mandatorio configurar los sistemas de medición de los analitos en el módulo "Configuración de estadistica general"
+    </p>
+    <ul>Asignacion de valores</ul>
+    <ul>Asignacion de valor esperado 2</ul>
+    <ul>Especificaciones analiticas de desempeño (APS)</ul>
+    <button class="btnUpdate boton" (click)="[ventanaModalInformativo.hide()]">Cerrar</button>
+  </div>
+</ng-template>
+
+@if(verGraficaNueva() && ZscoreData1().length !== 0 && ZscoreData2().length !== 0){
+  <!-- <app-loader [componentFlag]="true" ></app-loader> -->
+@defer (when ZscoreData1().length !== 0 && ZscoreData2().length !== 0) {
+  
+  <!--
+    @for (item of ZscoreData1(); track $index) {
+    <div style="width: 1000px;height: 350px;">
+      <app-graficas-puntos [data]="[item]" [id]="'0'+$index" (base64Puntos)="onImgChart($event,$index)" [titulo]="'Z-score'"
+      [subTitulo]="item[1]" [labelEjeX]="'Muestra'"></app-graficas-puntos>
+    </div>
+  }
+
+  @for (item of ZscoreData2(); track $index){
+    <div style="width: 1000px;height: 350px;">
+      <app-graficas-puntos [data]="[item]" [id]="'1'+$index" (base64Puntos)="onImgChart2($event,$index)"
+        [titulo]="'Z-score concentración'" [subTitulo]="item[1]" [labelEjeX]="'Concentración'"></app-graficas-puntos>
+    </div>
+    }
+
+
+  -->
+
+  @for (item of listAnalytes(); track $index) {
+  <div style="width: 1000px;height: 350px;">
+    <app-graficas-puntos [data]="ZscoreData1()" [id]="'0'+$index" (base64Puntos)="onImgChart($event,$index)" [titulo]="'Z-score'"
+      [subTitulo]="item[1]" [labelEjeX]="'Muestra'" [analito]="item[0].idAnalytes" [equipo]="item[0].idAnalyzer" [muestra]="item[0].idSample"></app-graficas-puntos>
+  </div>
+}
+
+@for (item of listAnalytes(); track $index) {
+  <div style="width: 1000px;height: 350px;">
+    <app-graficas-puntos [data]="ZscoreData2()" [id]="'1'+$index" (base64Puntos)="onImgChart2($event,$index)"
+    [titulo]="'Z-score concentración'" [subTitulo]="item[1]" [labelEjeX]="'Concentración'" [analito]="item[0].idAnalytes" [equipo]="item[0].idAnalyzer" [muestra]="item[0].idSample"></app-graficas-puntos>
+  </div>
+}
+
+  <app-grafica-barras [xAxis]="['Aceptable', 'Advertencia', 'Inaceptable', 'Total']" [titulo]="'Z-score'"
+    [data]="barrasDataResumen" [idB]="'barra01'" [tipoGrafica]="3" (base64Barras)="onImgChartBar($event,0)">
+  </app-grafica-barras>
+  }
+}
+
+<ng-template #asignacionparametros>
+    <div class="cardReportes">
+      <p style="text-align: center;">Por favor, asignar a cada analito su sistema de medición correspondiente.</p>
+      <table mat-table [dataSource]="dataSourceAsigMuestra" matSort>
+        <ng-container matColumnDef="analito">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Analito</th>
+          <td mat-cell *matCellDef="let row">{{row.Analyte}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="equipo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Analizador</th>
+          <td mat-cell *matCellDef="let row">{{row.Equipo}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="sistema_medicion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Sistema medición</th>
+          <td mat-cell *matCellDef="let row">
+
+            @if(row.existsHistoricRR){
+              <span>{{row.systemMeditionRR}}</span>
+            }@else{
+              <select class="form-control select" [(ngModel)]="row.statisticalGeneral" (change)="[selectSistemInInputSampleAnalyte($event.target.value, row.idAnalytes, row.idSample, row.idAnalyzer)]">
+                <option *ngFor="let sistem of sistema_medicion" [value]="sistem.name">{{ sistem.name }}</option>
+              </select>
+            }
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsAsigMuestra"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsAsigMuestra;"></tr>
+    
+      </table>
+      <mat-paginator [length]="dataSourceAsigMuestra?.data.length" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+</ng-template>
+
+ <ng-template #templateReportQuantitative>
+  <form [formGroup]="formStatusSample" class="grid-4 responsive-form">
+    
+    <mat-form-field>
+      <mat-label>Tipo de muestra</mat-label>
+      <input matInput formControlName="typeSample">
+      <mat-error *ngIf="formStatusSample.get('typeSample')?.hasError('required')">Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Condición de muestra</mat-label>
+      <input matInput formControlName="sampleConditions">
+      <mat-error *ngIf="formStatusSample.get('sampleConditions')?.hasError('required')">Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Fecha de recepción</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateReception">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="formStatusSample.get('dateReception')?.hasError('required')">Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Radio grupo en línea: label + botones al frente -->
+    <div class="radio-inline-group">
+      <label class="radio-label">Muestra recibida en buenas condiciones:</label>
+      <mat-radio-group formControlName="sampleReceived" class="horizontal-radio">
+        <mat-radio-button value=true>Sí</mat-radio-button>
+        <mat-radio-button value=false>No</mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="formStatusSample.get('sampleReceived')?.hasError('required')">Obligatorio</mat-error>
+    </div>
+
+    <!-- Textarea full width -->
+    <mat-form-field class="full-width" style="grid-column: span 4;">
+      <mat-label>Observaciones del reporte</mat-label>
+      <textarea matInput rows="3" formControlName="observations"></textarea>
+      <mat-error *ngIf="formStatusSample.get('observations')?.hasError('required')">Obligatorio</mat-error>
+    </mat-form-field>
+    
+  </form>
+</ng-template>

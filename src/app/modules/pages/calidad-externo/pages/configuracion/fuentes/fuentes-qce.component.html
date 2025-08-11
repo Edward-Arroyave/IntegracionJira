@@ -1,0 +1,21 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Fuentes'"
+    (onCreate)="openModalRegistro(templateRegistro, '')" (onChangeStatus)="actualizarEstado($event)"
+    (onEdit)="openModalRegistro(templateRegistro, $event)" (onDelete)="eliminar($event.idsource)">
+  </app-tabla-comun>
+
+<ng-template #templateRegistro>
+
+  <form [formGroup]="formularioRegistroEditar" class="grid-2">
+    <mat-form-field>
+      <mat-label>Fuente</mat-label>
+      <input matInput type="text" formControlName="dessource">
+      <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div class="contieneToggle">
+    <label class="labelToggle">Estado</label>
+    <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+  </div>
+  </form>
+</ng-template>
+

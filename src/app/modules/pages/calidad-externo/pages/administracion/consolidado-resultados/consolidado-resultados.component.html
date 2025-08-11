@@ -1,0 +1,123 @@
+<h1 style="margin-top: 3em;">Consolidado de resultados</h1>
+
+
+<form [formGroup]="formaBuscarDatos" class="form_busqueda">
+  <!-- <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <mat-select formControlName="cliente">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterClients" placeholderLabel="Buscar clientes..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let client of clientes" [value]="client.Idclient" [matTooltipPosition]="'right'"
+        [matTooltip]="client.Name">
+        {{ client.Name | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="clienteNoValido.invalid  && clienteNoValido.touched"
+      class="text-danger animated fadeIn">Campo requerido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <mat-select disableOptionCentering formControlName="programa">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let program of programas" id="marker" [value]="program.idProgram"
+        [matTooltipPosition]="'right'" [matTooltip]="program.desprogram | titlecase">
+        {{ program.desprogram | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="programaNoValido.invalid  && programaNoValido.touched"
+      class="text-danger animated fadeIn">Campo requerido</mat-error>
+  </mat-form-field> -->
+
+   <!-- Clientes -->
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <mat-select disableOptionCentering formControlName="cliente">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterClients" placeholderLabel="Buscar cliente..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <!-- <mat-option value="">
+        --
+      </mat-option> -->
+      <mat-option *ngFor="let cliente of clientes" [value]="cliente.idclient" [matTooltipPosition]="'right'"
+        [matTooltip]="cliente.name" (click)="cargarSedes(cliente.header)">
+        {{ cliente.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+  <!-- Sedes -->
+  <mat-form-field>
+    <mat-label>Sede</mat-label>
+    <mat-select [disabled]="formaBuscarDatos.get('cliente')?.invalid" disableOptionCentering
+      formControlName="sede" (selectionChange)="consultarProgramas()">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <!-- <mat-option value="" (click)="formaBuscarDatos.get('sede')?.setValue(null)">
+        --
+      </mat-option> -->
+      <mat-option *ngFor="let sede of sedes" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+        [matTooltip]="sede.desheadquarters">
+        {{ sede.desheadquarters }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- programa -->
+  <mat-form-field>
+    <mat-label>
+      Programa
+    </mat-label>
+    <mat-select [disabled]="formaBuscarDatos.get('sede')?.invalid" disableOptionCentering
+      formControlName="programa">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <!-- <mat-option value="">
+        --
+      </mat-option> -->
+      <mat-option *ngFor="let programa of programas" [value]="programa.IdProgram" [matTooltipPosition]="'right'"
+        [matTooltip]="programa.Desprogram">
+        {{ programa.Desprogram }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Fecha desde - hasta </mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input formControlName="fechadesde" matStartDate placeholder="Fecha inicial">
+      <input formControlName="fechahasta" matEndDate placeholder="Fecha final">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error>Campo requerido</mat-error>
+  </mat-form-field>
+
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="loadData()" [disabled]="formaBuscarDatos.invalid">
+      Buscar <mat-icon>search</mat-icon></button>
+  </div>
+
+</form>
+
+
+
+@defer(when dataTableBody.length !==0 ){
+<app-tabla-comun [viewButton]="false" [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [hidden]="!show">
+</app-tabla-comun>
+}

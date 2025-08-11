@@ -1,0 +1,544 @@
+<div class="boxFiltro">
+
+    <form [formGroup]="form" autocomplete="off" class="formulario">
+
+        <!-- programa -->
+        <div role="group">
+            <mat-form-field>
+                <mat-label >
+                    Programa
+                </mat-label>
+                <mat-select disableOptionCentering formControlName="programa">
+                    <mat-option value="">
+                        --
+                    </mat-option>
+                    <mat-option *ngFor="let programa of programas" [matTooltipPosition]="'right'" [matTooltip]="programa.desprogram" [value]="programa.idProgram">
+                        {{ programa.desprogram }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- analito -->
+        <div role="group">
+            <mat-form-field>
+                <mat-label >
+                    Analito
+                </mat-label>
+                <mat-select disableOptionCentering formControlName="analito" multiple>
+                    <mat-option value="" (click)="selectNone('analito')">
+                        --
+                    </mat-option>
+                    <mat-option value="-1" (click)="selectAll('analito')" *ngIf="analitos.length != 0">
+                        Todos los analitos
+                    </mat-option>
+                    <mat-option *ngFor="let analito of analitos" [matTooltipPosition]="'right'" [matTooltip]="analito.Desanalytes" [value]="analito.Idanalytes" (click)="selectOne('analito')">
+                        {{ analito.Desanalytes }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <!-- ronda -->
+        <div role="group">
+            <mat-form-field>
+                <mat-label >
+                    Ronda
+                </mat-label>
+                <mat-select disableOptionCentering formControlName="ronda">
+                    <mat-option value="">
+                        --
+                    </mat-option>
+                    <mat-option *ngFor="let ronda of rondas" [value]="ronda.Nroround">
+                        {{ ronda.Nroround }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- **Btn Generar reporte*** -->
+        <button type="button" class="boton" (click)="search()">Generar reporte</button>
+
+    </form>
+
+</div>
+<!-- **Btn Exports FILES reporte*** -->
+<div class="boxExport" *ngIf="show">
+    <!-- <img [src]="'excel.png' | imageCdn" alt="Descargar a Excel" class="excel" (click)="exportexcel()"> -->
+    <!-- <img [src]="'pdf2.png' | imageCdn" alt="Descargar a PDF" class="pdf" (click)="downloadPDFByImages()"> -->
+    <img [src]="'pdf2.png' | imageCdn" alt="Descargar a PDF" class="pdf" (click)="downloadPDF()">
+</div>
+
+<div class="animate__animated animate__fadeIn fast" *ngIf="show">
+
+    <div id="boxLogo">
+        <img [src]="'data:image/jpg;base64,'+logo" class="logo" alt="Logo">
+    </div>
+
+    <div id="boxInfo">
+
+        <h1>Resultados Participantes - Datos Control</h1>
+        <h2>Reporte generado: {{ hoy }}</h2>
+        <div class="row">
+            <div class="col">
+                <h2>Programa: {{ infoPrograma }}</h2>
+            </div>
+            <div class="col">
+                <h2>Analito: {{ infoAnalito }}</h2>
+            </div>
+            <div class="col">
+                <h2>Ronda: {{ infoRonda }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <h3>Selecciona (el o los) analitos que deseas visualizar</h3>
+
+    <!-- box collapse y tables -->
+    <div class="boxAll" *ngFor="let analito of analitosFiltrados; let i = index" [id]="i">
+
+        <div class="collap">
+            <h4>{{ analito.desanalyte }}</h4>
+            <i class="fas fa-caret-down" (click)="collapse(i, analito)"></i>
+        </div>
+
+        <div [collapse]="i!==isCollapsed">
+
+            <div class="boxSelect">
+                <h3>Selecciona la prueba que deseas visualizar</h3>
+
+                <div role="group" class="sSample">
+                    <mat-select disableOptionCentering [(value)]="selected" (selectionChange)="paginacion($event.value)">
+                        <mat-option value="">--</mat-option>
+                        <mat-option *ngFor="let muestra of muestras" [matTooltipPosition]="'right'" [matTooltip]="muestra.namesample" [value]="muestra.idsample">{{ muestra.namesample }}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+            <div *ngFor="let dato of dataTable; let indice = index">
+
+                <div class="boxTables" [hidden]="dato[0].idsample != selected">
+
+                    <!-- Tabla izq Sup-->
+                    <div class="boxTablesIzq">
+                        <table class="table-striped">
+                            <thead class="backTh">
+                                <tr>
+                                    <th colspan="2" class="aH">gqr</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">ID laboratorio</th>
+                                    <th scope="col">Nombre laboratorio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dato">
+                                    <td>{{ item.idclient }}</td>
+                                    <td>{{ item.nameclient }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Tabla izq Inf-->
+                        <table class=" mt-4 table-striped">
+                            <thead class="backThDos">
+                                <tr>
+                                    <th scope="col">VALOR ASIGNADO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="aLeft">CONSENSO</td>
+                                </tr>
+                                <tr>
+                                    <td class="aLeft">Positivo</td>
+                                </tr>
+                                <tr>
+                                    <td class="aLeft">Negativo</td>
+                                </tr>
+                                <tr>
+                                    <td class="aLeft">Indeterminado</td>
+                                </tr>
+                                <tr>
+                                    <td class="aLeft">N° total de participantes</td>
+                                </tr>
+                                <tr>
+                                    <td class="aLeft">Mínimo consenso (80%)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- Tabla medio Sup-->
+                    <div class="boxTablesMed">
+                        <table class="table-striped">
+                            <thead class="backTh">
+                                <tr>
+                                    <th scope="col" colspan="7" class="line">Datos control (resultados participante)</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{ dato[0].namesample }}</th>
+                                    <th scope="col">VP</th>
+                                    <th scope="col">VN</th>
+                                    <th scope="col">FN</th>
+                                    <th scope="col">FP</th>
+                                    <th scope="col">I</th>
+                                    <th scope="col">%C</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dato">
+                                    <td>{{ item.resultado }}</td>
+                                    <td>{{ item.vp }}</td>
+                                    <td>{{ item.vn }}</td>
+                                    <td>{{ item.fn }}</td>
+                                    <td>{{ item.fp }}</td>
+                                    <td>{{ item.i }}</td>
+                                    <td>{{ item.c }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Tabla medio Inf-->
+                        <table class="mt-4 table-striped">
+                            <thead class="backThDos">
+                                <tr>
+                                    <th scope="col" colspan="7">
+                                        {{ dato[0].valuetype == 'VN' ? 'Negativo' : dato[0].valuetype == 'VP' ? 'Positivo' : 'Indefinido' }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="col">{{ calculados[indice][8] }}</td>
+                                    <td scope="col">{{ calculados[indice][0] }}</td>
+                                    <td scope="col">{{ calculados[indice][1] }}</td>
+                                    <td scope="col">{{ calculados[indice][2] }}</td>
+                                    <td scope="col">{{ calculados[indice][3] }}</td>
+                                    <td scope="col">{{ calculados[indice][4] }}</td>
+                                    <td scope="col"></td>
+                                </tr>
+                                <tr>
+                                    <td>{{ calculados[indice][5] }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>{{ calculados[indice][6] }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>{{ calculados[indice][7] }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>{{ dato.length }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>{{ (80 * dato.length) / 100 }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="boxPagination">
+
+                            <div class="pagineitor">
+                                {{ contador }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Tabla der Sup-->
+                    <table class="table-striped">
+                        <thead class="backTh">
+                            <tr>
+                                <th colspan="2" class="aH">gqr</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">% Concordancia global</th>
+                                <th scope="col">Desempeño global</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let obj of dato">
+                                <td>{{ obj.concordanciaglobal }}</td>
+                                <td>{{ obj.desempenoglobal }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+    <br>
+    <br>
+    <br>
+    <!-- *** Element PDF ** -->
+    <div id="boxPDF"></div>
+
+    <!-- <div id="tableExcel" [hidden]="true" class="table"> -->
+
+    <div id="htmlData" class="mt-5" [hidden]="true">
+        <br>
+        <h2 class="p-0 m-0 ml-5">
+            <strong>{{analyteName}}</strong>
+        </h2>
+        <hr class="w95 p-0 mt-0">
+
+        <div class="boxTables">
+
+            <table class="mx-1">
+                <!-- **datos superior** -->
+                <thead>
+                    <tr>
+                        <td class="p-0 m-0">
+                            <table class="table-striped">
+                                <thead class="backTh">
+                                    <tr>
+                                        <th class="p-1 m-0 rounded-start">ID Laboratorio</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let obj of dataIdCliente">
+                                        <td>{{ obj.idclient }}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </td>
+
+                        <td class="p-0 m-0">
+                            <table class="table-striped">
+                                <thead class="backTh">
+                                    <tr>
+                                        <th class="p-1 m-0"> Nombre Laboratorio</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let obj of dataIdCliente">
+                                        <td>{{ obj.nameclient }}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+                        </td>
+                        <td class="p-1 m-0" *ngFor="let dato of dataTable">
+
+                            <table class="table-striped">
+                                <thead class="backTh">
+                                    <tr>
+                                        <th class="p13px m-0 w50px">{{ dato[0].namesample }}</th>
+                                        <th class="p13px m-0 w50px">VP</th>
+                                        <th class="p13px m-0 w50px">VN</th>
+                                        <th class="p13px m-0 w50px">FN</th>
+                                        <th class="p13px m-0 w50px">FP</th>
+                                        <th class="p13px m-0 w50px">I</th>
+                                        <th class="p13px m-0 w50px">%C</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let item of dato">
+                                        <td>{{ item.resultado }}</td>
+                                        <td>{{ item.vp }}</td>
+                                        <td>{{ item.vn }}</td>
+                                        <td>{{ item.fn }}</td>
+                                        <td>{{ item.fp }}</td>
+                                        <td>{{ item.i }}</td>
+                                        <td>{{ item.c }}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+                        </td>
+
+                        <td class="p-0 m-0">
+                            <table class="table-striped">
+                                <thead class="backTh">
+                                    <tr>
+                                        <th class="p-1 m-0">%Concordancia Global</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let obj of dataIdCliente">
+                                        <td>{{ obj.concordanciaglobal }}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </td>
+
+                        <td class="p-0 m-0">
+                            <table class="table-striped">
+                                <thead class="backTh">
+                                    <tr>
+                                        <th class="p-1 m-0 rounded-end">Desempeño Global</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let obj of dataIdCliente">
+                                        <td>{{ obj.desempenoglobal }}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </td>
+
+                    </tr>
+                </thead>
+                <!-- **datos inferiores** -->
+                <tbody>
+                    <tr>
+
+                        <td class="p-1 m-0" colspan="2">
+                            <table class="table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td class="backThDos p-1 m-0 rounded">VALOR ASIGNADO</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CONSENSO</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Positivo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Negativo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Indeterminado</td>
+                                    </tr>
+                                    <tr>
+                                        <td>N° de Participaciones</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mínimo Consenso (80%)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+
+                        <td class="p-1 m-0" *ngFor="let dato of dataTable; let indice = index">
+
+                            <table class="table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td class="backThDos w350px p-1 m-0 rounded" colspan="7">
+                                            {{ dato[0].valuetype == 'VN' ? 'Negativo' : dato[0].valuetype == 'VP' ? 'Positivo' : 'Indefinido' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">{{ calculados[indice][8] }}</td>
+                                        <td scope="col">{{ calculados[indice][0] }}</td>
+                                        <td scope="col">{{ calculados[indice][1] }}</td>
+                                        <td scope="col">{{ calculados[indice][2] }}</td>
+                                        <td scope="col">{{ calculados[indice][3] }}</td>
+                                        <td scope="col">{{ calculados[indice][4] }}</td>
+                                        <td scope="col"></td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">{{ calculados[indice][5] }}</td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">{{ calculados[indice][6] }}</td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">{{ calculados[indice][7] }}</td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">{{ dato.length }}</td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="col">{{ (80 * dato.length) / 100 }}</td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                        <td scope="col"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+    </div>

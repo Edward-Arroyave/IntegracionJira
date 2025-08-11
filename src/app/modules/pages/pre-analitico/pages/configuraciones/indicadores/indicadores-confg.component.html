@@ -1,0 +1,532 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <div class="card mt-3 mb-3 borderTable">
+        <div class="col-12 d-flex justify-content-center">
+          <img class="imageSobreBorde" [src]="'area.png' | imageCdn">
+        </div>
+        <div class="row">
+          <div class="col p-3">
+            <img class="ml-3" style="cursor: pointer;" [src]="'home_icon.svg' | imageCdn" [hidden]="homeBtnHide"
+              (click)="getHome()">
+          </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+          <div class="col-12 titulo"> INDICADORES</div>
+          <div class="col-12 text-center" style="color: #434A49; font-size: 16px; font-weight: bolder;"
+            [hidden]="selectIndHide"> Seleccione el Indicador que desea Visualizar</div>
+          <div class="col-11 col-lg-10 col-xl-10">
+            <!-- ** Seleccion Indicadores -->
+            <div class="row boxBtns" [hidden]="selectIndHide">
+              <div class="col-12">
+                <div class="row text-center">
+                  <div class="col-6 mb-3">
+                    <!-- ** Lista Indicadores desde API -->
+                    <ul class="list-group" *ngIf="indicadoresArr.length == 3" [hidden]="true">
+                      <li class="list-group-item border-0" *ngFor="let indicador of indicadoresArr; let i = index">
+                        <div class="card border-0" style="cursor: pointer;">
+                          <div class="card-body p-0">
+                            <div id="ind-{{i}}" class="indicador mb-2" (click)="selectedIndicatorByApi(indicador, i)">
+                              <img class="mr-3" [src]="'n1_purple.png' | imageCdn" alt="Item Indicador">
+                              <!-- <div class="d-block"><p class="text-item">{{indicador.nameindicators}}</p></div> -->
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <!-- ** Lista Indicadores desde HARD CODE -->
+                    <ul class="list-group">
+                      <li class="list-group-item border-0">
+                        <div class="card border-0" style="cursor: pointer;">
+                          <div class="card-body p-0">
+                            <div #itemIndicador1 class="indicador mb-2"
+                              (click)="selectedIndicador(itemIndicador1, pItem1, 0)">
+                              <img class="mr-3 img-ind" [src]="'n1_purple.png' | imageCdn" alt="Item Indicador">
+                              <div class="d-block">
+                                <p #pItem1 class="text-item">Errores de Identificación del paciente (Q1)</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item border-0">
+                        <div class="card border-0" style="cursor: pointer;">
+                          <div class="card-body p-0">
+                            <div #itemIndicador2 class="indicador mb-2"
+                              (click)="selectedIndicador(itemIndicador2, pItem2, 1)">
+                              <img class="mr-3 img-ind" [src]="'n2_purple.png' | imageCdn" alt="Item Indicador">
+                              <div class="d-block">
+                                <p #pItem2 class="text-item">Muestras rechazadas(Q2)</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item border-0">
+                        <div class="card border-0" style="cursor: pointer;">
+                          <div class="card-body p-0">
+                            <div #itemIndicador3 class="indicador mb-2"
+                              (click)="selectedIndicador(itemIndicador3, pItem3, 2)">
+                              <img class="mr-3 img-ind" [src]="'n3_purple.png' | imageCdn" alt="Item Indicador">
+                              <div class="d-block">
+                                <p #pItem3 class="text-item">Satisfacción en la toma de muestras (Q3)</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-6 img-bg-ind">
+                    <!-- <img class="img-select-ind" [src]="'ilustracion_config.svg' | imageCdn" alt="Configuración Indicadores"> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- ** Indicadores Configuracion -->
+            <div class="row" [hidden]="page1Hide">
+              <div class="col-12">
+                <!-- ** Indicador - Info -->
+                <div class="row mt-3">
+                  <div class="col-12 text-center mb-3">
+                    <div class="d-inline-flex">
+                      <div class="dot text-center"><span class="number">1</span></div>
+                      <hr class="line" />
+                      <div class="dot-border text-center"><span class="number">2</span></div>
+                      <hr id="linIni" class="line" />
+                      <div id="num3Ini" class="dot-border text-center"><span class="number">3</span></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- ** Titulo Indicador -->
+                <p class="mt-4" style="font-size: large;"><strong>{{tituloInd}}</strong></p>
+                <!-- cont form -->
+                <div class="row styleRowForm">
+                  <form [formGroup]="formulario" autocomplete="off" (submit)="setIndConfiguration()" *ngIf="formShow">
+                    <div class="row ">
+                      <div class="col-12 boxForm gap-2">
+                        <!-- Meta -->
+                        <div role="group">
+                          <mat-form-field class="w100">
+                            <mat-label>Meta </mat-label>
+                            <input matInput type="number" formControlName="aim">
+                            <mat-error *ngIf="aimNoValido.hasError('min') && !aimNoValido.hasError('required')"
+                              class="animated fadeIn">Minimo 0%</mat-error>
+                            <mat-error *ngIf="aimNoValido.hasError('max') && !aimNoValido.hasError('required')"
+                              class="animated fadeIn">Maximo 100%</mat-error>
+                            <mat-error *ngIf="aimNoValido.hasError('required')"
+                              class="animated fadeIn">Campo requerido</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <!-- Unidad Medicion -->
+                        <div role="group">
+                          <mat-form-field class="w200">
+                            <mat-label>Unidad Medición</mat-label>
+                            <input matInput type="text" formControlName="unitofmeasurement">
+                            <mat-error
+                              *ngIf="unitofmeasurementNoValido.hasError('minlength') && !unitofmeasurementNoValido.hasError('required') "
+                              class="animated fadeIn ">Mínimo 1 carácter</mat-error>
+                            <mat-error
+                              *ngIf="unitofmeasurementNoValido.hasError('maxlength') && !unitofmeasurementNoValido.hasError('required') "
+                              class="animated fadeIn ">Máximo 50 caracteres</mat-error>
+                            <mat-error *ngIf="unitofmeasurementNoValido.hasError('required')"
+                              class="animated fadeIn">Campo requerido</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <!-- Frecuencia Medición -->
+                        <div role="group ">
+                          <mat-form-field>
+                            <mat-label>Frequencia medición</mat-label>
+                            <input matInput type="text" formControlName="measurementfrequency">
+                            <mat-error
+                              *ngIf="measurementfrequencyNoValido.hasError('minlength') && !measurementfrequencyNoValido.hasError('required') "
+                              class="animated fadeIn ">Mínimo 2 caracteres</mat-error>
+                            <mat-error
+                              *ngIf="measurementfrequencyNoValido.hasError('maxlength') && !measurementfrequencyNoValido.hasError('required') "
+                              class="animated fadeIn ">Máximo 50 caracteres</mat-error>
+                            <mat-error *ngIf="measurementfrequencyNoValido.hasError('required') "
+                              class="animated fadeIn ">Campo requerido</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <!-- Fuente -->
+                        <div role="group">
+                          <mat-form-field>
+                            <mat-label>Fuente Información </mat-label>
+                            <input matInput type="text" formControlName="sourceofinformation">
+                            <mat-error
+                              *ngIf="sourceofinformationNoValido.hasError('minlength') && !sourceofinformationNoValido.hasError('required')"
+                              class="animated fadeIn">Mínimo 2 caracteres</mat-error>
+                            <mat-error
+                              *ngIf="sourceofinformationNoValido.hasError('maxlength') && !sourceofinformationNoValido.hasError('required')"
+                              class="animated fadeIn">Máximo 50 caracteres</mat-error>
+                            <mat-error *ngIf="sourceofinformationNoValido.hasError('required')"
+                              class="animated fadeIn">Campo requerido</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col"></div>
+                      <div class="col-10 boxForm gap-2">
+                        <!-- Responsable Medición -->
+                        <div role="group">
+                          <mat-form-field>
+                            <mat-label>Responsable Medición </mat-label>
+                            <input matInput type="text" formControlName="responsiblemeasurement">
+                            <mat-error
+                              *ngIf="responsiblemeasurementNoValido.hasError('minlength') && !responsiblemeasurementNoValido.hasError('required')"
+                              class="animated fadeIn">
+                              Mínimo 2 caracteres
+                            </mat-error>
+                            <mat-error
+                              *ngIf="responsiblemeasurementNoValido.hasError('maxlength') && !responsiblemeasurementNoValido.hasError('required')"
+                              class="animated fadeIn">
+                              Máximo 50 caracteres
+                            </mat-error>
+                            <mat-error *ngIf="responsiblemeasurementNoValido.hasError('required')"
+                              class="animated fadeIn">
+                              Campo requerido
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <!-- Resposable Analisis -->
+                        <div role="group">
+                          <mat-form-field>
+                            <mat-label>Responsable Análisis </mat-label>
+                            <input matInput type="text" formControlName="headanalysis">
+                            <mat-error
+                              *ngIf="headanalysisNoValido.hasError('minlength') && !headanalysisNoValido.hasError('required')"
+                              class="animated fadeIn">
+                              Mínimo 2 caracteres
+                            </mat-error>
+                            <mat-error
+                              *ngIf="headanalysisNoValido.hasError('maxlength') && !headanalysisNoValido.hasError('required')"
+                              class="animated fadeIn">
+                              Máximo 50 caracteres
+                            </mat-error>
+                            <mat-error *ngIf="headanalysisNoValido.hasError('required')" class="animated fadeIn">
+                              Campo requerido
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col"></div>
+                    </div>
+                    <div class="row ">
+                      <div class="col-12 boxForm ">
+                        <!-- Descripcion del Indicador -->
+                        <div role="group">
+                          <label for="descriptionindicators">Descripción del Indicador<span class="colorAsterisco">
+                              *</span></label>
+                          <textarea formControlName="descriptionindicators" class="form-control styleForm3"
+                            autocomplete="off" rows="5" cols="100"></textarea>
+                          <mat-error *ngIf="descriptionindicatorsNoValido.hasError('minlength')"
+                            class="animated fadeIn">Mínimo 3 caracteres</mat-error>
+                          <mat-error *ngIf="descriptionindicatorsNoValido.hasError('maxlength')"
+                            class="animated fadeIn">Máximo 400 caracteres</mat-error>
+                          <mat-error
+                            *ngIf="descriptionindicatorsNoValido.invalid  && descriptionindicatorsNoValido.touched && !descriptionindicatorsNoValido.hasError('minlength') && !descriptionindicatorsNoValido.hasError('maxlength') && !descriptionindicatorsNoValido.hasError('pattern')"
+                            class="animated fadeIn">Campo requerido</mat-error>
+                          <mat-error
+                            *ngIf="descriptionindicatorsNoValido.hasError('pattern') && !descriptionindicatorsNoValido.hasError('minlength') "
+                            class="animated fadeIn">Debe ser tipo de tipo email</mat-error>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-sm-4 form-group btnActive ">
+                      <div role="group ">
+                        <label class="labelForm " for="active">Estado</label><br>
+                        <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+                      </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center gap-2 mt-5 ">
+                      <button class="boton">Guardar</button>
+                      <button class="botonCancelar" type="button" (click)="getHome() ">Cancelar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- Seleccion Areas - Turnos -->
+            <div class="row" [hidden]="page2Hide">
+              <div class="col-12">
+
+
+                <!-- ** Indicador - Info -->
+                <div class="row mt-3">
+
+                  <div class="col-12 text-center mb-3">
+                    <div class="d-inline-flex">
+                      <div class="dot-border text-center"><span class="number">1</span></div>
+                      <hr class="line" />
+                      <div class="dot text-center"><span class="number">2</span></div>
+                      <hr class="line" />
+                      <div class="dot-border text-center">
+                        <span class="number">3</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Areas y Turnos -->
+                <div class="row mt-5">
+                  <div class="col-6">
+                    <p class="text-nowrap text-item ">Áreas</p>
+                    <p>Desliza hacia la derecha las áreas necesarias</p>
+
+                    <div class="row">
+                      <div class="col-6 text-center p-2">
+                        <div class="example-container">
+                          <div cdkDropList #todoAreaList="cdkDropList" class="example-list"
+                            [cdkDropListData]="areasPending" [cdkDropListConnectedTo]="[doneAreaList]"
+                            (cdkDropListDropped)="drop($event)">
+                            <div class="example-box" *ngFor="let item of areasPending" cdkDrag
+                              [cdkDragDisabled]="item.disabled">
+                              <i class="fas fa-grip-vertical mr-2 bg-sidemenu"></i>{{item.desarea}}
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <div class="col-6">
+                        <div class="example-container-done">
+                          <div cdkDropList #doneAreaList="cdkDropList" class="example-list-done"
+                            [cdkDropListData]="areasArrDone" [cdkDropListConnectedTo]="[todoAreaList]"
+                            (cdkDropListDropped)="drop($event)">
+                            <div class="example-box-done" *ngFor="let item of areasArrDone" cdkDrag>
+                              <i class="fas fa-grip-lines-vertical mr-2 bg-sidemenu"></i>{{item.desarea}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-6">
+                    <p class="text-nowrap text-item ">Turnos</p>
+                    <p>Desliza hacia la derecha la jornada que se requiera</p>
+
+                    <div class="row">
+                      <div class="col-6 text-center p-2">
+                        <div class="example-container">
+                          <div cdkDropList #todoTurnoList="cdkDropList" class="example-list"
+                            [cdkDropListData]="turnosPending" [cdkDropListConnectedTo]="[doneTurnoList]"
+                            (cdkDropListDropped)="drop($event)">
+                            <div class="example-box" *ngFor="let item of turnosPending" cdkDrag
+                              [cdkDragDisabled]="item.disabled">
+                              <i class="fas fa-grip-vertical mr-2 bg-sidemenu"></i>{{item.desturns}}
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <div class="col-6">
+                        <div class="example-container-done">
+                          <div cdkDropList #doneTurnoList="cdkDropList" class="example-list-done"
+                            [cdkDropListData]="turnosArrDone" [cdkDropListConnectedTo]="[todoTurnoList]"
+                            (cdkDropListDropped)="drop($event)">
+                            <div class="example-box-done" *ngFor="let item of turnosArrDone" cdkDrag>
+                              <i class="fas fa-grip-lines-vertical mr-2 bg-sidemenu"></i>{{item.desturns}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Btns Next - Back -->
+                <div class="row">
+                  <div class="col-6 contBtn mt-5 ">
+                    <button type="button" class="boton-back" (click)="getBackPage2()">Atrás</button>
+                  </div>
+                  <div class="col-6 contBtn mt-5 ">
+                    <button type="button" class="boton float-right" (click)="getNext2()">Siguiente</button>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+            <!-- Guardado Correctamente -->
+            <div class="row" [hidden]="page3Hide">
+              <div class="col-12">
+
+
+                <!-- ** Indicador - Info -->
+                <div class="row mt-3">
+
+                  <div class="col-12 text-center mb-3">
+                    <div class="d-inline-flex">
+                      <div class="dot-border text-center"><span class="number">1</span></div>
+                      <hr class="line" />
+                      <div id="num2Fin" class="text-center"><span class="number">2</span></div>
+                      <hr id="linFin" class="line" />
+                      <div id="num3Fin" class="dot text-center"><span class="number">3</span></div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- modal -->
+                <div class="row mt-5">
+                  <div class="col"></div>
+                  <div class="col-6">
+                    <div class="card border-0">
+                      <div class="card-body card-modal">
+                        <div class="row ">
+                          <div class="col flex2 ">
+                            <img class="img " [src]=" 'check.png' | imageCdn ">
+
+                            <h3 class="tituloModal ">Información Guardada</h3>
+                            <div class="hr "></div>
+                            <p>Correctamente</p>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col"></div>
+
+                </div>
+
+                <!-- Btns Next - Back -->
+                <div class="row">
+                  <div class="col-6 contBtn mt-5 ">
+                    <button type="button" class="boton-back" (click)="getBackPage3()">Atrás</button>
+                  </div>
+                  <div class="col-6 contBtn mt-5 ">
+                    <button type="button" class="boton float-right" (click)="getHome()">Finalizar</button>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ***Modals -->
+<!--
+ <ng-template #templateRegistroIndicador>
+    <div class="modal-header ">
+        <button type="button " class="close pull-right " arial-label="Close " (click)="closeVentana() ">
+          <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="row ">
+            <div class="col flex2 ">
+                <img *ngIf="accionEditar " class="img " [src]=" 'edit.png' | imageCdn ">
+                <img class="img " [src]=" 'crear2.png' | imageCdn ">
+                <h3 class="tituloModal ">{{tituloAccion}}</h3>
+                <div class="hr "></div>
+
+            </div>
+        </div>
+        <form [formGroup]="formaRegistroIndicadores " (ngSubmit)="crearEditarIndicadores() ">
+            <div class="form-row ">
+                <div class="col-sm-8 form-group ">
+                    <div role="group ">
+                        <label class="labelForm " for="desarea ">
+                          Nombre área
+                            <span class="colorAsterisco "> *</span></label>
+                        <input formControlName="desarea " type="text " class="form-control " [ngClass]="!accionEditar ? 'styleForm' : 'styleForm2' " id="desarea " autocomplete="off ">
+                        <small *ngIf="desNoValido.errors?.minlength " class="animated fadeIn ">Mínimo 2 caracteres</small>
+                        <small *ngIf="desNoValido.errors?.maxlength " class="animated fadeIn ">Máximo 50 caracteres</small>
+                        <small *ngIf="desNoValido.invalid && desNoValido.touched && !desNoValido.errors?.minlength && !desNoValido.errors?.maxlength " class="animated fadeIn ">Campo requerido</small>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-group btnActive ">
+                    <div role="group ">
+                        <label class="labelForm " for="active ">Estado</label><br>
+                        <mat-slide-toggle formControlName="active "></mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row ">
+                <div class="col-12 boxBtnAceptCancel ">
+                    <button [disabled]="desactivar " class="boton btnAceptar " type="submit ">Aceptar</button>
+                    <button class="botonCancelar btnCancel " type="button " (click)="closeVentana() ">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+ -->
+
+<!-- **Modal Eliminar -->
+<!--
+     <ng-template #templateEliminarIndicador>
+    <div class="modal-header ">
+        <button type="button " class="close pull-right " arial-label="Close " (click)="closeVentana() ">
+          <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="row ">
+            <div class="col flex2 ">
+                <img class="img " [src]=" 'delete.png' | imageCdn ">
+
+                <h3 class="tituloModal ">{{tituloAccion}}</h3>
+                <div class="hr "></div>
+                <p>Se elimina Área de manera permanente</p>
+
+            </div>
+        </div>
+
+        <div class="form-row ">
+            <div class="col-12 boxBtnAceptCancel ">
+                <button class="boton btnAceptar " type="button " (click)="eliminarIndicador(indicador.idindicators) ">Si</button>
+                <button class="botonCancelar btnCancel " type="button " (click)="closeVentana() ">No</button>
+            </div>
+        </div>
+
+    </div>
+</ng-template>
+ -->
+
+<!-- **Modal Guardado -->
+<!--
+    <ng-template #templateGuardadoIndicador>
+    <div class="modal-header ">
+        <button type="button " class="close pull-right " arial-label="Close " (click)="closeVentana() ">
+          <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="row ">
+            <div class="col flex2 ">
+                <img class="img " [src]=" 'check.png' | imageCdn ">
+
+                <h3 class="tituloModal ">{{tituloAccion}}</h3>
+                <div class="hr "></div>
+                <p>Correctamente</p>
+
+            </div>
+        </div>
+
+        <div class="form-row ">
+            <div class="col-12 boxBtnAceptCancel ">
+                <button class="boton btnAceptar " type="button " (click)="eliminarIndicador(indicador.idindicators) ">Si</button>
+                <button class="botonCancelar btnCancel " type="button " (click)="closeVentana() ">No</button>
+            </div>
+        </div>
+
+    </div>
+</ng-template>
+-->

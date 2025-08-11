@@ -1,0 +1,129 @@
+
+
+<h1 style="margin-top: 3em;">Especificaciones analiticas de desempleño</h1>
+
+
+<form [formGroup]="formulario" class="form_busqueda">
+
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <mat-select disableOptionCentering formControlName="idProgram" (selectionChange)="changeValue($event.value)">
+      <mat-option value="">--
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let program of programasActive" (click)="enviarId(program.idProgram)"
+        [value]="program.idProgram" [matTooltipPosition]="'right'" [matTooltip]="program.desprogram | titlecase">
+        {{ program.desprogram | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="filtrar()" [disabled]="formulario.invalid">
+      Buscar</button>
+  </div>
+
+</form>
+
+
+<app-tabla-comun [hidden]="!ver" [cabeceros]="displayedColumns" [info-tabla]="dataTableBody"
+  (onCreate)="openModalRegistro(templateRegistro, '')" (onChangeStatus)="actualizarEstado($event)"
+  (onEdit)="openModalRegistro(templateRegistro, $event)" (onDelete)="eliminar($event.Idconfobjquaprogramanalyte)">
+</app-tabla-comun>
+
+<ng-template #templateRegistro>
+
+  <form [formGroup]="formularioRegistroEditar" class="grid-2-completo">
+
+
+
+
+    <mat-form-field>
+      <mat-label>
+        Analito
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="Idanalytes">
+        <mat-option value="">--
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analito..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let analito of listaAnalitos" [value]="analito.Idanalytes" [matTooltipPosition]="'right'"
+          [matTooltip]="analito.Desanalytes">
+          {{ analito.Desanalytes }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field>
+      <mat-label>
+        Fuente
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="Idsource">
+        <mat-option value="">--
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterFuentes" placeholderLabel="Buscar fuente..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let fuente of listaFuentes" [value]="fuente.idsource" [matTooltipPosition]="'right'"
+          [matTooltip]="fuente.dessource">
+          {{ fuente.dessource }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+
+
+
+    <mat-form-field>
+      <mat-label>Unidad</mat-label>
+      <mat-select disableOptionCentering formControlName="Idunits">
+        <mat-option value="">--
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterUnidades" placeholderLabel="Buscar unidades..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let unidad of listaUnits" [value]="unidad.idunits" [matTooltipPosition]="'right'"
+          [matTooltip]="unidad.codunits">
+          {{ unidad.codunits }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Objetivo
+      </mat-label>
+      <input matInput formControlName="Objective" type="number">
+      <mat-error *ngIf="ObjectiveNoValido.errors?.required  && ObjectiveNoValido.touched">Obligatorio</mat-error>
+      <mat-error *ngIf="ObjectiveNoValido.errors?.maxlength">Estado</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="Active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>
+
+
+
+

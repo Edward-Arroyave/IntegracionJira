@@ -1,0 +1,48 @@
+.activo{
+    /* background: rgb(199, 195, 195); */
+    background: red !important;
+    border: 2px solid red !important;
+}
+
+.backHover {
+  background: red !important;
+  border: 2px solid red !important;
+}
+
+.styleSeccion{
+  gap: 1em;
+}
+
+.estiloGeneralSlide:hover{
+  color: var(--blue-03) !important;
+}
+
+.highlight{
+  background: var(--blue-03);
+}
+
+.highlight:hover{
+  color: white !important;
+}
+
+.styleSeccion:hover{
+  background: #20319f8f;
+  color: white;
+}
+
+.selected{
+  background: var(--purple-03);
+  color:white;
+}
+.dos:hover{
+  color: var(--purple-03) !important;
+}
+
+.selected:hover{
+  color: white !important;
+}
+
+.cardModify{
+  top: 0;
+  height: 530px !important;
+}

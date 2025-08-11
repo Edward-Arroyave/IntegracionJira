@@ -1,0 +1,2327 @@
+[
+    {
+        "version":"3.0.12"
+    },
+    {
+        "cliente": "demoAcceptance",
+        "dbname": "demoAcceptancelogs",
+        "collection": "logs",
+        "bd_secundario": "demoAcceptance",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"http://localhost:4200/"
+    },
+    {
+        "cliente": "desarrollo",
+        "dbname": "desarrollologs",
+        "collection": "logs",
+        "bd_secundario": "desarrollo",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-frontend-general-desarrollo.azurewebsites.net/"
+    },
+    {
+        "cliente": "desarrolloclient",
+        "dbname": "desarrolloclientlogs",
+        "collection": "logs",
+        "bd_secundario": "desarrollo",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"http://valiqc-cliente1-dev.ithealth.co/"
+    },
+    {
+    "cliente": "desarrolloclient2",
+    "dbname": "desarrolloclient2logs",
+    "collection": "logs",
+    "bd_secundario": "desarrollo",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"http://valiqc-cliente2-dev.ithealth.co/"
+    },
+    {
+    "cliente": "desarrolloclient3",
+    "dbname": "desarrolloclient3logs",
+    "collection": "logs",
+    "bd_secundario": "desarrollo",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"http://valiqc-cliente3-dev.ithealth.co/"
+    },
+    {
+        "cliente": "qcdemo",
+        "dbname": "qcdemologs",
+        "collection": "logs",
+        "bd_secundario": "qcdemo",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-frontend-general-demo.azurewebsites.net/"
+    },
+    {
+    "cliente": "pruebas",
+    "dbname": "pruebaslogs",
+    "collection": "logs",
+    "bd_secundario": "pruebas",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-frontend-general-pruebas.azurewebsites.net/"
+    },
+    {
+    "cliente": "test-cliente1",
+    "dbname": "test-cliente1logs",
+    "collection": "logs",
+    "bd_secundario": "pruebas",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-cliente1-test.ithealth.co/"
+    },
+    {
+    "cliente": "test-cliente2",
+    "dbname": "test-cliente2logs",
+    "collection": "logs",
+    "bd_secundario": "pruebas",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"http://valiqc-cliente2-test.ithealth.co/"
+    },
+    {
+    "cliente": "test-cliente3",
+    "dbname": "test-cliente3logs",
+    "collection": "logs",
+    "bd_secundario": "pruebas",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"http://valiqc-cliente3-test.ithealth.co/"
+    },
+    {
+    "cliente": "sinergia",
+    "dbname": "sinergialogs",
+    "collection": "logs",
+    "bd_secundario": "sinergia",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-sinergia.ithealth.co/"
+    },
+    {
+    "cliente": "imsalud",
+    "dbname": "imsaludlogs",
+    "collection": "logs",
+    "bd_secundario": "imsalud",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-imsalud.ithealth.co/"
+    },
+    {
+    "cliente": "ipscosta",
+    "dbname": "ipscostalogs",
+    "collection": "logs",
+    "bd_secundario": "ipscosta",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-ipscosta.ithealth.co/"
+    },
+    {
+    "cliente": "medicadiz",
+    "dbname": "medicadizlogs",
+    "collection": "logs",
+    "bd_secundario": "medicadiz",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-medicadiz.ithealth.co/"
+    },
+    {
+    "cliente": "HMCR",
+    "dbname": "hmcrlogs",
+    "collection": "logs",
+    "bd_secundario": "HMCR",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-hmcr.ithealth.co/"
+    },
+    {
+    "cliente": "alife",
+    "dbname": "alifelogs",
+    "collection": "logs",
+    "bd_secundario": "alife",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-alife.ithealth.co/"
+    },
+    {
+    "cliente": "ecoimagen",
+    "dbname": "ecoimagenlogs",
+    "collection": "logs",
+    "bd_secundario": "ecoimagen",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-ecoimagen.ithealth.co/"
+    },
+    {
+    "cliente": "cmq",
+    "dbname": "cmqlogs",
+    "collection": "logs",
+    "bd_secundario": "cmq",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-cmq.ithealth.co/"
+    },
+    {
+    "cliente": "assot",
+    "dbname": "assotlogs",
+    "collection": "logs",
+    "bd_secundario": "emisorcce-annar",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-assott.ithealth.co/"
+    },
+    {
+    "cliente": "demoAcceptance",
+    "dbname": "demoAcceptancelogs",
+    "collection": "logs",
+    "bd_secundario": "demoAcceptance",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"http://valiqc-demo-emisor.ithealth.co/"
+    },
+    {
+    "cliente": "democliente1",
+    "dbname": "democliente1logs",
+    "collection": "logs",
+    "bd_secundario": "demoemisor",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"http://valiqc-demo-cliente1.ithealth.co/"
+    },
+    {
+    "cliente": "democliente2",
+    "dbname": "democliente2logs",
+    "collection": "logs",
+    "bd_secundario": "demoemisor",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"http://valiqc-demo-cliente2.ithealth.co/"
+    },
+    {
+    "cliente": "democliente3",
+    "dbname": "democliente3logs",
+    "collection": "logs",
+    "bd_secundario": "demoemisor",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"http://valiqc-demo-cliente3.ithealth.co/"
+    },
+    {
+    "cliente": "qcconfiguraciones",
+    "dbname": "qcconfiguracioneslogs",
+    "collection": "logs",
+    "bd_secundario": "qcconfiguraciones",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"http://valiqc-configuraciones.ithealth.co/"
+    },
+    {
+    "cliente": "saludintegral",
+    "dbname": "saludintegrallogs",
+    "collection": "logs",
+    "bd_secundario": "saludintegral",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-saludintegral.ithealth.co/"
+    },
+    {
+    "cliente": "viva1ademo",
+    "dbname": "viva1ademologs",
+    "collection": "logs",
+    "bd_secundario": "viva1ademo",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-viva1a-demo.ithealth.co/"
+    },
+    {
+    "cliente": "colcan",
+    "dbname": "colcanlogs",
+    "collection": "logs",
+    "bd_secundario": "emisorcce-annar",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-colcan.ithealth.co/"
+    },
+    {
+    "cliente": "pruebas",
+    "dbname": "pruebaslogs",
+    "collection": "logs",
+    "bd_secundario": "pruebas",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-frontend-general-pruebas.azurewebsites.net/"
+    },
+    {
+    "cliente": "gestarsalud",
+    "dbname": "gestarsaludlogs",
+    "collection": "logs",
+    "bd_secundario": "gestarsalud",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-gestarsalud.ithealth.co/"
+    },
+    {
+    "cliente": "cesmanizales",
+    "dbname": "cesmanizaleslogs",
+    "collection": "logs",
+    "bd_secundario": "cesmanizales",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-cesmanizales-demo.ithealth.co/"
+    },
+    {
+    "cliente": "eslamesa",
+    "dbname": "eslamesalogs",
+    "collection": "logs",
+    "bd_secundario": "eslamesa",
+    "controlinterno": "S",
+    "controlexterno": "S" ,
+    "sitio":"https://valiqc-es-lamesa.ithealth.co/"
+    },
+    {
+        "cliente": "berboj",
+        "dbname": "berbojlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-berboj.ithealth.co/"
+    },
+    {
+        "cliente": "saludsocial",
+        "dbname": "saludsociallogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-saludsocial.ithealth.co/"
+    },
+    {
+        "cliente": "generalnorte",
+        "dbname": "generalnortelogs",
+        "collection": "logs",
+        "bd_secundario": "generalnorte",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-clinica-gral-norte.ithealth.co/"
+    },
+    {
+        "cliente": "hospiclab",
+        "dbname": "hospiclablogs",
+        "collection": "logs",
+        "bd_secundario": "hospiclab",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospiclab.ithealth.co/"
+    },
+    {
+        "cliente": "cliniclab",
+        "dbname": "cliniclablogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-cliniclab.ithealth.co/"
+    },
+    {
+        "cliente": "clinicasantasofia",
+        "dbname": "clinicasantasofialogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-clinica-santasofia.ithealth.co/"
+    },
+    {
+        "cliente": "betronlab",
+        "dbname": "betronlablogs",
+        "collection": "logs",
+        "bd_secundario": "betronlab",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-bretonlab.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalsevilla",
+        "dbname": "hospitalsevillalogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalsevilla",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospitalsevilla.ithealth.co/"
+    },
+    {
+        "cliente": "redsaludarmenia",
+        "dbname": "redsaludarmenialogs",
+        "collection": "logs",
+        "bd_secundario": "redsaludarmenia",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-redsalud-armenia.ithealth.co/"
+    },
+    {
+        "cliente": "masvida",
+        "dbname": "masvidalogs",
+        "collection": "logs",
+        "bd_secundario": "masvida",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-masvida.ithealth.co/"
+    },
+    {
+        "cliente": "nancysandoval",
+        "dbname": "nancysandovallogs",
+        "collection": "logs",
+        "bd_secundario": "nancysandoval",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-nancy-sandoval.ithealth.co/"
+    },
+    {
+        "cliente": "clinicatrinidad",
+        "dbname": "clinicatrinidadlogs",
+        "collection": "logs",
+        "bd_secundario": "clinicatrinidad",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-clinica-trinidad.ithealth.co/"
+    },
+    {
+        "cliente": "clinicaguaranda",
+        "dbname": "clinicaguarandalogs",
+        "collection": "logs",
+        "bd_secundario": "clinicaguaranda",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-clinica-guaranda.ithealth.co/"
+    },
+    {
+        "cliente": "interconsultas",
+        "dbname": "interconsultaslogs",
+        "collection": "logs",
+        "bd_secundario": "interconsultas",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-interconsultas.ithealth.co/"
+    },
+    {
+        "cliente": "martamorales",
+        "dbname": "martamoraleslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-martamorales.ithealth.co/"
+    },
+    {
+        "cliente": "esepereira",
+        "dbname": "esepereiralogs",
+        "collection": "logs",
+        "bd_secundario": "esepereira",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-ese-pereira.ithealth.co/"
+    },
+    {
+        "cliente": "cdcarmenia",
+        "dbname": "cdcarmenialogs",
+        "collection": "logs",
+        "bd_secundario": "cdcarmenia",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-cdc-armenia.ithealth.co/"
+    },
+    {
+        "cliente": "comfacaldas",
+        "dbname": "comfacaldaslogs",
+        "collection": "logs",
+        "bd_secundario": "comfacaldas",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-comfacaldas.ithealth.co/"
+    },
+    {
+        "cliente": "lablopezcorrea",
+        "dbname": "lablopezcorrealogs",
+        "collection": "logs",
+        "bd_secundario": "lablopezcorrea",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-lab-lopezcorrea.ithealth.co/"
+    },
+    {
+        "cliente": "sanjuan",
+        "dbname": "sanjuanlogs",
+        "collection": "logs",
+        "bd_secundario": "sanjuan",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-san-juan.ithealth.co/"
+    },
+    {
+        "cliente": "raulorjuela",
+        "dbname": "raulorjuelalogs",
+        "collection": "logs",
+        "bd_secundario": "raulorjuela",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-raul-orjuela.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalpiloto",
+        "dbname": "hospitalpilotologs",
+        "collection": "logs",
+        "bd_secundario": "hospitalpiloto",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-piloto.ithealth.co/"
+    },
+    {
+        "cliente": "diagnostiklab",
+        "dbname": "diagnostiklablogs",
+        "collection": "logs",
+        "bd_secundario": "diagnostiklab",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-diagnostik-lab.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalcc",
+        "dbname": "hospitalcclogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalcc",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-cc.ithealth.co/"
+    },
+    {
+        "cliente": "compensar",
+        "dbname": "compensarlogs",
+        "collection": "logs",
+        "bd_secundario": "compensar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-compensar.ithealth.co/"
+    },
+    {
+        "cliente": "hospitaljmh",
+        "dbname": "hospitaljmhlogs",
+        "collection": "logs",
+        "bd_secundario": "hospitaljmh",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-jmh.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalcaqueza",
+        "dbname": "hospitalcaquezalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-caqueza.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalsonson",
+        "dbname": "hospitalsonsonlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-sonson.ithealth.co/"
+    },
+    {
+        "cliente": "grupoestudio",
+        "dbname": "grupoestudiologs",
+        "collection": "logs",
+        "bd_secundario": "grupoestudio",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-grupo-estudio.ithealth.co/"
+    },
+    {
+        "cliente": "comfamiliar",
+        "dbname": "comfamiliarlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-comfamiliar.ithealth.co/"
+    },
+    {
+        "cliente": "laboratoriocdr",
+        "dbname": "laboratoriocdrlogs",
+        "collection": "logs",
+        "bd_secundario": "laboratoriocdr",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-laboratorio-cdr.ithealth.co/"
+    },
+    {
+        "cliente": "lemusfarah",
+        "dbname": "lemusfarahlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-lemus-farah.ithealth.co/"
+    },
+    {
+        "cliente": "matavensalud",
+        "dbname": "matavensaludlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-mataven-salud.ithealth.co/"
+    },
+    {
+        "cliente": "dusakawi",
+        "dbname": "dusakawilogs",
+        "collection": "logs",
+        "bd_secundario": "dusakawi",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-dusakawi.ithealth.co/"
+    },
+    {
+        "cliente": "repronat",
+        "dbname": "repronatlogs",
+        "collection": "logs",
+        "bd_secundario": "repronat",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-repronat.ithealth.co/"
+    },
+    {
+        "cliente": "labamericas",
+        "dbname": "labamericaslogs",
+        "collection": "logs",
+        "bd_secundario": "labamericas",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-lab-americas.ithealth.co/"
+    },
+    {
+        "cliente": "regionalnorte",
+        "dbname": "regionalnortelogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-regional-norte.ithealth.co/"
+    },
+    {
+        "cliente": "batalloncacique",
+        "dbname": "batalloncaciquelogs",
+        "collection": "logs",
+        "bd_secundario": "batalloncacique",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-batallon-cacique.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalmilitar",
+        "dbname": "hospitalmilitarlogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalmilitar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-militar.ithealth.co/"
+    },
+    {
+        "cliente": "sanrafael",
+        "dbname": "sanrafaellogs",
+        "collection": "logs",
+        "bd_secundario": "sanrafael",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-san-rafael.ithealth.co/"
+    },
+    {
+        "cliente": "puertosalgar",
+        "dbname": "puertosalgarlogs",
+        "collection": "logs",
+        "bd_secundario": "puertosalgar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-puerto-salgar.ithealth.co/"
+    },
+    {
+        "cliente": "doctoresmascotas",
+        "dbname": "doctoresmascotaslogs",
+        "collection": "logs",
+        "bd_secundario": "doctoresmascotas",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-doctores-mascotas.ithealth.co/"
+    },
+    {
+        "cliente": "bienestarips",
+        "dbname": "bienestaripslogs",
+        "collection": "logs",
+        "bd_secundario": "bienestarips",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-bienestar-ips.ithealth.co/"
+    },
+    {
+        "cliente": "matsuludani",
+        "dbname": "matsuludanilogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-matsuludani.ithealth.co/"
+    },
+    {
+        "cliente": "forpresalud",
+        "dbname": "forpresaludlogs",
+        "collection": "logs",
+        "bd_secundario": "forpresalud",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-forpresalud.ithealth.co/"
+    },
+    {
+        "cliente": "sanamedic",
+        "dbname": "sanamediclogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-sanamedic.ithealth.co/"
+    },
+    {
+        "cliente": "dismedpharma",
+        "dbname": "dismedpharmalogs",
+        "collection": "logs",
+        "bd_secundario": "dismedpharma",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-dismedpharma.ithealth.co/"
+    },
+    {
+        "cliente": "holmestrujillo",
+        "dbname": "holmestrujillologs",
+        "collection": "logs",
+        "bd_secundario": "holmestrujillo",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-holmes-trujillo.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalroldanillo",
+        "dbname": "hospitalroldanillologs",
+        "collection": "logs",
+        "bd_secundario": "hospitalroldanillo",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-roldanillo.ithealth.co/"
+    },
+    {
+        "cliente": "sanpedro",
+        "dbname": "sanpedrologs",
+        "collection": "logs",
+        "bd_secundario": "sanpedro",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-san-pedro.ithealth.co/"
+    },
+    {
+        "cliente": "sanpablo",
+        "dbname": "sanpablologs",
+        "collection": "logs",
+        "bd_secundario": "sanpablo",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-san-pablo.ithealth.co/"
+    },
+    {
+        "cliente": "universitariovalle",
+        "dbname": "universitariovallelogs",
+        "collection": "logs",
+        "bd_secundario": "universitariovalle",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-universitario-valle.ithealth.co/"
+    },
+    {
+        "cliente": "santasofia-asis",
+        "dbname": "santasofia-asislogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-santa-sofia-asis.ithealth.co/"
+    },
+    {
+        "cliente": "betronlab",
+        "dbname": "betronlablogs",
+        "collection": "logs",
+        "bd_secundario": "betronlab",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-bretonlab.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalsevilla",
+        "dbname": "hospitalsevillalogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalsevilla",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospitalsevilla.ithealth.co/"
+    },
+    {
+        "cliente": "masvida",
+        "dbname": "masvidalogs",
+        "collection": "logs",
+        "bd_secundario": "masvida",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-masvida.ithealth.co/"
+    },
+    {
+        "cliente": "nancysandoval",
+        "dbname": "nancysandovallogs",
+        "collection": "logs",
+        "bd_secundario": "nancysandoval",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-nancy-sandoval.ithealth.co/"
+    },
+    {
+        "cliente": "clinicaguaranda",
+        "dbname": "clinicaguarandalogs",
+        "collection": "logs",
+        "bd_secundario": "clinicaguaranda",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-clinica-guaranda.ithealth.co/"
+    },
+    {
+        "cliente": "interconsultas",
+        "dbname": "interconsultaslogs",
+        "collection": "logs",
+        "bd_secundario": "interconsultas",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-interconsultas.ithealth.co/"
+    },
+    {
+        "cliente": "esepereira",
+        "dbname": "esepereiralogs",
+        "collection": "logs",
+        "bd_secundario": "esepereira",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-ese-pereira.ithealth.co/"
+    },
+    {
+        "cliente": "cdcarmenia",
+        "dbname": "cdcarmenialogs",
+        "collection": "logs",
+        "bd_secundario": "cdcarmenia",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-cdc-armenia.ithealth.co/"
+    },
+    {
+        "cliente": "lablopezcorrea",
+        "dbname": "lablopezcorrealogs",
+        "collection": "logs",
+        "bd_secundario": "lablopezcorrea",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-lab-lopezcorrea.ithealth.co/"
+    },
+    {
+        "cliente": "sanjuan",
+        "dbname": "sanjuanlogs",
+        "collection": "logs",
+        "bd_secundario": "sanjuan",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-san-juan.ithealth.co/"
+    },
+    {
+        "cliente": "diagnostiklab",
+        "dbname": "diagnostiklablogs",
+        "collection": "logs",
+        "bd_secundario": "diagnostiklab",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-diagnostik-lab.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalcc",
+        "dbname": "hospitalcclogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalcc",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-cc.ithealth.co/"
+    },
+    {
+        "cliente": "compensar",
+        "dbname": "compensarlogs",
+        "collection": "logs",
+        "bd_secundario": "compensar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-compensar.ithealth.co/"
+    },
+    {
+        "cliente": "hospitaljmh",
+        "dbname": "hospitaljmhlogs",
+        "collection": "logs",
+        "bd_secundario": "hospitaljmh",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-jmh.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalmariainmaculada",
+        "dbname": "hospitalmariainmaculadalogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalmariainmaculada",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hmi.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalcaqueza",
+        "dbname": "hospitalcaquezalogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalcaqueza",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-caqueza.ithealth.co/"
+    },
+    {
+        "cliente": "grupoestudio",
+        "dbname": "grupoestudiologs",
+        "collection": "logs",
+        "bd_secundario": "grupoestudio",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-grupo-estudio.ithealth.co/"
+    },
+    {
+        "cliente": "laboratoriocdr",
+        "dbname": "laboratoriocdrlogs",
+        "collection": "logs",
+        "bd_secundario": "laboratoriocdr",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-laboratorio-cdr.ithealth.co/"
+    },
+    {
+        "cliente": "lemusfarah",
+        "dbname": "lemusfarahlogs",
+        "collection": "logs",
+        "bd_secundario": "lemusfarah",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-lemus-farah.ithealth.co/"
+    },
+    {
+        "cliente": "dusakawi",
+        "dbname": "dusakawilogs",
+        "collection": "logs",
+        "bd_secundario": "dusakawi",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-dusakawi.ithealth.co/"
+    },
+    {
+        "cliente": "repronat",
+        "dbname": "repronatlogs",
+        "collection": "logs",
+        "bd_secundario": "repronat",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-repronat.ithealth.co/"
+    },
+    {
+        "cliente": "labamericas",
+        "dbname": "labamericaslogs",
+        "collection": "logs",
+        "bd_secundario": "labamericas",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-lab-americas.ithealth.co/"
+    },
+    {
+        "cliente": "batalloncacique",
+        "dbname": "batalloncaciquelogs",
+        "collection": "logs",
+        "bd_secundario": "batalloncacique",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-batallon-cacique.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalmilitar",
+        "dbname": "hospitalmilitarlogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalmilitar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-militar.ithealth.co/"
+    },
+    {
+        "cliente": "puertosalgar",
+        "dbname": "puertosalgarlogs",
+        "collection": "logs",
+        "bd_secundario": "puertosalgar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-puerto-salgar.ithealth.co/"
+    },
+    {
+        "cliente": "doctoresmascotas",
+        "dbname": "doctoresmascotaslogs",
+        "collection": "logs",
+        "bd_secundario": "doctoresmascotas",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-doctores-mascotas.ithealth.co/"
+    },
+    {
+        "cliente": "dismedpharma",
+        "dbname": "dismedpharmalogs",
+        "collection": "logs",
+        "bd_secundario": "dismedpharma",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-dismedpharma.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalroldanillo",
+        "dbname": "hospitalroldanillologs",
+        "collection": "logs",
+        "bd_secundario": "hospitalroldanillo",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-roldanillo.ithealth.co/"
+    },
+    {
+        "cliente": "universitariovalle",
+        "dbname": "universitariovallelogs",
+        "collection": "logs",
+        "bd_secundario": "universitariovalle",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-universitario-valle.ithealth.co/"
+    },
+    {
+        "cliente": "fps",
+        "dbname": "fpslogs",
+        "collection": "logs",
+        "bd_secundario": "fps",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-fps.ithealth.co/"
+    },
+    {
+        "cliente": "sanpedrosanpablo",
+        "dbname": "sanpedrosanpablologs",
+        "collection": "logs",
+        "bd_secundario": "sanpedrosanpablo",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-san-pedro-san-pablo.ithealth.co/"
+    },
+    {
+        "cliente": "ipswayu",
+        "dbname": "ipswayulogs",
+        "collection": "logs",
+        "bd_secundario": "ipswayu",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-ipswayu.ithealth.co/"
+    },
+    {
+        "cliente": "hospitaldelsur",
+        "dbname": "hospitaldelsurlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-del-sur.ithealth.co/"
+    },
+    {
+        "cliente": "hospitaldealbania",
+        "dbname": "hospitaldealbanialogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-de-albania.ithealth.co/"
+    },
+    {
+        "cliente": "hospitaldecaqueza",
+        "dbname": "hospitaldecaquezalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-de-caqueza.ithealth.co/"
+    },
+    {
+        "cliente": "gestionsalud",
+        "dbname": "gestionsaludlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-gestion-salud.ithealth.co/"
+    },
+    {
+        "cliente": "emisorcce-annar",
+        "dbname": "emisorcce-annarlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-emisorcce-annar.ithealth.co/"
+    },
+    {
+        "cliente": "clinicasantacruzdelaloma",
+        "dbname": "clinicasantacruzdelalomalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-santa-cruz-de-la-loma.ithealth.co/"
+    },
+    {
+        "cliente": "microanalisis",
+        "dbname": "microanalisislogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-microanalisis.ithealth.co/"
+    },
+    {
+        "cliente": "vallesalud",
+        "dbname": "vallesaludlogs",
+        "collection": "logs",
+        "bd_secundario": "vallesalud",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-valle-salud.ithealth.co/"
+    },
+    {
+        "cliente": "unlab",
+        "dbname": "unlablogs",
+        "collection": "logs",
+        "bd_secundario": "unlab",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-unlab.ithealth.co/"
+    },
+    {
+        "cliente": "sais-ips",
+        "dbname": "sais-ipslogs",
+        "collection": "logs",
+        "bd_secundario": "sais-ips",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-sais-ips.ithealth.co/"
+    },
+    {
+        "cliente": "clinicadelbosque",
+        "dbname": "clinicadelbosquelogs",
+        "collection": "logs",
+        "bd_secundario": "clinicadelbosque",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-clinica-del-bosque.ithealth.co/"
+    },
+    {
+        "cliente": "sprintreact",
+        "dbname": "sprintreactlogs",
+        "collection": "logs",
+        "bd_secundario": "sprintreact",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-sprint-react.ithealth.co/"
+    },
+    {
+        "cliente": "solucionsalud",
+        "dbname": "solucionsaludlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-solucion-salud.ithealth.co/"
+    },
+    {
+        "cliente": "medfisicayrecuperacion",
+        "dbname": "medfisicayrecuperacionlogs",
+        "collection": "logs",
+        "bd_secundario": "medfisicayrecuperacion",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-med-fisica-y-recuperacion.ithealth.co/"
+    },
+    {
+        "cliente": "saludflorida",
+        "dbname": "saludfloridalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-salud-florida.ithealth.co/"
+    },
+    {
+        "cliente": "bonnadona",
+        "dbname": "bonnadonalogs",
+        "collection": "logs",
+        "bd_secundario": "bonnadona",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-bonnadona.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalmeredi",
+        "dbname": "hospitalmeredilogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalmeredi",
+        "controlinterno": "S",
+        "controlexterno": "N" ,
+        "sitio":"https://valiqc-hospital-universitario-mederi.ithealth.co/"
+    },
+    {
+        "cliente": "bioclinicomerced",
+        "dbname": "bioclinicomercedlogs",
+        "collection": "logs",
+        "bd_secundario": "bioclinicomerced",
+        "controlinterno": "S",
+        "controlexterno": "N" ,
+        "sitio":"https://valiqc-bioclinico-merced.ithealth.co/"
+    },
+    {
+        "cliente": "horcaribe",
+        "dbname": "horcaribelogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hor-caribe.ithealth.co/"
+    },
+    {
+        "cliente": "oncolife",
+        "dbname": "oncolifelogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-oncolife.ithealth.co/"
+    },
+    {
+        "cliente": "departamentalrafael",
+        "dbname": "departamentalrafaellogs",
+        "collection": "logs",
+        "bd_secundario": "departamentalrafael",
+        "controlinterno": "S",
+        "controlexterno": "N" ,
+        "sitio":"https://valiqc-departamental-rafael.ithealth.co/"
+    },
+    {
+        "cliente": "magdalenacentro",
+        "dbname": "magdalenacentrologs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-magdalena-centro.ithealth.co/"
+    },
+    {
+        "cliente": "divinamisericordia",
+        "dbname": "divinamisericordialogs",
+        "collection": "logs",
+        "bd_secundario": "divinamisericordia",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-divina-misericordia.ithealth.co/"
+    },
+    {
+        "cliente": "trinidad",
+        "dbname": "trinidadlogs",
+        "collection": "logs",
+        "bd_secundario": "trinidad",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-trinidad.ithealth.co/"
+    },
+    {
+        "cliente": "sanaty",
+        "dbname": "sanatylogs",
+        "collection": "logs",
+        "bd_secundario": "sanaty",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-sanaty.ithealth.co/"
+    },
+    {
+        "cliente": "sanjuandediospamplona",
+        "dbname": "sanjuandediospamplonalogs",
+        "collection": "logs",
+        "bd_secundario": "sanjuandediospamplona",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-hospital-pamplona.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalinfantilnapoleon",
+        "dbname": "hospitalinfantilnapoleonlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-napoleon-franco.ithealth.co/"
+    },
+    {
+        "cliente": "pablotobonuribe",
+        "dbname": "pablotobonuribelogs",
+        "collection": "logs",
+        "bd_secundario": "pablotobonuribe",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-pablo-tobon.ithealth.co/"
+    },
+    {
+        "cliente": "sanmartindelosllanos",
+        "dbname": "sanmartindelosllanoslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-san-martin.ithealth.co/"
+    },
+    {
+        "cliente": "policlinicosur",
+        "dbname": "policlinicosurlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-policlinico-sur.ithealth.co/"
+    },
+    {
+        "cliente": "sainsa",
+        "dbname": "sainsalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-sainsa.ithealth.co/"
+    },
+    {
+        "cliente": "dispromelab-barrancabermeja",
+        "dbname": "dispromelab-barrancabermejalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-dispromelab.ithealth.co/"
+    },
+    {
+        "cliente": "aliscristiandiaz",
+        "dbname": "aliscristiandiazlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-cristina-diaz.ithealth.co/"
+    },
+    {
+        "cliente": "insumedic",
+        "dbname": "insumediclogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-insumedic.ithealth.co/"
+    },
+    {
+        "cliente": "proanalab",
+        "dbname": "proanalablogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-proanalab.ithealth.co/"
+    },
+    {
+        "cliente": "ejercitonacionalcolombia",
+        "dbname": "ejercitonacionalcolombialogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-ejercito-nacional.ithealth.co/"
+    },
+    {
+        "cliente": "aguachica",
+        "dbname": "aguachicalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hospital-aguachica.ithealth.co/"
+    },
+    {
+        "cliente": "saluddenarino",
+        "dbname": "saluddenarinologs",
+        "collection": "logs",
+        "bd_secundario": "saluddenarino",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-salud-de-narino.ithealth.co/"
+    },
+    {
+        "cliente": "sanjoseputumayo",
+        "dbname": "sanjoseputumayologs",
+        "collection": "logs",
+        "bd_secundario": "sanjoseputumayo",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-san-jose-putumayo.ithealth.co/"
+    },
+    {
+        "cliente": "hospitaldenarino",
+        "dbname": "hospitaldenarinologs",
+        "collection": "logs",
+        "bd_secundario": "hospitaldenarino",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hospital-de-narino.ithealth.co/"
+    },
+    {
+        "cliente": "divinonino",
+        "dbname": "divinoninologs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-divino-nino.ithealth.co/"
+    },
+    {
+        "cliente": "protegerips",
+        "dbname": "protegeripslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-proteger-ips.ithealth.co/"
+    },
+    {
+        "cliente": "biomed",
+        "dbname": "biomedlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-biomed.ithealth.co/"
+    },
+    {
+        "cliente": "fhospitalsanpedro",
+        "dbname": "fhospitalsanpedrologs",
+        "collection": "logs",
+        "bd_secundario": "fhospitalsanpedro",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-sanpedro.ithealth.co/"
+    },
+    {
+        "cliente": "clinicacasanare",
+        "dbname": "clinicacasanarelogs",
+        "collection": "logs",
+        "bd_secundario": "clinicacasanare",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-clinica-casanare.ithealth.co/"
+    },
+    {
+        "cliente": "dumianmedical",
+        "dbname": "dumianmedicallogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-dumian-medical.ithealth.co/"
+    },
+    {
+        "cliente": "hdepartamentaltomasuribetulua",
+        "dbname": "hdepartamentaltomasuribetulualogs",
+        "collection": "logs",
+        "bd_secundario": "hdepartamentaltomasuribetulua",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-tomasuribe.ithealth.co/"
+    },
+    {
+        "cliente": "hregionalcesaruribepiedrahita",
+        "dbname": "hregionalcesaruribepiedrahitalogs",
+        "collection": "logs",
+        "bd_secundario": "hregionalcesaruribepiedrahita",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hcup.ithealth.co/"
+    },
+    {
+        "cliente": "hnuestrasenoradelpilar",
+        "dbname": "hnuestrasenoradelpilarlogs",
+        "collection": "logs",
+        "bd_secundario": "hnuestrasenoradelpilar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-medina.ithealth.co/"
+    },
+    {
+        "cliente": "cmedicointegralaltosc",
+        "dbname": "cmedicointegralaltosclogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-cmialtosdelacandelaria.ithealth.co/"
+    },
+    {
+        "cliente": "csanmartinbarranquilla",
+        "dbname": "csanmartinbarranquillalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-csmbq.ithealth.co/"
+    },
+    {
+        "cliente": "lclinicocoahuila",
+        "dbname": "lclinicocoahuilalogs",
+        "collection": "logs",
+        "bd_secundario": "lclinicocoahuila",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-laboratorio-coahuila.ithealth.co/"
+    },
+    {
+        "cliente": "halvaroobregon",
+        "dbname": "halvaroobregonlogs",
+        "collection": "logs",
+        "bd_secundario": "halvaroobregon",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-obregon.ithealth.co/"
+    },
+    {
+        "cliente": "hespecialidadespediatricas",
+        "dbname": "hespecialidadespediatricaslogs",
+        "collection": "logs",
+        "bd_secundario": "hespecialidadespediatricas",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hep.ithealth.co/"
+    },
+    {
+        "cliente": "sanatoriodurango",
+        "dbname": "sanatoriodurangologs",
+        "collection": "logs",
+        "bd_secundario": "sanatoriodurango",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-sanatorio-durango.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalpazborrero",
+        "dbname": "hospitalpazborrerologs",
+        "collection": "logs",
+        "bd_secundario": "hospitalpazborrero",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-paz-borrero.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalmoniquira",
+        "dbname": "hospitalmoniquiralogs",
+        "collection": "logs",
+        "bd_secundario": "hospitalmoniquira",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-moniquira.ithealth.co/"
+    },
+    {
+        "cliente": "isaludbucaramanga",
+        "dbname": "isaludbucaramangalogs",
+        "collection": "logs",
+        "bd_secundario": "isaludbucaramanga",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-isabu.ithealth.co/"
+    },
+    {
+        "cliente": "redsaludladeraese",
+        "dbname": "redsaludladeraeselogs",
+        "collection": "logs",
+        "bd_secundario": "redsaludladeraese",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-salud-ladera.ithealth.co/"
+    },
+    {
+        "cliente": "redsaludorientese",
+        "dbname": "redsaludorienteselogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hcht.ithealth.co/"
+    },
+    {
+        "cliente": "hdepartamentalpitalito",
+        "dbname": "hdepartamentalpitalitologs",
+        "collection": "logs",
+        "bd_secundario": "hdepartamentalpitalito",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-hospital-pitalito.ithealth.co/"
+    },
+    {
+        "cliente": "unidadsaludocupacional",
+        "dbname": "unidadsaludocupacionallogs",
+        "collection": "logs",
+        "bd_secundario": "unidadsaludocupacional",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-unidadso.ithealth.co/"
+    },
+    {
+        "cliente": "starmedica",
+        "dbname": "starmedicalogs",
+        "collection": "logs",
+        "bd_secundario": "starmedica",
+        "controlinterno": "S",
+        "controlexterno": "N" ,
+        "sitio":"https://valiqc-star-medica.ithealth.co/"
+    },
+    {
+        "cliente": "icvc",
+        "dbname": "icvclogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-icvc.ithealth.co/"
+    },
+    {
+        "cliente": "firecolombia",
+        "dbname": "firecolombialogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-firecolombia.ithealth.co/"
+    },
+    {
+        "cliente": "sumuywajat",
+        "dbname": "sumuywajatlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-ipsisumuywajat.ithealth.co/"
+    },
+    {
+        "cliente": "poctyumaral",
+        "dbname": "poctyumarallogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-poct-yumaral.ithealth.co/"
+    },
+    {
+        "cliente": "poctciudadbolivar",
+        "dbname": "poctciudadbolivarlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S" ,
+        "sitio":"https://valiqc-poct-ciudad-bolivar.ithealth.co/"
+    },
+    {
+        "cliente": "clinicachia",
+        "dbname": "clinicachialogs",
+        "collection": "logs",
+        "bd_secundario": "clinicachia",
+        "controlinterno": "S",
+        "controlexterno": "N" ,
+        "sitio":"https://valiqc-clinica-chia.ithealth.co/"
+    },
+    {
+        "cliente": "annartaller",
+        "dbname": "annartallerlogs",
+        "collection": "logs",
+        "bd_secundario": "annartaller",
+        "controlinterno": "S",
+        "controlexterno": "N" ,
+        "sitio":"https://valiqc-annar-taller.ithealth.co/"
+    },
+    {
+        "cliente": "gbienestarbucaramanga",
+        "dbname": "gbienestarbucaramangalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-gestionar-bienestar-bucaramanga.ithealth.co/"
+    },
+    {
+        "cliente": "pruebas",
+        "dbname": "pruebaslogs",
+        "collection": "logs",
+        "bd_secundario": "pruebas",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-pruebasseguridad.ithealth.co/"
+    },
+    {
+        "cliente": "hic-fcv",
+        "dbname": "hic-fcvlogs",
+        "collection": "logs",
+        "bd_secundario": "hic-fcv",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hic-fcv.ithealth.co/"
+    },
+    {
+        "cliente": "smolympus",
+        "dbname": "smolympuslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-olimpuslab.ithealth.co/"
+    },
+    {
+        "cliente": "grupomedicos",
+        "dbname": "grupomedicoslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-grupo-medicos.ithealth.co/"
+    },
+    {
+        "cliente": "clinicamaicao",
+        "dbname": "clinicamaicaologs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-clinicamaicao.ithealth.co/"
+    },
+    {
+        "cliente": "clinicacosta",
+        "dbname": "clinicacostalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-clicosta.ithealth.co/"
+    },
+    {
+        "cliente": "medcare",
+        "dbname": "medcarelogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-medcare.ithealth.co/"
+    },
+    {
+        "cliente": "lcleticia",
+        "dbname": "lcleticialogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-clinica-leticia.ithealth.co/"
+    },
+    {
+        "cliente": "ipssanantonio",
+        "dbname": "ipssanantoniologs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-san-antonio.ithealth.co/"
+    },
+    {
+        "cliente": "pilotohemoglobinometro",
+        "dbname": "pilotohemoglobinometrologs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-pilotohemoglobinometro.ithealth.co/"
+    },
+    {
+        "cliente": "fsantafebogota",
+        "dbname": "fsantafebogotalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-fundacionsantafedebogota.ithealth.co/"
+    },
+    {
+        "cliente": "jersalud",
+        "dbname": "jersaludlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-jersalud.ithealth.co/"
+    },
+    {
+        "cliente": "diagnostimedicos",
+        "dbname": "diagnostimedicoslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-diagnostimedicos.ithealth.co/"
+    },
+    {
+        "cliente": "esejaimealvaradoycastilla",
+        "dbname": "esejaimealvaradoycastillalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-esejaimealvaradoycastilla.ithealth.co/"
+    },
+    {
+        "cliente": "lsolcan",
+        "dbname": "lsolcanlogs",
+        "collection": "logs",
+        "bd_secundario": "lsolcan",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-solcan.ithealth.co/"
+    },
+    {
+        "cliente": "lprevenirsi",
+        "dbname": "lprevenirsilogs",
+        "collection": "logs",
+        "bd_secundario": "lprevenirsi",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-prevenirsi.ithealth.co/"
+    },
+    {
+        "cliente": "ipssanesteban",
+        "dbname": "ipssanestebanlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-ipssanesteban.ithealth.co/"
+    },
+    {
+        "cliente": "optimushealth",
+        "dbname": "optimushealthlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-optimushealth.ithealth.co/"
+    },
+    {
+        "cliente": "miatencionintegral",
+        "dbname": "miatencionintegrallogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-mi-atencion-integral-sas.ithealth.co/"
+    },
+    {
+        "cliente": "labclinicavarices",
+        "dbname": "labclinicavariceslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-laboratorioclinicadevarices.ithealth.co/"
+    },
+    {
+        "cliente": "cruzrojasas",
+        "dbname": "cruzrojasaslogs",
+        "collection": "logs",
+        "bd_secundario": "cruzrojasas",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-cruzroja.ithealth.co/"
+    },
+    {
+        "cliente": "labclinicokarolgarcia",
+        "dbname": "labclinicokarolgarcialogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-laboratorio-clinico-karol-garcia.ithealth.co/"
+    },
+    {
+        "cliente": "calidadmedicavalledupar",
+        "dbname": "calidadmedicavalleduparlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-calidadmedica.ithealth.co/"
+    },
+    {
+        "cliente": "hluisablanquedelaplata",
+        "dbname": "hluisablanquedelaplatalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hospitalluisablanque.ithealth.co/"
+    },
+    {
+        "cliente": "globalbusiness",
+        "dbname": "globalbusinesslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-laboratorio-clinico-maria-jose.ithealth.co/"
+    },
+    {
+        "cliente": "labeduardofernandez",
+        "dbname": "labeduardofernandezlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-laboratorio-eduardo-fernandez.ithealth.co/"
+    },
+    {
+        "cliente": "labacaciasips",
+        "dbname": "labacaciasipslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-lab-acacias-ips.ithealth.co/"
+    },
+    {
+        "cliente": "hosuniclisanrafael",
+        "dbname": "hosuniclisanrafaellogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hosp-univ-san-rafael.ithealth.co/"
+    },
+    {
+        "cliente": "esehossanjuandedios",
+        "dbname": "esehossanjuandedioslogs",
+        "collection": "logs",
+        "bd_secundario": "esehossanjuandedios",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-ese-san-juan-dios.ithealth.co/"
+    },
+    {
+        "cliente": "proclilab",
+        "dbname": "proclilablogs",
+        "collection": "logs",
+        "bd_secundario": "proclilab",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-proclilab.ithealth.co/"
+    },
+    {
+        "cliente": "aimsa",
+        "dbname": "aimsalogs",
+        "collection": "logs",
+        "bd_secundario": "aimsa",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-aimsa.ithealth.co/"
+    }, 
+    {
+        "cliente": "hospsanjosepopayan",
+        "dbname": "hospsanjosepopayanlogs",
+        "collection": "logs",
+        "bd_secundario": "hospsanjosepopayan",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-hosp-san-jose-popayan.ithealth.co/"
+    },
+    {
+        "cliente": "clinicareinalucia",
+        "dbname": "clinicareinalucialogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-clinica-reina-lucia.ithealth.co/"
+    },
+    {
+        "cliente": "unidadrosada",
+        "dbname": "unidadrosadalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-unidad-rosada.ithealth.co/"
+    },
+    {
+        "cliente": "hospitalguacari",
+        "dbname": "hospitalguacarilogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hosp-guacari.ithealth.co/"
+    },
+    {
+        "cliente": "esehospsanvicentepaul",
+        "dbname": "esehospsanvicentepaullogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-ese-hosp-san-vicente-paul.ithealth.co/"
+    },
+    {
+        "cliente": "esehospbellosalud",
+        "dbname": "esehospbellosaludlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-ese-hosp-bellosalud.ithealth.co/"
+    },
+    {
+        "cliente": "esehospsanantonio",
+        "dbname": "esehospsanantoniologs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-ese-hosp-san-antonio.ithealth.co/"
+    },
+    {
+        "cliente": "hospgente",
+        "dbname": "hospgentelogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-hosp-gente.ithealth.co/"
+    },
+    {
+        "cliente": "hospginebra",
+        "dbname": "hospginebralogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hosp-ginebra.ithealth.co/"
+    },
+    {
+        "cliente": "subrednorte",
+        "dbname": "subrednortelogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-subred-norte.ithealth.co/"
+    },
+    {
+        "cliente": "casadiabeteshospsanlorenz",
+        "dbname": "casadiabeteshospsanlorenzlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hosp-sanlorenz.ithealth.co/"
+    },
+    {
+        "cliente": "claretarino",
+        "dbname": "claretarinologs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-claret-arino.ithealth.co/"
+    },
+    {
+        "cliente": "clinicasantabarbara",
+        "dbname": "clinicasantabarbaralogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-santa-barbara.ithealth.co/"
+    },
+    {
+        "cliente": "hospulpianosanlorenzo",
+        "dbname": "hospulpianosanlorenzologs",
+        "collection": "logs",
+        "bd_secundario": "hospulpianosanlorenzo",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-hosp-ulpiano.ithealth.co/"
+    },
+    {
+        "cliente": "labclinicocric",
+        "dbname": "labclinicocriclogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-lab-cric.ithealth.co/"
+    },
+    {
+        "cliente": "clinicaalalba",
+        "dbname": "clinicaalalbalogs",
+        "collection": "logs",
+        "bd_secundario": "clinicaalalba",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-clinica-alalba.ithealth.co/"
+    },
+    {
+        "cliente": "hospserenamar",
+        "dbname": "hospserenamarlogs",
+        "collection": "logs",
+        "bd_secundario": "hospserenamar",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-hosp-serena-mar.ithealth.co/"
+    },
+    {
+        "cliente": "hopsanori",
+        "dbname": "hopsanorilogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hosp-anori.ithealth.co/"
+    },
+    {
+        "cliente": "labmarthahoyos",
+        "dbname": "labmarthahoyoslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-lab-marthahoyos.ithealth.co/"
+    },
+    {
+        "cliente": "grupolabsalud",
+        "dbname": "grupolabsaludlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-grupo-labsalud.ithealth.co/"
+    },
+    {
+        "cliente": "susalud",
+        "dbname": "susaludlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-su-salud.ithealth.co/"
+    },
+    {
+        "cliente": "labproinsalud",
+        "dbname": "labproinsaludlogs",
+        "collection": "logs",
+        "bd_secundario": "labproinsalud",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-lab-proinsalud.ithealth.co/"
+    },
+    {
+        "cliente": "empsocialestadometa",
+        "dbname": "empsocialestadometalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "N",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-ese-meta.ithealth.co/"
+    },
+    {
+        "cliente": "meditech",
+        "dbname": "meditechlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-meditech.ithealth.co/"
+    },
+    {
+        "cliente": "labemirocanizares",
+        "dbname": "labemirocanizareslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-lab-emirocanizares.ithealth.co/"
+    },
+    {
+        "cliente": "qchacari",
+        "dbname": "qchacarilogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hacari.ithealth.co/"
+    },
+    {
+        "cliente": "qcteorama",
+        "dbname": "qcteoramalogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-teorama.ithealth.co/"
+    },
+    {
+        "cliente": "qcsancalixto",
+        "dbname": "qcsancalixtologs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-san-calixto.ithealth.co/"
+    },
+    {
+        "cliente": "qcsanjoseisnos",
+        "dbname": "qcsanjoseisnoslogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-san-jose-isnos.ithealth.co/"
+    },
+    {
+        "cliente": "qcgranadasalud",
+        "dbname": "qcgranadasaludlogs",
+        "collection": "logs",
+        "bd_secundario": "emisorcce-annar",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-granada-salud.ithealth.co/"
+    },
+    {
+        "cliente": "qcflorrubiela",
+        "dbname": "qcflorrubielalogs",
+        "collection": "logs",
+        "bd_secundario": "qcflorrubiela",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-flor-rubiela.ithealth.co/"
+    },
+    {
+        "cliente": "qcvillarosario",
+        "dbname": "qcvillarosariologs",
+        "collection": "logs",
+        "bd_secundario": "qcvillarosario",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-villa-rosario.ithealth.co/"
+    },
+    {
+        "cliente": "departamentalrafael",
+        "dbname": "departamentalrafaellogs",
+        "collection": "logs",
+        "bd_secundario": "departamentalrafael",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-hospital-departamental-san-rafael-de-zarzal.ithealth.co/"
+    },
+    {
+        "cliente": "qcesehospsanantoniomontebello",
+        "dbname": "qcesehospsanantoniomontebellologs",
+        "collection": "logs",
+        "bd_secundario": "qcesehospsanantoniomontebello",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-ese-hospital-san-antonio-montebello.ithealth.co/"
+    },
+    {
+        "cliente": "qcproclilabsasipsminga",
+        "dbname": "qcproclilabsasipsmingalogs",
+        "collection": "logs",
+        "bd_secundario": "qcproclilabsasipsminga",
+        "controlinterno": "S",
+        "controlexterno": "S",
+        "sitio":"https://valiqc-proclilab-sas-ips-minga.ithealth.co/"
+    },
+    {
+        "cliente": "qcsanjoseglobal",
+        "dbname": "qcsanjosegloballogs",
+        "collection": "logs",
+        "bd_secundario": "qcsanjoseglobal",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-san-jose-global.ithealth.co/"
+    },
+    {
+        "cliente": "qcesehospitaljorgecristo",
+        "dbname": "qcesehospitaljorgecristologs",
+        "collection": "logs",
+        "bd_secundario": "qcesehospitaljorgecristo",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-ese-hospital-jorge-cristo-sahium.ithealth.co/"
+    },
+    {
+        "cliente": "qcesehospitaljorgecristo",
+        "dbname": "qcesehospitaljorgecristologs",
+        "collection": "logs",
+        "bd_secundario": "qcesehospitaljorgecristo",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-ese-hospital-jorge-cristo-sahium.ithealth.co/"
+    },
+    {
+        "cliente": "qcmediclinicos",
+        "dbname": "qcmediclinicoslogs",
+        "collection": "logs",
+        "bd_secundario": "qcmediclinicos",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-mediclinicos.ithealth.co/"
+    },
+    {
+        "cliente": "qclabchontalpa",
+        "dbname": "qclabchontalpalogs",
+        "collection": "logs",
+        "bd_secundario": "qclabchontalpa",
+        "controlinterno": "S",
+        "controlexterno": "N",
+        "sitio":"https://valiqc-lab-chontalpa.ithealth.mx/"
+    }
+]

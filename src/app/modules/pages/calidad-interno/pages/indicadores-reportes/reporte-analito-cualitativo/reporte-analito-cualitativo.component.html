@@ -1,0 +1,600 @@
+<div
+  class="grid-container"
+  style="
+    width: 460px !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+  "
+>
+  <div
+    #slide
+    class="estiloGeneralSlide"
+    [ngClass]="{ highlight: !flagGeneral }"
+    (click)="[cambiarEstado(), (flagGeneral = false), (verGraficas = false)]"
+  >
+    <mat-icon
+      svgIcon="page_bar"
+      class="icon-custom"
+      style="width: 18px"
+    ></mat-icon>
+    Desempeño general
+  </div>
+  <div
+    #slide
+    class="estiloGeneralSlide"
+    [ngClass]="{ highlight: flagGeneral }"
+    (click)="[(verGraficas = false), (flagGeneral = true)]"
+  >
+    <mat-icon
+      svgIcon="tubes"
+      class="icon-custom"
+      style="width: 18px"
+    ></mat-icon>
+    Desempeño por analito
+  </div>
+</div>
+
+<form
+  autocomplete="off"
+  style="margin-top: 1em"
+  [ngClass]="{ 'grid-6-buttton': !flagGeneral, 'grid-6-completo': flagGeneral }"
+  [formGroup]="formulario"
+  (ngSubmit)="filtrar()"
+>
+  <!-- desde -->
+  <mat-form-field>
+    <mat-label>Desde</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      formControlName="desde"
+      (dateChange)="limpiarFecha($event, 'desde')"
+    />
+    <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker">
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!-- hasta -->
+  <mat-form-field>
+    <mat-label>Hasta</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker1"
+      formControlName="hasta"
+      [min]="minFecha"
+      (dateChange)="limpiarFecha($event, 'hasta')"
+    />
+    <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker1">
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!-- Sedes -->
+  <mat-form-field>
+    <mat-label> Sede </mat-label>
+    <mat-select
+      disableOptionCentering
+      formControlName="sedes"
+      multiple
+      (selectionChange)="[sinMenosUno('sedes')]"
+    >
+      <mat-option>
+        <ngx-mat-select-search
+          [formControl]="filterSede"
+          placeholderLabel="Buscar sede..."
+          noEntriesFoundLabel="No se encontró un resultado"
+        >
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="" (click)="formulario.get('sedes')?.setValue(null)">
+        --
+      </mat-option>
+      <mat-option
+        *ngIf="sedes.length !== 0"
+        value="-1"
+        (click)="selectAllheadquarters('sedes')"
+      >
+        Todas las sedes
+      </mat-option>
+      <mat-option
+        *ngFor="let sede of sedes"
+        (click)="selectOneheadquarters()"
+        [value]="sede.idheadquarters"
+        [matTooltipPosition]="'right'"
+        [matTooltip]="sede.desheadquarters"
+      >
+        {{ sede.desheadquarters }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!-- Secciones -->
+  <mat-form-field>
+    <mat-label> Seccion </mat-label>
+    <mat-select
+      disableOptionCentering
+      formControlName="secciones"
+      multiple
+      (selectionChange)="[sinMenosUno('secciones'), $event.value]"
+    >
+      <mat-option>
+        <ngx-mat-select-search
+          [formControl]="filterSeccion"
+          placeholderLabel="Buscar secciones..."
+          noEntriesFoundLabel="No se encontró un resultado"
+        >
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option
+        value=""
+        (click)="formulario.get('secciones')?.setValue(null)"
+      >
+        --
+      </mat-option>
+      <mat-option
+        *ngIf="secciones.length !== 0"
+        value="-1"
+        (click)="selectAllSections('secciones')"
+      >
+        Todas las secciones
+      </mat-option>
+      <mat-option
+        *ngFor="let seccion of secciones"
+        (click)="selectOneSection('secciones')"
+        [value]="seccion.idsection"
+        [matTooltipPosition]="'right'"
+        [matTooltip]="seccion.namesection"
+      >
+        {{ seccion.namesection }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!-- Equipos -->
+  <mat-form-field>
+    <mat-label> Equipo </mat-label>
+    <mat-select
+      disableOptionCentering
+      formControlName="equipos"
+      multiple
+      (selectionChange)="sinMenosUno('equipos')"
+    >
+      <mat-option>
+        <ngx-mat-select-search
+          [formControl]="filterEquipo"
+          placeholderLabel="Buscar equipo..."
+          noEntriesFoundLabel="No se encontró un resultado"
+        >
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="" (click)="formulario.get('equipos')?.setValue(null)">
+        --
+      </mat-option>
+      <mat-option
+        *ngIf="equipos.length !== 0"
+        value="-1"
+        (click)="selectAllEquipos('equipos')"
+      >
+        Todos los equipos
+      </mat-option>
+      <mat-option
+        *ngFor="let equipo of equipos"
+        [value]="equipo.idAnalyzer"
+        (click)="selectOneEquipo('equipos')"
+        [matTooltipPosition]="'right'"
+        [matTooltip]="equipo.nameAnalyzer"
+      >
+        {{ equipo.nameAnalyzer }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!-- Analitos -->
+  <mat-form-field *ngIf="flagGeneral">
+    <mat-label> Analitos </mat-label>
+    <mat-select
+      disableOptionCentering
+      formControlName="analitos"
+      multiple
+      (selectionChange)="[sinMenosUno('analitos')]"
+    >
+      <mat-option>
+        <ngx-mat-select-search
+          [formControl]="filterAnalito"
+          placeholderLabel="Buscar analitos..."
+          noEntriesFoundLabel="No se encontró un resultado"
+        >
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="" (click)="formulario.get('analitos')?.setValue(null)">
+        --
+      </mat-option>
+      <mat-option
+        *ngIf="analitos.length !== 0"
+        value="-1"
+        (onSelectionChange)="limpiarCampo($event)"
+      >
+        Todos los analitos
+      </mat-option>
+      <mat-option
+        *ngFor="let analito of analitos"
+        [value]="analito.idanalytes"
+        (click)="selectOneAnalyte('analitos')"
+        [matTooltipPosition]="'right'"
+        [matTooltip]="analito.desanalytes"
+      >
+        {{ analito.desanalytes }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <!-- Lotes -->
+  <mat-form-field *ngIf="flagGeneral">
+    <mat-label> Lote </mat-label>
+    <mat-select
+      disableOptionCentering
+      formControlName="lotes"
+      multiple
+      (selectionChange)="sinMenosUno('lotes')"
+    >
+      <mat-option>
+        <ngx-mat-select-search
+          [formControl]="filterLote"
+          placeholderLabel="Buscar lote..."
+          noEntriesFoundLabel="No se encontró un resultado"
+        >
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="" (click)="formulario.get('lotes')?.setValue(null)">
+        --
+      </mat-option>
+      <mat-option
+        *ngIf="lotes.length !== 0"
+        value="-1"
+        (click)="selectAllLotes('lotes')"
+      >
+        Todos los lotes
+      </mat-option>
+      <mat-option
+        *ngFor="let lote of lotes"
+        (click)="selectOneLote('lotes')"
+        [value]="lote.idLot"
+        [matTooltipPosition]="'right'"
+        [matTooltip]="lote.numlot"
+      >
+        {{ lote.numlot }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div *ngIf="!flagGeneral">
+    <button class="btnPurple-01">Generar reporte</button>
+  </div>
+  <!-- boton -->
+  <div *ngIf="flagGeneral">
+    <button class="btnPurple-01">Generar reporte</button>
+  </div>
+</form>
+
+<div *ngIf="verListaAnalitos && flagGeneral">
+  <div class="boxSecciones">
+    <div>
+      <mat-icon
+        style="cursor: pointer; color: var(--blue-03)"
+        (click)="scrollCards(-1)"
+        >arrow_back_ios</mat-icon
+      >
+    </div>
+    <div #scroll class="boxSeccionesContainer">
+      <div *ngFor="let item of analitosFiltrados; let i = index">
+        <div
+          #btnSecc
+          id="bntSecc-{{ i }}"
+          class="styleSeccion"
+          [ngStyle]="{
+            'background-color':
+              seccionSeleccionado === item ? 'var(--blue-03)' : '',
+            color: seccionSeleccionado === item ? 'white' : ''
+          }"
+          (click)="traerInformacion(item)"
+        >
+          <h2 style="margin: 0; font-size: 15px">
+            {{ item.desanalytes | titlecase }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div>
+      <mat-icon
+        style="cursor: pointer; color: var(--blue-03)"
+        (click)="scrollCards(1)"
+        >arrow_forward_ios</mat-icon
+      >
+    </div>
+  </div>
+</div>
+
+@if(verGraficas && dataSource?.filteredData.length !== 0){
+<div
+  class="cardReportes"
+  style="height: 350px"
+  [ngClass]="{ cardModify: verGraficas }"
+>
+  <!-- <div style="display: flex; justify-content: space-around; margin: 1em 0;">
+            <div class="grid-container"  style="height: 34px; width: 450px; grid-template-columns: repeat(2, 1fr) !important;">
+                <div class="estiloGeneralSlide dos" [ngClass]="{'selected':!flagViewTable()}" (click)="flagViewTable.set(false)">
+                    <mat-icon svgIcon="table_line" class="icon-custom" style="width: 18px;"></mat-icon> Tabla de datos
+                </div>
+                <div #slide class="estiloGeneralSlide dos"  [ngClass]="{'selected':flagViewTable()}" (click)="flagViewTable.set(true)">
+                    <mat-icon svgIcon="score" class="icon-custom"></mat-icon> Grafica
+                </div>
+            </div>
+    
+            <div *ngIf="verGraficas"
+                    style="display: flex;justify-content: flex-end; margin-right: 5em; margin-bottom: 1em; width: 100%;">
+                <img [src]="'pdf2.png' | imageCdn" alt="Reporte cuantitativo" style="height: 30px; cursor: pointer;"
+                (click)="reportePDF()">
+            </div>
+        </div> -->
+  <div
+    style="
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1em;
+      margin: 1em 0;
+    "
+  >
+    <div
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        width: 100%;
+        max-width: 450px;
+        height: auto;
+        gap: 0.5em;
+      "
+    >
+      <div
+        class="estiloGeneralSlide dos"
+        [ngClass]="{ selected: !flagViewTable() }"
+        (click)="flagViewTable.set(false)"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.5em;
+          text-align: center;
+        "
+      >
+        <mat-icon
+          svgIcon="table_line"
+          class="icon-custom"
+          style="width: 18px"
+        ></mat-icon>
+        <span style="margin-left: 0.5em">Tabla de datos</span>
+      </div>
+
+      <div
+        #slide
+        class="estiloGeneralSlide dos"
+        [ngClass]="{ selected: flagViewTable() }"
+        (click)="flagViewTable.set(true)"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.5em;
+          text-align: center;
+        "
+      >
+        <mat-icon svgIcon="score" class="icon-custom"></mat-icon>
+        <span style="margin-left: 0.5em">Gráfica</span>
+      </div>
+    </div>
+
+    <div
+      *ngIf="verGraficas"
+      style="
+        display: flex;
+        justify-content: flex-end;
+        margin-left: auto;
+        margin-top: 0.5em;
+      "
+    >
+      <img
+        [src]="'pdf2.png' | imageCdn"
+        alt="Reporte cuantitativo"
+        style="height: 30px; cursor: pointer"
+        (click)="reportePDF()"
+      />
+    </div>
+  </div>
+
+  <div
+    *ngIf="
+      flagViewTable() === false &&
+      verGraficas &&
+      (analitoInfo.length !== 0 || dataSource?.filteredData.length !== 0)
+    "
+    style="width: 100%"
+  >
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="1">
+        <th
+          style="width: 300px"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          {{ headerTable }}
+        </th>
+        <td mat-cell *matCellDef="let row; index as i">
+          <ng-container *ngIf="!row?.Seccion">
+            {{ "Nivel " + (i + 1) }}
+          </ng-container>
+          <ng-container *ngIf="row?.Seccion">
+            {{ row.Seccion }}
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="2">
+        <th
+          style="width: 300px"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          N° Datos
+        </th>
+        <td mat-cell *matCellDef="let row" style="width: 3em !important">
+          {{ row.totaldatos }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="3">
+        <th
+          style="width: 300px"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          Concordancia
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.totalaceptados }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="4">
+        <th
+          style="width: 300px"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          No concordancia
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.totalrechazados }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="5">
+        <th
+          style="width: 300px"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          % Aceptación
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.pctaceptados }} %</td>
+      </ng-container>
+
+      <ng-container matColumnDef="6">
+        <th
+          style="width: 300px"
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          % Rechazados
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.pctrechazados }} %</td>
+      </ng-container>
+
+      <ng-container matColumnDef="7">
+        <th style="width: 300px" mat-header-cell *matHeaderCellDef>
+          Métrica Sigma
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.sigma == 0 ? ">6" : row.sigma }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <div
+    class="grid-2-completo"
+    style="grid-template-columns: repeat(auto-fit, minmax(600px, 1fr))"
+  >
+    <div
+      *ngIf="
+        flagViewTable() === true &&
+        graficaConcordancia.length !== 0 &&
+        verGraficas &&
+        verListaAnalitos
+      "
+    >
+      <app-grafica-barras
+        [idB]="'BarraTipo2_01'"
+        [tipoGrafica]="2"
+        [data]="graficaConcordancia"
+        [xAxis]="graficaConcordanciaXAxis"
+        [titulo]="'Porcentaje concordancia'"
+        analito="{{ nomobreAnalito }}"
+        [widthGraficaPx]="'auto'"
+        [heightGraficaPx]="'300px'"
+        (base64Barras)="graficasBase64[0] = $event"
+      >
+      </app-grafica-barras>
+    </div>
+    <div
+      *ngIf="
+        flagViewTable() === true &&
+        graficaDesemp.length !== 0 &&
+        verGraficas &&
+        verListaAnalitos
+      "
+    >
+      <app-grafica-barras
+        [idB]="'BarraTipo2_02'"
+        [tipoGrafica]="2"
+        [data]="graficaDesemp"
+        [xAxis]="graficaDesempXaxis"
+        [titulo]="'Desempeño por año'"
+        analito="{{ nomobreAnalito }}"
+        [widthGraficaPx]="'auto'"
+        [heightGraficaPx]="'300px'"
+        (base64Barras)="graficasBase64[1] = $event"
+      >
+      </app-grafica-barras>
+    </div>
+  </div>
+  <div
+    *ngIf="
+      flagViewTable() === true &&
+      graficaSigma.length !== 0 &&
+      verGraficas &&
+      verListaAnalitos
+    "
+  >
+    <app-grafica-barras
+      [idB]="'BarraTipo2_03'"
+      [tipoGrafica]="2"
+      [data]="graficaSigma"
+      [xAxis]="graficaSigmaXaxis"
+      [legend]="[]"
+      [titulo]="'Grafíco Métrica Sigma QCI'"
+      analito="{{ nomobreAnalito }}"
+      [widthGraficaPx]="'auto'"
+      [heightGraficaPx]="'300px'"
+      (base64Barras)="graficasBase64[2] = $event"
+    >
+    </app-grafica-barras>
+  </div>
+</div>
+}

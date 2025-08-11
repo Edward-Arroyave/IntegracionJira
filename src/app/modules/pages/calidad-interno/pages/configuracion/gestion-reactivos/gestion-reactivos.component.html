@@ -1,0 +1,25 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Reactivos'"
+    (onCreate)="openModalGestionReactivos(templateGestionReactivos, '')" (onChangeStatus)="actualizarEstadoGestionReactivos($event)"
+    (onEdit)="openModalGestionReactivos(templateGestionReactivos, $event)" (onDelete)="eliminarGestionReactivos($event)">
+  </app-tabla-comun>
+
+<ng-template #templateGestionReactivos>
+  <form [formGroup]="formaGestionReactivos" class="grid-3" >
+    <mat-form-field>
+      <mat-label>Reactivo</mat-label>
+      <input matInput type="text" formControlName="desreagents">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Generación</mat-label>
+      <input matInput type="number" formControlName="generation" pattern="^\d{0,3}$" maxlength="3">
+      <mat-error>Máximo 3 digitos</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>  
+  </form>
+</ng-template>

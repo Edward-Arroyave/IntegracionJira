@@ -1,0 +1,154 @@
+.form_busqueda{
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
+}
+
+.mat-mdc-select {
+
+  margin-top: 0.6rem !important;
+}
+
+mat-form-field{
+  width: 100% !important;
+}
+
+.labelBeforeSlide {
+  position: absolute;
+  top: -18px;
+  right: -11px;
+}
+
+.boton-back {
+  border-radius: 25px;
+  height: 30px;
+  color: var(--purple-01);
+  background: white;
+  border: var(--purple-01);
+  font-weight: bold;
+  border: 1px solid var(--purple-01);
+}
+.boton,
+.boton-back {
+ width: 8em;
+}
+
+.subTituloModal{
+  font-size: 1.5em;
+  margin-top: .5em;
+}
+
+.tdSelect{
+  display: flex;
+  justify-content: center;
+}
+
+.select{
+  color: #3371b0 !important;
+    border: 1px solid #ced4da8f !important;
+}
+@media(min-width: 320px) {
+
+  .boxBtnAceptCancel {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+
+  }
+
+  .btnCancel {
+
+    margin-left: 8px;
+
+  }
+
+  .btnCancel,
+  .btnAceptar {
+
+    width: 76px;
+
+  }
+
+  .boxBtnFilter {
+
+    margin-top: 24px;
+
+  }
+
+  .boxBtnCreate {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .btnCreate {
+
+    width: 70px;
+
+  }
+
+  .boxFilter {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .filter {
+
+    width: 80%;
+    margin-left: 4px;
+
+  }
+
+}
+
+@media(min-width: 500px) {
+
+  .filter {
+
+    width: 60%;
+  }
+
+}
+
+@media(min-width: 576px) {
+
+  .btnActive {
+
+    text-align: center;
+
+  }
+
+  .boxBtnCreate {
+
+    margin: 0;
+    justify-content: flex-start;
+
+  }
+
+  .boxFilter {
+
+    justify-content: flex-end;
+
+  }
+
+  .filter {
+
+    width: 80%;
+
+  }
+
+}
+
+.sf-2 .mat-mdc-select {
+  margin-top: 0.6rem !important;
+}

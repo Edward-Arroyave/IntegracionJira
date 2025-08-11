@@ -1,0 +1,122 @@
+<app-tabla-comun [cabeceros]="displayedColumns" [viewButton]="false" [info-tabla]="dataTableBody" [titulo]="'Clientes'"
+  (onCreate)="openModalRegistroCliente(templateRegistroCliente, '')" (onChangeStatus)="actualizarEstadoCliente($event)"
+  (onEdit)="openModalRegistroCliente(templateRegistroCliente, $event)" (onDelete)="eliminarCliente($event.idclient)">
+</app-tabla-comun>
+
+<ng-template #templateRegistroCliente>
+
+  <form [formGroup]="formaRegistroCliente" class="grid-3" style="margin-bottom: 1em;">
+
+    <mat-form-field>
+      <mat-label>Cliente</mat-label>
+      <mat-select disableOptionCentering formControlName="name">
+        <mat-option>
+          --
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterCliente" placeholderLabel="Buscar cliente..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let client of listHeaderClientCreate" [value]="client.descriptionHeader" [matTooltipPosition]="'right'"
+          [matTooltip]="client.descriptionHeader">
+          {{ client.descriptionHeader }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>NIT
+      </mat-label>
+      <input matInput formControlName="nit" type="text" class="form-control" autocomplete="off">
+      <mat-error *ngIf="nitNoValido.errors?.minlength" class="text-danger animated fadeIn">Mínimo 2 caracteres</mat-error>
+      <mat-error *ngIf="nitNoValido.errors?.maxlength"
+        class="text-danger animated fadeIn">Máximo 50 caracteres</mat-error>
+      <mat-error
+        *ngIf="nitNoValido.invalid  && nitNoValido.touched && !nitNoValido.errors?.minlength && !nitNoValido.errors?.maxlength"
+        class="text-danger animated fadeIn">Campo requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="addres" type="text" autocomplete="off">
+      <mat-error *ngIf="addresNoValido.errors?.minlength"
+        class="text-danger animated fadeIn">Mínimo 2 caracteres</mat-error>
+      <mat-error *ngIf="addresNoValido.errors?.maxlength"
+        class="text-danger animated fadeIn">Máximo 50 caracteres</mat-error>
+      <mat-error
+        *ngIf="addresNoValido.invalid  && addresNoValido.touched && !addresNoValido.errors?.minlength && !addresNoValido.errors?.maxlength"
+        class="text-danger animated fadeIn">Campo requerido</mat-error>
+    </mat-form-field>
+
+
+
+
+    <mat-form-field>
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="phone" type="number" autocomplete="off">
+      <mat-error *ngIf="phoneNoValido.errors?.minlength"
+        class="text-danger animated fadeIn">Mínimo 7 caracteres</mat-error>
+      <mat-error *ngIf="phoneNoValido.errors?.maxlength"
+        class="text-danger animated fadeIn">Máximo 20 caracteres</mat-error>
+      <mat-error
+        *ngIf="phoneNoValido.invalid  && phoneNoValido.touched && !phoneNoValido.errors?.minlength && !phoneNoValido.errors?.maxlength"
+        class="text-danger animated fadeIn">Campo requerido</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="text" autocomplete="off">
+      <mat-error *ngIf="emailNoValido.errors?.pattern" class="text-danger animated fadeIn">Debe ser tipo de tipo email</mat-error>
+      <mat-error *ngIf="emailNoValido.invalid  && emailNoValido.touched && !emailNoValido.errors?.pattern"
+        class="text-danger animated fadeIn">Campo requerido</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field>
+      <mat-label>Contacto</mat-label>
+      <input matInput formControlName="contact" type="text" autocomplete="off">
+      <mat-error *ngIf="contactNoValido.errors?.minlength"
+        class="text-danger animated fadeIn">Mínimo 7 caracteres</mat-error>
+      <mat-error *ngIf="contactNoValido.errors?.maxlength"
+        class="text-danger animated fadeIn">Máximo 150 caracteres</mat-error>
+      <mat-error
+        *ngIf="contactNoValido.invalid  && contactNoValido.touched && !contactNoValido.errors?.minlength && !contactNoValido.errors?.maxlength"
+        class="text-danger animated fadeIn">Campo requerido</mat-error>
+    </mat-form-field>
+
+  <div class="up-img-cont">
+    <div class="circle-ext">
+      <div class="circle_int">
+        @if(imageSrc){
+          <img [src]="imageSrc" alt="Imagen seleccionada">
+        }
+      </div>
+    </div>
+
+    <div class="btn-up-images">
+      <div class="btn icon_add btn_file" (change)="loadFileSeguimiento($event)" style="display: none;">
+        <input type="file" class="btn_carga" id="inputCargadorSeguimiento" accept=".jpg,.JPG,.jpeg,.JPEG,.png,.PNG,.gif,.GIF,.bmp,.BMP,.webp,.WEBP,.tiff,.TIFF">
+      </div>
+      <div class="up-img-btn" (click)="openDownloader('inputCargadorSeguimiento')">
+
+      </div>
+      <div class="open-cam-btn" (click)="openCamera()"></div>
+
+    </div>
+
+  </div>
+
+
+    <div class="contieneToggle">
+      <label class="labelToggle" for="active">Estado</label><br>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+
+  </form>
+</ng-template>

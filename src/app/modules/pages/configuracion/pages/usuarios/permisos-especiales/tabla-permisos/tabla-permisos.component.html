@@ -1,0 +1,44 @@
+<section>
+  <article class="d-flex justify-content-center flex-column">
+
+
+    <!-- INPUT FILTRO -->
+    <header style="display: flex;justify-content:end;">
+      <div style="width: 250px; display: flex;justify-content: center;align-items: center;">
+        <mat-form-field>
+          <mat-label>Buscar</mat-label>
+          <input (keyup)="applyFilter($event.target.value)" matInput>
+          <mat-icon matSuffix class="icon-search">search</mat-icon>
+        </mat-form-field>
+      </div>
+    </header>
+
+    <!-- ESTRUCTURA TABLA -->
+    <table mat-table [dataSource]="dataSource" matSort >
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column | translate }} </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="column !== 'Quitar'; else AccionesColumn">
+            <ng-container *ngIf="element[column] !== true && element[column] !== false ">
+              {{ element[column] }}
+            </ng-container>
+            <ng-container *ngIf="element[column] === true || element[column] === false">
+              <mat-slide-toggle [checked]="element[column]"
+                (change)="[element[column]=$event.checked,toggleEstado(element)]"></mat-slide-toggle>
+            </ng-container>
+          </ng-container>
+          <ng-template #AccionesColumn>
+            <div class="eliminarIcon" (click)="deleteElement(element.idpermission)">
+              <mat-icon>close</mat-icon>
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <!-- PAGINADOR -->
+    <mat-paginator class="estiloPaginador" [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page of periodic elements"></mat-paginator>
+  </article>
+</section>

@@ -1,0 +1,20 @@
+  <app-tabla-comun [viewButton]="crearsi" [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Materiales de control'"
+    (onCreate)="openModalGestionMateriales(templateGestionMateriales, '')" (onChangeStatus)="actualizarEstadoGestionMaterial($event)"
+    (onEdit)="openModalGestionMateriales(templateGestionMateriales, $event)" (onDelete)="eliminarGestionMateriales($event)">
+  </app-tabla-comun>
+
+
+<ng-template #templateGestionMateriales>
+  <form [formGroup]="formaGestionMateriales" class="grid-2">
+    <mat-form-field>
+      <mat-label>M. de control</mat-label>
+      <input matInput type="text" formControlName="desContMat">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <mat-label>Estado</mat-label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>  
+  </form>
+</ng-template>

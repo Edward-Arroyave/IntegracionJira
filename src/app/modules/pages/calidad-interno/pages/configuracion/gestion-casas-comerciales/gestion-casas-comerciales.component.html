@@ -1,0 +1,21 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Casas comerciales'"
+    (onCreate)="openModalCasasComercialess(templateCasasComerciales, '')" (onChangeStatus)="actualizarEstadoCasasComerciales($event)"
+    (onEdit)="openModalCasasComercialess(templateCasasComerciales, $event)" (onDelete)="eliminarCasasComerciales($event)">
+  </app-tabla-comun>
+
+<ng-template #templateCasasComerciales>
+  <form [formGroup]="formaCasasComerciales" class="grid-2">
+    
+    <mat-form-field>
+      <mat-label>Casas comerciales</mat-label>
+      <input matInput type="text" formControlName="destrademark">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>

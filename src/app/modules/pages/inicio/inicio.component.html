@@ -1,0 +1,122 @@
+<div class="container-module">
+  <div class="container_menu">
+
+    <h1 class="title_module"> ACCESOS DIRECTOS</h1>
+    <div class="image_container" >
+      <img style="width: 100%;" src="assets/rutas/iconos/microscopio.png" alt="">
+    </div>
+
+    <div class="container_circles">
+
+
+      <div style="position: relative;">
+        <div class="absolute_float float1">
+          <div class="container-item">
+            <div class="circle blue-degrade-1">
+              <img class="" style="cursor: pointer; position: relative;"
+                (click)="navigate('calidad-interno/ingreso-datos/cuantitativo')" src="assets/rutas/iconos/Ingresodedatoscuantitativos.svg">
+            </div>
+            <div class="text-circle blue">Ingreso de datos cuantitativos</div>
+          </div>
+
+          <div class="line1 line"></div>
+
+
+        </div>
+
+      </div>
+
+
+      <div style="position: relative;">
+        <div class="absolute_float float2">
+          <div class="container-item">
+            <div class="circle purple-degrade">
+              <img class="" style="cursor: pointer;" (click)="navigate('calidad-interno/ingreso-datos/cualitativos')"
+              src="assets/rutas/iconos/Ingresodedatoscualitativos.svg">
+            </div>
+            <div class=" ">
+              <div class="text-circle purple"> Ingreso de datos cualitativos</div>
+            </div>
+          </div>
+          <div class="line2 line"></div>
+        </div>
+      </div>
+
+
+
+      <div style="position: relative;">
+        <div class="absolute_float float3">
+          <div class="container-item">
+            <div class="circle blue-degrade-2">
+              <img class="" style="cursor: pointer;" (click)="navigate('calidad-interno/administracion/gestion-test')"
+              src="assets/rutas/iconos/Test.svg">
+            </div>
+            <div class=" ">
+              <div class="text-circle blue">Test</div>
+            </div>
+          </div>
+          <div class="line3 line"></div>
+        </div>
+      </div>
+
+
+      <div style="position: relative;">
+        <div class="absolute_float float4">
+          <div class="container-item">
+            <div class="circle purple-degrade">
+              <img class="" style="cursor: pointer;" (click)="navigate('calidad-interno/configuracion/gestion-lotes')"
+              src="assets/rutas/iconos/Lotes.svg">
+            </div>
+            <div>
+              <div class="text-circle purple">Lotes</div>
+            </div>
+          </div>
+          <div class="line4 line"></div>
+        </div>
+      </div>
+
+
+      <div style="position: relative;">
+        <div class="absolute_float float5">
+          <div class="container-item">
+            <div class="circle blue-degrade-1">
+              <img class="" style="cursor: pointer;" (click)="navigate('calidad-interno/configuracion/gestion-analiticos')"
+              src="assets/rutas/iconos/Analitos.svg">
+            </div>
+            <div class=" ">
+              <div class="text-circle blue">Analitos</div>
+            </div>
+          </div>
+          <div class="line5 line"></div>
+        </div>
+      </div>
+
+
+      <div style="position: relative;">
+        <div class="absolute_float float6">
+          <div class="container-item">
+            <div class="circle purple-degrade">
+              <img class="" style="cursor: pointer;" (click)="navigate('calidad-interno/configuracion/gestion-metodos')"
+              src="assets/rutas/iconos/Métodos.svg">
+            </div>
+            <div class=" ">
+              <div class="text-circle purple">Métodos</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+</div>
+
+
+<!-- alerta de bienvenida -->
+
+<app-alert-welcome *ngIf="welcome"></app-alert-welcome>

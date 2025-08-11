@@ -1,0 +1,359 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mt-4">
+            <div class="card mt-3 mb-3 borderTable">
+                <div class="col-12 d-flex justify-content-center">
+                    <img class="imageSobreBorde" [src]="'indicadores-icon.png' | imageCdn">
+                </div>
+
+
+                <!-- ***Pagina de filtros -->
+                <div class="row justify-content-center mt-4">
+
+                    <div class="col-12 titulo">REPORTES</div>
+
+
+                    <!-- Form filter -->
+                    <form class="col-12" [formGroup]="formulario" autocomplete="off" (submit)="getFiltro()">
+
+                        <div style="display: grid;grid-template-columns: 50px repeat(3,1fr) 50px; gap: 1em; align-items: center;">
+                            <div style="text-align: center;">
+                                <img [src]="'calendar.svg' | imageCdn" style="width: 50%;">
+                            </div>
+
+                            <div >
+                                <div role="group">
+                                    <mat-form-field>
+                                        <mat-label >Reporte</mat-label>
+                                        <mat-select disableOptionCentering formControlName="reporte">
+                                            <mat-option value="">
+                                                --
+                                            </mat-option>
+                                            <mat-option *ngFor="let item of indicadores" [value]="item.idindicators">
+                                                {{ item.nameindicators }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="reporteNoValido.hasError('required')" class="animated fadeIn">
+                                            Campo requerido
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+
+                            <div >
+
+                                <div role="group" >
+                                    <mat-form-field >
+                                        <mat-label >Mes</mat-label>
+                                        <mat-select disableOptionCentering formControlName="mes">
+                                            <mat-option value="">--</mat-option>
+                                            <mat-option *ngFor="let item of meses" [value]="item.idmes">
+                                                {{ item.mes }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="mesNoValido.hasError('required')" class="animated fadeIn">
+                                            Campo requerido
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+
+                            </div>
+
+                            <div >
+                                <div role="group">
+                                    <mat-form-field >
+                                        <mat-label >Año</mat-label>
+                                        <mat-select disableOptionCentering formControlName="anio">
+                                            <mat-option value="">--</mat-option>
+                                            <mat-option *ngFor="let item of anios" [value]="item">
+                                                {{ item }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="anioNoValido.hasError('required')" class="animated fadeIn">
+                                            Campo requerido
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-1">
+                                <button class="boton rounded-circle" type="submit" style="width: 33px !important;">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    <!-- Panel Seleccion y Tablas -->
+                    <div class="col-12 formFilter">
+
+                        <div class="form-row">
+                            <div class="col-12">
+                                <div class="card mb-3 borderTable" style="border-radius: 10px !important;">
+
+                                    <!-- **Pagina de Selecion -->
+
+                                    <div class="row justify-content-center" [hidden]="pageHide">
+                                        <div class="col-6 text-center styleVer">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <i class="fas fa-angle-up styleIcon"></i>
+                                                </div>
+                                                <div class="col-12">
+
+                                                    <span class="txt-label">Selecciona los filtros <br>para visualizar la información</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 styleVer p-xl-5">
+                                            <img [src]="'reporte-reject.png' | imageCdn" alt="Reporte cuantitativo" class="img-fluid" style="max-width: 65%;">
+                                        </div>
+                                    </div>
+
+
+                                    <!-- **Pagina con Tabla -->
+                                    <div class="row justify-content-center mt-3" [hidden]="!pageHide">
+                                        <div class="col-10 p-4" [class.card-scroll]="pageHide">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <table class="table table-responsive-sm">
+                                                        <thead>
+                                                            <tr style="border: solid white;">
+                                                                <th scope="col" style="width: 46%;">
+                                                                    <p class="table-label float-left"><strong>Item a evaluar</strong></p>
+                                                                </th>
+                                                                <th scope="col">
+                                                                    <p class="table-label"><strong>Mes previo</strong></p>
+                                                                </th>
+                                                                <th scope="col">
+                                                                    <p class="table-label"><strong>Mes Actual</strong></p>
+                                                                </th>
+                                                                <th scope="col">
+                                                                    <p class="table-label"><strong>% Cambio</strong></p>
+                                                                </th>
+                                                                <th scope="col">
+                                                                    <p class="table-label"><strong>%Mes Actual</strong></p>
+                                                                </th>
+                                                                <th scope="col">
+                                                                    <!-- <p class="table-label"><strong>Sigma</strong></p> -->
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of reporte_arr; let i = index;">
+                                                                <td style="text-align: left !important;">
+                                                                    <div class="d-inline-flex">
+                                                                        <!-- <div class="dot text-center pointer" (click)="openItemModal(tablaGraficaModal)"><span class="number">...</span></div> -->
+                                                                        <img [src]="'puntos-icon.png' | imageCdn" class="pointer" style="width: 38px !important; height: 38px;" (click)="openItemModal(tablaGraficaModal, item, i+1)">
+                                                                        <span class="line"> {{item.Item}}</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>{{item.MesPrevio}}</td>
+                                                                <td>{{item.Mesactual}}</td>
+                                                                <td>
+                                                                    <span [class.text-success]="item.Pctcambio < -25" [class.text-danger]="item.Pctcambio > 25">{{item.Pctcambio }}</span>
+                                                                </td>
+                                                                <td>{{item.PctMesactual}}</td>
+                                                                <!-- <td [class]="{ 'rojo': item.Sigma < 2.99, 'amarillo': item.Sigma >= 3 && item.Sigma < 3.99, 'verde': item.Sigma >= 4 && item.Sigma < 4.99, 'verdeOscuro': item.Sigma > 5 }">{{item.Sigma}}</td> -->
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center mt-3" [hidden]="barHide">
+                                                <div id="main" class="col-10 mt-2 text-center">
+                                                    <div class="card card-block border-0">
+                                                        <div id="chart-bar"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="d-inline-flex mt-3 float-right mr-3">
+                                                <img class="pointer" [src]="'pre-reportes-icon.png' | imageCdn" style="width: 60%; margin: 5px;" (click)="openModal(reporteModal, 'modal-xl')">
+                                                <img class="pointer" [src]="'pre-descripcion-icon.png' | imageCdn" style="width: 60%; margin: 5px;" (click)="openModal(descripcionModal, 'modal-md')">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ***Modal Reportes -->
+
+<ng-template #reporteModal let-modal>
+    <div class="modal-header ">
+        <button type="button " class="close pull-right " arial-label="Close " (click)="closeVentana() ">
+  <span aria-hidden="true ">&times;</span>
+</button>
+    </div>
+    <div class="modal-body text-center ">
+        <div class="row mb-3 ">
+            <div class="col flex2 ">
+                <img class="img img-fluid " [src]=" 'pre-reportes-icon-modal.png' | imageCdn " style="width: 10% !important; ">
+                <h3 class="tituloModal " style="color: #3F2E63; ">Reporte General</h3>
+                <hr>
+            </div>
+        </div>
+        <div class="row col-12 mb-3 animate__animated animate__fadeIn fast">
+
+            <div class="col-12 divTabla ">
+                <table>
+                    <tr>
+                        <th style="width: 33%; "></th>
+                        <th class="border-0 ">
+                            <p>Mes previo</p>
+                        </th>
+                        <th class="border-0 ">
+                            <p>Total</p>
+                        </th>
+                        <th class="border-0 ">
+                            <p>Mes actual</p>
+                        </th>
+                        <th class="border-0 ">
+                            <p>%Cambio</p>
+                        </th>
+                        <th class="border-0 ">
+                            <p>%Mes actual</p>
+                        </th>
+                        <!-- <th class="border-0 ">
+                            <p>Sigma</p>
+                        </th> -->
+                        <th class="border-0 ">
+                            <p>%Meta</p>
+                        </th>
+                        <!-- <th class="border-0 ">
+                            <p>Evaluación</p>
+                        </th>  -->
+                    </tr>
+                    <tr *ngFor="let item of gnl_reporte_arr; let i = index;">
+                        <td class="border-0 float-left">
+                            <p class="text-dark txt-start">{{item.Item}}</p>
+                        </td>
+                        <td class="thEstyle">{{item.MesPrevio}}</td>
+                        <td class="thEstyle">{{item.Total}}</td>
+                        <td class="thEstyle">{{item.Mesactual}}</td>
+                        <td class="thEstyle" [class.text-success]="item.Pctcambio < -25" [class.text-danger]="item.Pctcambio > 25">{{item.Pctcambio }}</td>
+                        <td class="thEstyle">
+                            <p *ngIf="i != 2" [ngClass]="item.PctMesactual > item.Meta  ? 'rojo' : ''">{{item.PctMesactual}}</p>
+                            <p *ngIf="i == 2" [ngClass]="item.PctMesactual < item.Meta  ? 'rojo' : ''">{{item.PctMesactual | number: '0.0-0'}}</p>
+                        </td>
+                        <!-- <td class="thEstyle" [class]="{ 'rojo': item.Sigma < 2.99, 'amarillo': item.Sigma >= 3 && item.Sigma < 3.99, 'verde': item.Sigma >= 4 && item.Sigma < 4.99, 'verdeOscuro': item.Sigma > 5 }">{{item.Sigma}}</td> -->
+                        <td class="thEstyle">
+                            <p *ngIf="i != 2">Menor a {{item.Meta | number: '0.0-0'}}</p>
+                            <p *ngIf="i == 2">Mayor a {{item.Meta }}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</ng-template>
+<!-- ***Modal Descripcion -->
+
+<ng-template #descripcionModal let-modal>
+    <div class="modal-header ">
+        <button type="button " class="close pull-right " arial-label="Close " (click)="closeVentana() ">
+  <span aria-hidden="true ">&times;</span>
+</button>
+    </div>
+    <div class="modal-body text-center ">
+        <div class="row mb-5 ">
+            <div class="col-12 ">
+                <img class="img img-fluid " [src]=" 'pre-descripcion-icono-modal.png' | imageCdn " style="width: 20% !important; ">
+                <h3 class="tituloModal " style="color: #3F2E63; ">Descripción</h3>
+                <hr>
+            </div>
+            <div class="col-12 p-3 ">
+                <!-- <p style="text-align: justify; ">Estos gráficos expresan en porcentaje la cantidad de resultados obtenidos de todos los participantes en este evento para cada de las muestras, nos indica el porcentaje de VP, VN, FN, FP o el que ha obtenido una muestra determinada.</p>-->
+                <p style="text-align: justify; ">{{descripcion}}</p>
+            </div>
+
+        </div>
+
+    </div>
+</ng-template>
+
+
+
+<!-- ***Modal Tabla & Grafica -->
+
+<ng-template #tablaGraficaModal let-modal>
+    <div class="modal-header ">
+        <button type="button " class="close pull-right " arial-label="Close " (click)="closeVentana() ">
+  <span aria-hidden="true ">&times;</span>
+</button>
+    </div>
+    <div class="modal-body text-center ">
+        <div class="row mb-3 ">
+            <div class="col flex2 ">
+                <img class="img img-fluid " [src]=" 'porcentaje-icon-modal.png' | imageCdn " style="width: 10% !important; ">
+                <h3 class="tituloModal " style="color: #3F2E63; ">% {{this.itemInd.Item}}</h3>
+                <hr>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-3 ">
+            <div class="col-11 divTabla ">
+                <table>
+                    <tr>
+                        <th style="width: 33%; ">
+                            <p>% {{typeInd}}</p>
+                        </th>
+                        <th class="border-0 " *ngFor="let item of labelsMes_arr">
+                            <p>{{item}}</p>
+                        </th>
+                    </tr>
+                    <tr *ngIf="typeInd == 'Muestras'">
+                        <td class="border-0 float-left d-flex ">
+                            <img class="mr-2 " [src]=" 'blue-close-circle.png' | imageCdn " style="width: 23px;height: 23px; ">
+                            <p class="text-dark txt-start">Total muestras rechazadas</p>
+                        </td>
+                        <td class="thEstyle" *ngFor="let item of totalSampleMes_arr">{{item}}</td>
+
+                    </tr>
+                    <tr *ngIf="indexInd !== 3">
+                        <td class="border-0 float-left d-flex ">
+                            <img class="mr-2 " [src]=" 'blue-check-circle.png' | imageCdn " style="width: 23px;height: 23px; ">
+                            <p class="text-dark txt-start">Total {{typeInd}}</p>
+                        </td>
+                        <td class="thEstyle " *ngFor="let item of totalMes_arr">{{item}}</td>
+
+                    </tr>
+                    <tr>
+                        <td class="border-0 float-left d-flex ">
+                            <img class="mr-2 " [src]=" 'blue-procentaje-circle.png' | imageCdn " style="width: 23px;height: 23px; ">
+                            <p class="text-dark txt-start">{{itemInd.Item}}</p>
+                        </td>
+                        <td class="thEstyle " *ngFor="let item of porcentMes_arr">{{item}}%</td>
+
+                    </tr>
+                </table>
+            </div>
+            <hr style="width: 90%; ">
+            <div id="main-line" class="col-10 mt-2 text-center ">
+                <div class="card card-block border-0 ">
+                    <div id="chart-line" #chart></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</ng-template>

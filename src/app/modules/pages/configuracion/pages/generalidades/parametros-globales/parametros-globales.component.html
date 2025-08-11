@@ -1,0 +1,27 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Parametros globales'"
+    (onCreate)="openModalRegistroParametro(templateRegistroCiudad, '')" (onChangeStatus)="actualizarEstadoParametroGlobal($event)"
+    (onEdit)="openModalRegistroParametro(templateRegistroCiudad, $event)" (onDelete)="eliminarParametroGlobal($event)">
+  </app-tabla-comun>
+
+<ng-template #templateRegistroCiudad>
+  <form [formGroup]="formaRegistroParametrosGlobales" class="grid-3-toggle">
+    <mat-form-field>
+      <mat-label >Cód. Documento</mat-label>
+      <input matInput formControlName="codParam" type="text">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label >Documento</mat-label>
+      <input matInput formControlName="desParam" type="text">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+  </div>
+
+  </form>
+</ng-template>

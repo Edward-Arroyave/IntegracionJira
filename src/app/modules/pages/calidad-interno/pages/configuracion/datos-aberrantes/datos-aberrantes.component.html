@@ -1,0 +1,28 @@
+<app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Datos aberrantes Grubbs'"
+  (onCreate)="openModalRegistroDatosaberrantes(templateRegistroDatosAberrantes, '')"
+  (onChangeStatus)="actualizarCAEstado($event)"
+  (onEdit)="openModalRegistroDatosaberrantes(templateRegistroDatosAberrantes, $event)" (onDelete)="eliminarCA($event)">
+</app-tabla-comun>
+
+<ng-template #templateRegistroDatosAberrantes>
+
+  <form [formGroup]="formaRegistroDatosAberrantes" class="grid-3-toggle">
+
+    <mat-form-field>
+      <mat-label>N° Datos</mat-label>
+      <input matInput type="text" formControlName="participants">
+      <mat-error>Obligatorio</mat-error>
+   </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Z-score</mat-label>
+      <input matInput type="text" formControlName="zscore">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+</ng-template>

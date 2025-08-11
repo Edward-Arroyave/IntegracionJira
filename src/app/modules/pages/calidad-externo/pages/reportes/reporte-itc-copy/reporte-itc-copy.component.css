@@ -1,0 +1,143 @@
+.formulario-principal {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1em;
+  align-items: center;
+}
+
+.text-secondary {
+  color: #6F4B8B !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 600;
+}
+
+table thead th {
+  background-color: var(--blue-01);
+  color: white;
+}
+
+tr {
+  height: 40px !important;
+  text-align: center;
+}
+.borderTh {
+  border-right: 1px solid white;
+}
+
+.tables-unificated {
+  /* overflow: auto; */
+  width: 100%;
+  max-height: 350px;
+  overflow-x: auto;
+  margin-bottom: 1em;
+}
+.contTables {
+  width: 100%;
+  display: grid;
+  max-height: 350px;
+
+}
+
+.scrollable-tbody {
+  overflow-y: auto !important;
+  scroll-behavior: smooth;
+}
+.scrollable-tbody thead th {
+  position: sticky !important;
+  top: 0;
+  z-index: 2;
+}
+.scrollable-tbody thead {
+  position: sticky !important;
+  top: 0;
+  z-index: 2;
+}
+
+.border-white-left{
+  border-left: white solid 1px;
+}
+.border-white-right{
+  border-right: white solid 1px;
+}
+
+.text-capitalize{
+  text-transform: capitalize;
+}
+.grafica-container{
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 2em;
+}
+.grafica{
+  width: 100%;
+}
+
+.rojo {
+  background: #EB5F58;
+  color: white;
+}
+
+/* .verde {
+  background: #72C85D;
+  color: white;
+} */
+
+.green{
+  background-color: #0FD0CD;
+  color: black;
+}
+.green-smooth{
+  background-color: #98EDEC;
+  color: black;
+}
+
+
+.red {
+  background: #ea1c12;
+  color: white;
+}
+.red-smooth {
+  background: #EB5F58;
+  color: white;
+}
+
+.header-info{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.btn-imprimir {
+  width: 140px;
+  height: 36px;
+  background-color: var(--purple-01);
+  border-radius: 16px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+  cursor: pointer;
+}
+@media(max-width: 1600px) {
+  .formulario-principal {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media(max-width: 1380px) {
+  .formulario-principal {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media(max-width: 700px) {
+  .formulario-principal {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+

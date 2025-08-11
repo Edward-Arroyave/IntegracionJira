@@ -1,0 +1,270 @@
+.container-module {
+  overflow: hidden;
+}
+.title_module {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 2em;
+  font-size: 18px;
+  color: var(--color-header);
+  font-weight: 1000;
+  margin-bottom: 0px !important;
+}
+.container_menu {
+  width: 80%;
+  background-image: url("../../../../assets/rutas/iconos/fonto_dashboard.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-width: 800px;
+  max-height: 620px;
+  max-width: 1600px;
+}
+
+.image_container {
+  width: 30%;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.container_circles {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  height: 90%;
+}
+
+
+
+.absolute_float {
+  position: absolute;
+}
+
+/* Porcentaje de los flotantes */
+
+.float1 {
+  top: 55%;
+}
+.float2 {
+  top: 30%;
+}
+.float3 {
+  top: 40%;
+}
+.float4 {
+  top: 20%;
+}
+.float5 {
+  top: 25%;
+}
+.float6 {
+  top: 5%;
+}
+
+.container-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  width: 80%;
+  position: relative;
+  cursor: pointer;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  aspect-ratio: 1/1; /* El alto es igual al ancho */
+  border-radius: 50%;
+  border: double 10px transparent;
+  z-index: 2;
+  overflow: hidden;
+  /* position: absolute; */
+}
+
+.circle img {
+  width: 70%;
+}
+.blue-degrade-1 {
+  background-image: linear-gradient(white, white),
+    radial-gradient(
+      circle at top left,
+      rgba(144, 158, 244, 1) 50%,
+      rgba(32, 49, 159, 1) 100%
+    );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: all 1.6s ease;
+}
+.blue-degrade-2 {
+  background-image: linear-gradient(white, white),
+    radial-gradient(
+      circle at top left,
+      rgba(144, 158, 244, 1) 10%,
+      rgba(32, 49, 159, 1) 100%
+    );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.6s ease;
+}
+
+.purple-degrade {
+  background-image: linear-gradient(white, white),
+    radial-gradient(circle at top left, #ccaaef 10%, #6b4b8b 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.6s ease;
+}
+.text-circle {
+  font-size: 14px;
+  font-weight: 900;
+  text-align: center;
+}
+.blue {
+  color: var(--blue-03);
+}
+
+.container-item:hover {
+  cursor: pointer;
+}
+.container-item:hover .blue {
+  color: #0022ff;
+}
+.container-item:hover .purple {
+  color: #cc15d6;
+}
+.container-item:hover .blue-degrade-1 {
+  background-image: linear-gradient(white, white),
+    radial-gradient(
+      circle at top left,
+      rgba(144, 158, 244, 1) 14%,
+      rgba(32, 49, 159, 1) 31%
+    );
+  cursor: pointer;
+}
+.container-item:hover .blue-degrade-2 {
+  background-image: linear-gradient(white, white),
+    radial-gradient(
+      circle at top left,
+      rgba(144, 158, 244, 1) 14%,
+      rgba(32, 49, 159, 1) 31%
+    );
+  cursor: pointer;
+}
+.container-item:hover .purple-degrade {
+  background-image: linear-gradient(white, white),
+    radial-gradient(circle at top left, #ccaaef 72%, #6b4b8b 85%);
+  cursor: pointer;
+}
+
+.purple {
+  color: #6b4b8b;
+}
+
+.line {
+  height: 6px;
+  width: 100%;
+  background-color: #cc15d6;
+  position: absolute;
+  z-index: 1;
+  transform-origin: center;
+  left: 50%;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+}
+
+.line1 {
+  top: -15%;
+}
+.line2 {
+  top: 40%;
+}
+.line3 {
+  top: -15%;
+}
+.line4 {
+  top: 50%;
+}
+.line5 {
+  top: 0;
+}
+
+/******************** MEDIA BREAKING POINTS *************************/
+
+@media only screen and (max-width: 1440px) {
+  .text-circle {
+    font-size: 12px !important;
+  }
+}
+
+/*=============================================
+TABLET HORIZONTAL (LG revisamos en 1024px)
+=============================================*/
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .container-module {
+    overflow: auto;
+  }
+  .container_menu {
+    width: 100%;
+  }
+  .image_container {
+    display: none;
+  }
+}
+
+/*---------------------------------------------------------------------*/
+
+/*=============================================
+TABLET VERTICAL (MD revisamos en 768px)
+=============================================*/
+
+@media (max-width: 991px) and (min-width: 768px) {
+  .container-module {
+    overflow: auto;
+  }
+  .image_container {
+    display: none;
+  }
+}
+
+/*---------------------------------------------------------------------*/
+
+/*=============================================
+MÓVIL HORIZONTAL (SM revisamos en 576px)
+=============================================*/
+
+@media (max-width: 767px) and (min-width: 576px) {
+  .container-module {
+    overflow: auto;
+  }
+  .image_container {
+    display: none;
+  }
+}
+
+/*---------------------------------------------------------------------*/
+
+/*=============================================
+MOVIL VERTICAL (revisamos en 320px)
+=============================================*/
+
+@media screen and (max-width: 575px) {
+  .container-module {
+    overflow: auto;
+  }
+  .image_container {
+    display: none;
+  }
+}
+
+/******************** MEDIA MEDIA BREAKING POINTS  END *************************/

@@ -1,0 +1,70 @@
+<app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Lotes'"
+  (onCreate)="openModalGestionLotes(templateLotes, '')" (onChangeStatus)="actualizarEstadoGestionLotes($event)"
+  (onEdit)="openModalGestionLotes(templateLotes, $event)" (onDelete)="eliminarGestionLotes($event.IdLot)">
+</app-tabla-comun>
+
+<ng-template #templateLotes>
+  <form [formGroup]="formulario" class="grid-2-completo" style="margin-bottom: 1em;">
+    <mat-form-field>
+      <mat-label>
+        Proveedor
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="idsupplier">
+        <mat-option value="">
+          --
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterProveedor" placeholderLabel="Buscar proveedor..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let proveedor of proveedoresActive" [value]="proveedor.idsupplier"
+          [matTooltipPosition]="'right'" [matTooltip]="proveedor.dessupplier">
+          {{ proveedor.dessupplier }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        M. Control
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="idControlMaterial">
+        <mat-option value="">
+          --
+        </mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterMaterialControl" placeholderLabel="Buscar material de control..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let cm of controlMaterialsActive" [value]="cm.idControlMaterial"
+          [matTooltipPosition]="'right'" [matTooltip]="cm.descontmat">
+          {{ cm.descontmat }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>N° Lote</mat-label>
+      <input matInput type="numeric" formControlName="numlot">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Fecha Exp</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="expdate">
+      <mat-datepicker-toggle matSuffix [for]="picker">
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+  </form>
+</ng-template>

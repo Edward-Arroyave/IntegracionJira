@@ -1,0 +1,94 @@
+.boxBtnAceptCancel {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+
+}
+
+.btnCancel {
+
+  margin-left: 8px;
+
+}
+
+.btnCancel,
+.btnAceptar {
+
+  width: 76px;
+
+}
+
+.boxBtnFilter {
+
+  margin-top: 24px;
+
+}
+
+.boxBtnCreate {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.btnCreate {
+
+  width: 70px;
+
+}
+
+.boxFilter {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.filter {
+
+  width: 80%;
+  margin-left: 4px;
+
+}
+
+@media(min-width: 500px) {
+
+  .filter {
+
+    width: 60%;
+  }
+
+}
+
+@media(min-width: 576px) {
+
+  .btnActive {
+
+    text-align: center;
+
+  }
+
+  .boxBtnCreate {
+
+    margin: 0;
+    justify-content: flex-start;
+
+  }
+
+  .boxFilter {
+
+    justify-content: flex-end;
+
+  }
+
+  .filter {
+
+    width: 80%;
+
+  }
+
+}

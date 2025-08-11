@@ -1,0 +1,517 @@
+.txt-disabled-up {
+    color: #8080803b !important;
+    border-color: #8080803b !important;
+    /* border: 1px solid #8080803b !important;
+    background-color: #8080803b !important; */
+}
+
+.dot-disabled-up {
+    color: #8080803b !important;
+    border-color: #8080803b !important;
+    border: 1px solid #8080803b !important;
+    background-color: #8080803b !important;
+}
+
+.bg-disabled-up {
+    border: 1px solid #8080803b !important;
+    background-color: #8080803b !important;
+}
+
+.input-disabled-up {
+    width: 74px !important;
+    max-width: 74px !important;
+    border-bottom: 4px solid #e7e2e2 !important;
+    color: #e7e2e2 !important;
+    position: relative;
+    top: 8px;
+    z-index: 10;
+}
+
+.scroll-disabled-up {
+    overflow-y: hidden !important;
+}
+
+.vline {
+    margin-top: 36px;
+    border-left: 1px solid #8080803b;
+    height: 61px;
+    /* margin-left: 10px;
+    margin-right: 10px; */
+}
+
+
+/*----------------------------*/
+
+.off {
+    background: #EEEFF0;
+    color: #747274;
+    font-weight: bold;
+    border: 1px solid #747274;
+}
+
+
+/*----------------------------*/
+
+.borderTable {
+    border-radius: 9px !important;
+}
+
+.boton-back {
+    border-radius: 25px;
+    height: 30px;
+    color: var(--purple-01);
+    background: white;
+    border: var(--purple-01);
+    font-weight: bold;
+    border: 1px solid var(--purple-01);
+}
+
+.botonCirculo {
+    border-radius: 25px;
+    height: 1.8em;
+    margin-top: 7%;
+    color: #fff;
+    background: var(--purple-01);
+    border: var(--purple-01);
+    font-weight: bold;
+    height: 1.8em;
+}
+
+.btnDuplicarLote {
+    margin-left: 4px;
+    width: auto;
+}
+
+.w90 {
+    width: 90px !important;
+}
+
+.w100 {
+    width: 100px !important;
+}
+
+.w80 {
+    width: 80px !important;
+}
+
+.w50 {
+    width: 50px !important;
+}
+
+.w70 {
+    width: 70px !important;
+    max-width: 70px !important;
+}
+
+.w-ab {
+    width: 70px !important;
+    max-width: 70px !important;
+}
+
+
+/*******Alert Card*********/
+
+.card-alert {
+    border: 1px solid #bb2f2f !important;
+}
+
+
+/*******Table*********/
+
+
+/* ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 11px !important;
+} */
+
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
+::ng-deep .mat-form-field-infix {
+    border-top: 0em solid transparent;
+}
+
+.table {
+    border-collapse: collapse !important;
+}
+
+.table td {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.txt-table {
+    color: #A5A4A4;
+    font-size: 16px;
+}
+
+.table-label {
+    font-size: 16px;
+    color: #808080;
+}
+
+
+/***********Tabla Scrolling*****************/
+
+.thead-scroll,
+.tbody-scroll {
+    display: block;
+}
+
+.th-scroll,
+.td-scroll {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tbody-scroll {
+    height: 273px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.selectedRow {
+    background-color: rgb(64, 167, 207) !important;
+    color: white !important;
+}
+
+.selectedRow td {
+    font-family: "myriaasi" !important;
+}
+
+.selectedRow button {
+    background-color: rgb(161, 200, 216) !important;
+    color: white !important;
+}
+
+
+/***Scroll bar***/
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: blue;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/*******dot*********/
+
+.number {
+    position: relative;
+    font-size: 18px;
+    text-align: center;
+    top: 5px;
+    color: #6B4B8B;
+}
+
+.dot {
+    position: relative;
+    top: 0px;
+    height: 33px;
+    width: 38px;
+    border: 1px solid #6B4B8B;
+    background-color: #6b4b8b40;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+.dot-13 {
+    width: 43px;
+}
+
+.dot-14 {
+    width: 52px;
+}
+
+.dot-15 {
+    width: 45px;
+}
+
+.dot-16 {
+    width: 43px;
+}
+
+.dot-17 {
+    width: 42px;
+}
+
+.line {
+    position: relative;
+    top: 7px;
+    display: block;
+    margin-left: 9px;
+    padding: 0;
+    width: 100%;
+    white-space: nowrap!important;
+}
+
+
+/*******dot-large*********/
+
+.progress-bar-color ::ng-deep .mat-mdc-progress-spinner circle,
+.mat-mdc-progress-spinner circle {
+    stroke: #FFFFFF;
+}
+
+.progress-circle {
+    position: relative;
+    text-align: center;
+    top: -40px;
+    z-index: 10;
+}
+
+.txt-lg {
+    position: relative;
+    font-size: 18px;
+    text-align: center;
+    top: 73px;
+    color: #FFFFFF;
+    z-index: 10;
+}
+
+.number-lg {
+    position: relative;
+    font-size: 32px;
+    text-align: center;
+    top: 67px;
+    left: -3px;
+    color: #FFFFFF;
+}
+
+.dot-lg {
+    /* position: relative;
+    top: 0px; */
+    height: 190px;
+    width: 190px;
+    border: 1px solid #6B4B8B;
+    background-color: #6B4B8B;
+    border-radius: 50%;
+    color: white;
+}
+
+.dot-white {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%
+}
+
+#circle {
+    display: inline-block;
+    position: relative;
+    top: -6px;
+    left: 13px;
+    width: 10px;
+    height: 10px;
+    shape-outside: circle();
+    -webkit-clip-path: circle();
+    clip-path: circle();
+    background: white;
+}
+
+
+/**********FORM********/
+
+.styleRowForm {
+    margin-right: 0;
+    margin-left: 0;
+    display: unset;
+}
+
+.txt-total {
+    font-size: 20px;
+    font-weight: 900;
+    color: #000;
+    text-align: center;
+}
+
+.txt-item {
+    font-size: 16px;
+    font-weight: 900;
+    color: #000;
+    text-align: center;
+    font-style: normal !important;
+    width: 65px;
+    max-width: 65px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.boton-back,
+.boton {
+    margin-top: 16px;
+    width: 100px;
+}
+
+
+/******************** MEDIA BREAKING POINTS *************************/
+
+@media (min-width:1499px) {
+    /* table {
+        width: 75% !important;
+    } */
+}
+
+
+/*=============================================
+PORTATIL 1366
+=============================================*/
+
+@media (max-width:1499px) and (min-width:1200px) {
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 63px !important;
+        max-width: 63px !important;
+    }
+    .line {
+        font-size: 13px;
+        top: 2px;
+    }
+    .dot {
+        height: 26px;
+        width: 29px;
+    }
+    .dot-12 {
+        width: 38px;
+    }
+    .dot-13 {
+        width: 34px;
+    }
+    .dot-14 {
+        width: 37px;
+    }
+    .dot-15 {
+        width: 36px;
+    }
+    .dot-16 {
+        width: 33px;
+    }
+    .dot-17 {
+        width: 32px;
+    }
+    .number {
+        font-size: 16px;
+        top: 2px;
+    }
+}
+
+
+/*=============================================
+TABLET HORIZONTAL (LG revisamos en 1024px)
+=============================================*/
+
+@media (max-width:1199px) and (min-width:992px) {
+    .table-responsive-ab {
+        display: block;
+        width: 100% !important;
+        overflow-x: scroll !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 60px !important;
+        max-width: 60px !important;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+TABLET VERTICAL (MD revisamos en 768px)
+=============================================*/
+
+@media (max-width:991px) and (min-width:768px) {
+    .table-responsive-ab {
+        display: block;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 60px !important;
+        max-width: 60px !important;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MÓVIL HORIZONTAL (SM revisamos en 576px)
+=============================================*/
+
+@media (max-width:767px) and (min-width:576px) {
+    .table-responsive-ab {
+        display: block;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 60px !important;
+        max-width: 60px !important;
+    }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MOVIL VERTICAL (revisamos en 320px)
+=============================================*/
+
+@media screen and (max-width:575px) {
+    .table-responsive-ab {
+        display: block;
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-label {
+        font-size: 14px !important;
+    }
+    .w-ab {
+        width: 60px !important;
+        max-width: 60px !important;
+    }
+}
+
+
+/******************** MEDIA MEDIA BREAKING POINTS  END *************************/

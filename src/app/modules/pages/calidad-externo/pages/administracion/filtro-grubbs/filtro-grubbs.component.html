@@ -1,0 +1,182 @@
+
+<h1 style="margin-top: 3em;">Filtros Grubbs</h1>
+
+
+
+<form [formGroup]="filtroGrubbs" class="form_grubbs">
+
+
+
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <mat-select disableOptionCentering formControlName="programa">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let p of programas" [value]="p.idProgram" [matTooltipPosition]="'right'"
+        [matTooltip]="p.desprogram">
+        {{ p.desprogram | titlecase }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Rondas</mat-label>
+    <mat-select disableOptionCentering formControlName="ronda">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterRonda" placeholderLabel="Buscar ronda..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let ronda of rondas" [value]="ronda.Nroround">
+        {{ ronda.Nroround }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Analito</mat-label>
+    <mat-select disableOptionCentering formControlName="analito">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analito..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let analyte of analytes" [value]="analyte.Idanalytes" [matTooltipPosition]="'right'"
+        [matTooltip]="analyte.Desanalytes">
+        {{ analyte.Desanalytes }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Equipo</mat-label>
+    <mat-select disableOptionCentering formControlName="equipo" multiple>
+      <mat-option value="" (click)="selectNone('equipo')">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterEquipo" placeholderLabel="Buscar equipo..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="-1" (click)="selectAll('equipo')"
+        *ngIf="analyzers.length > 0">Todos los equipos</mat-option>
+      <mat-option *ngFor="let analyzer of analyzers" [value]="analyzer.IdAnalyzer" (click)="selectOne('equipo')"
+        [matTooltipPosition]="'right'" [matTooltip]="analyzer.NameAnalyzer">
+        {{ analyzer.NameAnalyzer }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Método</mat-label>
+    <mat-select disableOptionCentering formControlName="metodo" multiple>
+      <mat-option value="" (click)="selectNone('metodo')">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterMetodo" placeholderLabel="Buscar método..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="-1" (click)="selectAll('metodo')"
+        *ngIf="metodos.length > 0">Todos los metodos</mat-option>
+      <mat-option *ngFor="let metodo of metodos" [value]="metodo.Idmethods" [matTooltipPosition]="'right'"
+        [matTooltip]="metodo.Desmethods" (click)="selectOne('metodo')">
+        {{ metodo.Desmethods }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Unidades</mat-label>
+    <mat-select disableOptionCentering formControlName="unidades" multiple>
+      <mat-option value="" (click)="selectNone('unidades')">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterUnidad" placeholderLabel="Buscar unidad..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="-1" (click)="selectAll('unidades')"
+        *ngIf="unidades.length > 0">Todas las unidades</mat-option>
+      <mat-option *ngFor="let unidad of unidades" [value]="unidad.Idunits" (click)="selectOne('unidades')"
+        [matTooltipPosition]="'right'" [matTooltip]="unidad.Codunits">
+        {{ unidad.Codunits }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="search()" [disabled]="filtroGrubbs.invalid">
+      Buscar <mat-icon>search</mat-icon></button>
+  </div>
+
+</form>
+
+@if(ver){
+
+<h2 class="title_info">Tabla de información</h2>
+
+
+<div class="tables-grubbs">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z1"  matSort>
+
+    <ng-container matColumnDef="num">
+      <th mat-header-cell *matHeaderCellDef rowspan="2">
+        N° Datos</th>
+      <td mat-cell *matCellDef="let row; let i = index;" [ngClass]="{ 'averrante': row.aberrantdataflat == true }">{{ i
+        + 1 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="res">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Resultado</th>
+      <td mat-cell *matCellDef="let row" [ngClass]="{ 'averrante': row.aberrantdataflat == true }">
+        {{row.result }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="z">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Z-Score</th>
+      <td mat-cell *matCellDef="let row"
+        [ngClass]="{ 'averrante': row.aberrantdataflat == true, 'aRojo': row.aberrantdataflat == true }">
+        {{ row.zscoreabs | number:'0.1-3' }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+
+
+
+  <table class="mat-elevation-z1">
+    <thead class="head-t2">
+      <tr>
+        <th></th>
+        <th>Media</th>
+        <th>DS</th>
+        <th>N Datos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Datos iniciales</th>
+        <td class="td_black">{{ dataInicial.averageInitial }}</td>
+        <td class="td_black">{{ dataInicial.sdInitial }}</td>
+        <td class="td_black">{{ dataInicial.ndataInitial }}</td>
+      </tr>
+      <tr>
+        <th style="background-color: #CCAAEF74;">Datos finales</th>
+        <td class="td_black">{{ dataFinal.averagefinal }}</td>
+        <td class="td_black">{{ dataFinal.sdfinal }}</td>
+        <td class="td_black">{{ dataFinal.ndatafinal }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+}

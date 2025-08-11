@@ -1,0 +1,86 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040; /* igual o mayor que el z-index del modal */
+}
+
+
+
+
+/* TODO(mdc-migration): The following rule targets internal classes of slide-toggle that may no longer apply for the MDC version. */
+.mat-slide-toggle-custom {
+  width: 10px;
+  height: 10px;
+}
+
+.titulo {
+  color: var(--purple-01);
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.formualario{
+  color: #b5b4b4 !important;
+  border-bottom-color: #b5b4b4;
+}
+
+.asignacion-permiso-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  max-width: 700.98px;
+  max-height: 450.95px;
+  z-index: 1041;
+}
+.custom-label-group {
+  font-size: 14px;
+}
+
+.custom-label {
+  font-size: 12px;
+}
+
+.custom-slide-toggle {
+  font-size: 12px;
+}
+
+.botones{
+  border-radius: 25px;
+  height: 35px;
+  color: #fff;
+  background: var(--purple-01);
+  border: var(--purple-01);
+  font-weight: bold;
+  width: auto ;
+  padding: 0 20px;
+  margin: 0 auto 0;
+}
+
+.botones:disabled {
+  opacity: 0.5; /* color más opaco */
+}
+
+.botones:hover:not(:disabled) {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25); /* sombra al pasar el cursor */
+}
+
+.botones:active:not(:disabled) {
+  transform: translateY(1px); /* efecto de hundimiento al hacer clic */
+}
+
+.border-footer-card{
+  width: 100%;
+  height: 10px;
+  background-color:  var(--purple-01);
+  
+}
+
+

@@ -1,0 +1,274 @@
+.imagCongig{
+  position: absolute;
+    top: 17px;
+}
+.centro{
+  text-align: center;
+}
+.flecha{
+  margin-top: 25%;
+}
+.texto-centro{
+  top: 469px;
+  left: 507px;
+  width: 198px;
+  height: 45px;
+  text-align: center;
+  font: normal normal normal 15px/22px Open Sans;
+  letter-spacing: 0px;
+  color: #434A49;
+  opacity: 1;
+}
+.imagen-lote{
+  height: 2.5em;
+}
+.espacio-1{
+  margin-top: 1em;
+}
+
+.texto-lote{
+  top: 361px;
+  left: 409px;
+  width: 28px;
+  height: 18px;
+  text-align: center;
+  font: normal normal 600 15px/18px Open Sans;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+.centro-lote{
+
+  padding-top: 0.5em;
+}
+
+.indicador {
+  border: 1px solid #CECECE;
+  border-radius: 8px;
+  box-shadow: 3px 3px 3px #e8e8e8;
+  cursor: pointer;
+  flex-grow: 1;
+  display: flex;
+  padding-top: 4px;
+  padding-left: 10%;
+  padding-bottom: 0px;
+}
+
+.indicador_seleccionado {
+  border: 1px solid #3850eb;
+  border-radius: 8px;
+  box-shadow: 3px 3px 3px #3850eb;
+  cursor: pointer;
+  flex-grow: 1;
+  display: flex;
+  padding-top: 4px;
+  padding-left: 10%;
+  padding-bottom: 0px;
+}
+.indicador:hover {
+ /* color: #212529;
+  background-color: #dad3e0;*/
+  border-color: #3850eb;
+
+
+}
+
+
+a:hover {
+  color: #3850eb !important;
+}
+
+.text-item {
+  color: #dbdbdb;
+  /* font-weight: bolder; */
+  font-size: 14px;
+  text-align: start;
+  margin-top: 5px;
+}
+
+.text-item_seleccionado {
+  color: #3850eb;
+  /* font-weight: bolder; */
+  font-size: 14px;
+  text-align: start;
+  margin-top: 5px;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+   padding: 0em;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.125);
+}
+.tamano-lote{
+  height: 24em;
+}
+.texto-tabla{
+  font: normal normal normal 14px/17px Open Sans;
+  letter-spacing: 1px;
+    opacity: 1;
+}
+
+.texto{
+  font: normal normal normal 14px/17px Open Sans;
+  letter-spacing: 0px;
+  opacity: 1;
+}
+.texto-negrilla{
+  font: normal normal normal 14px/17px Open Sans;
+  letter-spacing: 0px;
+    opacity: 1;
+    color: #070707;
+}
+
+.tituloLote{
+
+  font-size: 30px !important;
+    font-weight: bold !important;
+    line-height: 30px;
+    margin: 0px !important;
+  color: var(--purple-02);
+width: 75px;
+height: 46px;
+text-align: left;
+font: normal normal bold 34px/46px Open Sans;
+letter-spacing: 0px;
+opacity: 1;
+width: 40% !important;
+}
+.texto-datos{
+
+  width: auto;
+height: 19px;
+/* UI Properties */
+font: normal normal 600 14px/19px Open Sans;
+letter-spacing: 0px;
+color: #000000;
+opacity: 1;
+}
+
+.botonAceptarCenter{
+  text-align: center;
+  margin-top: 4%;
+}
+
+.botonAceptar {
+  text-decoration: none;
+  height: 30px;
+  color:  #fff;
+  background-color:  var(--purple-01);
+  border-radius: 25px;
+  border: 1px solid   var(--purple-01);
+  font-weight: bold;
+}
+
+.overflow-auto::-webkit-scrollbar {
+  width: 7px;               /* width of the entire scrollbar */
+}
+.overflow-auto::-webkit-scrollbar-track {
+  background: #d3d2d0;
+  border: 3px solid #d7d2c8;
+  border-radius: 20px;
+     /* color of the tracking area */
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+  background-color: blue;    /* color of the scroll thumb */
+  border-radius: 5px;       /* roundness of the scroll thumb */
+  border: 1px solid  #d7d2c8;  /* creates padding around scroll thumb */
+}
+
+.mat-body p, .mat-body-2 p, .mat-typography a {
+  margin: 0px 0 4px !important;
+}
+
+
+
+.error-2 {
+  max-width: 1040px !important;
+  padding: 8px;
+}
+
+
+/******************** MEDIA BREAKING POINTS *************************/
+
+
+/*=============================================
+PORTATIL 1366
+=============================================*/
+
+@media (max-width:1499px) and (min-width:1200px) {
+  .flex2 {
+      margin-bottom: 12px !important;
+  }
+  .tituloModal {
+      margin-top: 2px !important;
+  }
+}
+
+
+/*=============================================
+TABLET HORIZONTAL (LG revisamos en 1024px)
+=============================================*/
+
+@media (max-width:1199px) and (min-width:992px) {
+  .flex2 {
+      margin-bottom: 12px !important;
+  }
+  .error-2 {
+      max-width: 610px !important;
+      overflow-x: scroll !important;
+  }
+  .tituloModal {
+      margin-top: 2px !important;
+  }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+TABLET VERTICAL (MD revisamos en 768px)
+=============================================*/
+
+@media (max-width:991px) and (min-width:768px) {
+  .error-2 {
+      max-width: 660px !important;
+      overflow-x: scroll !important;
+  }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MÓVIL HORIZONTAL (SM revisamos en 576px)
+=============================================*/
+
+@media (max-width:767px) and (min-width:576px) {
+  .error-2 {
+      max-width: 470px !important;
+      overflow-x: scroll !important;
+  }
+}
+
+
+/*---------------------------------------------------------------------*/
+
+
+/*=============================================
+MOVIL VERTICAL (revisamos en 320px)
+=============================================*/
+
+@media screen and (max-width:575px) {
+  .error-2 {
+      max-width: 390px !important;
+      overflow-x: scroll !important;
+  }
+}
+
+
+/******************** MEDIA MEDIA BREAKING POINTS  END *************************/

@@ -1,0 +1,24 @@
+<div class="container_modal">
+  <div class="img col-md-12 d-flex justify-content-center">
+    <img [src]="image" alt="">
+  </div>
+  <div>
+    <h1 class="tituloModal" *ngIf="title">
+      {{title}}
+    </h1>
+    <h2>
+      <span><strong>{{info}}</strong></span>
+    </h2>
+    <h2 *ngIf="info2!=undefined && info2!=null && info2!=''">
+      <span >{{info2!=''?info2:''}}</span>
+    </h2>
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="!!btn" class=" boton btn_secondary"
+      [ngStyle]="{backgroundColor:color, corderColor: color, color:colorLetter}" (click)="close()">{{btn}}</button>
+    <button class="boton animate__animated animate__fadeIn fast" [ngClass]="{'mln':btn==undefined}"
+      [ngStyle]="{backgroundColor: color, color: colorLetter}" (keyup.f4)="primary()"
+      (keydown.enter)="prevenirEnter($event)" (click)="primary()" type="button" id="btnAcceptModalMsj">{{btnP}}</button>
+  </div>
+
+</div>

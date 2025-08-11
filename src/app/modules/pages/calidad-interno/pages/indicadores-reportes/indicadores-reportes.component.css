@@ -1,0 +1,25 @@
+
+.active {
+    background: var(--blue-03) !important;
+    border-color: var(--blue-03) !important;
+    color: white;
+}
+
+.taps{
+    padding: 5px 20px;
+    border: 1px solid var(--gray-02);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    background: white;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+
+.active{
+    background: var(--blue-03) !important;
+}
+
+.taps:hover{
+    background: #20319f8f;
+    color: white;
+}

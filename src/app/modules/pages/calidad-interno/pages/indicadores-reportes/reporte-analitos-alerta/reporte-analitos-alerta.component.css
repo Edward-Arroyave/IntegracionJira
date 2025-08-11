@@ -1,0 +1,95 @@
+.point{
+    height: 0;
+    width: 0;
+    font-size: 10px;
+    color: var(--purple-03);
+    margin-right: 10px;
+}
+
+.boxSecciones {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    background: white;
+    display: flex;
+    align-items: center;
+}
+
+.boxSeccionesContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 54px;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    gap: 1em;
+}
+
+.boxSeccionesContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.styleSeccion {
+    border: 1px solid #CECECE;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 3px 3px 3px #e8e8e8;
+    cursor: pointer;
+    padding: 5px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.styleSeccion:first-child {
+    margin-left: 12px;
+}
+
+.rojo {
+    color: #ff0000;
+}
+
+th{
+    background: var(--blue-01) !important;
+    color: white;
+    text-align: center;
+}
+td{
+    text-align: center;
+    color: black;
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: .3em;
+}
+
+table thead tr th{
+    padding: 10px 0;
+}
+
+.table-responsive tbody .tr-principal:nth-child(odd) {
+    background: white;
+}
+.table-responsive  tbody .tr-principal:nth-child(even) {
+    background: #F5F5F5;
+}
+.table-responsive  thead{
+    position: sticky;
+    top: 0;
+    /* background: wh; */
+}
+
+.estiloGeneralSlide:hover{
+    color: var(--purple-03) !important;
+}
+
+.styleSeccion:hover{
+    background: #20319f8f;
+    color: white;
+}

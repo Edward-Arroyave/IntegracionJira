@@ -1,0 +1,21 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Sección'"
+    (onCreate)="openModalRegistroSeccionesQce(templateRegistroSeccionesQce, '')" (onChangeStatus)="actualizarEstadoSeccionQce($event)"
+    (onEdit)="openModalRegistroSeccionesQce(templateRegistroSeccionesQce, $event)" (onDelete)="eliminarSeccionQce($event.idsection)">
+  </app-tabla-comun>
+  
+<ng-template #templateRegistroSeccionesQce>
+
+  <form [formGroup]="formaRegistroSeccionesQce" class="grid-2">
+    <mat-form-field>
+      <mat-label>Sección</mat-label>
+      <input matInput type="text" formControlName="dessection">
+      <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div class="contieneToggle">
+    <label class="labelToggle">Estado</label>
+    <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+  </div>
+  </form>
+</ng-template>
+

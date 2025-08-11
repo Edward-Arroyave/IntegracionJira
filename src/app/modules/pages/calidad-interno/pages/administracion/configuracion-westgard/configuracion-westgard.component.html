@@ -1,0 +1,145 @@
+<h1 style="margin-top: 3em;">Configuración de reglas de westgard</h1>
+<form [formGroup]="formaFiltroConfigWestgard" class="grid-6-buttton">
+  <mat-form-field>
+    <mat-label>Sede</mat-label>
+    <mat-select disableOptionCentering formControlName="numLaboratorio" [disabled]="habilitarSede">
+      <mat-option value="">
+        --
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterHeadquarters" placeholderLabel="Buscar..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let sede of sedesActive" [value]="sede.idheadquarters">
+        {{ sede.desheadquarters | titlecase }}</mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Sección</mat-label>
+    <input type="text" matInput [matAutocomplete]="auto01" formControlName="seccion" #seccionPr>
+    <mat-autocomplete #auto01="matAutocomplete" (optionSelected)="cambiarSeccion(seccionPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsSections | async);" [value]="option.namesection"
+        [matTooltipPosition]="'right'" [matTooltip]="option.namesection | NombreSeccion">
+        {{option.namesection | NombreSeccion}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Material</mat-label>
+    <input type="text" matInput [matAutocomplete]="auto02" formControlName="numMaterialControl" #contmatPr>
+    <mat-autocomplete #auto02="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsControlmaterial | async);" [value]="option.descontmat"
+        [matTooltipPosition]="'right'" [matTooltip]="option.descontmat | NombreControlmaterial">
+        {{option.descontmat | NombreControlmaterial}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Lote</mat-label>
+    <input type="text" matInput [matAutocomplete]="auto03" formControlName="numLote" #lotPr>
+    <mat-autocomplete #auto03="matAutocomplete" (optionSelected)="lotesPre(lotPr.value)">
+      <mat-option *ngFor="let option of (filteredOptionsLots | async);" [value]="option.Numlot"
+        [matTooltipPosition]="'right'" [matTooltip]="option.Numlot | nombreLote">
+        {{option.Numlot | nombreLote}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+        Test
+    </mat-label>
+    <input type="text" matInput [matAutocomplete]="auto04" formControlName="idtest" #testPr>
+    <mat-autocomplete #auto04="matAutocomplete" (optionSelected)="setTest(testPr.value)">
+        <mat-option *ngFor="let test of (filteredOptionsTest | async);" [value]="test.value"
+            [matTooltipPosition]="'right'" [matTooltip]="test.value | nombreTest">
+            {{ test.value | nombreTest }} 
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+  
+  <!-- <mat-form-field>
+    <mat-label>Test</mat-label>
+    <mat-select (selectionChange)="setTest( $event.value )" formControlName="idtest">
+      <mat-option value="">
+        --
+      </mat-option>
+      <mat-option *ngFor="let test of tests" [value]="test.IdTest">
+        {{ test.Desanalytes | titlecase }} | {{ test.Desunits }} | {{ test.Desmethods | titlecase }} |
+        {{ test.Desreagents | titlecase }} | {{ test.NameAnalyzer | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field> -->
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="loadData()" [disabled]="formaFiltroConfigWestgard.invalid">
+      Buscar</button>
+  </div>
+</form>
+
+<div [hidden]="!ver">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Reglas </th>
+      <td mat-cell *matCellDef="let row"> {{row.Code}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="notice">
+      <th mat-header-cell *matHeaderCellDef>
+        Alarma</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-slide-toggle [checked]="row.Notice" (change)="actualizarEstadoWestgard(row, 1)">
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="reject">
+      <th mat-header-cell *matHeaderCellDef>
+        Rechazado</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-slide-toggle [checked]="row.Reject" (change)="actualizarEstadoWestgard(row,2)">
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="disabled">
+      <th mat-header-cell *matHeaderCellDef>
+        Desactivado</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-slide-toggle [checked]="row.Disabled" (change)="actualizarEstadoWestgard(row,3)">
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="intracorrida">
+      <th mat-header-cell *matHeaderCellDef>
+        Intracorrida</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-slide-toggle [checked]="row.Intracorrida" (change)="actualizarEstadoWestgard(row,5)">
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="intercorrida">
+      <th mat-header-cell *matHeaderCellDef>
+        Intercorrida</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-slide-toggle [checked]="row.Intercorrida" (change)="actualizarEstadoWestgard(row,4)">
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
+</div>

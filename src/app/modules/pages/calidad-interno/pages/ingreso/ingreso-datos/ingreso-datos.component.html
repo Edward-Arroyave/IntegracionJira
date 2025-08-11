@@ -1,0 +1,1042 @@
+<h1 style="margin-top: 3em;">Ingreso de datos cuantitativos</h1>
+@if(datosMultiFlag() === false){
+    <form [formGroup]="formFiltro" class="grid-6-buttton">
+        <mat-form-field>
+            <mat-label>
+                Sede
+            </mat-label>
+            <mat-select #sedeselect disableOptionCentering formControlName="sede" disabled>
+                <mat-option *ngFor="let sede of sedeActual" [value]="sede.Idheadquarters" [disabled]="true">
+                    {{ sede.Desheadquarters }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>
+                Sección
+            </mat-label>
+            <input type="text" matInput [matAutocomplete]="auto01" formControlName="seccion" #seccionPr>
+            <mat-autocomplete #auto01="matAutocomplete" (optionSelected)="cambiarSeccion(seccionPr.value)">
+                <mat-option *ngFor="let option of (filteredOptionsSections | async);" [value]="option.namesection"
+                    [matTooltipPosition]="'right'" [matTooltip]="option.namesection | NombreSeccion">
+                    {{option.namesection | NombreSeccion}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>
+                Material Control
+            </mat-label>
+            <input type="text" matInput [matAutocomplete]="auto02" formControlName="material" #contmatPr>
+            <mat-autocomplete #auto02="matAutocomplete" (optionSelected)="cambiarControlMaterial(contmatPr.value)">
+                <mat-option *ngFor="let option of (filteredOptionsControlmaterial | async);" [value]="option.descontmat"
+                    [matTooltipPosition]="'right'" [matTooltip]="option.descontmat | NombreControlmaterial">
+                    {{option.descontmat | NombreControlmaterial}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>
+                Lote
+            </mat-label>
+            <input type="text" matInput [matAutocomplete]="auto03" formControlName="lote" #lotPr>
+            <mat-autocomplete #auto03="matAutocomplete" (optionSelected)="lotesPre(lotPr.value)">
+                <mat-option *ngFor="let option of (filteredOptionsLots | async);" [value]="option.Numlot"
+                    [matTooltipPosition]="'right'" [matTooltip]="option.Numlot | nombreLote">
+                    {{option.Numlot | nombreLote}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>
+                Test
+            </mat-label>
+            <input type="text" matInput [matAutocomplete]="auto04" formControlName="test" #testPr>
+            <mat-autocomplete #auto04="matAutocomplete" (optionSelected)="byTest(testPr.value)">
+                <mat-option *ngFor="let test of (filteredOptionsTest | async);" [value]="test.value"
+                    [matTooltipPosition]="'right'" [matTooltip]="test.value | nombreTest">
+                    {{ test.value | nombreTest }} 
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+    
+        <!-- <mat-form-field>
+            <mat-label>
+                Test
+            </mat-label>
+            <mat-select (selectionChange)="byTest( $event.value )" formControlName="test">
+                <mat-option value="">
+                    --
+                </mat-option>
+                <mat-option *ngFor="let test of tests" [value]="test.IdTest">
+                    {{ test.Desanalytes | titlecase }} | {{ test.Desunits }} | {{ test.Desmethods | titlecase }} |
+                    {{ test.Desreagents | titlecase }} | {{ test.NameAnalyzer | titlecase }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field> -->
+    
+        <div>
+            <button type="button" class="btnPurple-01" (click)="[limpiarDatos(1),search(true)]" [disabled]="!verBtn">
+                Buscar
+                <mat-icon style="margin-top: 3px;">search</mat-icon>
+            </button>
+        </div>
+    </form>
+}@else {
+    <button (click)="regresar_muti()" class="btnPurple-03" style="margin: 10px 0; padding: 0px 10px;" >
+        <mat-icon style="margin-top: 3px;">keyboard_backspace</mat-icon>
+        Regresar 
+    </button>
+}
+
+
+<div *ngIf="verInfoprueba || flagNewData()" class="grid-top-info">
+    @if (!flagNewData()) {
+        <div class="grid-template-icon-info">
+            <div class="editarIcon" style="margin: 0;"
+                (click)="flagVisualizarInfo()?flagVisualizarInfo.set(false):flagVisualizarInfo.set(true)">
+                <mat-icon style="margin: 0px 2px 0"> list_alt</mat-icon>
+            </div>
+            <div>
+                <p style="font-size: 12px;margin: 0 !important;"><mat-icon class="point">fiber_manual_record</mat-icon>
+                    # Laboratorio: {{ dataInitial[0].Codheadquarters }}</p>
+            </div>
+        </div>        
+    }@else {
+        <div></div>
+    }
+
+    <!-- options -->
+    <div class="grid-container">
+        @if(!flagNewData()){
+            <div #slide class="estiloGeneralSlide"  [ngClass]="{'highlight':opcion === 1}" (click)="option('levey')">
+                <mat-icon class="icon-custom" svgIcon="score"></mat-icon> Levey Jennings
+            </div>
+        }
+        @if(!flagNewData()){
+            <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight':opcion === 2}" (click)="option('multi')">
+                <mat-icon class="icon-custom" svgIcon="score"></mat-icon> Multi Levey Jennings
+            </div>
+        }
+        @if(!flagNewData()){
+            <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight':opcion === 3}" (click)="option('youden')">
+                <mat-icon class="icon-custom" svgIcon="score"></mat-icon> Youden Plot
+            </div>
+        }
+        
+        <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight':opcion === 4}" (click)="option('tabla')">
+            <mat-icon class="icon-custom" svgIcon="score"></mat-icon> Tabla de datos
+        </div>
+        
+        @if(!flagNewData()){
+            <div #slide class="estiloGeneralSlide" [ngClass]="{'highlight':opcion === 5}" (click)="option('dea')">
+                <mat-icon class="icon-custom" svgIcon="score"></mat-icon> Datos Estadísticos Acumulados
+            </div>
+        }
+    </div>
+
+</div>
+
+<!-- infoprueba -->
+<div *ngIf="verInfoprueba || flagNewData()" [ngClass]="{'grid-englobado':!moverInfo(),'grid-englobado-reducido':moverInfo()}">
+    <div style="position: relative;">
+        @if (!flagNewData()) {
+            <div [style]="moverInfo()?'width:350px;':''" [ngClass]="{'contieneInformacion-desplegada':flagVisualizarInfo()}" class="contieneInformacion-oculta">
+                <p class="titulo-card-oculta">Información general de la prueba</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> SECCIÓN:
+                    {{ dataInitial[0].Namesection | uppercase }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> Reglas de westgard: {{ reglasW }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> {{ mediaLvl1 }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> {{ mediaLvl2 }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> {{ mediaLvl3 }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> Material de control: {{dataInitial[0].Descontmat }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> Lote: {{dataInitial[0].Numlot }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> Equipo:{{ dataInitial[0].NameAnalyzer }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> FV: {{dataInitial[0].Expdate | date: 'dd-MM-yyyy' }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> Unidades: {{ dataInitial[0].Desunits }}</p>
+                <p><mat-icon class="point">fiber_manual_record</mat-icon> Reactivo: {{ dataInitial[0].Desreagents }}</p>
+            </div>
+            <div class="icon-flotante" (click)="[changeResize(),moverInfo()?moverInfo.set(false):moverInfo.set(true)]">
+                @if(moverInfo()){
+                    <mat-icon class="icon-flotante-style">keyboard_arrow_right</mat-icon>
+                }@else {
+                    <mat-icon class="icon-flotante-style" style="margin-right: 1px; margin-top: 4px;">keyboard_arrow_left</mat-icon>
+                }
+            </div>
+        }
+        <div class="card-formulario" [style]="moverInfo()?'padding: 30px 0px;':''">
+            
+            <div [ngClass]="{'pantalla-blanca':moverInfo()}"></div>
+            <h1 style="margin: 0; font-weight: 500; font-size: 16px; text-align: start;">Analito: {{ analito }}</h1>
+            <h2 style="margin: 0; font-weight: 500; font-size: 16px; text-align: start;">Generación actual: {{test.Generation != null && test.Generation != '' ? test.Generation : 'N/R'}} </h2>            
+            <h3 style="margin: 0; font-size: 14px;">{{ usuario }}</h3>
+            <h2 style="margin: 0; margin: 0 !important; font-weight: 500;font-size: 16px; color: var(--purple-03);">Valores</h2>
+
+            <form [formGroup]="formularioDatos" class="grid-3" style="gap: 0 1em;" autocomplete="off">
+
+                <mat-form-field>
+                    <mat-label>Nivel 1</mat-label>
+                    <input matInput type="number" formControlName="valuelevel1"
+                        (input)="validarDecimales($event.target.value, 1)">
+                    <mat-error>maximo {{decimales}} decimales</mat-error>
+                </mat-form-field>
+
+                @if(levelTest >= 2){
+                <mat-form-field>
+                    <mat-label>Nivel 2</mat-label>
+                    <input matInput type="number" formControlName="valuelevel2"
+                        (input)="validarDecimales($event.target.value, 2)">
+                    <mat-error>maximo {{decimales}} decimales</mat-error>
+                </mat-form-field>
+                }
+
+                @if(levelTest >= 3){
+                <mat-form-field>
+                    <mat-label>Nivel 3</mat-label>
+                    <input matInput type="number" formControlName="valuelevel3"
+                        (input)="validarDecimales($event.target.value, 3)">
+                    <mat-error>maximo {{decimales}} decimales</mat-error>
+                </mat-form-field>
+                }
+
+                <mat-form-field hidden="true">
+                    <mat-label>A/R-Nivel 1</mat-label>
+                    <mat-select disableOptionCentering formControlName="arlevel1">
+                        <mat-option value="">
+                            --
+                        </mat-option>
+                        <mat-option value="A">
+                            Aceptado
+                        </mat-option>
+                        <mat-option value="R">
+                            Rechazado
+                        </mat-option>
+                        <mat-option value="I">
+                            Alertado
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                @if(levelTest >= 2){
+                <mat-form-field hidden="true">
+                    <mat-label>A/R-Nivel 2</mat-label>
+                    <mat-select disableOptionCentering formControlName="arlevel2">
+                        <mat-option value="">
+                            --
+                        </mat-option>
+                        <mat-option value="A">
+                            Aceptado
+                        </mat-option>
+                        <mat-option value="R">
+                            Rechazado
+                        </mat-option>
+                        <mat-option value="I">
+                            Alertado
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                }
+                @if(levelTest >= 3){
+                <mat-form-field hidden="true">
+                    <mat-label>A/R-Nivel 3</mat-label>
+                    <mat-select disableOptionCentering formControlName="arlevel3">
+                        <mat-option value="">
+                            --
+                        </mat-option>
+                        <mat-option value="A">
+                            Aceptado
+                        </mat-option>
+                        <mat-option value="R">
+                            Rechazado
+                        </mat-option>
+                        <mat-option value="I">
+                            Alertado
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                }
+
+                <mat-form-field style="grid-column: span 3;">
+                    <mat-label>Comentarios</mat-label>
+                    <input matInput type="text" formControlName="comments">
+                </mat-form-field>
+
+                <mat-form-field style="grid-column: span 3;">
+                    <mat-label>Acción Correctiva</mat-label>
+                    <input type="text" matInput [matAutocomplete]="autoacccreate" formControlName="idcorrectiveactions">
+                    <mat-autocomplete #autoacccreate="matAutocomplete">
+                        <mat-option *ngFor="let listaAccion of filteredOptionsAccionesCorrectivasCreate | async"
+                            [value]="listaAccion.descorrectiveactions">
+                            {{ listaAccion.descorrectiveactions | titlecase }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+            </form>
+            <div style="display: flex;justify-content: center;gap: 1em;" [hidden]="!crearsi">
+                <button type="button" class="btnPurple-01" (click)="buildForm('')">
+                    Limpiar
+                </button>
+                <button type="button" class="btnPurple-03"
+                    [disabled]="formularioDatos.invalid || decimalInvalidoLvl1 || decimalInvalidoLvl2 || decimalInvalidoLvl3 || desactivar "
+                    (click)="crearEditar()">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- caja general -->
+    @if(ver()){
+    <div style="height: 470px; overflow: auto;padding: 3px;">
+        <!-- levey jennings -->
+         @if(opcion === 1){
+            <div>
+            <div style="width: 100%;display: flex; justify-content: end;margin: .5em 0em;">
+                <button type="button" style="border: none;background: transparent;"
+                    (click)="openGraficaModal(calendarModal, 'levey')">
+                    <img style="width: 35px;" [src]="'calendar-icon.png' | imageCdn">
+                </button>
+                <button type="button" style="border: none;background: transparent;" (click)="pdfGeneral(0)">
+                    <img style="width: 100px;" [src]="'pdf.png' | imageCdn" class="pdf">
+                </button>
+            </div>
+            @if(dataTable.length >= 2 && graficaLJ1){
+                <div class="card-graficas">
+                    <app-error-total2 [numeroGrafica]="1" (loadGrafica02)="loadLJ1($event)" (imgGrafica02)="onImg($event)"></app-error-total2>
+                </div>
+            }
+
+            @if(levelTest >= 2 && dataTable.length >= 2 && graficaLJ2){
+                <div class="card-graficas">
+                    <app-error-total2 [numeroGrafica]="2"  (loadGrafica02)="loadLJ2($event)" (imgGrafica02)="onImg02($event)"></app-error-total2>
+                </div>
+            }
+
+            @if(levelTest == 3 && dataTable.length >= 2 && graficaLJ3){
+                <div class="card-graficas">
+                    <app-error-total2 [numeroGrafica]="3" (loadGrafica02)="loadLJ3($event)" (imgGrafica02)="onImg03($event)"></app-error-total2>
+                </div>
+            }
+        </div>
+        }
+
+        <!-- Multi levey jennings -->
+         @if(opcion === 2){
+            <div>
+                <div style="width: 100%;display: flex; justify-content: end;margin: .5em 0em;">
+                    <!-- ** Boton calendar -->
+                    <button type="button" style="border: none;background: transparent;"
+                        (click)="openGraficaModal(calendarModal, 'multi')">
+                        <img style="width: 35px;" [src]="'calendar-icon.png' | imageCdn">
+                    </button>
+                    <button type="button" style="border: none;background: transparent;" (click)="pdfGeneral(1)">
+                        <img style="width: 100px;" [src]="'pdf.png' | imageCdn" class="pdf">
+                    </button>
+                </div>
+                @if(levelTest >= 2 && dataTable.length >= 2){
+                    <div class="card-graficas">
+                        <app-multi (imgGraficamulti)="[onImgGrafcamulti($event)]"></app-multi>
+                    </div>
+                }
+            </div>
+        }
+
+        <!-- youden -->
+         @if(opcion === 3){
+            <div>
+                <div style="width: 100%;display: flex; justify-content: end;margin: .5em 0;">
+                    <button type="button" style="border: none;background: transparent;" (click)="pdfGeneral(2)">
+                        <img style="width: 100px;" [src]="'pdf.png' | imageCdn" class="pdf">
+                    </button>
+                </div>
+                @if(levelTest >= 2 && dataTable.length >= 2){
+                    <div class="card-graficas">
+                        <app-youden (imgGraficaYouden)="onImgYouden($event)"></app-youden>
+                    </div>
+                }
+            </div>
+         }
+
+        <!-- tabla de datos-->
+         @if(opcion === 4){
+            <div>
+                <img [src]="'descargar_Excel.png' | imageCdn" alt="Reporte cuantitativo"
+                    style="height: 24px; width: 120px;cursor: pointer; margin: .5em 0;" (click)="exportToExcelTabledata()">
+                <div>
+                    <div style="overflow: auto;">
+                        @defer (when dataSource) {
+                            <table mat-table [dataSource]="dataSource" matSort #tabla3="matSort" >
+                                <ng-container matColumnDef="num">
+                                    <th mat-header-cell *matHeaderCellDef rowspan="2">
+                                        IT </th>
+                                    <td mat-cell *matCellDef="let row; index as i">
+                                        {{ TablaTresPaginator.pageSize * TablaTresPaginator.pageIndex + i + 1}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="date">
+                                    <th mat-header-cell *matHeaderCellDef rowspan="2"
+                                        style="min-width: 200px; text-align: center;">
+                                        Fecha </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.Date | date: 'dd-MM-yyyy'}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="hour">
+                                    <th mat-header-cell *matHeaderCellDef rowspan="2">
+                                        Hora </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.Hour}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="summer">
+                                    <th mat-header-cell *matHeaderCellDef colspan="4"
+                                    style="border: 1px solid white; text-align: center;">
+                                    Nivel 1 </th>
+                                    <td mat-cell *matCellDef="let company;let i = dataIndex"></td>
+                                </ng-container>
+                                <ng-container matColumnDef="valuelevel1">
+                                    <th mat-header-cell style="border-radius:  0px !important;" *matHeaderCellDef
+                                        mat-sort-header>
+                                        Valor </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{ row.Valuelevel1 != null ? row.Valuelevel1 : 'N/R' }} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="arlevel1">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        A/R
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <mat-icon class="icon-rojo" *ngIf="row.Arlevel1 == 'R'">close</mat-icon>
+                                        <mat-icon class="icon-verde" *ngIf="row.Arlevel1 == 'A'">check</mat-icon>
+                                        <mat-icon class="icon-amarillo" *ngIf="row.Arlevel1 == 'I'">error_outline</mat-icon>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="ruleslevel1">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        Reglas </th>
+        
+                                    <td mat-cell *matCellDef="let row">
+                                        <span
+                                            *ngIf="row.Ruleslevel1 !== '' && row.Ruleslevel1 !== null && row.Arlevel1flag === false">
+                                            {{row.Ruleslevel1}}
+                                        </span>
+                                        <span
+                                            *ngIf="(row.Ruleslevel1 === '' || row.Ruleslevel1 === null) && row.Arlevel1flag === true">
+                                            {{'Manual'}}
+                                        </span>
+                                        <span
+                                            *ngIf="(row.Ruleslevel1 === '' || row.Ruleslevel1 === null) && row.Arlevel1flag === false">
+                                            {{'N/R'}}
+                                        </span>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="zlevel1">
+                                    <th mat-header-cell *matHeaderCellDef style="border-radius:  0px !important;">
+                                        Z
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{ row.Zlevel1 != null ? row.Zlevel1 : 'N/R' }} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="summer2" *ngIf="levelTest >= 2">
+                                    <th mat-header-cell *matHeaderCellDef colspan="4"
+                                        style="border: 1px solid white; text-align: center;">
+                                        Nivel 2</th>
+                                    <td mat-cell *matCellDef="let company;let i = dataIndex"></td>
+                                </ng-container>
+                                <ng-container matColumnDef="valuelevel2" *ngIf="levelTest >= 2">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        Valor </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{ row.Valuelevel2 != null ? row.Valuelevel2 : 'N/R' }} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="arlevel2" *ngIf="levelTest >= 2">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        A/R
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <mat-icon class="icon-rojo" *ngIf="row.Arlevel2 == 'R'">close</mat-icon>
+                                        <mat-icon class="icon-verde" *ngIf="row.Arlevel2 == 'A'">check</mat-icon>
+                                        <mat-icon class="icon-amarillo" *ngIf="row.Arlevel2 == 'I'">error_outline</mat-icon>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="ruleslevel2" *ngIf="levelTest >= 2">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        Reglas </th>
+                                    <span class="badge bg-secondary">Secondary</span>
+                                    <td mat-cell *matCellDef="let row">
+                                        <span
+                                            *ngIf="row.Ruleslevel2 !== '' && row.Ruleslevel2 !== null && row.Arlevel2flag === false">
+                                            {{row.Ruleslevel2}}
+                                        </span>
+        
+                                        <span
+                                            *ngIf="(row.Ruleslevel2 === '' || row.Ruleslevel2 === null) && row.Arlevel2flag === true">
+                                            {{'Manual'}}
+                                        </span>
+                                        <span
+                                            *ngIf="(row.Ruleslevel2 === '' || row.Ruleslevel2 === null) && row.Arlevel2flag === false">
+                                            {{'N/R'}}
+                                        </span>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="zlevel2" *ngIf="levelTest >= 2">
+                                    <th mat-header-cell *matHeaderCellDef style="border-radius:  0px !important;">
+                                        Z
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{ row.Zlevel2 != null ? row.Zlevel2 : 'N/R' }} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="summer3" *ngIf="levelTest == 3">
+                                    <th mat-header-cell *matHeaderCellDef colspan="4"
+                                        style="border: 1px solid white; text-align: center;">
+                                        Nivel 3</th>
+                                    <td mat-cell *matCellDef="let company;let i = dataIndex"></td>
+                                </ng-container>
+                                <ng-container matColumnDef="valuelevel3" *ngIf="levelTest == 3">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        Valor </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{row.Valuelevel3 != null ? row.Valuelevel3 : 'N/R' }} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="arlevel3" *ngIf="levelTest == 3">
+                                    <th mat-header-cell *matHeaderCellDef style="border-radius:  0px !important;">
+                                        A/R
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <mat-icon class="icon-rojo" *ngIf="row.Arlevel3 == 'R'">close</mat-icon>
+                                        <mat-icon class="icon-verde" *ngIf="row.Arlevel3 == 'A'">check</mat-icon>
+                                        <mat-icon class="icon-amarillo" *ngIf="row.Arlevel3 == 'I'">error_outline</mat-icon>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="ruleslevel3" *ngIf="levelTest == 3">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        Reglas </th>
+                                    <span class="badge bg-secondary">Secondary</span>
+                                    <td mat-cell *matCellDef="let row">
+                                        <span
+                                            *ngIf="row.Ruleslevel3 !== '' && row.Ruleslevel3 !== null && row.Arlevel3flag === false">
+                                            {{row.Ruleslevel3}}
+                                        </span>
+        
+                                        <span
+                                            *ngIf="(row.Ruleslevel3 === '' || row.Ruleslevel3 === null) && row.Arlevel3flag === true">
+                                            {{'Manual'}}
+                                        </span>
+                                        <span
+                                            *ngIf="(row.Ruleslevel3 === '' || row.Ruleslevel3 === null) && row.Arlevel3flag === false">
+                                            {{'N/R'}}
+                                        </span>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="zlevel3" *ngIf="levelTest == 3">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        Z
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{ row.Zlevel3 != null ? row.Zlevel3 : 'N/R' }} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="ac">
+                                    <th mat-header-cell *matHeaderCellDef rowspan="2">
+                                        Acción correctiva </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{row.Descorrectiveactions != '' && row.Descorrectiveactions != null ?
+                                        row.Descorrectiveactions : 'N/R'}}
+                                    </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="userName">
+                                    <th mat-header-cell *matHeaderCellDef rowspan="2">
+                                        Responsable </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{row.Name != '' && row.Name != null ? row.Username : 'N/R'}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="com">
+                                    <th mat-header-cell *matHeaderCellDef rowspan="2">
+                                        Comentarios </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{row.Comments != null && row.Comments != '' ? row.Comments : 'N/R'}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="generation">
+                                    <th mat-header-cell *matHeaderCellDef rowspan="2">
+                                        Generación </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        {{row.Generation != null && row.Generation != '' ? row.Generation : 'N/R'}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="editar">
+                                    <th mat-header-cell *matHeaderCellDef rowspan="2">
+                                        Editar </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <div class="editarIcon" (click)="openTablaDatosModal(TablaDatosEdit,row)">
+                                            <mat-icon style="margin-top: 4px; font-size: 21px;">edit</mat-icon>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="eliminar">
+                                    <th mat-header-cell *matHeaderCellDef rowspan="2">
+                                        Eliminar </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <div class="eliminarIcon" (click)="eliminar(row.Idresult)">
+                                            <mat-icon style="margin-top: 4px;">close</mat-icon>
+                                        </div>
+                                    </td>
+                                </ng-container>
+        
+                                <tr mat-row *matHeaderRowDef="summers">
+                                </tr>
+                                <tr mat-row *matHeaderRowDef="columnas">
+                                </tr>
+        
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        
+                            </table>
+                        }
+                    </div>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" #TablaTresPaginator="matPaginator">
+                    </mat-paginator>
+                </div>
+            </div>
+        }
+        
+        <!-- Datos acumulados -->
+         @if(opcion === 5 && verTabla){
+            <div>
+                <form [formGroup]="filtroFecha" style="width: 50%;gap: 1em; display: grid;grid-template-columns: 1fr 1fr;" autocomplete="off">
+
+                    <mat-form-field>
+                        <mat-label>Desde</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="desde">
+                        <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker1">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error>Obligatorio</mat-error>
+                    </mat-form-field>
+                    
+                    <mat-form-field>
+                        <mat-label>Hasta</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="hasta">
+                        <mat-datepicker-toggle matSuffix disableOptionCentering [for]="picker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error>Obligatorio</mat-error>
+                    </mat-form-field>
+
+                </form>
+                <div style="display: grid; grid-template-columns: 68% 30%; gap: 1em;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="background: var(--blue-03) !important;"></th>
+                                <th style="background: var(--blue-03) !important;" colspan="2">
+                                    Nivel 1
+                                </th>
+                                <th style="background: var(--blue-03) !important;" colspan="2" *ngIf="levelTest >= 2">
+                                    Nivel 2
+                                </th>
+                                <th style="background: var(--blue-03) !important;" colspan="2" *ngIf="levelTest === 3">
+                                    Nivel 3
+                                </th>
+                            </tr>
+                            <tr>
+                                <th ></th>
+                                <th>Mes</th>
+                                <th>Acumulado</th>
+                                <th *ngIf="levelTest >= 2">Mes</th>
+                                <th *ngIf="levelTest >= 2">Acumulado </th>
+                                <th *ngIf="levelTest === 3">Mes</th>
+                                <th *ngIf="levelTest === 3">Acumulado </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: bold;">MEDIA</td>
+                                <td>{{ porMes ? mediaNvl1Filtro : mediaNvl1XMes }}</td>
+                                <td>{{ mediaNvl1Acumulado }}</td>
+                                <td *ngIf="levelTest >= 2">{{ porMes ? mediaNvl2Filtro : mediaNvl2XMes }}</td>
+                                <td *ngIf="levelTest >= 2">{{ mediaNvl2Acumulado }}</td>
+                                <td *ngIf="levelTest === 3">{{ porMes ? mediaNvl3Filtro : mediaNvl3XMes }}</td>
+                                <td *ngIf="levelTest === 3">{{ mediaNvl3Acumulado }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">DE</td>
+                                <td>{{ porMes ? dsNvl1Filtro : dsNvl1XMes }}</td>
+                                <td>{{ dsNvl1Acumulado }}</td>
+                                <td *ngIf="levelTest >= 2">{{ porMes ? dsNvl2Filtro : dsNvl2XMes }}</td>
+                                <td *ngIf="levelTest >= 2">{{ dsNvl2Acumulado }}</td>
+                                <td *ngIf="levelTest === 3">{{ porMes ? dsNvl3Filtro : dsNvl3XMes }}</td>
+                                <td *ngIf="levelTest === 3">{{ dsNvl3Acumulado }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">CV</td>
+                                <td>{{ porMes ? cvNvl1Filtro : cvNvl1XMes }}</td>
+                                <td>{{ cvNvl1Acumulado }}</td>
+                                <td *ngIf="levelTest >= 2">{{ porMes ? cvNvl2Filtro : cvNvl2XMes }}</td>
+                                <td *ngIf="levelTest >= 2">{{ cvNvl2Acumulado }}</td>
+                                <td *ngIf="levelTest === 3">{{ porMes ? cvNvl3Filtro : cvNvl3XMes }}</td>
+                                <td *ngIf="levelTest === 3">{{ cvNvl3Acumulado }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Total</td>
+                                <td>{{ porMes ? totalNvl1Filtro : totalNvl1XMes }}</td>
+                                <td>{{ totalNvl1Acumulado }}</td>
+                                <td *ngIf="levelTest >= 2">{{ porMes ? totalNvl2Filtro : totalNvl2XMes }}</td>
+                                <td *ngIf="levelTest >= 2">{{ totalNvl2Acumulado }}</td>
+                                <td *ngIf="levelTest === 3">{{ porMes ? totalNvl3Filtro : totalNvl3XMes }}</td>
+                                <td *ngIf="levelTest === 3">{{ totalNvl3Acumulado }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                            <tr >
+                                <th style="background: white !important;"></th>
+                                <th style="background: white !important;" colspan="2">
+                                    l
+                                </th>
+                            </tr>
+                            <tr>
+                                <th ></th>
+                                <th >N1</th>
+                                <th  *ngIf="levelTest >= 2">N2</th>
+                                <th  *ngIf="levelTest == 3">N3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: bold;">MEDIA</td>
+                                <td>{{ mediaNvl1XMes }}</td>
+                                <td *ngIf="levelTest >= 2">{{ mediaNvl2XMes }}</td>
+                                <td *ngIf="levelTest == 3">{{ mediaNvl3XMes }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">DE</td>
+                                <td>{{ dsNvl1XMes }}</td>
+                                <td *ngIf="levelTest >= 2">{{ dsNvl2XMes }}</td>
+                                <td *ngIf="levelTest == 3">{{ dsNvl3XMes }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">CV</td>
+                                <td>{{ cvNvl1XMes }}</td>
+                                <td *ngIf="levelTest >= 2">{{ cvNvl2XMes }}</td>
+                                <td *ngIf="levelTest == 3">{{ cvNvl3XMes }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Total</td>
+                                <td >{{ totalNvl1XMes }}</td>
+                                <td  *ngIf="levelTest >= 2">{{ totalNvl2XMes }}</td>
+                                <td  *ngIf="levelTest == 3">{{ totalNvl3XMes }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+         }
+
+    </div>
+    }
+</div>
+
+
+<!-- ***Modal Calendar -->
+
+<ng-template #calendarModal>
+    <form [formGroup]="formaCalendarModal" autocomplete="off" class="grid-2-completo" (submit)="enviarFechaForm()">
+        <mat-form-field >
+            <mat-label>Fecha Inicio</mat-label>
+            <input matInput [matDatepicker]="pickerstart" formControlName="startDate" autocomplete="off" (change)="changeDate()">
+            <mat-datepicker-toggle matSuffix [for]="pickerstart">
+            </mat-datepicker-toggle>
+            <mat-datepicker #pickerstart></mat-datepicker>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field >
+            <mat-label>Fecha fin</mat-label>
+            <input matInput [matDatepicker]="pickerend" formControlName="endDate" autocomplete="off" (change)="changeDate()">
+            <mat-datepicker-toggle matSuffix [for]="pickerend">
+            </mat-datepicker-toggle>
+            <mat-datepicker #pickerend></mat-datepicker>
+            <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+    </form>
+</ng-template>
+
+<!-- ***Modal Tabla de datos -->
+
+<!-- <ng-template #TablaDatos>
+    <div class="modal-header">
+        <button type="button" class="close pull-right" arial-label="Close" (click)="closeVentana()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <div class="row mb-5">
+            <div class="col flex2">
+                <img class="img img-fluid" [src]="'edit.png' | imageCdn">
+                <h3 class="tituloModal" style="color: #3F2E63;">Editar</h3>
+            </div>
+        </div>
+
+        <form [formGroup]="formularioDatos" (ngSubmit)="editar()" autocomplete="off">
+
+            <div class="form-row">
+
+                <div class="col-4 form-group">
+                    <div role="group">
+                        <label class="labelForm">Nivel 1</label>
+                        <input type="number" class="form-control styleForm" formControlName="valuelevel1"
+                            (input)="validarDecimales($event.target.value, 1)">
+                        <small *ngIf="formularioDatos.get('valuelevel1').errors?.min"
+                            class="text-danger animated fadeIn">Mínimo 0</small>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group" *ngIf="levelTest >= 2">
+                    <div role="group">
+                        <label class="labelForm">Nivel 2</label>
+                        <input type="number" class="form-control styleForm" formControlName="valuelevel2"
+                            (input)="validarDecimales($event.target.value, 2)">
+                        <small *ngIf="formularioDatos.get('valuelevel2').errors?.min"
+                            class="text-danger animated fadeIn">Mínimo 0</small>
+                    </div>
+                </div>
+
+                <div class="col-4 form-group" *ngIf="levelTest == 3">
+                    <div role="group">
+                        <label class="labelForm">Nivel 3</label>
+                        <input type="number" class="form-control styleForm" formControlName="valuelevel3"
+                            (input)="validarDecimales($event.target.value, 3)">
+                        <small *ngIf="formularioDatos.get('valuelevel3').errors?.min"
+                            class="text-danger animated fadeIn">Mínimo 0</small>
+                    </div>
+                </div>
+
+                <small *ngIf="decimalInvalidoLvl1 || decimalInvalidoLvl2 || decimalInvalidoLvl3"
+                    class="text-danger animated fadeIn alert">Máx {{ decimales }} decimales</small>
+
+                <div class="row">
+
+                    <div class="col-4 form-group">
+                        <div role="group">
+                            <label class="labelForm">A/R-Nivel 1</label>
+                            <mat-form-field class="sf-2">
+                                <mat-select disableOptionCentering class="form-control styleForm"
+                                    formControlName="arlevel1">
+                                    <mat-option value="">
+                                        --
+                                    </mat-option>
+                                    <mat-option value="A">
+                                        Aceptado
+                                    </mat-option>
+                                    <mat-option value="R">
+                                        Rechazado
+                                    </mat-option>
+                                    <mat-option value="I">
+                                        Alertado
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-4 form-group" *ngIf="levelTest >= 2">
+                        <div role="group">
+                            <label class="labelForm">A/R-Nivel 2</label>
+                            <mat-form-field class="sf-2">
+                                <mat-select disableOptionCentering class="form-control styleForm"
+                                    formControlName="arlevel2">
+                                    <mat-option value="">
+                                        --
+                                    </mat-option>
+                                    <mat-option value="A">
+                                        Aceptado
+                                    </mat-option>
+                                    <mat-option value="R">
+                                        Rechazado
+                                    </mat-option>
+                                    <mat-option value="I">
+                                        Alertado
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-4 form-group" *ngIf="levelTest == 3">
+                        <div role="group">
+                            <label class="labelForm">A/R-Nivel 3</label>
+                            <mat-form-field class="sf-2">
+                                <mat-select disableOptionCentering class="form-control styleForm"
+                                    formControlName="arlevel3">
+                                    <mat-option value="">
+                                        --
+                                    </mat-option>
+                                    <mat-option value="A">
+                                        Aceptado
+                                    </mat-option>
+                                    <mat-option value="R">
+                                        Rechazado
+                                    </mat-option>
+                                    <mat-option value="I">
+                                        Alertado
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+
+                <small *ngIf="decimalInvalidoLvl1 || decimalInvalidoLvl2 || decimalInvalidoLvl3"
+                    class="text-danger animated fadeIn alert">Máx {{ decimales }} decimales</small>
+
+                <div class="col-12 form-group">
+                    <div role="group">
+                        <label for="comments" class="labelForm">Comentarios</label>
+                        <input type="text" formControlName="comments" class="form-control styleForm" id="comments">
+                    </div>
+                </div>
+
+                <div class="col-12 form-group">
+                    <div role="group">
+                        <mat-form-field>
+                            <mat-label>
+                                Acción correctiva
+                            </mat-label>
+
+                            <mat-select disableOptionCentering formControlName="idcorrectiveactions">
+                                <mat-option value="">--
+                                </mat-option>
+                                <mat-option *ngFor="let listaAccion of listaAccionesC"
+                                    [value]="listaAccion.idcorrectiveactions">
+                                    {{ listaAccion.descorrectiveactions }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="form-row">
+                <div class="col-12 boxBtnAceptCancel">
+                    <button class="boton btnAceptar" type="submit">Aceptar</button>
+                    <button class="botonCancelar btnCancel" type="button"
+                        (click)="closeVentana()">Cancelar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</ng-template> -->
+
+<ng-template #TablaDatosEdit>
+   <form [formGroup]="formularioDatosEditar" 
+    style="display: grid; grid-template-columns: 1fr; gap: 1em;" autocomplete="off">
+        <div class="grid-3">
+            <mat-form-field>
+                <mat-label>Nivel 1</mat-label>
+                <input matInput type="number" formControlName="valuelevel1">
+                <mat-error>Obligatorio</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field *ngIf="levelTest >= 2">
+                <mat-label>Nivel 2</mat-label>
+                <input matInput type="number" formControlName="valuelevel2">
+                <mat-error>Obligatorio</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field *ngIf="levelTest == 3">
+                <mat-label>Nivel 3</mat-label>
+                <input matInput type="number" formControlName="valuelevel3">
+                <mat-error>Obligatorio</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="grid-3">
+            <mat-form-field>
+                <mat-label>A/R-Nivel 1</mat-label>
+                <mat-select disableOptionCentering formControlName="arlevel1">
+                    <mat-option value="">
+                        --
+                    </mat-option>
+                    <mat-option value="A">
+                        Aceptado
+                    </mat-option>
+                    <mat-option value="R">
+                        Rechazado
+                    </mat-option>
+                    <mat-option value="I">
+                        Alertado
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field *ngIf="levelTest >= 2">
+                <mat-label>A/R-Nivel 2</mat-label>
+                <mat-select disableOptionCentering formControlName="arlevel2">
+                    <mat-option value="">
+                        --
+                    </mat-option>
+                    <mat-option value="A">
+                        Aceptado
+                    </mat-option>
+                    <mat-option value="R">
+                        Rechazado
+                    </mat-option>
+                    <mat-option value="I">
+                        Alertado
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field *ngIf="levelTest >= 3">
+                <mat-label>A/R-Nivel 3</mat-label>
+                <mat-select disableOptionCentering formControlName="arlevel3">
+                    <mat-option value="">
+                        --
+                    </mat-option>
+                    <mat-option value="A">
+                        Aceptado
+                    </mat-option>
+                    <mat-option value="R">
+                        Rechazado
+                    </mat-option>
+                    <mat-option value="I">
+                        Alertado
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <mat-form-field>
+            <mat-label>Comentarios</mat-label>
+            <input matInput type="text" formControlName="comments" >
+        </mat-form-field>
+
+        <mat-form-field >
+            <mat-label>
+                Acción correctiva
+            </mat-label>
+            <input type="text" matInput [matAutocomplete]="autoaccedit"
+                formControlName="idcorrectiveactions">
+            <mat-autocomplete #autoaccedit="matAutocomplete">
+                <mat-option *ngFor="let listaAccion of filteredOptionsAccionesCorrectivasCreate | async"
+                    [value]="listaAccion.descorrectiveactions">
+                    {{ listaAccion.descorrectiveactions | titlecase }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form> 
+</ng-template>

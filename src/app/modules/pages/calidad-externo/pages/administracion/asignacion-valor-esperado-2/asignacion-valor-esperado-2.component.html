@@ -1,0 +1,107 @@
+<h1 style="margin-top: 3em;">ASIGNACIÓN DE VALORES ESPERADO 2</h1>
+
+
+<form [formGroup]="formaBuscarDatos" class="form_busqueda">
+
+
+  <mat-form-field>
+    <mat-label>Lote</mat-label>
+    <mat-select disableOptionCentering formControlName="lote" (selectionChange)="verTabla = false">
+      <!-- <mat-option value="">--
+      </mat-option> -->
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterLotes" placeholderLabel="Buscar lote..."  noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let lote of lotes" [value]="lote.IdLot" [matTooltipPosition]="'right'"
+        [matTooltip]="lote.Numlot">
+        {{ lote.Numlot }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+
+    <mat-form-field>
+      <mat-label>Programa</mat-label>
+      <mat-select disableOptionCentering formControlName="programa"
+        (selectionChange)="getAnalitosxPrograma($event)">
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterProgramas" placeholderLabel="Buscar programa..."  noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let programa of listaProgramas" [value]="programa.IdProgram"  [matTooltipPosition]="'right'" [matTooltip]="programa.Desprogram">
+          {{ programa.Desprogram }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="buscar()" [disabled]="formaBuscarDatos.invalid">
+     Buscar <mat-icon>search</mat-icon></button>
+  </div>
+</form>
+
+
+<app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [hidden]="!verTabla"
+  (onCreate)="modalCrear(crearOeditar)" (onChangeStatus)="editarToggle($event)"
+  (onEdit)="modalEditar(crearOeditar, $event)" (onDelete)="eliminarValoresEsperados2($event)">
+</app-tabla-comun>
+
+<ng-template #crearOeditar>
+    <form [formGroup]="formCrearEditar" class="grid-4Toggle">
+
+        <mat-form-field>
+          <mat-label>Analito</mat-label>
+          <mat-select formControlName="idAnalytes">
+            <mat-option>
+              <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar..."  noEntriesFoundLabel="No se encontró un resultado">
+              </ngx-mat-select-search>
+            </mat-option>
+
+            <mat-option *ngFor="let analito of analitos" [value]="analito.idanalytes"  [matTooltipPosition]="'right'" [matTooltip]="analito.desanalytes">
+              {{ analito.desanalytes}}
+            </mat-option>
+          </mat-select>
+          <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+
+
+        <mat-form-field>
+          <mat-label>Unidades</mat-label>
+          <mat-select formControlName="idUnits">
+            <mat-option value="">--
+            </mat-option>
+            <mat-option>
+              <ngx-mat-select-search [formControl]="filterUnidades" placeholderLabel="Buscar..."  noEntriesFoundLabel="No se encontró un resultado">
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let unidad of listaUnits" [value]="unidad.idunits" [matTooltipPosition]="'right'" [matTooltip]="unidad.codunits">
+              {{ unidad.codunits }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+
+
+        <mat-form-field style="height: 88px;">
+          <mat-label>Valor esperado </mat-label>
+          <input matInput type="number" formControlName="expectedvalue">
+          <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+
+
+        <div class="contieneToggle">
+          <label class="labelToggle">Estado</label>
+          <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+        </div>
+
+    </form>
+
+
+</ng-template>

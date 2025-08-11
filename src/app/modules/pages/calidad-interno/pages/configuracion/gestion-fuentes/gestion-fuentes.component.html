@@ -1,0 +1,38 @@
+
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Fuentes'"
+    (onCreate)="openModalGestionFuentes(templateGestionFuentes, '')" (onChangeStatus)="actualizarEstadoGestionFuentes($event)"
+    (onEdit)="openModalGestionFuentes(templateGestionFuentes, $event)" (onDelete)="eliminarGestionFuentes($event)">
+  </app-tabla-comun>
+
+<ng-template #templateGestionFuentes>
+  <form [formGroup]="formaGestionFuentes" class="grid-3-toggle" >
+
+    <mat-form-field>
+      <mat-label>Descripción</mat-label>
+      <input matInput type="text" formControlName="dessource">
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label for="idunits">
+        U. de Medida
+      </mat-label>
+      <mat-select disableOptionCentering formControlName="idunits">
+        <mat-option value="">--</mat-option>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="filterUnit" placeholderLabel="Buscar..."
+            noEntriesFoundLabel="No se encontró un resultado">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let unit of unitsActive" [value]="unit.idunits"> {{ unit.desunits }}</mat-option>
+      </mat-select>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="Active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>

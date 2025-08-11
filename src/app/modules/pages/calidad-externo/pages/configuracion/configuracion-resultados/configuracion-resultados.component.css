@@ -1,0 +1,146 @@
+.form_busqueda{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1em;
+}
+
+
+
+.boxBtnAceptCancel {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+
+}
+
+.btnCancel {
+
+  margin-left: 8px;
+
+}
+
+
+@media(min-width: 320px) {
+
+  .botonAgregar {
+
+    margin-right: 8px;
+
+  }
+
+  .btnCancel,
+  .btnAceptar,
+  .botonAgregar {
+
+    width: 76px;
+
+  }
+
+  .boxBtnSearch {
+
+    text-align: center;
+
+  }
+
+  .btnSearch {
+
+    width: 70px;
+    margin-top: 8px;
+
+  }
+
+  .boxBtnCreatefilter {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 32px;
+
+  }
+
+  .boxFilter {
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+  }
+
+  .filter {
+
+    width: 100%;
+    margin-left: 4px;
+
+  }
+
+  .btnCreate {
+
+    width: 70px;
+
+  }
+
+}
+
+
+@media(min-width: 425px) {
+
+  .dateInput {
+
+    width: 60%;
+
+  }
+
+}
+
+@media(min-width: 470px) {
+
+  .dateInput {
+
+    width: 45%;
+
+  }
+
+}
+
+
+@media(min-width: 576px) {
+
+  .boxSelectsForm {
+
+    display: flex;
+    justify-content: center;
+
+  }
+
+}
+
+@media(min-width: 768px) {
+
+  .boxBtnSelects {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+}
+
+@media(min-width: 1200px) {
+
+  .filter {
+
+    width: 60%;
+
+  }
+
+  .boxBtnSearch {
+
+    text-align: left;
+
+  }
+
+}

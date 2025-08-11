@@ -1,0 +1,21 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Analizadores'"
+    (onCreate)="openModalRegistroAnalizador(templateRegistroAnalizador, '')" (onChangeStatus)="actualizarEstadoAnalizador($event)"
+    (onEdit)="openModalRegistroAnalizador(templateRegistroAnalizador, $event)" (onDelete)="eliminarAnalizador($event.idAnalyzer)">
+  </app-tabla-comun>
+
+  
+<ng-template #templateRegistroAnalizador>
+
+  <form [formGroup]="formaRegistroAnalizador" class="grid-2">
+    <mat-form-field>
+      <mat-label>Analizador</mat-label>
+      <input matInput type="text" formControlName="nameAnalyzer">
+      <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div class="contieneToggle">
+    <label class="labelToggle">Estado</label>
+    <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+  </div>
+  </form>
+</ng-template>

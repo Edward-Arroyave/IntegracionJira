@@ -1,0 +1,328 @@
+@if(!flagPermisos){
+    <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Usuarios'"
+      (onCreate)="openModalRegistroUsuario(templateRegistroUsuario, '')" (onChangeStatus)="actualizarEstadoUsuario($event)"
+      (onEdit)="openModalRegistroUsuario(templateRegistroUsuario, $event)" (onDelete)="eliminarUsuario($event)"
+      (onPermissions)="openModalAsignarMenu($event)" (onEditPass)="openModalEditPass(templateEditPass,$event)">
+    </app-tabla-comun>
+  }
+
+@if(flagPermisos){
+
+  <!-- ENCABEZADO FUERA DEL FLEX -->
+  <div class="contenedorEncabezadoPermisos">
+    <div class="iconoUsuario">
+      <img src="icono-usuario.png" alt="Usuario" />
+    </div>
+    <h2 class="tituloPermisos">Permisos del usuario</h2>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="contenedorPermisosFlex">
+
+    <!-- LADO IZQUIERDO: Tabla de permisos -->
+    <div class="tablaPermisos">
+
+      <!-- Encabezado -->
+      <div class="itemInterno headerItems">
+        <div>Módulos</div>
+        <div>Estado</div>
+      </div>
+
+      <div class="scrollContainer">
+        <cdk-accordion>
+          @for(item1 of MenusXuserid; track $index; let impar = $odd){
+            <cdk-accordion-item #accordionItem="cdkAccordionItem"
+                                [attr.id]="'accordion-header-' + $index"
+                                [attr.aria-expanded]="accordionItem.expanded"
+                                [attr.aria-controls]="'accordion-body-' + $index">
+
+              <!-- Nivel 1 -->
+              <div class="itemInterno item1" [class.impar]="impar">
+                <div class="flex-icon" (click)="accordionItem.toggle()">
+                  @if(item1.menuIcon.includes('iconos/')) {
+                    <img [src]="item1.menuIcon">
+                  } @else {
+                    <i class="{{item1.menuIcon}}"></i>
+                  }
+                  {{item1.label}}
+                  <mat-icon [@indicatorRotate]="accordionItem.expanded">keyboard_arrow_right</mat-icon>
+                </div>
+                <div>
+                  <mat-slide-toggle
+                    (change)="crearEditar(item1)" 
+                    [checked]="item1.activeMenu">
+                  </mat-slide-toggle>
+                </div>
+              </div>
+
+              <!-- Nivel 2 -->
+              @if(item1.activeMenu){
+                <cdk-accordion>
+                  @for(item2 of item1.items; track $index; let ind2 = $index){
+                    <div [style.display]="accordionItem.expanded ? '' : 'none'">
+                      <cdk-accordion-item #accordionItem2="cdkAccordionItem">
+
+                        <div class="itemInterno item2">
+                          <div class="flex-icon" (click)="accordionItem2.toggle()">
+                            @if(item2.menuIcon.includes('iconos/')) {
+                              <img [src]="item2.menuIcon">
+                            } @else {
+                              <i class="{{item2.menuIcon}}"></i>
+                            }
+                            {{item2.label}}
+                            @if(item2.items.length !== 0){
+                              <mat-icon [@indicatorRotate]="accordionItem2.expanded">keyboard_arrow_right</mat-icon>
+                            }
+                          </div>
+                          <div>
+                            <mat-slide-toggle
+                              [checked]="item2.activeSubMenu"
+                              (change)="crearEditar(item2)">
+                            </mat-slide-toggle>
+                          </div>
+                        </div>
+
+                        <!-- Nivel 3 -->
+                        @if(item2.activeSubMenu){
+                          @for(item3 of item2.items; track $index){
+                            <div [style.display]="accordionItem2.expanded ? '' : 'none'">
+                              <div class="itemInterno item3">
+                                <div>{{item3.label}}</div>
+                                <div>
+                                  <mat-slide-toggle
+                                    [checked]="item3.activeSubMenu"
+                                    (change)="crearEditar(item3)">
+                                  </mat-slide-toggle>
+                                </div>
+                              </div>
+                            </div>
+                          }
+                        }
+                      </cdk-accordion-item>
+                    </div>
+                  }
+                </cdk-accordion>
+              }
+            </cdk-accordion-item>
+          }
+        </cdk-accordion>
+      </div>
+
+      <!-- Botón Anterior -->
+      <div class="footerButton">
+        <button (click)="flagPermisos = false" class="btnPurple-01 btnBack">Anterior</button>
+      </div>
+    </div>
+
+    <!-- LADO DERECHO: Imagen -->
+    <div class="imagenPermisos">
+      <img src="assets/usersPer/fondo_menu_User.png" alt="Decoración">
+    </div>
+  </div>
+}
+
+
+
+
+
+<ng-template #templateRegistroUsuario>
+  <form style="padding-inline:1em" [formGroup]="formaRegistroParametro" (ngSubmit)="crearEditarUsusario()">
+
+    <div class="grid-4" style="gap: .5em 1em;">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" formControlName="nombres">
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Apellido</mat-label>
+        <input matInput type="text" formControlName="apellidos">
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Usuario</mat-label>
+        <input matInput type="text" formControlName="nombreUsuario">
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      @if(!accionEditar){
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="visualizarPass()" formControlName="pass" minlength="8" maxlength="20">
+          
+          <mat-error *ngIf="formaRegistroParametro.get('pass')?.hasError('minlength')">
+            La contraseña debe tener al menos 8 caracteres
+          </mat-error>
+          <mat-error *ngIf="formaRegistroParametro.get('pass')?.hasError('maxlength')">
+            La contraseña no puede exceder los 20 caracteres
+          </mat-error>
+         
+          <mat-icon (click)="visualizarPassFn()" matSuffix class="icon-search" style="cursor: pointer;"> {{visualizarIcon()}}
+          </mat-icon>
+        </mat-form-field>
+      }
+  
+      <mat-form-field>
+        <mat-label>Tipo Documento</mat-label>
+        <mat-select formControlName="tipoDocumento" disableOptionCentering>
+          <mat-option value="">--</mat-option>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterDoc" placeholderLabel="Buscar..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          @for( doc of docsActive;track $index){
+            <mat-option [value]="doc.idparametro"> {{ doc.desparam }}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>N° Documento</mat-label>
+        <input matInput type="text" formControlName="numeroDocumento">
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field >
+        <mat-label>Fecha Nacimiento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento"
+          (change)="changeDate('fechaNacimiento')">
+        <mat-datepicker-toggle matSuffix [for]="picker" >
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Tarjeta profesional</mat-label>
+        <input matInput type="text" formControlName="tarjetaProfesional">
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field style="grid-column: span 2;">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="correoElectronico">
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Celular</mat-label>
+        <input matInput type="text" formControlName="celular">
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label >Rol</mat-label>
+        <mat-select formControlName="rol" disableOptionCentering>
+          <mat-option value="">--</mat-option>
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterRole" placeholderLabel="Buscar..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          @for( rol of listaRoles;track $index){
+            <mat-option [value]="rol.rolid"> {{ rol.namerol | titlecase }}
+            </mat-option>
+          }
+  
+        </mat-select>
+        <mat-error>Obligatorio</mat-error>
+      </mat-form-field>
+  
+      <div style="width: 100%; display: flex; grid-column: span 2;">
+        <mat-form-field style="width: 90em">
+          <mat-label>Fecha Expiración</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="fechaExpiracion" (change)="changeDate('fechaExp')" >
+          <mat-datepicker-toggle matSuffix [for]="picker2">
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker2 ></mat-datepicker>
+          <mat-error>Obligatorio</mat-error>
+        </mat-form-field>
+    
+    
+        <div class="contieneToggle">
+          <label class="labelToggle">Estado</label>
+          <mat-slide-toggle formControlName="Active" style=" margin-top: 1em;"></mat-slide-toggle>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="grid-4" >
+      <div class="boxImg" style="position: relative;">
+  
+        <!-- @if(spin){
+          <div class="spin">
+            <div class="spinner-border text-primary" role="status"></div>
+          </div>
+        }@else{ -->
+  
+            <img [src]="'data:image/jpg;base64,'+foto | defaultImage" class="foto">
+  
+        <!-- } -->
+        <input type="file" id="userPicture" style="display: none;" accept=".png, .jpg, .jpeg"
+          (change)="getFoto( $event.target.files[0] )">
+        <img src="../../../../assets/rutas/iconos/camera.svg" onclick="userPicture.click();" class="camera">
+      </div>
+    </div>
+
+
+
+  </form>
+</ng-template>
+
+
+<ng-template #templateEditPass>
+  <form class="grid-3" [formGroup]="formEditPass" style="height: 9em;">
+
+      <mat-form-field>
+        <mat-label>Contraseña actual</mat-label>
+        <input matInput [type]="inputTypes.pass" formControlName="pass"minlength="8" maxlength="20">
+        
+        <mat-error *ngIf="formEditPass.get('pass')?.hasError('minlength')">
+          La contraseña debe tener al menos 8 caracteres
+        </mat-error>
+        <mat-error *ngIf="formEditPass.get('pass')?.hasError('maxlength')">
+          La contraseña no puede exceder los 20 caracteres
+        </mat-error>
+       
+        <mat-icon (click)="modalPassFn('pass')" matSuffix class="icon-search" style="cursor: pointer;"> {{visibilityIcon.pass}}</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nueva contraseña</mat-label>
+        <input matInput [type]="inputTypes.newPass" formControlName="newPass"minlength="8" maxlength="20">
+        
+        <mat-error *ngIf="formEditPass.get('newPass')?.hasError('minlength')">
+          La contraseña debe tener al menos 8 caracteres
+        </mat-error>
+        <mat-error *ngIf="formEditPass.get('newPass')?.hasError('maxlength')">
+          La contraseña no puede exceder los 20 caracteres
+        </mat-error>
+       
+        <mat-icon (click)="modalPassFn('newPass')" matSuffix class="icon-search" style="cursor: pointer;"> {{visibilityIcon.newPass}}
+        </mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Confirmar contraseña</mat-label>
+        <input matInput [type]="inputTypes.confirmNewPass" formControlName="confirmNewPass"minlength="8" maxlength="20">
+        
+        <mat-error *ngIf="formEditPass.get('confirmNewPass')?.hasError('minlength')">
+          La contraseña debe tener al menos 8 caracteres
+        </mat-error>
+        <mat-error *ngIf="formEditPass.get('confirmNewPass')?.hasError('maxlength')">
+          La contraseña no puede exceder los 20 caracteres
+        </mat-error>
+       
+        <mat-icon (click)="modalPassFn('confirmNewPass')" matSuffix class="icon-search" style="cursor: pointer;"> {{visibilityIcon.confirmNewPass}}
+        </mat-icon>
+      </mat-form-field>
+
+
+  </form>
+</ng-template>

@@ -1,0 +1,240 @@
+<h1 style="margin-top: 3em;">Generación Reporte Semicuantitativo</h1>
+<form [formGroup]="formulario" (ngSubmit)="buscar()" autocomplete="off" class="grid-5-toggle" style="margin-top: 1em;">
+
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <mat-select disableOptionCentering formControlName="idclient">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterCliente" placeholderLabel="Buscar cliente..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="">
+        --
+      </mat-option>
+      <mat-option *ngFor="let cliente of clientes" [value]="cliente.idclient" [matTooltipPosition]="'right'"
+        [matTooltip]="cliente.name" (click)="cargarSedes(cliente.header)">
+        {{ cliente.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>
+          Sede
+        </mat-label>
+        <mat-select [disabled]="formulario.get('idclient')?.invalid" disableOptionCentering
+          formControlName="idsede" (selectionChange)="consultarProgramas()">
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option value="" (click)="formulario.get('idsede')?.setValue('')">
+            --
+          </mat-option>
+          <mat-option *ngFor="let sede of sedes" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+            [matTooltip]="sede.desheadquarters">
+            {{ sede.desheadquarters }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <input type="text" matInput [matAutocomplete]="autoprogram" formControlName="idProgram">
+    <mat-autocomplete #autoprogram="matAutocomplete">
+      <mat-option *ngFor="let programa of filteredOptionsProgram | async" [matTooltipPosition]="'right'"
+        [matTooltip]="programa.desprogram" [value]="programa.desprogram" (click)="selectRonda(programa.idProgram)">
+        {{ programa.desprogram}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Ronda</mat-label>
+    <input type="text" matInput [matAutocomplete]="autoRonda" formControlName="idRonda">
+    <mat-autocomplete #autoRonda="matAutocomplete">
+      <mat-option *ngFor="let ronda of filteredOptionsRonda | async" [value]="ronda.nroround"
+        (click)="selectSample(ronda.nroround)">
+        {{ ronda.nroround}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Muestra</mat-label>
+    <input type="text" matInput [matAutocomplete]="autoLote" formControlName="idMuestra">
+    <mat-autocomplete #autoLote="matAutocomplete">
+
+      <mat-option *ngFor="let sample of filteredOptionsSample | async" [value]="sample.Serialsample"
+        (click)="selectAnalito(sample)">
+        {{ sample.Serialsample}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Analitos
+    </mat-label>
+    <mat-select disableOptionCentering formControlName="idAnalito" multiple>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analito..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="" (click)="selectNone('idAnalito')">
+        --
+      </mat-option>
+      <mat-option value="-1" (click)="selectAll('idAnalito')" *ngIf="analytes.length != 0">
+        Todos los analitos
+      </mat-option>
+      <mat-option *ngFor="let analito of analytes" [matTooltipPosition]="'right'" [matTooltip]="analito.desanalytes"
+        [value]="analito.idanalytes" (click)="selectOne('idAnalito')">
+        {{ analito.desanalytes }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div>
+    <button class="btnPurple-01" type="submit">Buscar</button>
+  </div>
+</form>
+
+  <!-- Botón Generar reporte solo visible si viewButtonReport es true -->
+   @if(viewButtonReport){
+  <div style="text-align: right; margin-top: 1rem;">
+    <button class="btn-generar" type="button" (click)="openModalReporteSemiCuantitativo(templateReportSemiQuantitative)">
+      Generar reporte
+    </button>
+  </div>
+   }
+
+<div *ngIf="verInfo">
+
+  <div class="boxSecciones">
+    <div>
+      <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(-1)">arrow_back_ios</mat-icon>
+    </div>
+    <div #scroll class="boxSeccionesContainer">
+      <div *ngFor="let analito of sliderAnalitos; let i = index">
+        <div #btnSecc id="bntSecc-{{i}}" class="styleSeccion" [ngClass]="{'active':analitoSeleccionado === analito  }"
+          (click)="buscarAnalitos(analito, i, btnSecc)">
+          <h2 style="margin: 0; font-size: 15px;">{{analito.DesAnalytes | titlecase}}</h2>
+        </div>
+      </div>
+    </div>
+    <div>
+      <mat-icon style="cursor: pointer; color:var(--blue-03);" (click)="scrollCards(1)">arrow_forward_ios</mat-icon>
+    </div>
+  </div>
+
+  <div class="cardReportes" style="padding: 20px 20px 0 20px;height: 425px;">
+    <div style="display: flex; justify-content: space-between;">
+      <div class="grid-container">
+        <div class="estiloGeneralSlide" [ngClass]="{'highlight-active':itemSelected === 1}" (click)="selecItem(1)">
+          <mat-icon class="icon-custom" svgIcon="score"></mat-icon>
+          <p>Info Analito</p>
+        </div>
+      </div>
+    </div>
+
+    <ng-container [ngSwitch]="itemSelected">
+      <ng-container *ngSwitchCase="1" [ngTemplateOutlet]="item_1"></ng-container>
+      <ng-container *ngSwitchCase="6" [ngTemplateOutlet]="pdfConsolidado"></ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #item_1 id="key_1">
+  <h2>Evaluación Procedimiento Medida</h2>
+  <table style="width: 100%; box-shadow: 0px 3px 6px #00000029;margin-bottom: 1em;">
+    <thead>
+      <tr style=" background: var(--blue-01);">
+        <th style="color: white;" class="paddingTable">Resultado</th>
+        <th style="color: white;" class="paddingTable">Resultado Asignado</th>
+        <th style="color: white;" class="paddingTable">Score</th>
+        <th style="color: white;" class="paddingTable">Desempeño</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataSlider">
+        <td class="paddingTable">{{item.ResultsClient}}</td>
+        <td class="paddingTable">{{item.ValorAsignado}}</td>
+        <td class="paddingTable">{{item.zscore}}</td>
+        <td class="paddingTable">{{item.desempenio}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Gráfica Zscore</h3>
+  <div class="grid-2-completo cardReportes " style="height: 230px; top: 0;">
+    <div *ngFor="let item of tablaEvaluacion; let i = index">
+      <!-- GRÁFICA CONT 2 -->
+      <div #grafZscore id="chartZscore{{i}}" style="width:800px; height: 220px;"></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #pdfConsolidado>
+  <ng-container *ngFor="let item of datosFiltro;index as i">
+    <div [style]="'width:50em; height:13em;padding-left:.5em'" [id]="'primera'+i"></div>
+    <div [style]="'width:50em; height:13em;padding-left:.5em'" [id]="'segunda'+i"></div>
+    <ng-container *ngFor="let item of arrGraficasTres[i]; let j = index">
+      {{'tercera'+i+'P'+j}}
+      <div [style]="'width:50em; height:13em;padding-left:.5em'" [id]="'tercera'+i+'P'+j"></div>
+    </ng-container>
+    <ng-container *ngFor="let item of arrGraficasCuatro[i]; let j = index">
+      <div [style]="'width:50em; height:13em;padding-left:.5em'" [id]="'cuarta'+i+'Z'+j"></div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+ <ng-template #templateReportSemiQuantitative>
+  <form [formGroup]="formStatusSample" class="grid-4 responsive-form">
+    
+    <mat-form-field>
+      <mat-label>Tipo de muestra</mat-label>
+      <input matInput formControlName="typeSample">
+      <mat-error *ngIf="formStatusSample.get('typeSample')?.hasError('required')">Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Condición de muestra</mat-label>
+      <input matInput formControlName="sampleConditions">
+      <mat-error *ngIf="formStatusSample.get('sampleConditions')?.hasError('required')">Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Fecha de recepción</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateReception">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="formStatusSample.get('dateReception')?.hasError('required')">Obligatorio</mat-error>
+    </mat-form-field>
+
+    <!-- Radio grupo en línea: label + botones al frente -->
+    <div class="radio-inline-group">
+      <label class="radio-label">Muestra recibida en buenas condiciones:</label>
+      <mat-radio-group formControlName="sampleReceived" class="horizontal-radio">
+        <mat-radio-button value=true>Sí</mat-radio-button>
+        <mat-radio-button value=false>No</mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="formStatusSample.get('sampleReceived')?.hasError('required')">Obligatorio</mat-error>
+    </div>
+
+    <!-- Textarea full width -->
+    <mat-form-field class="full-width" style="grid-column: span 4;">
+      <mat-label>Observaciones del reporte</mat-label>
+      <textarea matInput rows="3" formControlName="observations"></textarea>
+      <mat-error *ngIf="formStatusSample.get('observations')?.hasError('required')">Obligatorio</mat-error>
+    </mat-form-field>
+    
+  </form>
+</ng-template>

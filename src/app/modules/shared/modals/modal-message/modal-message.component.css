@@ -1,0 +1,50 @@
+.container_modal {
+  padding: 2em;
+}
+
+h3 {
+  margin: 0 0;
+  font-size: 0.85em !important;
+  line-height: 19px;
+  color: black;
+}
+
+h2 {
+  font: revert;
+  font: 400 1.5em/1.3em openSans, "Helvetica Neue", sans-serif;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  font: revert;
+  font: 400 1.5em/1.3em openSans, "Helvetica Neue", sans-serif;
+  font-size: 20px !important;
+  margin: 0 0 1em !important;
+  color: var(--purple-01);
+}
+
+h2 {
+  font-size: 1em !important;
+  margin: 0 0 1em !important;
+}
+
+.btn_cancelar {
+  background-color: var(--white);
+  border: 1px solid;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.btn_secondary {
+  background-color: #dad3e0 !important;
+  color: #575656 !important;
+}

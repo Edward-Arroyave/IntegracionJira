@@ -1,0 +1,54 @@
+.boton {
+    border-radius: 9px;
+    height: 30px;
+    color: #fff;
+    width: 33%;
+    background: var(--purple-01);
+    border: var(--purple-01);
+    margin-bottom: 24px !important;
+    font-size: 16px;
+}
+
+.tituloModalExpiredToken{
+
+    text-align: center;
+
+}
+
+.accion{
+
+    color: #6b4b8b !important;
+    font-size: 30px !important;
+    font-weight: bold !important;
+
+}
+
+.mensaje{
+
+    color: #797979;
+    font-size: 22px;
+    font-weight: normal !important;
+    margin: 0px !important;
+    margin-bottom: 8px !important;
+
+}
+
+.tituloModalNodatos{
+
+    margin-top: 12px;
+
+}
+
+.btnAceptar{
+
+    margin-top: 16px !important;
+    margin-bottom: 30px !important;
+
+}
+
+.tituloModalNodatos p{
+
+    margin: 0;
+    margin-top: 4px;
+
+}

@@ -1,0 +1,206 @@
+<div class="row col-12">
+    <div class="col-12 mt-2">
+
+
+        <div class="card border-0 mt-3 mb-3">
+
+            <div class="row justify-content-center mt-4">
+
+                <div class="col-10">
+
+                    <div class="row mb-2">
+                        <!-- ** Mes - Año -->
+                        <form class="col-12" [formGroup]="formulario" autocomplete="off" (submit)="getFiltro()">
+                            <div class="row gap-2 ">
+
+                                <div class="col-1 m-0 p-0">
+                                    <img [src]="'calendar.svg' | imageCdn" style="width: 50%;">
+                                </div>
+                                <div class="col-2  m-0 p-0 m-0 p-0">
+
+                                    <div class="row">
+                                        <mat-form-field>
+                                            <mat-label >Mes</mat-label>
+                                            <mat-select disableOptionCentering formControlName="mes">
+                                                <mat-option value="">--</mat-option>
+                                                <mat-option *ngFor="let item of meses" [value]="item.idmes">
+                                                    {{ item.mes }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="mesNoValido.hasError('required')" class="animated fadeIn">
+                                                Campo requerido
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-2 m-0 p-0 m-0 p-0">
+                                    <div class="row">
+                                        <mat-form-field>
+                                            <mat-label >Año</mat-label>
+                                            <mat-select disableOptionCentering formControlName="anio">
+                                                <mat-option value="">--</mat-option>
+                                                <mat-option *ngFor="let item of anios" [value]="item">
+                                                    {{ item }}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="anioNoValido.hasError('required')" class="animated fadeIn">
+                                                Campo requerido
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-1 m-0 p-0">
+                                    <button type="submit" class="boton btnDuplicarLote animate__animated animate__fadeIn fast" style="height: 2em;width: 2em;"> 
+                                       <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                                <div class="col"></div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- -- Cards - -->
+            <div class="row justify-content-center mt-3" *ngIf="mostrarPantalla">
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 mb-2">
+                            <div class="card borderTable px-xl-2">
+
+                                <div class="card-body px-lg-4 px-xl-4">
+
+                                    <table class="table table-borderless table-responsive-ab">
+                                        <div class="col-12">
+
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-12 p-0">
+                                                    <div class="row">
+                                                        <div class="col-6 row">
+                                                            <div class=" col-12 ">
+                                                                <img class="flecha" [src]="'flecha.png' | imageCdn">
+                                                                <div class="card-body">
+                                                                    <mat-label>
+                                                                        Selecciona los filtros para visualizar la información
+                                                                    </mat-label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <img [src]="'indicadores.png' | imageCdn">
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!-- -- Cards - -->
+            <div class="row justify-content-center mt-3" *ngIf="!mostrarPantalla">
+                <div class="col-10" *ngIf="alert">
+                    <p class="text-danger p-0 m-0 float-right">{{mensaje}}</p>
+                </div>
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-8 p-0 mb-2">
+                            <div class="card borderTable px-xl-2">
+
+                                <div class="card-body px-lg-4 px-xl-4">
+
+                                    <table class="table table-borderless table-responsive-ab">
+                                        <thead>
+                                            <tr>
+                                                <td style="text-align: left !important;">
+                                                    <p class="table-label"><strong>Item a evaluar</strong></p>
+                                                </td>
+                                                <td style="text-align: right !important;">
+                                                    <p class="table-label text-nowrap"><strong>No de Puntuacion </strong></p>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="text-align: left !important;">
+                                                    <div class="d-inline-flex">
+                                                        <div class="dot text-center"><span class="number">1</span></div>
+                                                        <span class="line">Satisfacción de los servicios de laboratorio</span>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align: right !important;">
+                                                    <!-- Input -->
+                                                    <div role="group">
+                                                        <div *ngIf="itemuno.invalid && (itemuno.dirty || itemuno.touched)" class="text-danger">
+                                                            <small *ngIf="itemuno.errors?.pattern || itemuno.errors?.max">*Error</small>
+                                                        </div>
+                                                        <mat-form-field class="w-ab">
+                                                            <input matInput class="txt-item" type="number" name="input1" [(ngModel)]="valItem1" #itemuno="ngModel" (change)="setTotalProgressBar(itemuno)" [disabled]="isDisabled" [class.text-danger]="txtInput1">
+                                                        </mat-form-field>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <td style="text-align: left !important;">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4">
+                            <div class="card borderTable text-center" [class.card-alert]="alert">
+                                <div class="card-body">
+
+                                    <div class="row mt-3">
+                                        <div class="col-12 text-center">
+                                            <mat-card-content class="mt-3">
+
+                                                <div class="d-inline-flex progress-bar-color">
+                                                    <div class="dot-lg text-center">
+                                                        <span id="circle" *ngIf="totalOrdPB > 0"></span>
+                                                        <span class="number-lg">{{totalOrdPB}}</span>
+                                                        <br>
+                                                        <span class="txt-lg">Puntuacion </span>
+                                                        <mat-progress-spinner class="mx-auto progress-circle" [color]="color" [mode]="mode" [value]="value" [strokeWidth]="3" [diameter]="168"></mat-progress-spinner>
+                                                    </div>
+
+                                                </div>
+                                            </mat-card-content>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- Btns Guardar - Cancelar -->
+            <div class="row justify-content-center gap-2 mt-3" *ngIf="!mostrarPantalla">
+                <button type="button" class="boton float-right" (click)="crearEditar()">Guardar</button>
+                <button type="button" class="boton-back" (click)="reset()">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+</div>

@@ -1,0 +1,20 @@
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Proveedores'"
+    (onCreate)="openModalGestionProveedores(templateGestionProveedores, '')" (onChangeStatus)="actualizarEstadoGestionProveedores($event)"
+    (onEdit)="openModalGestionProveedores(templateGestionProveedores, $event)" (onDelete)="eliminarGestionProveedores($event.idsupplier)">
+  </app-tabla-comun>
+
+<ng-template #templateGestionProveedores>
+
+  <form [formGroup]="formulario" class="grid-2">
+    <mat-form-field>
+      <mat-label>Proveedor</mat-label>
+      <input matInput type="text" formControlName="dessupplier">
+      <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div class="contieneToggle">
+    <label class="labelToggle">Estado</label>
+    <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+  </div>
+  </form>
+</ng-template>

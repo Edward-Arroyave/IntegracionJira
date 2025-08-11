@@ -1,0 +1,326 @@
+<h1 style="margin-top: 3em;">Reporte cualitativo</h1>
+<form [formGroup]="formulario" class="formulario-principal">
+
+  
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <mat-select disableOptionCentering formControlName="idclient">
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterCliente" placeholderLabel="Buscar cliente..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="">
+        --
+      </mat-option>
+      <mat-option *ngFor="let cliente of clientes" [value]="cliente.idclient" [matTooltipPosition]="'right'"
+        [matTooltip]="cliente.name" (click)="cargarSedes(cliente.header)">
+        {{ cliente.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>
+          Sede
+        </mat-label>
+        <mat-select [disabled]="formulario.get('idclient')?.invalid" disableOptionCentering
+          formControlName="idsede" (selectionChange)="consultarProgramas()">
+          <mat-option>
+            <ngx-mat-select-search [formControl]="filterSede" placeholderLabel="Buscar sede..."
+              noEntriesFoundLabel="No se encontró un resultado">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option value="" (click)="formulario.get('idsede')?.setValue(null)">
+            --
+          </mat-option>
+          <mat-option *ngFor="let sede of sedes" [value]="sede.idheadquarters" [matTooltipPosition]="'right'"
+            [matTooltip]="sede.desheadquarters">
+            {{ sede.desheadquarters }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <mat-select disableOptionCentering formControlName="idProgram">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterPrograma" placeholderLabel="Buscar programa..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let program of listprogram" [value]="program.idProgram" [matTooltipPosition]="'right'"
+        [matTooltip]="program.desprogram" (click)="selectRonda(program.idProgram)">
+        {{ program.desprogram | titlecase }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Ronda</mat-label>
+    <mat-select disableOptionCentering formControlName="idRonda">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterRonda" placeholderLabel="Buscar rondas..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let ronda of rondas" [value]="ronda.nroround" [matTooltipPosition]="'right'"
+        [matTooltip]="ronda.nroround" (click)="selectLote(ronda.nroround)">
+        {{ ronda.nroround }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Lote</mat-label>
+    <mat-select disableOptionCentering formControlName="idLote">
+      <mat-option value="">--</mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterLote" placeholderLabel="Buscar lote..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let lote of lotes" [value]="lote.idLot" [matTooltipPosition]="'right'"
+        [matTooltip]="lote.numlot" (click)="selectAnalito(lote.idLot)">
+        {{ lote.numlot }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      Analito
+    </mat-label>
+    <mat-select formControlName="idAnalito" multiple>
+      <mat-option value="" (click)="selectNone('idAnalito')">
+        --
+      </mat-option>
+      <mat-option>
+        <ngx-mat-select-search [formControl]="filterAnalito" placeholderLabel="Buscar analito..."
+          noEntriesFoundLabel="No se encontró un resultado">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option value="-1" (click)="selectAll('idAnalito')" *ngIf="analytes.length != 0">
+        Todos los analitos
+      </mat-option>
+      <mat-option *ngFor="let analito of analytes" [matTooltipPosition]="'right'" [matTooltip]="analito.desanalytes"
+        [value]="analito.idanalytes" (click)="selectOne('idAnalito')">
+        {{ analito.desanalytes }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div>
+    <button type="button" class="btnPurple-01" (click)="buscar()" [disabled]="formulario.invalid">
+      Buscar <mat-icon>search</mat-icon></button>
+  </div>
+
+</form>
+
+<!-- SLIDE ANALITOS  -->
+@if(verInfo){
+
+<div class="slider-analitos">
+  <section class="arrow-left" (click)="ScrollLeft()" [ngStyle]="{'opacity': showLeftScroll ? '1': '0'}">
+    <i class="fas fa-angle-left"></i>
+  </section>
+  <div (scroll)="onScroll()" class="tabs_container" #contentScrollable>
+    @for (analito of datosFiltro.analytesList; track $index) {
+    <div class="tab" (click)="buscarAnalitos(analito, $index)"
+      [ngClass]="{'active-tab': analitoSeleccionado === analito, 'desactive-tab': analitoSeleccionado !== analito}">
+      <div class="text-tab">
+        {{ analito.desAnalytes }}
+      </div>
+    </div>
+    }
+
+  </div>
+  <section class="arrow-right" (click)="ScrollRight()" [ngStyle]="{'opacity': showRightScroll ? '1': '0'}">
+    <i class="fas fa-angle-right"></i>
+  </section>
+
+</div>
+}
+
+
+<!-- FIN SLIDE ANALITOS  -->
+
+
+<!-- PANTALLA DE NO SELECCIÓN  -->
+@if(analitoSeleccionado == '' && verInfo){
+<div class="no-data mat-elevation-z1">
+  <img [src]="'sin-seleccion.svg' | imageCdn" alt="sin selección">
+
+</div>
+}
+<!-- FIN DE PANTALLA DE NO SELECCIÓN  -->
+
+
+<!-- TABLAS  -->
+@if(verInfo && analitoSeleccionado){
+<div class="container-tables mat-elevation-z1">
+  <div class="tables-top">
+
+
+    <table class="mat-elevation-z1">
+      <thead>
+        <tr>
+          <th style="width:4em">ID Laboratorio</th>
+          <th style="width:4em">ID Sede</th>
+          <th style="width:8em">Nombre del Laboratorio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of datosFiltro.listResult">
+          <td>{{obj.idLab}}</td>
+          <td>{{obj.idHeader}}</td>
+          <td>{{obj.nameLab}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cont-table" *ngFor="let obj of reactivoXanalito; let i = index">
+      <table class="mat-elevation-z1">
+        <thead>
+          <tr>
+            <th style="width: 30%">{{obj?.sample}}</th>
+            <th>VP</th>
+            <th>VN</th>
+            <th>FN</th>
+            <th>FP</th>
+            <th>I</th>
+            <th>%C</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of obj?.tableSample; let l = index">
+            <td>{{item.nameSample}}</td>
+            <td>{{item.result == 'VP' ? 1 : 0}}</td>
+            <td>{{item.result == 'VN' ? 1 : 0}}</td>
+            <td>{{item.result == 'FN' ? 1 : 0}}</td>
+            <td>{{item.result == 'FP' ? 1 : 0}}</td>
+            <td>{{item.result == 'I' ? 1 : 0}}</td>
+            <td>{{item.c}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+
+
+
+
+
+    <table class="mat-elevation-z1">
+      <thead>
+        <tr>
+          <th>%Concordancia global</th>
+          <th>Desempeño global</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of datosFiltro.listResult">
+          <td>{{obj.conGlobal}}</td>
+          <td>{{obj.deseGlobal}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+  </div>
+
+
+
+
+  <div class="tables-bottom">
+
+    <table class="mat-elevation-z1">
+      <thead>
+        <tr>
+          <th style="width: 30%;">Valor asignado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CONSENSO</td>
+        </tr>
+        <tr>
+          <td>Reactivo</td>
+        </tr>
+        <tr>
+          <td>No reactivo</td>
+        </tr>
+        <tr>
+          <td>Indeterminado</td>
+        </tr>
+        <tr>
+          <td>N° total de participantes </td>
+        </tr>
+        <tr>
+          <td>Mínimo consenso (80%)</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <div class="cont-table" *ngFor="let item of reactivoXanalito">
+      <table class="mat-elevation-z1">
+        <thead>
+          <tr>
+            <th style="width:20%">Reactivo</th>
+            <th *ngFor="let obj of [1,2,3,4,5,6]"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{item.consenso}}</td>
+            <td>{{item.tvp}}</td>
+            <td>{{item.tvn}}</td>
+            <td>{{item.tfn}}</td>
+            <td>{{item.tfp}}</td>
+            <td>{{item.ti}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>{{item.reactivo}}</td>
+            <td *ngFor="let obj of [1,2,3,4,5,6]"></td>
+          </tr>
+          <tr>
+            <td>{{item.noReactivo}}</td>
+            <td *ngFor="let obj of [1,2,3,4,5,6]"></td>
+          </tr>
+          <tr>
+            <td>{{item.indeterminado}}</td>
+            <td *ngFor="let obj of [1,2,3,4,5,6]"></td>
+          </tr>
+          <tr>
+            <td>{{item.nTotalPacientes}}</td>
+            <td *ngFor="let obj of [1,2,3,4,5,6]"></td>
+          </tr>
+          <tr>
+            <td>{{item.minimoConsen}}</td>
+            <td *ngFor="let obj of [1,2,3,4,5,6]"></td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+
+
+  </div>
+
+
+</div>
+}

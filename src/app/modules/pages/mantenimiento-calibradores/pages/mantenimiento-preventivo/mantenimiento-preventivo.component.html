@@ -1,0 +1,488 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <div class="card mt-3 mb-3 borderTable" *ngIf="estadoInicial">
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <img class="imageSobreBorde" [src]="'mantenimiento-correctivo.png' | imageCdn">
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-12 titulo mt-5"> <strong>MANTENIMIENTO PREVENTIVO</strong></div>
+
+                <div class="row justify-content-center aling-items-center " style="height: 100%;">
+
+                    <div class="col-1 m-0 pt-3 ">
+                        <img [src]="'icono_area.svg' | imageCdn">
+                    </div>
+                    <div class="col-12 col-sm-10 col-md-11 col-lg-11 col-xl-4 formGroup">
+                        <form [formGroup]="filtroFormulario" (ngSubmit)="consultarSerial()">
+                            <div role="group">
+                                <mat-form-field class="serial-tamanio">
+                                    <mat-label >Serial</mat-label>
+                                    <input type="text" matInput [matAutocomplete]="auto" formControlName="serialInput">
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let option of (filteredOptions | async)" [value]="option.Serial">
+                                            {{option.Serial}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <small *ngIf="serialInputNoValido.invalid  && serialInputNoValido.touched" class="text-danger animated fadeIn">Campo requerido</small>
+                            <div class="row justify-content-center " >
+                                <button type="submit" class="botonInicio">Continuar</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="card mt-3 mb-3 borderTable" *ngIf="!estadoInicial">
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <img class="imageSobreBorde" [src]="'mantenimiento-correctivo.png' | imageCdn">
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="container-fluid">
+
+                    <div class="col-12 col-sm-12 col-md-12 row text-center">
+
+                        <br>
+                        <!-- ** Opciones -->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4">
+                            <div class="card border-0" style="cursor: pointer;" (click)="tipo(1)" [ngClass]="{ 'active': tipoSelec == 1 }">
+                                <div class="card-body p-0">
+                                    <div class="indicador mb-2">
+                                        <img class="mr-3 img-ind" [src]="'crear-mantenimiento.png' | imageCdn" alt="Item Indicador">
+                                        <div class="d-block">
+                                            <p #pItem1 class="text-item">Agendar Mantenimiento Preventivo</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4">
+                            <div class="card border-0" style="cursor: pointer;" (click)="tipo(2)" [ngClass]="{ 'active': tipoSelec == 2 }">
+                                <div class="card-body p-0">
+                                    <div class="indicador mb-2">
+                                        <img class="mr-3 img-ind" [src]="'historial.png' | imageCdn" alt="Item Indicador">
+                                        <div class="d-block">
+                                            <p #pItem2 class="text-item">Mantenimientos de este Equipo</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4">
+                            <div class="card border-0" style="cursor: pointer;" (click)="tipo(3)">
+                                <div class="card-body p-0" [ngClass]="{ 'active': tipoSelec == 3 }">
+                                    <div class="indicador mb-2">
+                                        <img class="mr-3 img-ind" [src]="'programaRecordatorios.png' | imageCdn" alt="Item Indicador">
+                                        <div class="d-block">
+                                            <p #pItem2 class="text-item">Programar recordatorios</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="tipoSelec == 1">
+                    <form [formGroup]="mtoPreventivoFormulario" (ngSubmit)="guardarMantenimientoPreventivo()">
+                        <div class="card mt-3 mb-3 borderTable styleCard">
+                            <div class="form-row">
+
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+                                            <div role="group" class="timer-container">
+                                                <!-- <img class="iconos" [src]="'hora.png' | imageCdn"> -->
+                                                <mat-label for="hourpro" class="col-12 labelForm">Hora<span class="colorAsterisco"> *</span>
+                                                    <input id="hourpro" type="time" class="form-control styleForm" formControlName="hourpro">
+                                                </mat-label>
+                                                <!-- <div class="ngx-timepicker-field-example">
+                                                    <ngx-timepicker-field [controlOnly]="true" (timeChanged)="onTimeChange($event)"></ngx-timepicker-field>
+                                                </div> -->
+                                            </div>
+                                            <br>
+                                            <div role="group" class="borderTable mt-3">
+                                                <mat-calendar id="calendar-prev" [(selected)]="selected" (selectedChange)="onCalendarChange($event)">
+                                                </mat-calendar>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 form-group">
+                                            <div role="group">
+                                                <label class="labelForm m-0">Asunto de mantenimiento<span class="colorAsterisco"> *</span></label>
+                                                <input class="form-control styleForm" formControlName="maintenanceissue">
+                                                <small *ngIf="maintenanceissueNoValido.invalid  && maintenanceissueNoValido.touched" class="text-danger animated fadeIn">Campo requerido</small>
+                                            </div>
+                                            <div role="group" class="mt-xl-5">
+                                                <label class="labelForm">Descripción del mantenimiento<span class="colorAsterisco"> *</span></label>
+                                                <textarea class="form-control styleForm2" id="description" rows="9" style="border-radius: 10px !important;" formControlName="description"></textarea>
+                                                <small *ngIf="descriptionNoValido.invalid  && descriptionNoValido.touched" class="text-danger animated fadeIn">Campo requerido</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 form-group">
+                                            <label class="labelForm col-sm-12" style="text-align: center;">Próximos mantenimientos</label>
+                                            <div class="row" style="overflow-y: scroll; max-height: 360px; overflow-x: hidden; padding: 5px;">
+                                                <table class="table mat-table-striped" style="margin: 0 auto;">
+                                                    <thead>
+
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of mantenimientosPorSerialProg">
+                                                            <td>
+                                                                {{item.datepro | date: 'yyyy / MM / dd'}}
+                                                            </td>
+
+                                                            <td>
+                                                                {{item.hourpro}}
+                                                            </td>
+
+                                                            <td class="text-ellipsis">
+                                                                {{item.maintenanceissue | titlecase}}
+                                                            </td>
+                                                        </tr>
+
+
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12 boxBtnAceptCancel">
+                                <button class="boton btnAceptar" type="submit">Guardar</button>
+                                <button class="botonCancelar btnCancel" type="button" (click)="estadoInicial=true">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div *ngIf="tipoSelec == 2">
+                    <div class="card mt-3 borderTable styleCard">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <table class="table mat-table-striped" style="margin-bottom: 0px;">
+                                            <thead>
+                                                <tr>
+                                                    <td colspan="3" class="labelForm border-0" style="text-align-last: start;"><label>Historial de mantenimientos preventivos</label>
+
+                                                    </td>
+
+                                                    <td class="border-0">
+                                                        <!-- <label class="labelForm">Completado</label> -->
+                                                    </td>
+
+                                                    <td class="border-0">
+                                                        <!-- <label class="labelForm">No realizado</label> -->
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <div class="row" style="overflow-y: scroll; max-height: 190px; overflow-x: hidden;">
+                                        <table class="table mat-table-striped">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of mantenimientosPorSerialTotal" (click)="openModalArregloPre(templateArregloPre, item)" style="cursor: pointer;">
+                                                    <td>
+                                                        {{item.datepro | date: 'yyyy / MM / dd'}}
+                                                    </td>
+
+                                                    <td>
+                                                        {{item.hourpro}}
+                                                    </td>
+
+                                                    <td>
+                                                        {{item.maintenanceissue | titlecase}}
+                                                    </td>
+                                                    <!-- <td>
+                                                        <img class="iconosTabla" [src]="'check-circle-rojo.png' | imageCdn">
+                                                    </td>
+                                                    <td>
+                                                        <img class="iconosTabla" [src]="'delete-circle.png' | imageCdn">
+                                                    </td> -->
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid">
+                                    <table class="table mat-table-striped" style="margin-bottom: 0px;">
+                                        <thead>
+                                            <tr>
+                                                <td colspan="3" class="labelForm" style="text-align-last: start;"><label>Próximos mantenimientos</label>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <div class="row" style="overflow-y: scroll; max-height: 190px; overflow-x: hidden;">
+                                        <table class="table mat-table-striped">
+                                            <thead>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of mantenimientosPorSerialProg">
+                                                    <td>
+                                                        {{item.datepro | date: 'yyyy / MM / dd'}}
+                                                    </td>
+
+                                                    <td>
+                                                        {{item.hourpro}}
+                                                    </td>
+
+                                                    <td>
+                                                        {{item.maintenanceissue | titlecase}}
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 boxBtnAceptCancel">
+                            <button class="botonCancelar btnCancel" type="button" (click)="tipoSelec = 1">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="tipoSelec == 3">
+                    <form [formGroup]="formaProgramaRecordatorios" (ngSubmit)="guardarProgramaRecordatorio()">
+                        <div class="card mt-3 mb-3 borderTable styleCard">
+                            <div class="flex mr-0 ml-0 mb-3 mt-2">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 form-group card borderTable styleCard">
+                                    <mat-label class="labelForm">Equipo:</mat-label>
+                                    <h1 style="color: black;">{{this.serial}}</h1>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-7 form-group card borderTable styleCard">
+                                    <div role="group">
+                                        <mat-label class="labelForm">Destinatarios<span class="colorAsterisco"> *</span></mat-label>
+                                        <input type="text" class="form-control styleForm mb-2" formControlName="Addresses">
+                                        <small *ngIf="destinatariosNoValido.invalid  && destinatariosNoValido.touched" class="text-danger animated fadeIn">Campo requerido</small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 card borderTable styleCard">
+                                    <div class="row mb-2">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 bordeVertical">
+                                            <div class="form-row">
+                                                <div class="col-md-12 mt-3">
+                                                    <mat-label class="labelForm">Asunto<span class="colorAsterisco"> *</span></mat-label>
+                                                    <input type="text" class="form-control styleForm" formControlName="Issueemail">
+                                                    <small *ngIf="asuntoNoValido.invalid  && asuntoNoValido.touched" class="text-danger animated fadeIn">Campo requerido</small>
+                                                </div>
+                                                <div class="col-md-12 mt-3">
+                                                    <mat-label class="labelForm">Fecha inicial<span class="colorAsterisco"> *</span></mat-label>
+                                                    <input type="date" class="form-control styleForm" formControlName="Dateinitial">
+                                                    <small *ngIf="dateInitialNoValido.invalid  && dateInitialNoValido.touched" class="text-danger animated fadeIn">Campo requerido</small>
+                                                </div>
+                                                <div class="col-md-12 mt-3">
+                                                    <mat-label class="labelForm">Fecha final<span class="colorAsterisco"> *</span></mat-label>
+                                                    <input type="date" class="form-control styleForm" formControlName="Dateend">
+                                                    <small *ngIf="dateEndNoValido.invalid  && dateEndNoValido.touched" class="text-danger animated fadeIn">Campo requerido</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-7">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 mt-3">
+                                                    <mat-label class="labelForm">Días de <br>antelación<span class="colorAsterisco"> *</span></mat-label>
+                                                    <input type="number" min="0" class="form-control styleForm" formControlName="Daysinadvance">
+                                                    <small *ngIf="diasAntelacionNoValido.invalid  && diasAntelacionNoValido.touched" class="text-danger animated fadeIn">Campo requerido</small>
+                                                </div>
+                                                <div id="cinput" class="col-sm-12 col-md-12 col-lg-12 col-xl-6 mt-3">
+                                                    <mat-label class="labelForm">Frecuencia <br>de envío<span class="colorAsterisco"> * </span></mat-label>
+                                                    <mat-form-field class="w90p">
+                                                        <span matPrefix>Cada &nbsp;</span>
+                                                        <input type="number" matInput class="form-control styleForm" min="0" formControlName="Shippingfrequency">
+                                                        <span matSuffix>días &nbsp;</span>
+                                                    </mat-form-field>
+                                                    <small *ngIf="frecuenciaEnvioNoValido.invalid  && frecuenciaEnvioNoValido.touched" class="text-danger animated fadeIn">Campo requerido</small>
+                                                </div>
+                                                <div class="col-6 mt-3">
+                                                    <mat-label class="labelForm">Hora de <br>inicio<span class="colorAsterisco"> *</span></mat-label>
+                                                    <input type="time" class="form-control styleForm w90p" formControlName="Hourinitial">
+                                                    <!-- <div class="ngx-timepicker-field-example">
+                                                        <ngx-timepicker-field [controlOnly]="true" [format]="24" (timeChanged)="setHoraInitial($event)"></ngx-timepicker-field>
+                                                    </div> -->
+                                                </div>
+                                                <div class="col-6 mt-3">
+                                                    <mat-label class="labelForm">Hora de <br>finalización<span class="colorAsterisco"> *</span></mat-label>
+                                                    <input type="time" class="form-control styleForm w90p" formControlName="Hourend">
+                                                    <!-- <div class="ngx-timepicker-field-example">
+                                                        <ngx-timepicker-field [controlOnly]="true" [format]="24" (timeChanged)="setHoraEnd($event)"></ngx-timepicker-field>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 card borderTable styleCard">
+
+                                    <div class="row">
+                                        <div class="col-md-12 mt-2">
+                                            <mat-label class="labelForm">Contenido del mantenimiento<span class="colorAsterisco"> *</span></mat-label>
+                                            <textarea class="form-control styleForm2" id="Descriptionemail" rows="5" style="border-radius: 10px !important;" formControlName="Descriptionemail"></textarea>
+                                        </div>
+                                        <div class="col-md-7 mt-3">
+                                            <mat-label class="labelForm">Activar alertas <br>en la plataforma</mat-label>
+                                        </div>
+                                        <div class="col-md-5 mt-3" style="text-align: center;">
+                                            <mat-label class="matLabelEstado">Activado</mat-label><br>
+                                            <mat-slide-toggle [checked]="true" formControlName="Alerts"></mat-slide-toggle>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12 boxBtnAceptCancel">
+                                <button class="boton btnAceptar" type="submit">Aceptar</button>
+                                <button class="botonCancelar btnCancel" type="button" (click)="volverAlFitro()">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                </div>
+            </div>
+
+            <!-- ***Modal detalles*** -->
+            <ng-template #templateArregloPre>
+
+                <div class="modal-header">
+                    <button *ngIf="!verImagen && !verPdf" type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeVentana()">                        
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                    <button *ngIf="verImagen || verPdf" type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrarImagen()">                        
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+                    <div *ngIf="!verImagen && !verPdf">
+                        <div class="row">
+                            <div class="col flex2">
+                                <img class="img" [src]="'confiMantenimientoP.png' | imageCdn">
+                                <h3 class="tituloModal">Arreglo del:</h3>
+                                <div class="hr"></div>
+                                <h3><strong>{{mantenimiento.datepro | date: 'yyyy / MM / dd'}}</strong></h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="form-row">
+                                    <div class="col-12" style="text-align:center;">
+                                        <p class="textoModal">Arreglo de </p>
+                                        <p class="textoModal">preventivo</p>
+                                    </div>
+                                    <div class="col-12" style="text-align:center;">
+                                        <input type="file" id="filesPicture" style="display: none;" accept=".png, .jpg, .jpeg">
+                                        <!-- <img src="../../../../assets/imagenes/archivoAgregar.png" onclick="filesPicture.click();" class="camera"> -->
+                                        <img [src]="'soporte.png' | imageCdn" class="camera">
+                                        <mat-label class="soportes">Soportes</mat-label>
+                                    </div>
+                                    <div class="col-12" style="text-align:center; font-size: 12px;" style="overflow-y: scroll; max-height: 100px; overflow-x: hidden;">
+                                        <table class="table table-sm d-flex justify-content-center mt-2 mb-2" style="width: auto !important; margin-left: 20px;">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let file of filesName; let i = index">
+                                                    <td style="width: 290px;">
+                                                        <span>{{ file.Filename }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <label [for]="'editFiles'+i" class="m-0">                                                           
+                                                            <img [src]="'editarArchivo.png' | imageCdn" class="img-ind" style="margin-left: 2%;cursor: pointer;">
+                                                        </label>
+                                                        <input type="file" [id]="'editFiles'+i" style="display: none;" accept=".png, .jpg, .jpeg" (change)="editFile($event, file)">
+                                                    </td>
+                                                    <td>
+                                                        <i style="margin-left: 2%;cursor: pointer;" (click)="downloadFile(file)">
+                                                            <img [src]="'descargar.svg' | imageCdn">
+                                                        </i>
+                                                        <!-- <img class="mr-3 img-ind" [src]="'editarArchivo.png' | imageCdn" alt="Item Indicador"> -->
+                                                    </td>
+                                                    <td>
+                                                        <img class="mr-3 img-ind" style="cursor: pointer;" [src]="'eye_icon.png' | imageCdn" alt="Item Indicador" (click)="preViewerFile(file)">
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-12 mt-2 mb-2" style="text-align:center;">
+                                        <input type="file" id="filePicture" style="display: none;" accept=".png, .jpg, .jpeg" (change)="handleFileSelectEditar($event)">
+                                        <!-- <img src="../../../../assets/imagenes/archivosSubirV.png" onclick="filePicture.click();" class="camera"> -->
+                                        <img [src]="'ficha-tecnica.svg' | imageCdn" onclick="filePicture.click();" class="camera">
+                                        <mat-label class="soportesAdjuntar">Adjuntar más soportes</mat-label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-2">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card borderTable" style="height: 16rem;">
+                                            <div class="card-body">
+                                                <textarea [(ngModel)]="mantenimiento.description" class="form-control styleForm3 text-area" rows="2" style="border-radius: 10px !important; height: 13em;"></textarea>
+                                                <!-- <p class="card-text">
+                                                    {{mantenimiento.description}}
+                                                </p> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-3" style="text-align: center;">
+                                        <mat-label class="matLabelForm">Estado</mat-label><br>
+                                        <mat-slide-toggle [checked]="true" [(ngModel)]="mantenimiento.active"></mat-slide-toggle>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-row">
+                                    <div class="col-12 boxBtnAceptCancel">
+                                        <button class="boton btnAceptar" type="submit" (click)="editMantenimientoPreventivo()">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="verImagen" class="row">
+                        <div class="col-12">
+                            <img class="image-preview" [src]="preViewFile" alt="">
+                        </div>
+                    </div>
+                    <div *ngIf="verPdf" class="row" style="overflow-y: scroll; max-height: 500px; overflow-x: hidden; margin-right: -9.5px">
+                        <div class="col-12">
+                            <pdf-viewer [src]="preViewFile" [render-text]="true" [original-size]="false" style="width: 400px; height: 500px"></pdf-viewer>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>

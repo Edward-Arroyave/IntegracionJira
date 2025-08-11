@@ -1,0 +1,22 @@
+
+  <app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Unidades de medida'"
+    (onCreate)="openModalGestionUnidades(templateUMedica, '')" (onChangeStatus)="actualizarEstadoGestionUnidades($event)"
+    (onEdit)="openModalGestionUnidades(templateUMedica, $event)" (onDelete)="eliminarGestionUnidades($event.idunits)">
+  </app-tabla-comun>
+
+<ng-template #templateUMedica>
+
+  <form [formGroup]="formulario" class="grid-2">
+    <mat-form-field>
+      <mat-label>Unidad</mat-label>
+      <input matInput type="text" formControlName="codunits">
+      <mat-error>Obligatorio</mat-error>
+  </mat-form-field>
+
+  <div class="contieneToggle">
+    <label class="labelToggle">Estado</label>
+    <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+  </div>
+  </form>
+</ng-template>
+

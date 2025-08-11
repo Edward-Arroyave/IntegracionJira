@@ -1,0 +1,43 @@
+<app-tabla-comun [cabeceros]="displayedColumns" [info-tabla]="dataTableBody" [titulo]="'Lotes-materiales de control'"
+  (onCreate)="openModalGestionLotMatControl(templateGestionLotMatControl, '')"
+  (onChangeStatus)="actualizarGestionLotMatControl($event)"
+  (onEdit)="openModalGestionLotMatControl(templateGestionLotMatControl, $event)"
+  (onDelete)="eliminarGestionLotMatControl($event)">
+</app-tabla-comun>
+
+<ng-template #templateGestionLotMatControl>
+
+  <form [formGroup]="formaGestionLotMatControl" class="grid-3-toggle">
+    <mat-form-field>
+      <mat-label>
+        N° Lote
+      </mat-label>
+      <input type="text" matInput [matAutocomplete]="autolotcreateLot" formControlName="idLot">
+      <mat-autocomplete #autolotcreateLot="matAutocomplete">
+        <mat-option *ngFor="let lots of filteredOptionsLotsCreate | async" [value]="lots.numlot">
+          {{ lots.numlot | titlecase }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        M. de Control
+      </mat-label>
+      <input type="text" matInput [matAutocomplete]="autocontcreate" formControlName="idControlMaterial">
+      <mat-autocomplete #autocontcreate="matAutocomplete">
+        <mat-option *ngFor="let conmat of filteredOptionsContmatCreate | async" [value]="conmat.descontmat">
+          {{ conmat.descontmat | titlecase }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error>Obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="contieneToggle">
+      <label class="labelToggle">Estado</label>
+      <mat-slide-toggle formControlName="active" labelPosition="top"></mat-slide-toggle>
+    </div>
+
+  </form>
+</ng-template>

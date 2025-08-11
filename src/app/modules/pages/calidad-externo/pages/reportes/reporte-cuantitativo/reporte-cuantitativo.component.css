@@ -1,0 +1,280 @@
+.active {
+  background: var(--blue-03) !important;
+  border-color: var(--blue-03) !important;
+  color: white;
+  h2{
+    color: white;
+  }
+}
+
+.taps{
+  padding: 5px 20px;
+  border: 1px solid var(--gray-02);
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  background: white;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+
+/* Slider */
+.boxSecciones {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 16px;
+  background: white;
+  display: flex;
+  align-items: center;
+}
+
+.boxSeccionesContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: 54px;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  gap: 1em;
+}
+
+.boxSeccionesContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.styleSeccion {
+  border: 1px solid #CECECE;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 3px 3px 3px #e8e8e8;
+  cursor: pointer;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.styleSeccion:hover{
+  background: #20319f8f;
+  h2{
+    color: white;
+  }
+}
+
+.icon path {
+  fill: red; /* Cambia el color del SVG */
+}
+
+.styleSeccion:first-child {
+  margin-left: 12px;
+}
+
+/* Slider */
+
+/* Taps internos */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Ajusta según el número de columnas */
+  border-radius: 10px;
+  border: 1px solid #00000029;
+  position: relative;
+  width: 870px;
+}
+
+
+.estiloGeneralSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  position: relative; /* Asegura que el z-index funcione */
+  z-index: 1;
+  transition: color 0.3s ease; 
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.estiloGeneralSlide:hover{
+  color: var(--purple-03);
+}
+
+.highlight-active {
+  color: white; 
+  background: var(--purple-03);
+}
+
+.highlight-active:hover{color: white;}
+
+/* Taps internos */
+
+p{
+  margin: 0;
+}
+
+h2{
+  color: var(--purple-01);
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+h4 {
+  font-weight: 500;
+  color: var(--purple-01);
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.morado{
+  margin: 0;
+  padding: 0;
+  color: var(--purple-01);
+  font-weight: bold;
+}
+
+
+.cardChart{
+  border-radius: 5px;
+  border: 1px solid var(--gray-02);
+  padding: 10px;
+  height: 300px;
+  overflow: auto;
+  box-shadow: 3px 3px 3px #e8e8e8;
+}
+
+.flexTable{
+  border-left: 1px solid var(--gray-02);
+   padding-left: 10px;
+  height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.colorVerde {
+  color: #3ac47d;
+  padding-right: 3px;
+}
+
+.colorAmarillo {
+  color: #e8bc5b;
+  padding-right: 3px;
+}
+
+.colorAzul {
+  color: #007bff;
+  padding-right: 3px;
+}
+
+
+.styleText {
+  padding-top: 22px;
+  font-size: 13px;
+  text-align: left;
+}
+
+.thEstyle {
+  border-right: 1px solid #cecece;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+th,td{
+  text-align: center;
+}
+
+/* Consolidado */
+
+.grid-table-info {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: 100%;
+  height: 270px;
+  background: var(--blue-light);
+  border-radius: 5px;
+  padding: 20px 10px;
+}
+
+.listas {
+  list-style: none;
+  line-height: 30px;
+  padding: 0;
+  text-align: center;
+  color: black;
+  white-space: nowrap;
+}
+
+.listasEstilo {
+  padding: 0 1em;
+  border-right: 1px solid var(--gray-02);
+}
+
+.listasEstilo:nth-last-child(1){
+  border: none;
+}
+
+/* Consolidado */
+
+
+/* Plegable */
+.grid-template-icon-info{
+  width: 510px;
+  display: flex;
+  align-items: center;
+  gap: .5em;
+  border-top-left-radius:1em ;
+  border-top-right-radius:5px ;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 5px;
+  background: #e3e6ff;
+  overflow: hidden;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+}
+
+.contieneInformacion-oculta{
+  height: 0px;
+  padding: 0px 20px;
+  background: #e3e6ff;
+  border-radius: 5px;
+  font-size: 12px;
+  position: absolute;
+  top: 3em;
+  z-index: 999;
+  overflow: hidden;
+  transition: 1.5s ease-in-out;
+}
+
+.contieneInformacion-desplegada{
+  height: 195px;
+  padding: 20px 20px;
+  border: 1px solid white;
+}
+
+.titulo-card-oculta{
+  font-weight: bold;
+  margin-bottom: 1em;
+  font-size: 16px;
+  color: var(--purple-03);
+}
+
+.contenedor-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 1rem;
+}
+
+/* Plegable */
+

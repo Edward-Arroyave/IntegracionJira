@@ -1,0 +1,469 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 mt-2">
+      <div class="card mt-3 mb-3 borderTable" *ngIf="estadoInicial">
+        <form [formGroup]="formularioSerial" autocomplete="off" (submit)="consultarSerial()">
+          <div class="col-12 d-flex justify-content-center mt-3">
+            <img class="imageSobreBorde" [src]="'mantenimiento-correctivo.png' | imageCdn">
+          </div>
+          <br>
+          <br>
+          <br>
+          <div class="col-12 titulo mt-5"> <strong>MANTENIMIENTO CORRECTIVO</strong></div>
+
+          <div class="row justify-content-center ">
+
+            <div class="col-1 m-0 pt-3">
+              <img [src]="'icono_area.svg' | imageCdn">
+            </div>
+
+            <div class="col-12 col-sm-11 col-md-11 col-lg-11 col-xl-4 formGroup">
+
+              <div role="group">
+                <mat-form-field>
+                  <mat-label>Serial</mat-label>
+                  <input type="text" matInput [matAutocomplete]="auto" formControlName="serial">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of (filteredOptions | async)" [value]="option.Serial">
+                      {{option.Serial}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-error *ngIf="SerialNoValido.invalid  && SerialNoValido.touched"
+                  class="text-danger animated fadeIn">Campo requerido</mat-error>
+
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="row justify-content-center " >
+            <button type="submit" class="botonInicio">Continuar</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card mt-3 mb-3 borderTable" *ngIf="!estadoInicial">
+        <div class="col-12 d-flex justify-content-center mt-3">
+          <img class="imageSobreBorde" [src]="'mantenimiento-correctivo.png' | imageCdn">
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="container-fluid">
+
+          <div class="col-8  row text-center">
+
+            <br>
+            <!-- ** Lista Indicadores desde HARD CODE -->
+            <div class="col-6 ">
+              <div class="card border-0" style="cursor: pointer;" (click)="tipo(1)">
+                <div class="card-body p-0">
+                  <div class="indicador mb-2">
+                    <img class="mr-3 img-ind" [src]="'crear-mantenimiento.png' | imageCdn" alt="Item Indicador">
+                    <div class="d-block">
+                      <p #pItem1 class="text-item tabs ">Crear Mantenimiento</p>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 ">
+              <div class="card border-0" style="cursor: pointer;" (click)="tipo(2)">
+                <div class="card-body p-0">
+                  <div class="indicador mb-2">
+                    <img class="mr-3 img-ind" [src]="'historial.png' | imageCdn" alt="Item Indicador">
+                    <div class="d-block">
+                      <p #pItem2 class="text-item tabs">Historial de arreglos</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div *ngIf="tipoSelec == 1" class=" mt-3 mb-3 ">
+            <div class="form-row">
+
+              <form [formGroup]="formularioCear" autocomplete="off" (submit)="insertarMantemiento()">
+                <br>
+                <br>
+                <div class="row">
+
+                  <div class="col-sm-3 form-group">
+                    <div role="group" style="    padding-top: 3%;">
+                      <label class="labelForm" for="maintenanceissue">Tipo de mantenimiento<span
+                          class="colorAsterisco "> *</span></label>
+                      <input type="text" formControlName="maintenanceissue" class="form-control styleForm"
+                        autocomplete="off">
+                      <mat-error *ngIf="MaintenanceissueNoValido.hasError('required')"
+                        class=" text-danger animated fadeIn">Campo requerido</mat-error>
+                    </div>
+                  </div>
+                  <div class="col-sm-9 form-group">
+                    <div role="group">
+                      <label class="labelForm" for="descrption">Descripción del mantenimiento<span
+                          class="colorAsterisco"> *</span></label>
+                      <textarea formControlName="descrption" class="form-control styleForm2 text-area" id="comments"
+                        rows="2" style="border-radius: 10px !important;"></textarea>
+                      <mat-error *ngIf="DescrptionNoValido.hasError('required')" class="text-danger animated fadeIn">
+                        Campo requerido
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="col-sm-7">
+                    <br>
+                    <br>
+                    <div class=" borderTable row tamanio-formulario fechas">
+                      <div class="col-1 ">
+                        <img class="imagen icono-calendario imagen-tamanio" [src]="'calendar.svg' | imageCdn">
+                      </div>
+                      <div class="col-2 ">
+
+                        <div class="row">
+
+                          <mat-label class="labelForm col-12" for="dia">Dia<span class="colorAsterisco">
+                              *</span></mat-label>
+
+
+                          <mat-form-field class=" col-10">
+                            <mat-select disableOptionCentering formControlName="dia">
+                              <mat-option value="">--</mat-option>
+                              <mat-option *ngFor="let item of dias" [value]="item.iddias">
+                                {{ item.iddias }}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="DiaNoValido.hasError('required')" class="text-danger animated fadeIn">Campo requerido</mat-error>
+                          </mat-form-field>
+
+                        </div>
+
+                      </div>
+                      <div class="col-2 ">
+
+                        <div class="row">
+                          <mat-label class="labelForm col-12 " for="mes">Mes<span class="colorAsterisco">
+                              *</span></mat-label>
+                          <mat-form-field class=" col-10">
+                            <mat-select disableOptionCentering formControlName="mes">
+                              <mat-option value="">--</mat-option>
+                              <mat-option *ngFor="let item of meses" [value]="item.idmes">
+                                {{ item.mes }}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="MesNoValido.hasError('required')" class="text-danger animated fadeIn">Campo requerido</mat-error>
+                          </mat-form-field>
+                        </div>
+
+                      </div>
+                      <div class="col-2 ">
+
+                        <div class="row ">
+                          <mat-label class="labelForm col-12" for="anio">Año<span class="colorAsterisco">
+                              *</span></mat-label>
+                          <mat-form-field class=" col-10">
+                            <mat-select disableOptionCentering formControlName="anio">
+                              <mat-option value="">--</mat-option>
+                              <mat-option *ngFor="let item of anios" [value]="item">
+                                {{ item }}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="AnioNoValido.hasError('required')" class="text-danger animated fadeIn">
+                              Campo requerido
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+
+                      </div>
+
+                      <div class="col-1 ">
+                        <img class="imagen imagen-tamanio" [src]="'hora.png' | imageCdn">
+                      </div>
+                      <div class="col-2 ">
+
+                        <div class="row">
+                          <mat-label class="labelForm col-12" for="hour">Hora<span class="colorAsterisco">
+                              *</span></mat-label>
+                          <ngx-timepicker-field [format]="24" formControlName="hour" [controlOnly]="true"
+                            selected="hora"></ngx-timepicker-field>
+                          <mat-error *ngIf="HourNoValido.hasError('required')" class="text-danger animated fadeIn">
+                            Campo requerido
+                          </mat-error>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-5  ">
+                    <br>
+                    <br>
+                    <div class="borderTable row tamanio-adjuntar">
+
+
+                      <div class="col-sm-12 ">
+                        <div role="group hiddenFileInput">
+
+                          <div style="text-align: center;" class="file-form espacio-form">
+
+                            <input id="file" class="file-equipo " type="file" accept=".pdf"
+                              (change)="handleFileSelect($event)">
+                            <i><img [src]="'ficha-tecnica.svg' | imageCdn"><span class="span-file adjuntar">Adjuntar
+                                Documentos</span></i>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="col-sm-11 scroll-file-1">
+                        <div role="group" style="width: auto !important; margin-left: 20px;">
+
+                          <div class="file-form espacio-form" *ngFor="let pdfs of pdf; let i = index">
+                            <i><span style="font: normal normal 579 14px/18px Open Sans;">{{ pdfs.name}}</span> </i>
+                            <div class="hr-adjunto col-sm-12"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="form-row">
+                  <div class="col-12 boxBtnAceptCancel">
+                    <button class="boton btnAceptar" type="submit">Guardar</button>
+                    <button class="botonCancelar btnCancel" type="button" (click)="cancelar()">Cancelar</button>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+
+          </div>
+
+          <div *ngIf="tipoSelec == 2">
+            <div class=" mt-3 mb-3 ">
+              <div class="form-row">
+
+                <div class="col-12  ">
+                  <br>
+                  <br>
+                  <div class="container-fluid card-historial">
+
+                    <div class="col-12">
+                      <table class="table table-striped_lote" style="margin-bottom: 0px;">
+
+                        <thead>
+                          <tr>
+                            <td>
+                              <img class="iconos-historial" [src]="'calendar.svg' | imageCdn">
+                            </td>
+                            <td></td>
+                            <td>
+                              <img class="iconos-historial" [src]="'hora.png' | imageCdn">
+                            </td>
+                            <td></td>
+
+                            <td>
+
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+
+                    <div class="col-12 scroll-historial">
+                      <table class="table table-striped_lote ">
+                        <tbody>
+                          <tr *ngFor="let historial of HistorialMantenimiento" class="cursor-tr"
+                            (click)="openModalMantenimiento(templateEditarMantenimiento,historial)">
+                            <td class="text-lef">
+                              {{ historial.date | date:'yyyy/MM/dd'}}
+                            </td>
+                            <td class="text-lef">|</td>
+                            <td class="text-lef">
+                              {{historial.hour}}
+                            </td>
+                            <td class="text-lef">|</td>
+                            <td class="text-lef">
+                              {{historial.maintenanceissue}}
+                            </td>
+                          </tr>
+
+                        </tbody>
+
+                      </table>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-12 boxBtnAceptCancel">
+                <button class="botonCancelar btnCancel" type="button" (click)="cancelar()">Cancelar</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ***Modals -->
+        <ng-template #templateEditarMantenimiento>
+
+          <div class="modal-header" *ngIf="!verFile">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeVentana()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-header" *ngIf="verFile">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ventanaAnterior()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" *ngIf="!verFile" style="overflow-y: none; height: auto;">
+            <div class="row">
+              <div class="col flex2">
+                <img class="img" [src]="'herramienta.png' | imageCdn">
+                <h3 class="tituloModal">{{tituloAccion}}</h3>
+                <div class="hr"></div>
+                <h3><strong>{{SubtituloAccion | date: 'yyyy / MM / dd'}}</strong></h3>
+              </div>
+            </div>
+            <form [formGroup]="formularioEditar" autocomplete="off" (submit)="EditarMantemiento()">
+
+              <div class="form-row">
+
+                <div class="col-sm-6 form-group ">
+                  <div role="group col-10 ">
+                    <h1 class="textto-arreglo text-item">{{DataModificar.maintenanceissue}}</h1>
+                  </div>
+
+                  <div class="col-sm-12 form-group">
+                    <div role="group hiddenFileInput">
+
+                      <div class="file-form espacio-form">
+
+                        <i><img [src]="'soporte.png' | imageCdn"><span class="span-file adjuntar soporte"> Soporte
+                          </span></i>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div class="col-sm-12 form-group"
+                    style=" overflow-y: scroll; max-height: 147px; overflow-x: hidden;width: auto !important;">
+                    <div role="group">
+
+                      <div class="row" *ngFor="let historial of fileName; let i = index">
+                        <div class="col-8">
+                          <i><span>{{ historial.Filename }}</span> </i>
+                        </div>
+                        <div class="col-1">
+                          <input class="file-modal " type="file" (change)="editarPdf($event ,historial)">
+                          <i style="cursor: pointer;"><img [src]="'subir-archivo.svg' | imageCdn"></i>
+                        </div>
+
+                        <div class="col-1">
+                          <i style="cursor: pointer;" (click)="descargar(historial)"><img
+                              [src]="'descargar.svg' | imageCdn"></i>
+                        </div>
+                        <div class="col-1">
+                          <i style="cursor: pointer;" (click)="verImagen(historial)"><img
+                              [src]="'eye_icon.png' | imageCdn"></i>
+                        </div>
+
+                        <div class="hr-adjunto"></div>
+
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+                  <div class="col-sm-12 form-group" style="margin-top: 8%;">
+                    <div role="group hiddenFileInput">
+                      <div class="file-form espacio-form">
+                        <input class="file-adjuntar " type="file" (change)="handleFileSelectEditar($event)">
+                        <i><img [src]="'ficha-tecnica.svg' | imageCdn"><span
+                            class="span-file adjuntar adjuntar">Adjuntar más soporte </span></i>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+                <div class="col-sm-6 form-group ">
+                  <div role="group">
+                    <div class="card mt-3 mb-3 borderTable">
+                      <div class="form-row">
+                        <div class="col-12  ">
+
+                          <div class="row paddding">
+
+                            <textarea formControlName="description" class="form-control styleForm3 text-area"
+                              id="comments" rows="2" style="border-radius: 10px !important; height: 15em;"></textarea>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div role="group" class="d-inline-flex col-12 center">
+                      <div class="row" style=" padding-left: 50%;">
+                        <label for="active" class="m-0 mr-2 col-12">Estado</label>
+                        <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+              </div>
+              <div class="form-row">
+                <div class="col-12 boxBtnAceptCancel">
+                  <button class="boton btnAceptar" type="submit">Aceptar</button>
+                </div>
+              </div>
+            </form>
+
+
+          </div>
+
+          <div *ngIf="verImagenMantenimiento" class="row">
+            <div class="col-12">
+              <img class="quienesSomosImage" [src]="image" alt="">
+            </div>
+          </div>
+
+          <div *ngIf="verImagenPdf" class="row">
+            <div class="col-12">
+              <pdf-viewer [src]="image" [render-text]="true" [original-size]="false"
+                style="width: auto; height: auto"></pdf-viewer>
+            </div>
+          </div>
+
+        </ng-template>
