@@ -15,3 +15,8 @@ pipeline {
      
     }
 }
+
+
+// agent {
+//     label 'linux'
+// }
