@@ -1,3 +1,0 @@
-# IntegracionJira
-
-# pruebas
